@@ -32,7 +32,7 @@ If you use [Scoop](https://scoop.sh) on Windows:
 
 ```powershell
 scoop bucket add tuquet https://github.com/tuquet/scoop-bucket
-scoop install tuquet
+scoop install specter
 specter bootstrap
 ```
 
@@ -42,7 +42,7 @@ specter bootstrap
 
 In approximately 15 seconds, the automated installer completes:
 
-1. **Client Deployment**: Installs `specter` and `tuquet` into user-space (`~/.specter/bin/`) without requiring administrator or root privileges.
+1. **Client Deployment**: Installs `specter` into user-space (`~/.specter/bin/`) without requiring administrator or root privileges.
 2. **PATH Configuration**: Registers the command globally so you can run `specter` from any terminal or shell.
 3. **Dedicated Antidetect Engine**: Provisions the optimized Antidetect Chromium LTS runtime.
 4. **Environment Check**: Validates network tunnels and local storage directories.
@@ -65,3 +65,4 @@ When all systems are ready, you will see:
 │  Your workstation is 100% ready for autonomous browser workflows.             │
 ╰────────────────────────────────────────────────────────────────────────────────╯
 ```
+

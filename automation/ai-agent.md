@@ -80,7 +80,7 @@ Add to `.cursor/mcp.json` or Workspace Settings:
 ```json
 {
   "mcpServers": {
-    "tuquet": {
+    "specter": {
       "command": "specter",
       "args": ["mcp"]
     }
@@ -98,11 +98,11 @@ Here is how an autonomous agent uses Specter to complete complex operational req
  1. User Prompt:
     "Generate 3 verified Vietnamese users and register them on the test staging portal."
 
- 2. Agent Decision 1: Call tuquet_faker_generate
+ 2. Agent Decision 1: Call specter_faker_generate
     Tool Arguments: { "count": 3, "nat": "VN" }
     Result: Returns 3 compliant identities with valid CCCD, phone, and diacritic-free emails.
 
- 3. Agent Decision 2: Call tuquet_workflow_run
+ 3. Agent Decision 2: Call specter_workflow_run
     Tool Arguments: { 
       "workflow": "staging_register", 
       "variables": { "USERS": [...] },
@@ -113,3 +113,4 @@ Here is how an autonomous agent uses Specter to complete complex operational req
  4. Agent Final Response:
     "Successfully provisioned and registered 3 verified test accounts on staging."
 ```
+

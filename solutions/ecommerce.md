@@ -16,7 +16,7 @@ Retail platforms employ advanced device-fingerprinting and behavioral heuristics
  │                                                             │
  │   ┌──────────────────────┐       ┌──────────────────────┐   │
  │   │ Amazon US Store #01  │       │ Etsy Vintage Shop #02│   │
- │   │ • IP: 64.120.88.10   │       │ • IP: 198.51.100.42  │   │
+ │   │ • IP: 203.0.113.10   │       │ • IP: 198.51.100.42  │   │
  │   │ • Device: Win 11 RTX │       │ • Device: macOS M2   │   │
  │   │ • Timezone: New_York │       │ • Timezone: Chicago  │   │
  │   └──────────┬───────────┘       └──────────┬───────────┘   │

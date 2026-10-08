@@ -50,12 +50,12 @@ Standard commercial browsers (Google Chrome, Microsoft Edge) maintain pervasive 
 
 ## 2. Deterministic Hardware Fingerprint Generation
 
-When a new profile is initialized without explicit hardware arguments, `tuquet-browser` applies deterministic PRNG derivation from the 32-bit seed:
+When a new profile is initialized without explicit hardware arguments, `specter-browser` applies deterministic PRNG derivation from the 32-bit seed:
 
 ### Mathematical Derivation Model
 
 ```rust
-// Core derivation logic from tuquet-browser/src/profile.rs
+// Core derivation logic from browser/src/profile.rs
 let cores = match seed % 3 {
     0 => 8,
     1 => 12,
@@ -117,7 +117,7 @@ The launcher (`BrowserLauncher::build_args` in `browser/src/launcher.rs`) dynami
 2. **Extensions with Headless**:
    - Automatically promotes `--headless` to `--headless=new` whenever unpacked extensions are loaded, preventing silent extension loading failures in Chromium headless mode.
 3. **Container & Root Environment Guardrails**:
-   - Automatically detects containerized Linux environments (UID 0 / root or `TUQUET_FORCE_NO_SANDBOX=1`) and adds `--no-sandbox` and `--disable-setuid-sandbox` to prevent crashes.
+   - Automatically detects containerized Linux environments (UID 0 / root or `SPECTER_FORCE_NO_SANDBOX=1`) and adds `--no-sandbox` and `--disable-setuid-sandbox` to prevent crashes.
 
 ---
 
@@ -175,7 +175,7 @@ Each profile contains a canonical manifest matching the Rust `BrowserProfile` st
 
 ## 5. Zstandard Profile Archival (`.tar.zst`)
 
-When packing or syncing profiles, `tuquet-browser` uses Zstandard compression (level 3 by default) paired with strict cache exclusion rules (`DEFAULT_PROFILE_IGNORE`):
+When packing or syncing profiles, `specter-browser` uses Zstandard compression (level 3 by default) paired with strict cache exclusion rules (`DEFAULT_PROFILE_IGNORE`):
 
 ```text
 Excluded from Profile Archives:
@@ -280,13 +280,13 @@ specter browser config --edit
 
 ## 7. AI Agent Native Integration (MCP Protocol)
 
-AI agents inspect and verify dedicated browser readiness through the native MCP tool **`tuquet_browser_status`**:
+AI agents inspect and verify dedicated browser readiness through the native MCP tool **`specter_browser_status`**:
 
 ### Tool Call
 
 ```json
 {
-  "name": "tuquet_browser_status",
+  "name": "specter_browser_status",
   "arguments": {}
 }
 ```
@@ -303,3 +303,4 @@ AI agents inspect and verify dedicated browser readiness through the native MCP 
   "size_mb": 214.5
 }
 ```
+

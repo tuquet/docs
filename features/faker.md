@@ -237,7 +237,7 @@ All Faker settings and schema templates resolve exclusively to the canonical sto
   "$schema": "https://tuquet.github.io/schema/config/faker.schema.json",
   "email_domains": [
     "flowup.io.vn",
-    "tuquet.dev",
+    "specter.dev",
     "enterprise.internal"
   ],
   "default_domain": "flowup.io.vn",
@@ -272,11 +272,11 @@ specter shell faker
 ```
 
 ```text
-tuquet(faker)> generate -n 5
-tuquet(faker)> card -g female
-tuquet(faker)> config --show
-tuquet(faker)> back
-tuquet> exit
+specter(faker)> generate -n 5
+specter(faker)> card -g female
+specter(faker)> config --show
+specter(faker)> back
+specter> exit
 ```
 
 ---
@@ -289,7 +289,7 @@ AI agents can generate authenticated test accounts without executing shell comma
 
 ```json
 {
-  "name": "tuquet_faker_generate",
+  "name": "specter_faker_generate",
   "arguments": {
     "count": 5,
     "gender": "female",
@@ -300,3 +300,4 @@ AI agents can generate authenticated test accounts without executing shell comma
 ```
 
 Agents receive structured JSON objects immediately ready for input into form-filling steps, Playwright automation scripts, or Supabase user provisioning.
+

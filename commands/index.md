@@ -49,7 +49,7 @@ specter bootstrap
 
 ### `specter config`
 
-**Description:** Inspect or edit configuration across Tuquet microservice pillars (~/.specter/).
+**Description:** Inspect or edit configuration across Specter microservice pillars (~/.specter/).
 
 **Arguments:**
 
@@ -188,7 +188,7 @@ specter schema mcp
 
 ::: details Example Syntax
 ```bash
-# Interactive Tuquet REPL Shell
+# Interactive Specter REPL Shell
 specter shell
 ```
 :::
@@ -200,7 +200,7 @@ specter shell
 **Description:** Show unified status overview across Cloud, Runner, Bridge, and Antidetect Browser.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `specter_status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Options & Flags:**
@@ -220,11 +220,11 @@ specter status
 
 ### `specter upgrade`
 
-**Description:** Check and atomically upgrade Tuquet CLI binary in-place to latest release.
+**Description:** Check and atomically upgrade Specter CLI binary in-place to latest release.
 
 ::: details Example Syntax
 ```bash
-# Upgrade Tuquet CLI
+# upgrade Specter CLI
 specter upgrade
 ```
 :::
@@ -240,7 +240,7 @@ specter upgrade
 **Description:** Inspect and validate a workflow JSON file, its block sequence, and parameters.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_workflow_inspect`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `specter_workflow_inspect`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Arguments:**
@@ -276,7 +276,7 @@ specter automa probe
 **Description:** Execute a DAG workflow directly via Chromium automation worker.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_workflow_run`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `specter_workflow_run`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Arguments:**
@@ -417,7 +417,7 @@ specter automa workflow info
 **Description:** List all workflows saved in SQLite database and local file vault.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_workflow_list`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `specter_workflow_list`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Options & Flags:**
@@ -479,7 +479,7 @@ specter browser ext add
 
 ### `specter browser ext catalog`
 
-**Description:** Browse and search available extensions from tuquet-scoop-bucket.
+**Description:** Browse and search available extensions from scoop catalog.
 
 **Arguments:**
 
@@ -555,7 +555,7 @@ specter browser ext info
 
 ### `specter browser ext install`
 
-**Description:** Download and install an extension package from tuquet-scoop-bucket.
+**Description:** Download and install an extension package from scoop catalog.
 
 **Arguments:**
 
@@ -988,7 +988,7 @@ specter browser search
 **Description:** Display installation status, executable path, and disk usage of dedicated browser.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_browser_status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `specter_browser_status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 ::: details Example Syntax
@@ -1208,7 +1208,7 @@ specter faker card
 **Description:** Generate compliant personas with validated 12-digit CCCD, phone, and addresses.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_faker_generate`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `specter_faker_generate`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Options & Flags:**
@@ -1259,7 +1259,7 @@ specter runner logs
 **Description:** Active capability negotiation probe returning manifest JSON for Runner.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_runner_probe`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `specter_runner_probe`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 ::: details Example Syntax
@@ -1377,13 +1377,13 @@ specter runner worker
 
 ### `specter cloud login`
 
-**Description:** Authenticate and enroll this workstation with Tuquet Cloud.
+**Description:** Authenticate and enroll this workstation with Specter Cloud.
 
 **Options & Flags:**
 
 | Flag | Shorthand | Type | Default | Description |
 | :--- | :---: | :---: | :---: | :--- |
-| `--url` | `-u` | `string` | — | Tuquet Cloud endpoint URL (e.g. https://cloud.tuquet.com). |
+| `--url` | `-u` | `string` | — | Specter Cloud endpoint URL (e.g. https://cloud.specter.dev). |
 | `--token` | `-t` | `string` | — | Organization / Tenant enrollment token. |
 | `--name` | `-n` | `string` | — | Custom workstation name (defaults to machine hostname). |
 
@@ -1398,7 +1398,7 @@ specter cloud login
 
 ### `specter cloud logout`
 
-**Description:** Log out and disconnect this workstation from Tuquet Cloud.
+**Description:** Log out and disconnect this workstation from Specter Cloud.
 
 ::: details Example Syntax
 ```bash
@@ -1411,10 +1411,10 @@ specter cloud logout
 
 ### `specter cloud whoami`
 
-**Description:** Show current Tuquet Cloud identity, enrolled device GUID, and tenant ID.
+**Description:** Show current Specter Cloud identity, enrolled device GUID, and tenant ID.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_cloud_whoami`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `specter_cloud_whoami`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 ::: details Example Syntax
@@ -1425,4 +1425,5 @@ specter cloud whoami
 :::
 
 ---
+
 

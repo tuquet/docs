@@ -156,7 +156,7 @@ Automa workflows are stored as declarative JSON manifests containing node defini
 
 ## 4. SSOT Storage & Microservice Pillar 2
 
-In strict adherence to Tuquet's SSOT architecture, all Automa files resolve exclusively to `~/.specter/automa/`:
+In strict adherence to Specter's SSOT architecture, all Automa files resolve exclusively to `~/.specter/automa/`:
 
 ```text
 ~/.specter/automa/
@@ -172,9 +172,10 @@ In strict adherence to Tuquet's SSOT architecture, all Automa files resolve excl
 
 AI agents orchestrate and inspect workflows programmatically through three native MCP tools:
 
-1. **`tuquet_workflow_run`**:
+1. **`specter_workflow_run`**:
    - Executes a workflow file with variable substitutions and returns execution status, duration, and error codes.
-2. **`tuquet_workflow_list`**:
+2. **`specter_workflow_list`**:
    - Lists all available workflows stored in the local vault and database.
-3. **`tuquet_workflow_inspect`**:
+3. **`specter_workflow_inspect`**:
    - Validates JSON structure, required input parameters, and transition blocks of a workflow before execution.
+

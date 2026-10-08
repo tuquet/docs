@@ -152,7 +152,7 @@ When onboarding a machine, Specter anchors identity in SSOT Pillar 1 (`~/.specte
 
 ```bash
 # Authenticate and enroll workstation with cloud endpoint
-specter cloud login --url https://cloud.tuquet.dev --token <TENANT_ENROLLMENT_TOKEN>
+specter cloud login --url https://cloud.specter.dev --token <TENANT_ENROLLMENT_TOKEN>
 
 # Custom workstation display name
 specter cloud login --token <TOKEN> --name "Frankfurt-VPS-Worker-01"
@@ -194,13 +194,13 @@ specter cloud config --edit
 
 ## 6. AI Agent Integration (MCP Protocol)
 
-AI agents query enrollment identity and organization context via the native MCP tool **`tuquet_cloud_whoami`**:
+AI agents query enrollment identity and organization context via the native MCP tool **`specter_cloud_whoami`**:
 
 ### Tool Call
 
 ```json
 {
-  "name": "tuquet_cloud_whoami",
+  "name": "specter_cloud_whoami",
   "arguments": {}
 }
 ```
@@ -213,8 +213,9 @@ AI agents query enrollment identity and organization context via the native MCP 
   "device_id": "a0b1c2d3-e4f5-6789-0123-456789abcdef",
   "device_name": "Frankfurt-VPS-Worker-01",
   "tenant_id": "tenant-enterprise-alpha",
-  "cloud_endpoint": "https://cloud.tuquet.dev",
+  "cloud_endpoint": "https://cloud.specter.dev",
   "status": "enrolled",
   "assigned_profiles_count": 8
 }
 ```
+

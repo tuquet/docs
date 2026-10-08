@@ -1,6 +1,6 @@
 # Specter Documentation Portal
 
-Official documentation source for **Specter CLI** — Hạ tầng ẩn danh & Tự động hóa quy mô lớn (Powered by Tuquet Engine).
+Official documentation source for **Specter CLI** — Hạ tầng ẩn danh & Tự động hóa quy mô lớn.
 
 - **Production Portal**: [https://tuquet.github.io/software/](https://tuquet.github.io/software/)
 - **Built With**: VitePress 1.6 & Vue 3 SSG

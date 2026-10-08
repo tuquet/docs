@@ -130,7 +130,7 @@ specter bridge config --edit
 
 ## 3. SSOT Storage & Configuration (Pillar 4)
 
-In strict adherence to Tuquet's SSOT architecture, all bridge configurations and active process IDs resolve to `~/.specter/bridge/`:
+In strict adherence to Specter's SSOT architecture, all bridge configurations and active process IDs resolve to `~/.specter/bridge/`:
 
 ```text
 ~/.specter/bridge/
@@ -177,3 +177,4 @@ specter browser launch "Profile-US" --proxy socks5://127.0.0.1:1080
 # Launch profile through local HTTP adapter
 specter browser launch "Profile-US" --proxy http://127.0.0.1:8118
 ```
+

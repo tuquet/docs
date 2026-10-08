@@ -60,7 +60,7 @@ The runner operates as a local HTTP daemon worker running on port `8765` by defa
 
 ## 3. Universal Contract Schema: Automa & Browser Convergence
 
-`tuquet-runner` standardizes job execution payloads across ecosystem pillars, seamlessly uniting **Automa** (workflow DAG execution) with **Browser** (Antidetect Chromium, deterministic PRNG fingerprint spoofing, proxy routing, and profile sandboxing):
+`runner` standardizes job execution payloads across ecosystem pillars, seamlessly uniting **Automa** (workflow DAG execution) with **Browser** (Antidetect Chromium, deterministic PRNG fingerprint spoofing, proxy routing, and profile sandboxing):
 
 ### 1. Automa Workflow Execution with Dedicated Browser Config (`driver: "automa"`)
 
@@ -209,40 +209,40 @@ specter runner export-openapi --output ./openapi.json
 
 ---
 
-## 6. Standalone Binary Reference (`tuquet-runner`)
+## 6. Standalone Binary Reference (`runner`)
 
-For lightweight edge nodes, VPS instances, or Docker containers, the standalone pure-Rust binary `tuquet-runner` can be operated independently:
+For lightweight edge nodes, VPS instances, or Docker containers, the standalone pure-Rust binary `runner` can be operated independently:
 
 ```bash
 # Execute a local YAML/JSON job specification file
-tuquet-runner run ./job.yaml
+runner run ./job.yaml
 
 # Directly execute an ad-hoc command or agent prompt
-tuquet-runner exec --driver shell --command "dir"
-tuquet-runner exec --driver agent --prompt "Scrape top 10 products"
+runner exec --driver shell --command "dir"
+runner exec --driver agent --prompt "Scrape top 10 products"
 
-# Enroll workstation with Tuquet Cloud (zero-touch device registration)
-tuquet-runner enroll --env prod --token <ENROLLMENT_TOKEN>
+# Enroll workstation with Specter Cloud (zero-touch device registration)
+runner enroll --env prod --token <ENROLLMENT_TOKEN>
 
 # Manage and switch cloud environments (dev, local, prod)
-tuquet-runner env list
-tuquet-runner env switch prod
+runner env list
+runner env switch prod
 
 # Connect outbound worker to central WebSocket control plane
-tuquet-runner worker --server wss://hub.tuquet.dev/api/v1/runner/ws --token <TOKEN>
+runner worker --server wss://hub.specter.dev/api/v1/runner/ws --token <TOKEN>
 
 # Display system information, hardware fingerprint, and enrollment status
-tuquet-runner info
+runner info
 
 # Reset local device enrollment credentials by deleting .identity.json
-tuquet-runner purge
+runner purge
 ```
 
 ---
 
 ## 7. SSOT Storage & Configuration (Pillar 2)
 
-In strict adherence to Tuquet's SSOT architecture, all Runner runtime configuration and SQLite job history resolve under `~/.specter/automa/`:
+In strict adherence to Specter's SSOT architecture, all Runner runtime configuration and SQLite job history resolve under `~/.specter/automa/`:
 
 ```text
 ~/.specter/automa/
@@ -274,13 +274,13 @@ specter runner config --edit
 
 ## 8. AI Agent Integration (MCP Protocol)
 
-AI agents query and orchestrate the local runner through the native MCP tool **`tuquet_runner_probe`**:
+AI agents query and orchestrate the local runner through the native MCP tool **`specter_runner_probe`**:
 
 ### Tool Call
 
 ```json
 {
-  "name": "tuquet_runner_probe",
+  "name": "specter_runner_probe",
   "arguments": {}
 }
 ```
@@ -289,7 +289,7 @@ AI agents query and orchestrate the local runner through the native MCP tool **`
 
 ```json
 {
-  "protocol": "tuquet.automa.v1",
+  "protocol": "specter.automa.v1",
   "name": "automa-runner",
   "version": "0.1.0",
   "engine": "chromium-extension-worker",
@@ -304,3 +304,4 @@ AI agents query and orchestrate the local runner through the native MCP tool **`
   "plugin_type": "runner_driver"
 }
 ```
+
