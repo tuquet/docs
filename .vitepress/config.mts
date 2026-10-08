@@ -76,13 +76,13 @@ const docsSidebar = [
 ]
 
 export default defineConfig({
-  base: '/software/',
+  base: '/docs/',
   lastUpdated: true,
   cleanUrls: true,
   appearance: 'dark',
 
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/software/favicon.svg' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/docs/favicon.svg' }],
     ['meta', { name: 'theme-color', content: '#09090b' }],
   ],
 
