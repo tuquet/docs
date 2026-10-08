@@ -13,13 +13,13 @@ The **Model Context Protocol (MCP)** is an open industry standard that allows La
 ```text
  ┌─────────────────────────┐                ┌─────────────────────────┐
  │   Autonomous AI Agent   │                │     Specter MCP Host    │
- │ (Claude Code, Cursor,   │ ── JSON-RPC ─► │     (tuquet mcp)        │
+ │ (Claude Code, Cursor,   │ ── JSON-RPC ─► │     (specter mcp)       │
  │  Google Antigravity)    │ ◄── stdio ───  │                         │
  └─────────────────────────┘                └───────────┬─────────────┘
                                                         │
                       ┌─────────────────────────────────┼─────────────────────────────────┐
                       ▼                                 ▼                                 ▼
-             tuquet_faker_generate            tuquet_workflow_run               tuquet_browser_status
+             specter_faker_generate            specter_workflow_run               specter_browser_status
              (Generate 100% compliant         (Execute complex headless         (Verify dedicated runtime
               Vietnamese CCCD & Personas)      scraping DAG workflows)           health and active profiles)
 ```
@@ -28,19 +28,19 @@ The **Model Context Protocol (MCP)** is an open industry standard that allows La
 
 ## 2. Complete MCP Tools Catalog
 
-When launched via `specter mcp` (or `tuquet mcp`), Specter registers native tools into the AI agent's tool registry:
+When launched via `specter mcp`, Specter registers native tools into the AI agent's tool registry:
 
 | Tool Name | Arguments | Capabilities & Agent Action |
 | :--- | :--- | :--- |
-| **`tuquet_status`** | `{}` | Returns unified JSON status across Cloud pairing, local Runner daemon, and dedicated Browser engine. |
-| **`tuquet_workflow_run`** | `workflow` (string), `variables` (object), `headless` (boolean), `timeout` (number) | Executes an Automa workflow DAG directly, interpolates dynamic runtime variables, and returns execution status. |
-| **`tuquet_workflow_list`** | `search` (string), `vault_only` (boolean) | Lists all workflows stored in the local vault and database. |
-| **`tuquet_workflow_inspect`** | `workflow` (string) | Validates workflow JSON syntax, inputs, parameters, and step transitions before execution. |
-| **`tuquet_faker_generate`** | `count` (number), `gender` (string), `nat` (string), `domain` (string) | Generates mathematically verified synthetic identities (CCCD Modulo 11, addresses, credentials) for form-filling. |
-| **`tuquet_browser_status`** | `{}` | Returns installation path, Chromium version, profile list, and disk footprint. |
-| **`tuquet_runner_probe`** | `{}` | Negotiates hardware capabilities and active concurrent worker slots on the local runner. |
-| **`tuquet_cloud_whoami`** | `{}` | Inspects active workstation enrollment GUID, tenant ID, and cloud authentication state. |
-| **`tuquet_tree`** | `path` (string), `depth` (number) | Structured filesystem inspection respecting gitignore boundaries. |
+| **`specter_status`** | `{}` | Returns unified JSON status across Cloud pairing, local Runner daemon, and dedicated Browser engine. |
+| **`specter_workflow_run`** | `workflow` (string), `variables` (object), `headless` (boolean), `timeout` (number) | Executes an Automa workflow DAG directly, interpolates dynamic runtime variables, and returns execution status. |
+| **`specter_workflow_list`** | `search` (string), `vault_only` (boolean) | Lists all workflows stored in the local vault and database. |
+| **`specter_workflow_inspect`** | `workflow` (string) | Validates workflow JSON syntax, inputs, parameters, and step transitions before execution. |
+| **`specter_faker_generate`** | `count` (number), `gender` (string), `nat` (string), `domain` (string) | Generates mathematically verified synthetic identities (CCCD Modulo 11, addresses, credentials) for form-filling. |
+| **`specter_browser_status`** | `{}` | Returns installation path, Chromium version, profile list, and disk footprint. |
+| **`specter_runner_probe`** | `{}` | Negotiates hardware capabilities and active concurrent worker slots on the local runner. |
+| **`specter_cloud_whoami`** | `{}` | Inspects active workstation enrollment GUID, tenant ID, and cloud authentication state. |
+| **`specter_tree`** | `path` (string), `depth` (number) | Structured filesystem inspection respecting gitignore boundaries. |
 
 ---
 
@@ -52,7 +52,7 @@ Add the server definition to `~/.gemini/antigravity-cli/mcp_config.json`:
 ```json
 {
   "mcpServers": {
-    "tuquet": {
+    "specter": {
       "command": "specter",
       "args": ["mcp"]
     }
@@ -66,7 +66,7 @@ Add to `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "tuquet": {
+    "specter": {
       "command": "specter",
       "args": ["mcp"]
     }

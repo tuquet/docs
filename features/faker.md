@@ -166,7 +166,7 @@ When executing `specter faker generate -f json`, the generator produces a struct
 
 ## 5. Command Reference & Usage Examples
 
-Specter Faker is accessible via the CLI binary (`specter faker`), the core engine (`tuquet faker`), and the interactive REPL shell (`tuquet shell faker`).
+Specter Faker is accessible via the CLI binary (`specter faker`) and the interactive REPL shell (`specter shell faker`).
 
 ### Generating Personas in Formatted Terminal Table
 
