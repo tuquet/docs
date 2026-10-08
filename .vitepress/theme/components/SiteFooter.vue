@@ -37,10 +37,10 @@ import { ShieldCheck, ExternalLink, Terminal } from 'lucide-vue-next'
         <div class="nav-col">
           <div class="nav-heading">CORE TECHNOLOGY</div>
           <ul class="nav-list">
-            <li><a :href="withBase('/features/browser')">Dedicated Browser Runtime</a></li>
-            <li><a :href="withBase('/features/fingerprinting')">Fingerprint Masking</a></li>
-            <li><a :href="withBase('/features/human-behavior')">Bézier Mouse Dynamics</a></li>
-            <li><a :href="withBase('/features/faker')">Faker CCCD Generator</a></li>
+            <li><a :href="withBase('/browser/')">Dedicated Browser Runtime</a></li>
+            <li><a :href="withBase('/browser/fingerprinting')">Fingerprint Masking</a></li>
+            <li><a :href="withBase('/browser/human-behavior')">Bézier Mouse Dynamics</a></li>
+            <li><a :href="withBase('/faker/')">Faker CCCD Generator</a></li>
           </ul>
         </div>
 
@@ -59,10 +59,10 @@ import { ShieldCheck, ExternalLink, Terminal } from 'lucide-vue-next'
         <div class="nav-col">
           <div class="nav-heading">AUTOMATION &amp; AI</div>
           <ul class="nav-list">
-            <li><a :href="withBase('/automation/automa')">Automa Workflow DAG</a></li>
-            <li><a :href="withBase('/automation/runner')">Runner Kernel Supervisor</a></li>
-            <li><a :href="withBase('/automation/cdp')">Native Pure Rust CDP</a></li>
-            <li><a :href="withBase('/automation/ai-agent')">Model Context Protocol (MCP)</a></li>
+            <li><a :href="withBase('/automa/')">Automa Workflow DAG</a></li>
+            <li><a :href="withBase('/runner/')">Runner Kernel Supervisor</a></li>
+            <li><a :href="withBase('/automa/cdp')">Native Pure Rust CDP</a></li>
+            <li><a :href="withBase('/skills/')">Model Context Protocol (MCP)</a></li>
           </ul>
         </div>
 
@@ -70,8 +70,8 @@ import { ShieldCheck, ExternalLink, Terminal } from 'lucide-vue-next'
         <div class="nav-col">
           <div class="nav-heading">SOLUTIONS &amp; RUNBOOKS</div>
           <ul class="nav-list">
-            <li><a :href="withBase('/proxy/bridge')">Bridge Mesh &amp; SOCKS5</a></li>
-            <li><a :href="withBase('/features/cloud')">Supabase Cloud Fleet</a></li>
+            <li><a :href="withBase('/bridge/')">Bridge Mesh &amp; SOCKS5</a></li>
+            <li><a :href="withBase('/cloud/')">Supabase Cloud Fleet</a></li>
             <li><a :href="withBase('/mmo/README')">Operational Runbooks (SOP)</a></li>
             <li><a :href="withBase('/mmo/06-glossary-terminology')">Technical Glossary</a></li>
           </ul>
