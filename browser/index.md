@@ -194,7 +194,7 @@ Preserves all essential session data: **Cookies, IndexedDB, LevelDB, LocalStorag
 
 ## 6. Command Reference
 
-All browser and profile operations are exposed via `specter browser` and shorthand aliases:
+All browser and profile operations are exposed canonically via `specter browser`:
 
 ### Runtime Management
 

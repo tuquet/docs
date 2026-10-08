@@ -33,9 +33,6 @@ To attach a proxy immediately upon launch:
 specter browser launch "Facebook-Ad-US-01" --proxy socks5://127.0.0.1:1080
 ```
 
-> [!TIP] Shorthand Aliases
-> For speed, `specter launch "Profile-Name"` and `specter profile create "Profile-Name"` are also supported.
-
 ---
 
 ## Step 3: Verify the Digital Fingerprint
