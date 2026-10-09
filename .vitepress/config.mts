@@ -107,6 +107,7 @@ export default defineConfig({
         logo: '/logo.svg',
 
         nav: [
+          { text: 'Tu Quet Hub', link: 'https://tuquet.com' },
           { text: 'Docs', link: '/start/quickstart', activeMatch: '/(start|browser|runner|automa|bridge|faker|cloud|skills|solutions)/' },
           { text: 'CLI', link: '/commands/', activeMatch: '/commands/' },
           {
@@ -179,6 +180,7 @@ export default defineConfig({
         logo: '/logo.svg',
 
         nav: [
+          { text: 'Tu Quet Hub', link: 'https://tuquet.com' },
           { text: 'Tài Liệu', link: '/start/quickstart', activeMatch: '/(start|solutions)/' },
           { text: 'CLI', link: '/commands/', activeMatch: '/commands/' },
           {
