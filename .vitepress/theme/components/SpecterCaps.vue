@@ -61,16 +61,16 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
         <div class="cap-in">
           <h3>
             <Cloud :size="16" class="cap-ic" aria-hidden="true" />
-            <span>Supabase Cloud Fleet. Distributed Multi-Node Leases.</span>
+            <span>Cloud Center Fleet. Distributed Multi-Node Leases.</span>
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Eliminate expensive centralized proxy databases or brittle sync brokers. Specter connects directly to your self-hosted Supabase (PostgreSQL + RLS) backend. Distributed lease locks (acquire/release) distribute profiles seamlessly across workstations and VPS nodes without account collisions.
+            Eliminate expensive centralized proxy databases or brittle sync brokers. Specter connects directly to Cloud Center (PostgreSQL 15+ with strict RLS). Distributed lease locks (acquire/release) distribute profiles seamlessly across workstations and VPS nodes without account collisions.
           </p>
         </div>
         <div class="ev" aria-hidden="true">
           <div class="ev-cmd"><b>$</b> specter browser profile cloud acquire "scraper-node-01"</div>
-          <div class="ev-row"><span>control plane</span><b>Supabase PostgreSQL + RLS</b></div>
+          <div class="ev-row"><span>control plane</span><b>PostgreSQL 15+ & RLS</b></div>
           <div class="ev-row"><span>lease lock</span><b class="text-green">ACQUIRED (TTL 1800s)</b></div>
           <div class="ev-row"><span>distributed fleet</span><b>1 Local Station + 3 Cloud VPS</b></div>
           <div class="ev-note">Zero account collision · Automated session unlock on crash</div>

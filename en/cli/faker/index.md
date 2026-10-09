@@ -1,8 +1,12 @@
-# Synthetic Personas & Identity Generator
+# Synthetic Persona Generator & CCCD Synthesis
 
-Automated account creation, KYC pre-flight verification, e-commerce checkout simulation, and multi-profile antidetect workflows require authentic identity metadata. Mock data libraries often fail anti-fraud validation due to malformed citizen IDs, mismatched geographic locations, or unrealistic demographic distributions.
+Standard faker libraries generate garbage: bogus SSNs, impossible postal codes, and names that fail basic demographic checksums. The moment an anti-fraud heuristic or KYC pre-flight runs Modulo 11 validation, your registration is rejected and your IP gets burned.
 
-**Specter** includes an enterprise-grade, offline-first **Synthetic Persona & Identity Generator** powered by the native Rust crate [`tuquet-faker`](https://github.com/tuquet/faker). It produces mathematically verified, demographically weighted, and geographically cohesive test identities in sub-millisecond execution time with zero external network dependencies.
+**Synthetic Persona Generator** is a standalone, offline-first identity synthesis engine written in pure Rust (`tuquet-faker`). Usable as a standalone CLI, Rust crate, or wired into Specter workflows. Generates 100% mathematically authentic Vietnamese Citizen Identity Cards (CCCD Modulo 11), cohesive 4-tier administrative addresses, demographically weighted surnames, and RFC 5322 ASCII-sanitized email pools in sub-millisecond runtime.
+
+::: tip Standalone Microservice
+`tuquet-faker` has zero external network calls. Add `tuquet-faker = "0.1"` as a Rust dependency or call `specter faker generate` to synthesize test identities at 50,000 records per second.
+:::
 
 <HairlineFigure name="riffle" />
 
@@ -301,5 +305,5 @@ AI agents can generate authenticated test accounts without executing shell comma
 }
 ```
 
-Agents receive structured JSON objects immediately ready for input into form-filling steps, Playwright automation scripts, or Supabase user provisioning.
+Agents receive structured JSON objects immediately ready for input into form-filling steps, Playwright automation scripts, or database user provisioning.
 

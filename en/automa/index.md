@@ -1,8 +1,12 @@
-# Automa Workflow Orchestration & Headless DAG Engine
+# Automa DAG Engine & Native CDP Driver
 
-Modern browser scraping, data extraction, and form-filling workflows require a balance between visual drag-and-drop authoring, deterministic DAG execution, and headless execution performance. 
+Web scrapers wrapped in Python or heavy Node.js runtimes collapse under concurrent load. Selenium and Playwright introduce massive abstraction layers, chew through gigabytes of RAM, and get trapped by Shadow DOM barriers and bot shields.
 
-**Specter Automa** is a next-generation workflow orchestration platform powered by the [`tuquet-automa`](https://github.com/tuquet/automa) microservice. It pairs an extensible **Workflow Engine Directed Acyclic Graph (DAG)** compiler with native pure-Rust Chrome DevTools Protocol (CDP) execution, supervised by the local runner daemon and SQLite persistence layer.
+**Automa DAG Engine** is a decoupled workflow orchestration engine powered by [`tuquet-automa`](https://github.com/tuquet/automa). Deployable as an independent headless binary or composed inside the Specter combat rig. It compiles visual automation blocks into a topological DAG and drives Chrome DevTools Protocol (CDP) over raw WebSockets in pure Rust — piercing closed Shadow DOM, handling 500+ concurrent contexts, and consuming only 15MB RAM per tab.
+
+::: tip Standalone Microservice
+`tuquet-automa` runs independently of Specter. Compile the Rust binary to parse workflow JSON schemas, execute headless CDP pipelines, or embed the Vue 3 workflow canvas into your own web applications.
+:::
 
 <HairlineFigure name="branches" />
 

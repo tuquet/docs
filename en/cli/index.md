@@ -4,17 +4,17 @@ layout: home
 hero:
   name: "Specter CLI"
   text: "Run hundreds of stealth browsers. Zero lag. Zero fingerprint leaks."
-  tagline: "Local-first stealth Chromium orchestration and distributed edge automation engine. 100% Free & Open-Source. Each profile is an isolated clean workstation with dedicated proxy routing and native process sandbox (Zero Zombie)."
+  tagline: "The full combat rig assembling the Lab Room's independent engines — Chromium stealth, DAG runner, mesh bridges, and cloud sync into a single operational unit. 100% Free & Open-Source."
   image:
     src: /logo.svg
-    alt: "Specter Isometric Turntable"
+    alt: "Specter Isometric Elevator"
   actions:
     - theme: brand
       text: Install in 15s (One-Liner)
       link: "#install"
     - theme: alt
       text: Explore CLI Commands →
-      link: "/en/specter/commands/"
+      link: "/en/cli/commands/"
 ---
 
 <ProofStrip />
@@ -81,7 +81,7 @@ specter automa run ./workflows/scrape.json --headless
 | :--- | :--- | :--- |
 | **Dropship & E-Com** | `specter browser launch` | Complete isolation of Canvas, WebGL, AudioContext, and Fonts. Each profile behaves as an independent physical device. |
 | **Web Scraping** | `specter automa run` | Pierces closed Shadow DOM, bypasses Turnstile, inertial deceleration scroll. Ultra-low RAM footprint. |
-| **Cloud Fleet** | `specter browser profile cloud` | Syncs profiles via Supabase (PostgreSQL + RLS). Distributed lease locks (`acquire`/`release`) prevent account collisions. |
+| **Cloud Center** | `specter browser profile cloud` | Syncs profiles via Cloud Center (PostgreSQL 15+ & RLS). Distributed lease locks (`acquire`/`release`) prevent account collisions. |
 | **Proxy Gateway** | `specter proxy probe` | Automated pre-flight probe verifies clean IP, country location, and eliminates WebRTC leaks before opening tabs. |
 | **Synthetic Personas** | `specter faker generate` | Generates authentic test identities (names, birthdays, addresses, valid CCCDs) for instant automated form filling. |
 
@@ -94,11 +94,11 @@ specter automa run ./workflows/scrape.json --headless
 :::
 
 ::: details 2. Where is my profile data stored?
-100% Local-First. All profiles, session cookies, and execution histories reside under `~/.specter/` on your local workstation, or inside your self-hosted Supabase database. Zero data is ever sent to third-party telemetry servers.
+100% Local-First. All profiles, session cookies, and execution histories reside under `~/.specter/` on your local workstation, or inside your self-hosted Cloud Center database. Zero data is ever sent to third-party telemetry servers.
 :::
 
 ::: details 3. How do I coordinate browser fleets across multiple VPS instances?
-Use `specter browser profile cloud acquire/release` combined with the Supabase backend. Headless worker nodes on VPS instances poll tasks, checkout profiles via lease locks, and synchronize session state automatically.
+Use `specter browser profile cloud acquire/release` combined with the Cloud Center control plane. Headless worker nodes on VPS instances poll tasks, checkout profiles via lease locks, and synchronize session state automatically.
 :::
 
 </div>

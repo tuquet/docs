@@ -3,14 +3,14 @@ title: Telegram ChatOps (Tuquet Bot)
 description: 24/7 server monitoring, incident response, and GitHub CI dispatch via Telegram.
 ---
 
-# 🤖 Telegram ChatOps (`tuquet/bot`)
+# Telegram ChatOps (`tuquet/bot`)
 
 > **Autonomous Infrastructure Sentinel & Interactive Telegram Assistant**  
 > Monitor VPS nodes, trigger GitHub deployments, verify SSL certificates, and manage background tasks directly from your phone.
 
 ---
 
-## ⚡ Key Capabilities
+## Key Capabilities
 
 * **24/7 Server Health Watchdog**: Monitors CPU, memory, disk usage, and system services every 60 seconds with instant alerting on threshold breaches.
 * **Interactive ChatOps Interface**: Execute operational commands (`/stats`, `/ping`, `/services`, `/deploy`) via authorized Telegram private chats and group topics.
@@ -19,7 +19,7 @@ description: 24/7 server monitoring, incident response, and GitHub CI dispatch v
 
 ---
 
-## 🚀 Quick Setup
+## Quick Setup
 
 ```bash
 # Clone the repository
@@ -42,7 +42,7 @@ npm start
 
 ---
 
-## 📖 Available Telegram Commands
+## Available Telegram Commands
 
 | Command | Permission | Description |
 | :--- | :---: | :--- |

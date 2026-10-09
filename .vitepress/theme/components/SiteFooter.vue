@@ -57,36 +57,36 @@ const isVi = computed(() => {
           <div class="nav-heading">{{ isVi ? 'SẢN PHẨM HỆ SINH THÁI' : 'ECOSYSTEM PRODUCTS' }}</div>
           <ul class="nav-list">
             <li>
-              <a :href="withBase(isVi ? '/vi/specter/' : '/en/specter/')">👻 Specter Platform</a>
+              <a :href="withBase('/en/cli/')">Specter CLI</a>
             </li>
             <li>
-              <a :href="withBase(isVi ? '/vi/chatops/' : '/en/chatops/')">🤖 Telegram ChatOps</a>
+              <a :href="withBase('/en/chatops/')">Telegram ChatOps</a>
             </li>
             <li>
-              <a :href="withBase(isVi ? '/vi/storage/' : '/en/storage/')">📦 Tuquet Storage Hub</a>
+              <a :href="withBase('/en/storage/')">Tuquet Storage Hub</a>
             </li>
             <li>
-              <a :href="withBase(isVi ? '/vi/yak-map/' : '/en/yak-map/')">🗺️ Yak Map Graph</a>
+              <a :href="withBase('/en/yak-map/')">Yak Map Graph</a>
             </li>
             <li>
-              <a :href="withBase(isVi ? '/vi/library/' : '/en/library/')">📚 Tuquet UI Library</a>
+              <a :href="withBase('/en/library/')">Tuquet UI Library</a>
             </li>
             <li>
-              <a :href="withBase(isVi ? '/vi/claude-agy/' : '/en/claude-agy/')">⚡ Claude-Agy Accelerator</a>
+              <a :href="withBase('/en/claude-agy/')">Claude-Agy Accelerator</a>
             </li>
           </ul>
         </div>
 
-        <!-- Col 2: Specter Platform Automation -->
+        <!-- Col 2: Standalone Microservices & Features -->
         <div class="nav-col">
-          <div class="nav-heading">{{ isVi ? 'TỰ ĐỘNG HÓA SPECTER' : 'SPECTER AUTOMATION' }}</div>
+          <div class="nav-heading">{{ isVi ? 'TỰ ĐỘNG HÓA & DỊCH VỤ' : 'STANDALONE SERVICES' }}</div>
           <ul class="nav-list">
-            <li><a :href="withBase('/en/specter/browser/')">Stealth Chromium Runtime</a></li>
-            <li><a :href="withBase('/en/specter/browser/fingerprinting')">Fingerprint Masking</a></li>
-            <li><a :href="withBase('/en/specter/automa/')">Automa Workflow DAG</a></li>
-            <li><a :href="withBase('/en/specter/runner/')">Native Process Supervisor</a></li>
-            <li><a :href="withBase('/en/specter/bridge/')">Bridge Multi-VPS Mesh</a></li>
-            <li><a :href="withBase('/en/specter/skills/')">Model Context Protocol (MCP)</a></li>
+            <li><a :href="withBase('/en/browser/')">Stealth Chromium Runtime</a></li>
+            <li><a :href="withBase('/en/browser/fingerprinting')">Fingerprint Masking</a></li>
+            <li><a :href="withBase('/en/automa/')">Automa Workflow DAG</a></li>
+            <li><a :href="withBase('/en/runner/')">Workstation Runner</a></li>
+            <li><a :href="withBase('/en/bridge/')">Bridge Mesh Gateway</a></li>
+            <li><a :href="withBase('/en/cloud/')">Cloud Center & RBAC</a></li>
           </ul>
         </div>
 
@@ -95,19 +95,19 @@ const isVi = computed(() => {
           <div class="nav-heading">{{ isVi ? 'HƯỚNG DẪN & TRA CỨU' : 'GUIDES & REFERENCE' }}</div>
           <ul class="nav-list">
             <li>
-              <a :href="withBase('/en/specter/start/quickstart')">{{ isVi ? 'Bắt Đầu Nhanh (15s)' : 'Quickstart (15s)' }}</a>
+              <a :href="withBase('/en/cli/start/quickstart')">{{ isVi ? 'Bắt Đầu Nhanh (15s)' : 'Quickstart (15s)' }}</a>
             </li>
             <li>
-              <a :href="withBase('/en/specter/commands/')">{{ isVi ? 'Tra Cứu 68 Lệnh CLI' : '68 CLI Commands' }}</a>
+              <a :href="withBase('/en/cli/commands/')">{{ isVi ? 'Tra Cứu 68 Lệnh CLI' : '68 CLI Commands' }}</a>
             </li>
             <li>
-              <a :href="withBase('/en/specter/start/diagnostics')">{{ isVi ? 'Chẩn Đoán (Doctor)' : 'Diagnostics (Doctor)' }}</a>
+              <a :href="withBase('/en/cli/start/diagnostics')">{{ isVi ? 'Chẩn Đoán (Doctor)' : 'Diagnostics (Doctor)' }}</a>
             </li>
             <li>
-              <a :href="withBase('/en/specter/mmo/README')">{{ isVi ? 'Cẩm Nang Vận Hành (SOP)' : 'Operational Runbooks (SOP)' }}</a>
+              <a :href="withBase('/en/cli/figures/')">{{ isVi ? '30 Sơ Đồ Động (Figures)' : 'Interactive Figures (30)' }}</a>
             </li>
             <li>
-              <a :href="withBase('/en/specter/mmo/06-glossary-terminology')">{{ isVi ? 'Thuật Ngữ Kỹ Thuật' : 'Technical Glossary' }}</a>
+              <a :href="withBase('/en/cli/start/first-profile')">{{ isVi ? 'Khởi Tạo Profile' : 'First Profile Setup' }}</a>
             </li>
           </ul>
         </div>

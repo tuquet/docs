@@ -1,8 +1,12 @@
-# Runner Daemon & Native Process Supervisor
+# Workstation Runner & Bare-Metal Daemon
 
-Enterprise-scale browser automation suites frequently encounter orphan processes, resource exhaustion, and "zombie" browser instances that continue consuming RAM and CPU long after their parent script terminates. 
+An unshielded workstation will choke when running mass automation. Detached scrapers spawn rogue child processes, leak gigabytes of LevelDB memory, and freeze the operating system under concurrent load.
 
-**Specter Runner** is an ultra-high performance universal distributed execution engine and supervisor daemon engineered natively in pure Rust, powered by the [`tuquet-runner`](https://github.com/tuquet/runner) microservice.
+**Workstation Runner** transforms raw developer hardware into a disciplined execution node. Powered by the pure-Rust [`tuquet-runner`](https://github.com/tuquet/runner) engine, it runs as an autonomous local daemon on port 8765. It enforces OS-level process containment via Windows Job Objects and POSIX groups, caps hardware quotas, and shields workstation iron from runaway automation tasks.
+
+::: tip Standalone Workstation Node
+`tuquet-runner` runs directly on the local machine. It exposes a lightweight HTTP/WebSocket control plane (`localhost:8765`), allowing external scripts or remote fleet controllers to dispatch jobs to the workstation with zero zombie process risk.
+:::
 
 <HairlineFigure name="cabinet" />
 
@@ -133,7 +137,7 @@ specter runner worker --interval 15 --headless
 ```
 
 The daemon automatically executes an autonomous 5-stage lifecycle:
-1. **Poll Cloud Queue**: Polls pending automation tasks from the Supabase central control plane.
+1. **Poll Cloud Queue**: Polls pending automation tasks from the Cloud Center central control plane.
 2. **Lease Acquisition**: Claims an exclusive profile lock (`acquire_browser`) to prevent concurrent session conflicts.
 3. **Snapshot Unpacking**: Downloads and unpacks the profile session delta (`.tar.zst`).
 4. **Execution & Telemetry**: Executes the Automa workflow DAG via native CDP.

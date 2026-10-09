@@ -4,139 +4,155 @@ process.env.DEBUG = process.env.DEBUG || '1'
 import { defineConfig } from 'vitepress'
 import brand from './brand.config.json'
 
-const specterDocsSidebar = [
+// 1. Standalone Microservice Sidebars (Decoupled & Isolated)
+const browserSidebar = [
+  {
+    text: 'Stealth Browser',
+    collapsed: false,
+    items: [
+      { text: 'Runtime & Sandbox', link: '/en/browser/' },
+      { text: 'Profile Isolation', link: '/en/browser/profiles' },
+      { text: 'Fingerprint Masking', link: '/en/browser/fingerprinting' },
+      { text: 'Human Bézier Dynamics', link: '/en/browser/human-behavior' },
+    ],
+  },
+]
+
+const automaSidebar = [
+  {
+    text: 'Automa DAG Engine',
+    collapsed: false,
+    items: [
+      { text: 'Workflow Automation', link: '/en/automa/' },
+      { text: 'Headless Stealth Mode', link: '/en/automa/stealth-headless' },
+      { text: 'Native Rust CDP Protocol', link: '/en/automa/cdp' },
+    ],
+  },
+]
+
+const bridgeSidebar = [
+  {
+    text: 'Bridge Mesh Gateway',
+    collapsed: false,
+    items: [
+      { text: 'SOCKS5 & HTTP Tunnels', link: '/en/bridge/' },
+      { text: 'Multi-Server Mesh', link: '/en/bridge/mesh' },
+      { text: 'WebRTC Leak Shield', link: '/en/bridge/webrtc' },
+    ],
+  },
+]
+
+const runnerSidebar = [
+  {
+    text: 'Workstation Runner',
+    collapsed: false,
+    items: [
+      { text: 'Workstation Daemon & HTTP API', link: '/en/runner/' },
+    ],
+  },
+]
+
+const cloudSidebar = [
+  {
+    text: 'Cloud Center',
+    collapsed: false,
+    items: [
+      { text: 'Multi-Tenant RBAC & Fleet Hub', link: '/en/cloud/' },
+    ],
+  },
+]
+
+// 2. Specter CLI Sidebars
+const cliSidebar = [
   {
     text: 'Getting Started',
     collapsed: false,
     items: [
-      { text: 'Overview', link: '/en/specter/start/quickstart' },
-      { text: 'Installation (15s)', link: '/en/specter/start/installation' },
-      { text: 'Your First Profile', link: '/en/specter/start/first-profile' },
-      { text: 'System Diagnostics (Doctor)', link: '/en/specter/start/diagnostics' },
-      { text: 'Interactive Figures (30)', link: '/en/specter/figures/' },
+      { text: 'Platform Overview', link: '/en/cli/' },
+      { text: 'Quickstart (15s)', link: '/en/cli/start/quickstart' },
+      { text: 'Installation Guide', link: '/en/cli/start/installation' },
+      { text: 'First Profile Setup', link: '/en/cli/start/first-profile' },
+      { text: 'System Diagnostics (Doctor)', link: '/en/cli/start/diagnostics' },
+      { text: 'Interactive Figures (30)', link: '/en/cli/figures/' },
     ],
   },
   {
-    text: 'Browser',
+    text: 'CLI Commands Catalog',
     collapsed: false,
     items: [
-      { text: 'Dedicated Runtime', link: '/en/specter/browser/' },
-      { text: 'Isolated Profiles', link: '/en/specter/browser/profiles' },
-      { text: 'Fingerprint Masking', link: '/en/specter/browser/fingerprinting' },
-      { text: 'Human Dynamics', link: '/en/specter/browser/human-behavior' },
+      { text: '68 Commands Catalog', link: '/en/cli/commands/' },
     ],
   },
   {
-    text: 'Runner',
+    text: 'Identity & AI Extensions',
     collapsed: false,
     items: [
-      { text: 'Native Process Supervisor', link: '/en/specter/runner/' },
+      { text: 'Personas & CCCD Generator', link: '/en/cli/faker/' },
+      { text: 'AI Agent & MCP Protocol', link: '/en/cli/skills/' },
     ],
   },
   {
-    text: 'Automa',
-    collapsed: false,
-    items: [
-      { text: 'Workflow Automation', link: '/en/specter/automa/' },
-      { text: 'Headless Stealth Mode', link: '/en/specter/automa/stealth-headless' },
-      { text: 'Native Rust CDP', link: '/en/specter/automa/cdp' },
-    ],
-  },
-  {
-    text: 'Bridge',
-    collapsed: false,
-    items: [
-      { text: 'SOCKS5 & HTTP Tunnels', link: '/en/specter/bridge/' },
-      { text: 'Multi-Server Mesh', link: '/en/specter/bridge/mesh' },
-      { text: 'WebRTC Leak Shield', link: '/en/specter/bridge/webrtc' },
-    ],
-  },
-  {
-    text: 'Faker',
-    collapsed: false,
-    items: [
-      { text: 'Personas & CCCD Generator', link: '/en/specter/faker/' },
-    ],
-  },
-  {
-    text: 'Cloud',
-    collapsed: false,
-    items: [
-      { text: 'Supabase Fleet & RLS', link: '/en/specter/cloud/' },
-    ],
-  },
-  {
-    text: 'Skills',
-    collapsed: false,
-    items: [
-      { text: 'AI Agent & MCP Protocol', link: '/en/specter/skills/' },
-    ],
-  },
-  {
-    text: 'Solutions',
+    text: 'Specifications & RFCs',
     collapsed: true,
     items: [
-      { text: 'Affiliate & Media Buying', link: '/en/specter/solutions/affiliate' },
-      { text: 'E-commerce & Dropshipping', link: '/en/specter/solutions/ecommerce' },
-      { text: 'Web Scraping & Data Mining', link: '/en/specter/solutions/scraping' },
-      { text: 'Social Media Management', link: '/en/specter/solutions/smm' },
-      { text: 'Crypto & Airdrop Farming', link: '/en/specter/solutions/crypto' },
+      { text: 'SPEC: Faker AI-First Generation', link: '/en/cli/specs/SPEC-faker-ai-first' },
     ],
   },
 ]
 
-const specterCommandsSidebar = [
+const cliCommandsSidebar = [
   {
-    text: 'CLI Commands Catalog (68)',
+    text: 'Specter CLI',
     items: [
-      { text: 'Overview & Navigation', link: '/en/specter/commands/' },
-      { text: 'System & Onboarding (11)', link: '/en/specter/commands/#system' },
-      { text: 'Automa & Headless Scraper (9)', link: '/en/specter/commands/#automa' },
-      { text: 'Stealth Browser & Profiles (29)', link: '/en/specter/commands/#browser' },
-      { text: 'Proxy Tunnel & Network Mesh (7)', link: '/en/specter/commands/#bridge' },
-      { text: 'Faker & Synthetic Personas (2)', link: '/en/specter/commands/#faker' },
-      { text: 'Runner Supervisor & Daemon (7)', link: '/en/specter/commands/#runner' },
-      { text: 'Supabase Cloud Fleet (3)', link: '/en/specter/commands/#cloud' },
+      { text: '← Back to CLI Docs', link: '/en/cli/' },
     ],
   },
-]
-
-const specterMmoSidebar = [
   {
-    text: 'Operational Runbooks (SOP)',
+    text: 'Commands Catalog (68)',
     items: [
-      { text: 'Table of Contents', link: '/en/specter/mmo/README' },
-      { text: '01. Virtual Cards & Billing', link: '/en/specter/mmo/01-vcc-payment-guide' },
-      { text: '02. Residential Proxy Isolation', link: '/en/specter/mmo/02-proxy-network-isolation' },
-      { text: '03. Domain & DNS Delegation', link: '/en/specter/mmo/03-domain-dns-delegation' },
-      { text: '04. Hosting & VPS Infrastructure', link: '/en/specter/mmo/04-hosting-vps-infrastructure' },
-      { text: '05. Anonymous Email & Identity', link: '/en/specter/mmo/05-anonymous-email-identity' },
-      { text: '06. Technical Glossary', link: '/en/specter/mmo/06-glossary-terminology' },
+      { text: 'Overview & Navigation', link: '/en/cli/commands/' },
+      { text: 'System & Onboarding (11)', link: '/en/cli/commands/#system' },
+      { text: 'Automa & Headless Scraper (9)', link: '/en/cli/commands/#automa' },
+      { text: 'Stealth Browser & Profiles (29)', link: '/en/cli/commands/#browser' },
+      { text: 'Proxy Tunnel & Network Mesh (7)', link: '/en/cli/commands/#bridge' },
+      { text: 'Faker & Synthetic Personas (2)', link: '/en/cli/commands/#faker' },
+      { text: 'Runner Supervisor & Daemon (7)', link: '/en/cli/commands/#runner' },
+      { text: 'Cloud Center Commands (3)', link: '/en/cli/commands/#cloud' },
     ],
   },
 ]
 
-const productsDropdownEn = {
-  text: 'Products',
-  items: [
-    { text: '👻 Specter Platform', link: '/en/specter/' },
-    { text: '🤖 Telegram ChatOps', link: '/en/chatops/' },
-    { text: '📦 Storage Hub', link: '/en/storage/' },
-    { text: '🗺️ Yak Map', link: '/en/yak-map/' },
-    { text: '📚 UI Library', link: '/en/library/' },
-    { text: '⚡ Claude-Agy', link: '/en/claude-agy/' },
-  ],
-}
+// 3. Combat Playbooks Sidebar
+const playbooksSidebar = [
+  {
+    text: 'Combat Playbooks',
+    collapsed: false,
+    items: [
+      { text: 'Affiliate & Media Buying', link: '/en/cli/playbooks/affiliate' },
+      { text: 'E-commerce & Dropshipping', link: '/en/cli/playbooks/ecommerce' },
+      { text: 'Web Scraping & Data Mining', link: '/en/cli/playbooks/scraping' },
+      { text: 'Social Media Management', link: '/en/cli/playbooks/smm' },
+      { text: 'Crypto & Airdrop Farming', link: '/en/cli/playbooks/crypto' },
+    ],
+  },
+  {
+    text: 'Specter CLI',
+    items: [
+      { text: '← Back to CLI Docs', link: '/en/cli/' },
+    ],
+  },
+]
 
-const productsDropdownVi = {
-  text: 'Sản Phẩm',
+// 4. Ecosystem Dropdown
+const ecosystemDropdownEn = {
+  text: 'Ecosystem',
   items: [
-    { text: '👻 Nền Tảng Specter', link: '/vi/specter/' },
-    { text: '🤖 Telegram ChatOps', link: '/vi/chatops/' },
-    { text: '📦 Storage Hub', link: '/vi/storage/' },
-    { text: '🗺️ Yak Map', link: '/vi/yak-map/' },
-    { text: '📚 Thư Viện UI', link: '/vi/library/' },
-    { text: '⚡ Claude-Agy', link: '/vi/claude-agy/' },
+    { text: 'Telegram ChatOps', link: '/en/chatops/' },
+    { text: 'Storage Hub', link: '/en/storage/' },
+    { text: 'Yak Map Graph', link: '/en/yak-map/' },
+    { text: 'UI Library', link: '/en/library/' },
+    { text: 'Claude-Agy', link: '/en/claude-agy/' },
+    { text: 'Tuquet Home ↗', link: 'https://tuquet.com' },
   ],
 }
 
@@ -151,146 +167,80 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#09090b' }],
   ],
 
-  locales: {
-    root: {
-      label: 'English',
-      lang: 'en-US',
-      title: 'Tu Quet Docs',
-      description: 'Central documentation portal across Tu Quet open-source software, Specter automation, and developer tooling.',
-      themeConfig: {
-        siteTitle: 'Tu Quet Docs',
-        logo: '/logo.svg',
-
-        nav: [
-          productsDropdownEn,
-          {
-            text: 'Specter Suite',
-            items: [
-              { text: '⚡ Quickstart (15s)', link: '/en/specter/start/quickstart' },
-              { text: '🌐 Stealth Browser', link: '/en/specter/browser/' },
-              { text: '⚙️ Native Process Runner', link: '/en/specter/runner/' },
-              { text: '🔄 Automa Workflow DAG', link: '/en/specter/automa/' },
-              { text: '🛡️ Bridge Mesh & SOCKS5', link: '/en/specter/bridge/' },
-              { text: '☁️ Supabase Cloud Fleet', link: '/en/specter/cloud/' },
-              { text: '🎭 Personas & Faker', link: '/en/specter/faker/' },
-              { text: '🤖 AI Agent & MCP', link: '/en/specter/skills/' },
-            ],
-            activeMatch: '/en/specter/(start|browser|runner|automa|bridge|faker|cloud|skills|solutions)/',
-          },
-          {
-            text: 'Reference & SOP',
-            items: [
-              { text: '💻 68 CLI Commands Catalog', link: '/en/specter/commands/' },
-              { text: '📋 MMO Operational Runbooks (SOP)', link: '/en/specter/mmo/README' },
-              { text: '🔬 Interactive Figures (30)', link: '/en/specter/figures/' },
-              { text: '🩺 System Diagnostics (Doctor)', link: '/en/specter/start/diagnostics' },
-              { text: '📖 Technical Glossary', link: '/en/specter/mmo/06-glossary-terminology' },
-            ],
-            activeMatch: '/en/specter/(commands|mmo|figures)/',
-          },
-          { text: 'Yak Map', link: '/en/yak-map/', activeMatch: '/en/yak-map/' },
-          { text: 'Ecosystem ↗', link: 'https://tuquet.com' },
-        ],
-
-        sidebar: {
-          '/en/specter/commands/': specterCommandsSidebar,
-          '/en/specter/mmo/': specterMmoSidebar,
-          '/en/specter/': specterDocsSidebar,
-          '/en/chatops/': [
-            { text: 'Telegram ChatOps', items: [{ text: 'Overview & Setup', link: '/en/chatops/' }] },
-          ],
-          '/en/storage/': [
-            { text: 'Tuquet Storage Hub', items: [{ text: 'Overview & Features', link: '/en/storage/' }] },
-          ],
-          '/en/yak-map/': [
-            { text: 'Yak Map Graph', items: [{ text: 'Ecosystem Lineage', link: '/en/yak-map/' }] },
-          ],
-          '/en/library/': [
-            { text: 'Tuquet Library', items: [{ text: 'Packages & Storybook', link: '/en/library/' }] },
-          ],
-          '/en/claude-agy/': [
-            { text: 'Claude-Agy', items: [{ text: 'CLI Quickstart', link: '/en/claude-agy/' }] },
-          ],
-        },
-      },
-    },
-    vi: {
-      label: 'Tiếng Việt',
-      lang: 'vi-VN',
-      link: '/vi/',
-      title: 'Tài Liệu Tu Quet',
-      description: 'Cổng tài liệu kỹ thuật tập trung cho hệ sinh thái phần mềm mã nguồn mở Tu Quet và Specter.',
-      themeConfig: {
-        siteTitle: 'Tài Liệu Tu Quet',
-        logo: '/logo.svg',
-
-        nav: [
-          productsDropdownVi,
-          {
-            text: 'Nền Tảng Specter',
-            items: [
-              { text: '⚡ Bắt Đầu Nhanh (15s)', link: '/en/specter/start/quickstart' },
-              { text: '📖 Tổng Quan Nền Tảng (VI)', link: '/vi/specter/' },
-              { text: '🌐 Trình Duyệt Stealth Chromium', link: '/en/specter/browser/' },
-              { text: '⚙️ Giám Sát Tiến Trình Runner', link: '/en/specter/runner/' },
-              { text: '🔄 Tự Động Hóa Kịch Bản Automa', link: '/en/specter/automa/' },
-              { text: '🛡️ Mạng Lưới Tunnel Bridge', link: '/en/specter/bridge/' },
-              { text: '☁️ Đồng Bộ Hạm Đội Cloud', link: '/en/specter/cloud/' },
-              { text: '🎭 Giả Lập Định Danh Faker', link: '/en/specter/faker/' },
-              { text: '🤖 Giao Thức AI Agent (MCP)', link: '/en/specter/skills/' },
-            ],
-            activeMatch: '/(vi/specter|en/specter/(start|browser|runner|automa|bridge|faker|cloud|skills|solutions))/',
-          },
-          {
-            text: 'Tra Cứu & SOP',
-            items: [
-              { text: '💻 Tra Cứu 68 Lệnh CLI', link: '/en/specter/commands/' },
-              { text: '📋 Cẩm Nang Vận Hành MMO (SOP)', link: '/en/specter/mmo/README' },
-              { text: '🔬 30 Sơ Đồ Động (Figures)', link: '/en/specter/figures/' },
-              { text: '🩺 Chẩn Đoán Lỗi (Doctor)', link: '/en/specter/start/diagnostics' },
-              { text: '📖 Thuật Ngữ Kỹ Thuật', link: '/en/specter/mmo/06-glossary-terminology' },
-            ],
-            activeMatch: '/en/specter/(commands|mmo|figures)/',
-          },
-          { text: 'Bản Đồ Yak Map', link: '/vi/yak-map/', activeMatch: '/vi/yak-map/' },
-          { text: 'Hệ Sinh Thái ↗', link: 'https://tuquet.com' },
-        ],
-
-        sidebar: {
-          '/vi/specter/': [
-            {
-              text: 'Nền Tảng Specter',
-              items: [
-                { text: 'Tổng Quan Specter (Tiếng Việt)', link: '/vi/specter/' },
-                { text: 'Bắt Đầu Nhanh (English)', link: '/en/specter/start/quickstart' },
-                { text: 'Tra Cứu 68 Lệnh CLI', link: '/en/specter/commands/' },
-                { text: 'Cẩm Nang Vận Hành (SOP)', link: '/en/specter/mmo/README' },
-              ],
-            },
-          ],
-          '/vi/chatops/': [
-            { text: 'Telegram ChatOps', items: [{ text: 'Tổng Quan & Cài Đặt', link: '/vi/chatops/' }] },
-          ],
-          '/vi/storage/': [
-            { text: 'Tuquet Storage Hub', items: [{ text: 'Tổng Quan & Tính Năng', link: '/vi/storage/' }] },
-          ],
-          '/vi/yak-map/': [
-            { text: 'Bản Đồ Yak Map', items: [{ text: 'Cấu Trúc Hệ Sinh Thái', link: '/vi/yak-map/' }] },
-          ],
-          '/vi/library/': [
-            { text: 'Thư Viện Giao Diện', items: [{ text: 'Danh Sách Gói & Storybook', link: '/vi/library/' }] },
-          ],
-          '/vi/claude-agy/': [
-            { text: 'Tăng Tốc Claude-Agy', items: [{ text: 'Khởi Chạy Nhanh', link: '/vi/claude-agy/' }] },
-          ],
-        },
-      },
-    },
-  },
+  lang: 'en-US',
+  title: 'Tu Quet Docs',
+  description: 'Central documentation portal across Tu Quet open-source software, Specter automation, and developer tooling.',
 
   themeConfig: {
     siteTitle: 'Tu Quet Docs',
     logo: '/logo.svg',
+
+    nav: [
+      {
+        text: 'Services',
+        items: [
+          { text: 'Stealth Chromium Browser', link: '/en/browser/' },
+          { text: 'Automa DAG Engine', link: '/en/automa/' },
+          { text: 'Bridge Mesh Gateway', link: '/en/bridge/' },
+          { text: 'Workstation Runner', link: '/en/runner/' },
+          { text: 'Cloud Center', link: '/en/cloud/' },
+        ],
+        activeMatch: '^/en/(browser|automa|runner|bridge|cloud)/',
+      },
+      {
+        text: 'Specter CLI',
+        items: [
+          { text: 'Platform Overview', link: '/en/cli/' },
+          { text: 'Quickstart (15s)', link: '/en/cli/start/quickstart' },
+          { text: 'Installation Guide', link: '/en/cli/start/installation' },
+          { text: 'First Profile Setup', link: '/en/cli/start/first-profile' },
+          { text: '68 Commands Catalog', link: '/en/cli/commands/' },
+          { text: 'System Diagnostics (Doctor)', link: '/en/cli/start/diagnostics' },
+          { text: 'Interactive Figures (30)', link: '/en/cli/figures/' },
+          { text: 'Personas & CCCD Generator', link: '/en/cli/faker/' },
+          { text: 'AI Agent & MCP Protocol', link: '/en/cli/skills/' },
+        ],
+        activeMatch: '^/en/cli/(start/|commands|figures|skills|faker|specs|$|index)',
+      },
+      {
+        text: 'Playbooks',
+        items: [
+          { text: 'Affiliate & Media Buying', link: '/en/cli/playbooks/affiliate' },
+          { text: 'E-commerce & Dropshipping', link: '/en/cli/playbooks/ecommerce' },
+          { text: 'Web Scraping & Data Mining', link: '/en/cli/playbooks/scraping' },
+          { text: 'Social Media Management', link: '/en/cli/playbooks/smm' },
+          { text: 'Crypto & Airdrop Farming', link: '/en/cli/playbooks/crypto' },
+        ],
+        activeMatch: '^/en/cli/playbooks/',
+      },
+      ecosystemDropdownEn,
+    ],
+
+    sidebar: {
+      '/en/browser/': browserSidebar,
+      '/en/automa/': automaSidebar,
+      '/en/bridge/': bridgeSidebar,
+      '/en/runner/': runnerSidebar,
+      '/en/cloud/': cloudSidebar,
+      '/en/cli/playbooks/': playbooksSidebar,
+      '/en/cli/commands/': cliCommandsSidebar,
+      '/en/cli/': cliSidebar,
+      '/en/chatops/': [
+        { text: 'Telegram ChatOps', items: [{ text: 'Overview & Setup', link: '/en/chatops/' }] },
+      ],
+      '/en/storage/': [
+        { text: 'Tuquet Storage Hub', items: [{ text: 'Overview & Features', link: '/en/storage/' }] },
+      ],
+      '/en/yak-map/': [
+        { text: 'Yak Map Graph', items: [{ text: 'Ecosystem Lineage', link: '/en/yak-map/' }] },
+      ],
+      '/en/library/': [
+        { text: 'Tuquet Library', items: [{ text: 'Packages & Storybook', link: '/en/library/' }] },
+      ],
+      '/en/claude-agy/': [
+        { text: 'Claude-Agy', items: [{ text: 'CLI Quickstart', link: '/en/claude-agy/' }] },
+      ],
+    },
 
     search: {
       provider: 'local',

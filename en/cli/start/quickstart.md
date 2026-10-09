@@ -22,11 +22,11 @@ When multiple accounts share identical hardware fingerprints or IP addresses, se
 
 ## 3-Minute Onboarding Path
 
-1. **[Installation](/en/specter/start/installation)**: Install the native client in under 15 seconds.
-2. **[Your First Profile](/en/specter/start/first-profile)**: Launch an isolated browser profile with a unique fingerprint and proxy.
-3. **[Automa Workflow Automation](/en/specter/automa/)**: Run automated tasks and workflows with a single command.
-4. **[AI Agent Integration](/en/specter/skills/)**: Connect Claude, ChatGPT, or Cursor via native MCP.
-5. **[Bridge & Proxy Setup](/en/specter/bridge/)**: Connect SOCKS5 or HTTP proxies to mask your IP.
+1. **[Installation](/en/cli/start/installation)**: Install the native client in under 15 seconds.
+2. **[Your First Profile](/en/cli/start/first-profile)**: Launch an isolated browser profile with a unique fingerprint and proxy.
+3. **[Automa Workflow Automation](/en/automa/)**: Run automated tasks and workflows with a single command.
+4. **[AI Agent Integration](/en/cli/skills/)**: Connect Claude, ChatGPT, or Cursor via native MCP.
+5. **[Bridge & Proxy Setup](/en/bridge/)**: Connect SOCKS5 or HTTP proxies to mask your IP.
 
 ---
 

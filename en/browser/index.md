@@ -1,8 +1,12 @@
-# Dedicated Browser Runtime & Profile Sandbox
+# Stealth Chromium Runtime & Hardware Sandbox
 
-Standard commercial browsers (Google Chrome, Microsoft Edge) maintain pervasive diagnostic telemetry, hardware fingerprint queries, background update daemons, and shared session caches that expose user identity across multiple accounts.
+Commercial browsers leak like sieves. Telemetry daemons, hardware hash queries, audio context fingerprinting, and shared LevelDB caches broadcast your machine identity to every anti-fraud engine on the web.
 
-**Specter Browser** is a specialized C++ Antidetect Chromium runtime and multi-profile sandbox subsystem powered by the [`tuquet-browser`](https://github.com/tuquet/browser) microservice. It provides deterministic hardware emulation seeds, memory-level canvas/WebGL protection, Bézier mouse trajectory spoofing, process tree group containment, and strict profile filesystem sandboxing.
+**Stealth Chromium Runtime** is a decoupled antidetect browser subsystem powered by the [`tuquet-browser`](https://github.com/tuquet/browser) crate. It runs as an independent CLI/library or wired into the Specter combat rig. It injects deterministic hardware seeds directly into Blink C++ memory, strips WebRTC leaks at the packet level, and spoofs Bézier cursor dynamics. Turnstile, DataDome, and Kasada see an everyday consumer laptop.
+
+::: tip Standalone Microservice
+`tuquet-browser` operates completely decoupled from the Specter CLI. You can compile it as a standalone Rust crate, embed it into your custom scrapers, or launch isolated profiles directly via CLI.
+:::
 
 <HairlineFigure name="laptop" />
 
@@ -12,7 +16,7 @@ Standard commercial browsers (Google Chrome, Microsoft Edge) maintain pervasive 
 
 ```text
  ┌─────────────────────────────────────────────────────────────────────────┐
- │                      SPECTER BROWSER SUBSYSTEM                          │
+ │                  STEALTH CHROMIUM RUNTIME ENGINE                        │
  │                                                                         │
  │   ┌──────────────────────────┐       ┌──────────────────────────────┐   │
  │   │ C++ Chromium LTS Engine  │       │ Deterministic PRNG Spoofing  │   │

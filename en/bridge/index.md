@@ -1,8 +1,12 @@
-# Network Bridge & Multi-VPS Tunnel Mesh
+# Bridge Mesh Gateway & Protocol Tunnel Supervisor
 
-Maintaining isolated network identities across hundreds of browser profiles requires a robust, self-healing proxy infrastructure. Direct proxy configurations often leak local DNS queries, fail to support authentication across older automation tools, or suffer from silent connection drops that expose your true residential IP.
+Corporate and data-center firewalls lock down outbound ports. Automation scripts leak real residential IPs through DNS fallback and silent socket drops. One unshielded TCP packet ruins months of profile farming.
 
-**Specter Bridge** is a pure-Rust multi-server network bridge, tunnel mesh supervisor, and embedded protocol adapter powered by the [`tuquet-bridge`](https://github.com/tuquet/cli) engine. It manages local SOCKS5 tunnels, embedded HTTP translation adapters, direct SSH forwarding, and automated link healing without requiring external shell scripts.
+**Bridge Mesh Gateway** is a standalone network tunnel supervisor and protocol adapter engineered in pure Rust (`tuquet-bridge`). Runs completely independent of Specter or embedded as the network backbone. It binds local SOCKS5 listeners, translates legacy HTTP `CONNECT` calls on port 8118, executes pre-flight egress verification before letting packets touch the wire, and auto-heals severed tunnels in under 3 seconds.
+
+::: tip Standalone Microservice
+`tuquet-bridge` operates as an independent daemon. Use it to establish multi-hop SOCKS5/HTTP tunnels and enforce WebRTC leak shielding across arbitrary CLI tools, git clients, and headless scrapers.
+:::
 
 <HairlineFigure name="router" />
 
@@ -12,7 +16,7 @@ Maintaining isolated network identities across hundreds of browser profiles requ
 
 ```text
  ┌─────────────────────────────────────────────────────────────┐
- │               SPECTER BRIDGE MESH ARCHITECTURE              │
+ │             BRIDGE MESH GATEWAY ARCHITECTURE                │
  │                                                             │
  │   ┌──────────────────────┐       ┌──────────────────────┐   │
  │   │ Workstation Browser  │       │ Third-Party Tools    │   │

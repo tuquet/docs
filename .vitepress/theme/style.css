@@ -188,28 +188,74 @@
   transform: translateY(-1px);
 }
 
-/* Feature Cards (Shadcn Zinc Grid) */
+/* Feature Cards (Shadcn Zinc Grid - Hairline Aesthetics) */
 .VPFeatures .VPFeature {
   background-color: var(--vp-c-bg-alt);
   border: 1px solid var(--vp-c-border);
-  border-radius: 10px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark .VPFeatures .VPFeature {
+  background: linear-gradient(180deg, rgba(24, 24, 27, 0.65) 0%, rgba(15, 15, 18, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .VPFeatures .VPFeature:hover {
   border-color: var(--vp-c-text-3);
-  box-shadow: var(--vp-shadow-2);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.dark .VPFeatures .VPFeature:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.VPFeatures .VPFeature .box {
+  padding: 24px;
+}
+
+.VPFeatures .VPFeature .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 16px;
+  color: var(--vp-c-text-1);
+  transition: all 0.2s ease;
+}
+
+:root:not(.dark) .VPFeatures .VPFeature .icon {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.VPFeatures .VPFeature:hover .icon {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
 }
 
 .VPFeatures .VPFeature .title {
   font-size: 15px;
   font-weight: 600;
+  letter-spacing: -0.015em;
   color: var(--vp-c-text-1);
+  margin-bottom: 6px;
 }
 
 .VPFeatures .VPFeature .details {
   font-size: 13.5px;
   line-height: 1.6;
+  letter-spacing: -0.005em;
   color: var(--vp-c-text-2);
 }
 
@@ -411,12 +457,69 @@ div[class*='language-'] pre {
   margin: 0;
 }
 
+/* =========================================================
+   Sidebar Tree Guide Lines & Hierarchy Ergonomics (Shadcn Standard)
+   ========================================================= */
+
+/* Indentation vertical guide lines for nested items */
+.VPSidebarItem.level-1 .items,
+.VPSidebarItem.level-2 .items,
+.VPSidebarItem.level-3 .items {
+  border-left: 1px solid var(--vp-c-divider);
+  margin-left: 10px;
+  padding-left: 10px;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.VPSidebarItem.level-1 .items:hover,
+.VPSidebarItem.level-2 .items:hover {
+  border-left-color: var(--vp-c-text-3);
+}
+
+/* Sidebar item text ergonomics */
+.VPSidebarItem .item .text {
+  font-size: 13.5px;
+  transition: color 0.15s ease;
+}
+
+.VPSidebarItem.level-0 > .item .text {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vp-c-text-3);
+}
+
+.VPSidebarItem.level-1 > .item .text {
+  font-weight: 600;
+}
+
+.VPSidebarItem.level-2 > .item .text,
+.VPSidebarItem.level-3 > .item .text {
+  font-weight: 400;
+  font-size: 13px;
+}
+
 /* Sidebar Items Active Pill (Shadcn UI Standard) */
 .VPSidebarItem.level-1.is-active > .item,
 .VPSidebarItem.level-2.is-active > .item,
 .VPSidebarItem.level-3.is-active > .item {
   border-radius: 6px;
   background-color: var(--vp-c-bg-soft);
+  position: relative;
+}
+
+.VPSidebarItem.level-2.is-active > .item::before,
+.VPSidebarItem.level-3.is-active > .item::before {
+  content: '';
+  position: absolute;
+  left: -11px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background-color: var(--vp-c-brand-1);
+  border-radius: 2px;
 }
 
 .VPSidebarItem.is-active > .item .link > .text {
@@ -533,7 +636,7 @@ kbd {
 }
 
 /* =========================================================
-   4. Hero Isometric Turntable Container (21st.dev Standard)
+   4. Hero Isometric Elevator Container (21st.dev Standard)
    ========================================================= */
 
 .VPHero .image {
@@ -562,16 +665,5 @@ kbd {
     margin: 28px auto 0 auto !important;
     max-width: 440px !important;
   }
-}
-
-/* Hide the bottom arrow pointer under the circular turntable platter */
-.hairline-turntable-figure svg > g > path:nth-of-type(3),
-.hairline-turntable-figure svg path[d*="L200 "],
-.hairline-turntable-figure svg path[d*="L 200 "],
-.hairline-turntable-figure svg path[d^="M196"],
-.hairline-turntable-figure svg path[d^="M 196"] {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
 }
 

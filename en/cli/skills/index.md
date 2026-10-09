@@ -1,8 +1,12 @@
-# AI Agent & Copilot Integration (Model Context Protocol)
+# AI Agent & MCP Protocol Gateway
 
-Autonomous AI agents (Google Antigravity, Claude Code, Cursor, OpenAI Operator) are increasingly tasked with end-to-end web workflows: automated registration, market intelligence extraction, form submission, and cross-platform verification. When these agents execute standard headless browsers, they hit anti-bot walls within seconds.
+Autonomous coding agents like Claude Code, Cursor, and Google Antigravity excel at code generation, but when tasked with live web execution, they rely on naive headless browsers that trigger Cloudflare Turnstile and Akamai instantly.
 
-**Specter** is engineered from the ground up for the agentic era, implementing a native **Model Context Protocol (MCP)** JSON-RPC 2.0 stdio server that equips AI agents with enterprise antidetect browser capabilities.
+**AI Agent & MCP Protocol Gateway** equips autonomous agents with stealth combat tools via the open Model Context Protocol (MCP) over JSON-RPC 2.0 stdio. Standalone MCP server or launched via `specter mcp`. Agents inspect browser profiles, dispatch stealth CDP scrapers, generate mathematically valid personas, and monitor VPS node health without needing raw shell privileges.
+
+::: tip Standalone Microservice
+Run `specter mcp` or pipe the JSON-RPC stream directly into any MCP client. AI agents get direct programmatic control over profiles, proxies, and scrapers without root or elevated bash access.
+:::
 
 ---
 

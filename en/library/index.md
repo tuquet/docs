@@ -3,14 +3,14 @@ title: Tuquet Component Library
 description: Production-grade Vue 3 components, high-density data tables, and export utilities.
 ---
 
-# 📚 Tuquet Library (`tuquet/lib`)
+# Tuquet Library (`tuquet/lib`)
 
 > **Enterprise Vue 3 Component System, High-Density Data Tables & Automation Primitives**  
 > Battle-tested UI primitives built on Shadcn-Vue, Radix Vue, and TanStack Table.
 
 ---
 
-## 📦 Packages in Monorepo
+## Packages in Monorepo
 
 | Package | Directory | Description |
 | :--- | :--- | :--- |
@@ -22,7 +22,7 @@ description: Production-grade Vue 3 components, high-density data tables, and ex
 
 ---
 
-## 🎨 Interactive Storybook Lab
+## Interactive Storybook Lab
 
 Explore the component library live:  
-👉 **[`https://storybook.tuquet.com`](https://storybook.tuquet.com)**
+**[`https://storybook.tuquet.com`](https://storybook.tuquet.com)**

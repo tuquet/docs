@@ -16,13 +16,14 @@ docs/
 │   │   ├── components/  # Vue components (HeroShowcase, ProofStrip, SpecterCaps, BackgroundGlow, SiteFooter)
 │   │   └── style.css    # Design system tokens and component styles
 │   └── config.mts       # Navigation, sidebar, and build-time macro pre-processor
-├── start/               # Quickstart, installation, first-profile, diagnostics
-├── commands/            # Comprehensive 68 CLI commands reference
-├── features/            # Antidetect fingerprint masking, profiles, Bézier mouse curves, personas
-├── automation/          # CLI automation, headless stealth, native CDP, AI copilot (MCP)
-├── proxy/               # Proxy setup (SOCKS5/HTTP), WebRTC leak shield, multi-VPS mesh bridge
-├── solutions/           # Use cases (Affiliate, E-commerce, Scraping, SMM, Crypto)
-├── mmo/                 # Operational runbooks (VCC, Proxy isolation, Domain, VPS, Catch-all email, Glossary)
+├── en/
+│   ├── browser/         # Stealth Chromium runtime, hardware spoofing, Bézier physics
+│   ├── automa/          # DAG automation engine, headless mode, pure-Rust CDP
+│   ├── bridge/          # SOCKS5/HTTP tunnel supervisor, multi-VPS mesh, WebRTC shield
+│   ├── runner/          # Bare-metal workstation daemon, OS job objects, zero-zombie process tree
+│   ├── cloud/           # Multi-tenant RBAC control hub, PostgreSQL 15+ RLS, lease locks
+│   └── cli/             # Unified combat binary, 68 commands catalog, faker, MCP skills
+│       └── playbooks/   # Combat playbooks (Affiliate, E-commerce, Scraping, SMM, Crypto)
 └── index.md             # Landing page with interactive terminal showcase
 ```
 

@@ -1,8 +1,12 @@
-# Supabase Cloud Fleet & Multi-Tenant Control Plane
+# Cloud Center & Multi-Tenant RBAC Hub
 
-Managing large fleets of antidetect browser profiles across multiple physical workstations, virtual private servers (VPS), and remote team members introduces severe operational risks: profile cookie overwrites, race conditions, and credentials leakage.
+Decentralized automation without a central control hub devolves into chaos: team members overwrite each other's cookies, rogue scrapers collide on identical accounts, and sensitive credentials leak across machines.
 
-**Specter Cloud** is an enterprise-grade multi-tenant synchronization and fleet management control plane powered by the [`tuquet-cloud`](https://github.com/tuquet/cloud) microservice, built upon **Supabase** and **PostgreSQL 15+** with strict Row-Level Security (RLS).
+**Cloud Center** is the central multi-tenant operation and security plane powered by [`tuquet-cloud`](https://github.com/tuquet/cloud). Built on PostgreSQL 15+ with strict Row-Level Security (RLS) and JWT claim-based RBAC, it centralizes profile vaults, device enrollments, and distributed lease locks. Workstation nodes check out profiles via atomic tokens (`acquire`/`release`), ensuring zero account collisions and total tenant isolation.
+
+::: tip Standalone Cloud Operation
+`tuquet-cloud` deploys independently against any cloud PostgreSQL 15+ database cluster. It provides complete multi-tenant boundaries and encrypted profile synchronization across your entire distributed workstation fleet.
+:::
 
 <HairlineFigure name="vault" />
 
@@ -14,7 +18,7 @@ Every database table, browser profile record, and telemetry metric in Specter Cl
 
 ```text
  ┌─────────────────────────────────────────────────────────────┐
- │                SUPABASE POSTGRESQL 15+ ENGINE               │
+ │                CLOUD CENTER POSTGRESQL 15+ ENGINE           │
  │                                                             │
  │   ┌───────────────────────┐       ┌───────────────────────┐ │
  │   │  Tenant Organization  │       │  Tenant Organization  │ │
@@ -66,7 +70,7 @@ CREATE TABLE IF NOT EXISTS runners.browsers (
     custom_proxy TEXT,
     webrtc_mode VARCHAR(32) NOT NULL DEFAULT 'proxy_shielded',
 
-    -- Session Snapshot & Supabase Storage Synchronisation (.zip / .tar.zst)
+    -- Session Snapshot & Encrypted Object Storage Synchronisation (.zip / .tar.zst)
     storage_path TEXT,
     storage_size_bytes BIGINT NOT NULL DEFAULT 0,
     storage_hash VARCHAR(64),

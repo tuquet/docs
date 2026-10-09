@@ -186,7 +186,7 @@ function copyCode(text: string) {
           </div>
           <div class="log-row success">
             <span class="log-prefix">[lease]</span>
-            <span class="log-msg">Cloud Supabase lease heartbeat sent (worker node-vps-frankfurt)</span>
+            <span class="log-msg">Cloud Center lease heartbeat sent (worker node-vps-frankfurt)</span>
           </div>
           <div class="log-row highlight">
             <span class="log-prefix">[done]</span>
