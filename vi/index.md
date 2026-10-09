@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: "Tứ Quét Lab Room"
+  name: "Lab Room"
   text: "Nơi thử nghiệm các công cụ tự động hóa phân tán, mã nguồn mở và hạ tầng tàng hình."
-  tagline: "Bước vào hệ sinh thái của Tứ Quét thì đừng ngại bẩn tay với code. Chọn stack bạn cần bên dưới, đọc tài liệu rồi bắt đầu giải mã hệ thống."
+  tagline: "Đã bước vào lab thì đừng ngại bẩn tay với code. Chọn stack bạn cần bên dưới, đọc tài liệu rồi bắt đầu giải mã hệ thống."
   actions:
     - theme: brand
       text: Khám Phá Tài Liệu →

@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: "Tu Quet Lab Room"
+  name: "Lab Room"
   text: "Proving ground for distributed automation, open-source tooling, and stealth infrastructure."
-  tagline: "Step into the Tu Quet ecosystem and don't be afraid to get your hands dirty with code. Pick your stack below, read the docs, and start hacking the system."
+  tagline: "Once inside the lab, don't be afraid to get your hands dirty with code. Pick your stack below, read the docs, and start hacking the system."
   actions:
     - theme: brand
       text: Explore Documentation →

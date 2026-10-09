@@ -162,11 +162,34 @@ export default defineConfig({
         logo: '/logo.svg',
 
         nav: [
-          { text: 'Tu Quet Home', link: 'https://tuquet.com' },
           productsDropdownEn,
-          { text: 'Specter Docs', link: '/en/specter/start/quickstart', activeMatch: '/en/specter/(start|browser|runner|automa|bridge|faker|cloud|skills|solutions)/' },
-          { text: 'CLI (68)', link: '/en/specter/commands/', activeMatch: '/en/specter/commands/' },
-          { text: 'Runbooks', link: '/en/specter/mmo/README', activeMatch: '/en/specter/mmo/' },
+          {
+            text: 'Specter Suite',
+            items: [
+              { text: '⚡ Quickstart (15s)', link: '/en/specter/start/quickstart' },
+              { text: '🌐 Stealth Browser', link: '/en/specter/browser/' },
+              { text: '⚙️ Native Process Runner', link: '/en/specter/runner/' },
+              { text: '🔄 Automa Workflow DAG', link: '/en/specter/automa/' },
+              { text: '🛡️ Bridge Mesh & SOCKS5', link: '/en/specter/bridge/' },
+              { text: '☁️ Supabase Cloud Fleet', link: '/en/specter/cloud/' },
+              { text: '🎭 Personas & Faker', link: '/en/specter/faker/' },
+              { text: '🤖 AI Agent & MCP', link: '/en/specter/skills/' },
+            ],
+            activeMatch: '/en/specter/(start|browser|runner|automa|bridge|faker|cloud|skills|solutions)/',
+          },
+          {
+            text: 'Reference & SOP',
+            items: [
+              { text: '💻 68 CLI Commands Catalog', link: '/en/specter/commands/' },
+              { text: '📋 MMO Operational Runbooks (SOP)', link: '/en/specter/mmo/README' },
+              { text: '🔬 Interactive Figures (30)', link: '/en/specter/figures/' },
+              { text: '🩺 System Diagnostics (Doctor)', link: '/en/specter/start/diagnostics' },
+              { text: '📖 Technical Glossary', link: '/en/specter/mmo/06-glossary-terminology' },
+            ],
+            activeMatch: '/en/specter/(commands|mmo|figures)/',
+          },
+          { text: 'Yak Map', link: '/en/yak-map/', activeMatch: '/en/yak-map/' },
+          { text: 'Ecosystem ↗', link: 'https://tuquet.com' },
         ],
 
         sidebar: {
@@ -202,11 +225,35 @@ export default defineConfig({
         logo: '/logo.svg',
 
         nav: [
-          { text: 'Trang Chủ Tu Quet', link: 'https://tuquet.com' },
           productsDropdownVi,
-          { text: 'Tài Liệu Specter', link: '/vi/specter/' },
-          { text: 'Tra Cứu Lệnh CLI', link: '/en/specter/commands/' },
-          { text: 'Cẩm Nang Vận Hành', link: '/en/specter/mmo/README' },
+          {
+            text: 'Nền Tảng Specter',
+            items: [
+              { text: '⚡ Bắt Đầu Nhanh (15s)', link: '/en/specter/start/quickstart' },
+              { text: '📖 Tổng Quan Nền Tảng (VI)', link: '/vi/specter/' },
+              { text: '🌐 Trình Duyệt Stealth Chromium', link: '/en/specter/browser/' },
+              { text: '⚙️ Giám Sát Tiến Trình Runner', link: '/en/specter/runner/' },
+              { text: '🔄 Tự Động Hóa Kịch Bản Automa', link: '/en/specter/automa/' },
+              { text: '🛡️ Mạng Lưới Tunnel Bridge', link: '/en/specter/bridge/' },
+              { text: '☁️ Đồng Bộ Hạm Đội Cloud', link: '/en/specter/cloud/' },
+              { text: '🎭 Giả Lập Định Danh Faker', link: '/en/specter/faker/' },
+              { text: '🤖 Giao Thức AI Agent (MCP)', link: '/en/specter/skills/' },
+            ],
+            activeMatch: '/(vi/specter|en/specter/(start|browser|runner|automa|bridge|faker|cloud|skills|solutions))/',
+          },
+          {
+            text: 'Tra Cứu & SOP',
+            items: [
+              { text: '💻 Tra Cứu 68 Lệnh CLI', link: '/en/specter/commands/' },
+              { text: '📋 Cẩm Nang Vận Hành MMO (SOP)', link: '/en/specter/mmo/README' },
+              { text: '🔬 30 Sơ Đồ Động (Figures)', link: '/en/specter/figures/' },
+              { text: '🩺 Chẩn Đoán Lỗi (Doctor)', link: '/en/specter/start/diagnostics' },
+              { text: '📖 Thuật Ngữ Kỹ Thuật', link: '/en/specter/mmo/06-glossary-terminology' },
+            ],
+            activeMatch: '/en/specter/(commands|mmo|figures)/',
+          },
+          { text: 'Bản Đồ Yak Map', link: '/vi/yak-map/', activeMatch: '/vi/yak-map/' },
+          { text: 'Hệ Sinh Thái ↗', link: 'https://tuquet.com' },
         ],
 
         sidebar: {
