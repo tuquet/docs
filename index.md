@@ -45,7 +45,7 @@ scoop install specter
 ```
 
 ```bash [Rust Cargo (Source)]
-cargo install --git https://github.com/tuquet/tuquet specter
+cargo install --git https://github.com/tuquet/cli specter
 ```
 
 :::
