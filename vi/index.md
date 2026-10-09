@@ -2,35 +2,40 @@
 layout: home
 
 hero:
-  name: "Specter CLI"
-  text: "Hạ tầng điều khiển Chromium tàng hình & Tự động hóa phân tán"
-  tagline: "Bản dịch Tiếng Việt đang được cập nhật. Toàn bộ tài liệu kỹ thuật chuẩn xác hiện được duy trì bằng Tiếng Anh (English - Mặc định) trên hệ sinh thái Tuquet."
+  name: "Cổng Tài Liệu Tu Quet"
+  text: "Hạ tầng tự động hóa, công cụ lập trình & giải pháp mã nguồn mở."
+  tagline: "Tổng hợp toàn bộ tài liệu kỹ thuật, hướng dẫn cài đặt, đặc tả kiến trúc và cẩm nang vận hành cho toàn bộ các phần mềm trong hệ sinh thái Tu Quet."
   actions:
     - theme: brand
-      text: Xem Tài Liệu Tiếng Anh (Default) →
-      link: "/"
+      text: Khám Phá Nền Tảng Specter →
+      link: "/vi/specter/"
     - theme: alt
-      text: Tra cứu 68 Lệnh CLI
-      link: "/commands/"
+      text: English Documentation Hub
+      link: "/en/"
+
+features:
+  - icon: 👻
+    title: Nền Tảng Specter
+    details: Trình duyệt ẩn danh Chromium C++, giám sát tiến trình hạt nhân Win32 Job Object, đồ thị DAG Automa và mạng lưới Proxy Mesh.
+    link: /vi/specter/
+  - icon: 🤖
+    title: Telegram ChatOps
+    details: Giám sát máy chủ 24/7, tự động gửi cảnh báo sự cố và kích hoạt lệnh qua phòng chat Telegram.
+    link: /vi/chatops/
+  - icon: 📦
+    title: Cổng Lưu Trữ Storage Hub
+    details: Lưu trữ tệp tĩnh và ảnh tự động hóa không tốn phí băng thông với Cloudflare Pages, D1, R2 và WebDAV.
+    link: /vi/storage/
+  - icon: 🗺️
+    title: Bản Đồ Hệ Sinh Thái Yak Map
+    details: Đồ thị tương tác trực quan hóa các mối liên kết và luồng truyền dữ liệu giữa các repository.
+    link: /vi/yak-map/
+  - icon: 📚
+    title: Thư Viện Giao Diện UI Library
+    details: Bộ linh kiện giao diện Vue 3 chuẩn doanh nghiệp, bảng dữ liệu mật độ cao và công cụ xuất bản tài liệu.
+    link: /vi/library/
+  - icon: ⚡
+    title: Tăng Tốc Claude-Agy
+    details: Khởi chạy Anthropic Claude Code qua hạn ngạch Google Antigravity miễn phí.
+    link: /vi/claude-agy/
 ---
-
-<div class="main-content-wrapper">
-
-## Thông Báo Về Tài Liệu Tiếng Việt
-
-> [!NOTE] Tài Liệu Mặc Định
-> Toàn bộ tài liệu kỹ thuật, kiến trúc microservices và hướng dẫn vận hành của dự án hiện được duy trì chính thức bằng **Tiếng Anh (English - Mặc định)** tại [Trang chủ tài liệu](/) để đảm bảo tính chuẩn xác và cập nhật liên tục với mã nguồn.
-> Bản dịch Tiếng Việt chi tiết sẽ được bổ sung dần theo kế hoạch phát triển.
-
-### Liên Kết Nhanh Đến Tài Liệu Chính Thức
-
-- **[Khởi Đầu Nhanh (Getting Started)](/start/quickstart)**: Hướng dẫn cài đặt và thiết lập profile trong 15 giây.
-- **[Tra Cứu 68 Lệnh CLI (Commands Reference)](/commands/)**: Toàn bộ tham số và cờ lệnh điều khiển hệ sinh thái.
-- **[Trình Duyệt Chuyên Dụng (Dedicated Browser Runtime)](/browser/)**: Nhân Chromium C++ Antidetect và cơ chế cô lập profile sandbox.
-- **[Tự Động Hóa Kịch Bản (Automa Engine)](/automa/)**: Bộ biên dịch DAG đồ thị và CDP driver thuần Rust.
-- **[Mạng Lưới Đường Hầm (Bridge Mesh)](/bridge/)**: Điều hướng proxy SOCKS5, HTTP adapter và SSH port forwarding.
-- **[Giám Sát Tiến Trình Kernel (Runner Supervisor)](/runner/)**: Cơ chế Win32 Job Object loại bỏ triệt để tiến trình rác (Zero Zombie).
-- **[Hạm Đội Đám Mây (Supabase Cloud Fleet)](/cloud/)**: Đồng bộ đa máy trạm qua PostgreSQL 15+ với cơ chế khóa mượn profile độc quyền.
-- **[Cẩm Nang Vận Hành Nội Bộ (MMO SOP Runbook)](/mmo/README)**: 6 bộ cẩm nang chi tiết về thẻ ảo, proxy dân cư, DNS Cloudflare và an toàn danh tính.
-
-</div>

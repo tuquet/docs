@@ -40,10 +40,10 @@ const { hasSidebar } = useSidebar()
         <div class="nav-col">
           <div class="nav-heading">CORE TECHNOLOGY</div>
           <ul class="nav-list">
-            <li><a :href="withBase('/browser/')">Dedicated Browser Runtime</a></li>
-            <li><a :href="withBase('/browser/fingerprinting')">Fingerprint Masking</a></li>
-            <li><a :href="withBase('/browser/human-behavior')">Bézier Mouse Dynamics</a></li>
-            <li><a :href="withBase('/faker/')">Faker CCCD Generator</a></li>
+            <li><a :href="withBase('/en/specter/browser/')">Dedicated Browser Runtime</a></li>
+            <li><a :href="withBase('/en/specter/browser/fingerprinting')">Fingerprint Masking</a></li>
+            <li><a :href="withBase('/en/specter/browser/human-behavior')">Bézier Mouse Dynamics</a></li>
+            <li><a :href="withBase('/en/specter/faker/')">Faker CCCD Generator</a></li>
           </ul>
         </div>
 
@@ -51,10 +51,10 @@ const { hasSidebar } = useSidebar()
         <div class="nav-col">
           <div class="nav-heading">DOCUMENTATION &amp; CLI</div>
           <ul class="nav-list">
-            <li><a :href="withBase('/start/quickstart')">Quickstart (15s)</a></li>
-            <li><a :href="withBase('/commands/')">68 CLI Commands</a></li>
-            <li><a :href="withBase('/start/installation')">Installation Guide</a></li>
-            <li><a :href="withBase('/start/diagnostics')">Diagnostics (Doctor)</a></li>
+            <li><a :href="withBase('/en/specter/start/quickstart')">Quickstart (15s)</a></li>
+            <li><a :href="withBase('/en/specter/commands/')">68 CLI Commands</a></li>
+            <li><a :href="withBase('/en/specter/start/installation')">Installation Guide</a></li>
+            <li><a :href="withBase('/en/specter/start/diagnostics')">Diagnostics (Doctor)</a></li>
           </ul>
         </div>
 
@@ -62,10 +62,10 @@ const { hasSidebar } = useSidebar()
         <div class="nav-col">
           <div class="nav-heading">AUTOMATION &amp; AI</div>
           <ul class="nav-list">
-            <li><a :href="withBase('/automa/')">Automa Workflow DAG</a></li>
-            <li><a :href="withBase('/runner/')">Runner Kernel Supervisor</a></li>
-            <li><a :href="withBase('/automa/cdp')">Native Pure Rust CDP</a></li>
-            <li><a :href="withBase('/skills/')">Model Context Protocol (MCP)</a></li>
+            <li><a :href="withBase('/en/specter/automa/')">Automa Workflow DAG</a></li>
+            <li><a :href="withBase('/en/specter/runner/')">Runner Kernel Supervisor</a></li>
+            <li><a :href="withBase('/en/specter/automa/cdp')">Native Pure Rust CDP</a></li>
+            <li><a :href="withBase('/en/specter/skills/')">Model Context Protocol (MCP)</a></li>
           </ul>
         </div>
 
@@ -73,10 +73,10 @@ const { hasSidebar } = useSidebar()
         <div class="nav-col">
           <div class="nav-heading">SOLUTIONS &amp; RUNBOOKS</div>
           <ul class="nav-list">
-            <li><a :href="withBase('/bridge/')">Bridge Mesh &amp; SOCKS5</a></li>
-            <li><a :href="withBase('/cloud/')">Supabase Cloud Fleet</a></li>
-            <li><a :href="withBase('/mmo/README')">Operational Runbooks (SOP)</a></li>
-            <li><a :href="withBase('/mmo/06-glossary-terminology')">Technical Glossary</a></li>
+            <li><a :href="withBase('/en/specter/bridge/')">Bridge Mesh &amp; SOCKS5</a></li>
+            <li><a :href="withBase('/en/specter/cloud/')">Supabase Cloud Fleet</a></li>
+            <li><a :href="withBase('/en/specter/mmo/README')">Operational Runbooks (SOP)</a></li>
+            <li><a :href="withBase('/en/specter/mmo/06-glossary-terminology')">Technical Glossary</a></li>
           </ul>
         </div>
       </div>
@@ -95,7 +95,7 @@ const { hasSidebar } = useSidebar()
             <ExternalLink :size="10" aria-hidden="true" />
           </a>
           <span class="link-sep">&bull;</span>
-          <a :href="withBase('/commands/')">CLI Commands Catalog</a>
+          <a :href="withBase('/en/specter/commands/')">CLI Commands Catalog</a>
           <span class="link-sep">&bull;</span>
           <a href="https://tuquet.com/schema/cli.manifest.json" target="_blank" rel="noopener" class="ext-link">
             Raw Manifest (JSON)

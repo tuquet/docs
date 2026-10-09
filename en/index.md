@@ -4,19 +4,19 @@ layout: home
 hero:
   name: "Tu Quet Documentation Hub"
   text: "Open-source developer tools, distributed automation, and stealth infrastructure."
-  tagline: "Central documentation gateway across all software products in the Tu Quet ecosystem. Select your preferred language or jump straight into a platform below."
+  tagline: "Comprehensive documentation, API references, architecture guides, and operational runbooks across the Tu Quet software ecosystem."
   actions:
     - theme: brand
-      text: Explore Specter Docs →
+      text: Explore Specter Platform →
       link: "/en/specter/"
     - theme: alt
-      text: Xem Bằng Tiếng Việt →
+      text: Tra cứu Tiếng Việt
       link: "/vi/"
 
 features:
   - icon: 👻
     title: Specter Platform
-    details: Stealth Chromium orchestration, Win32 Job Object supervisor, DAG workflow automation, and multi-VPS network mesh.
+    details: Local-first stealth Chromium orchestration, DAG automation workflows, kernel-level process supervision, and multi-VPS network mesh.
     link: /en/specter/
   - icon: 🤖
     title: Telegram ChatOps
@@ -39,18 +39,3 @@ features:
     details: Anthropic Claude Code CLI accelerated by Google Antigravity developer quotas with zero individual API costs.
     link: /en/claude-agy/
 ---
-
-<div class="main-content-wrapper text-center" style="padding-top: 2rem;">
-
-## 🌐 Choose Your Language / Chọn Ngôn Ngữ
-
-<div style="display: flex; gap: 1.5rem; justify-content: center; margin: 2rem 0; flex-wrap: wrap;">
-  <a href="/en/" class="action-button brand" style="padding: 0.75rem 1.75rem; border-radius: 9999px; background: #2563eb; color: #fff; text-decoration: none; font-weight: 600;">
-    🇺🇸 English Documentation Hub (/en/)
-  </a>
-  <a href="/vi/" class="action-button alt" style="padding: 0.75rem 1.75rem; border-radius: 9999px; background: #334155; color: #fff; text-decoration: none; font-weight: 600;">
-    🇻🇳 Cổng Tài Liệu Tiếng Việt (/vi/)
-  </a>
-</div>
-
-</div>
