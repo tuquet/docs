@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import { withBase } from 'vitepress'
+import { computed } from 'vue'
+import { withBase, useData } from 'vitepress'
 import { useSidebar } from 'vitepress/theme'
-import { ShieldCheck, ExternalLink } from 'lucide-vue-next'
+import { ShieldCheck, ExternalLink, Globe } from 'lucide-vue-next'
 
 const { hasSidebar } = useSidebar()
+const { lang, page } = useData()
+
+const isVi = computed(() => {
+  return (
+    lang.value === 'vi-VN' ||
+    (page.value?.relativePath && page.value.relativePath.startsWith('vi'))
+  )
+})
 </script>
 
 <template>
@@ -14,69 +23,129 @@ const { hasSidebar } = useSidebar()
       <!-- Brand & Mission Column -->
       <div class="footer-brand-col">
         <div class="brand-title-row">
-          <div class="brand-symbol">S</div>
-          <span class="brand-name">Specter CLI</span>
+          <div class="brand-symbol">TQ</div>
+          <span class="brand-name">{{ isVi ? 'Tài Liệu Tu Quet' : 'Tu Quet Docs' }}</span>
         </div>
         <p class="brand-tagline">
-          Local-first stealth Chromium orchestration and distributed automation engine. 100% Free &amp; Open-Source for data engineers and automation teams.
+          {{
+            isVi
+              ? 'Cổng tài liệu kỹ thuật tập trung và hướng dẫn phát triển cho hệ sinh thái phần mềm mã nguồn mở Tu Quet, tự động hóa Specter và công cụ lập trình.'
+              : 'Central documentation portal and developer guides across the Tu Quet open-source ecosystem, Specter stealth automation, and developer tooling.'
+          }}
         </p>
 
         <!-- Live Operational Health Chip -->
         <div class="health-chip">
           <ShieldCheck :size="12" class="text-green" aria-hidden="true" />
-          <span class="health-text">100% Local-First · Zero Telemetry</span>
+          <span class="health-text">
+            {{ isVi ? '100% Mã Nguồn Mở · Không Thu Thập Dữ Liệu' : '100% Free & Open-Source · Zero Telemetry' }}
+          </span>
         </div>
 
-        <!-- Canonical SSOT Root Badge -->
-        <div class="ssot-root-badge">
-          <span class="badge-label">CANONICAL SSOT:</span>
-          <code class="badge-code">~/.specter/</code>
-        </div>
+        <!-- Ecosystem Home Portal Link -->
+        <a href="https://tuquet.com" target="_blank" rel="noopener" class="home-chip">
+          <Globe :size="12" aria-hidden="true" />
+          <span>{{ isVi ? 'Trang chủ hệ sinh thái tuquet.com' : 'Ecosystem portal tuquet.com' }}</span>
+          <ExternalLink :size="10" aria-hidden="true" />
+        </a>
       </div>
 
       <!-- Navigation Columns -->
       <div class="footer-nav-grid">
-        <!-- Col 1: Core Features -->
+        <!-- Col 1: Ecosystem Products -->
         <div class="nav-col">
-          <div class="nav-heading">CORE TECHNOLOGY</div>
+          <div class="nav-heading">{{ isVi ? 'SẢN PHẨM HỆ SINH THÁI' : 'ECOSYSTEM PRODUCTS' }}</div>
           <ul class="nav-list">
-            <li><a :href="withBase('/en/specter/browser/')">Dedicated Browser Runtime</a></li>
+            <li>
+              <a :href="withBase(isVi ? '/vi/specter/' : '/en/specter/')">👻 Specter Platform</a>
+            </li>
+            <li>
+              <a :href="withBase(isVi ? '/vi/chatops/' : '/en/chatops/')">🤖 Telegram ChatOps</a>
+            </li>
+            <li>
+              <a :href="withBase(isVi ? '/vi/storage/' : '/en/storage/')">📦 Tuquet Storage Hub</a>
+            </li>
+            <li>
+              <a :href="withBase(isVi ? '/vi/yak-map/' : '/en/yak-map/')">🗺️ Yak Map Graph</a>
+            </li>
+            <li>
+              <a :href="withBase(isVi ? '/vi/library/' : '/en/library/')">📚 Tuquet UI Library</a>
+            </li>
+            <li>
+              <a :href="withBase(isVi ? '/vi/claude-agy/' : '/en/claude-agy/')">⚡ Claude-Agy Accelerator</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 2: Specter Platform Automation -->
+        <div class="nav-col">
+          <div class="nav-heading">{{ isVi ? 'TỰ ĐỘNG HÓA SPECTER' : 'SPECTER AUTOMATION' }}</div>
+          <ul class="nav-list">
+            <li><a :href="withBase('/en/specter/browser/')">Stealth Chromium Runtime</a></li>
             <li><a :href="withBase('/en/specter/browser/fingerprinting')">Fingerprint Masking</a></li>
-            <li><a :href="withBase('/en/specter/browser/human-behavior')">Bézier Mouse Dynamics</a></li>
-            <li><a :href="withBase('/en/specter/faker/')">Faker CCCD Generator</a></li>
-          </ul>
-        </div>
-
-        <!-- Col 2: Docs & CLI -->
-        <div class="nav-col">
-          <div class="nav-heading">DOCUMENTATION &amp; CLI</div>
-          <ul class="nav-list">
-            <li><a :href="withBase('/en/specter/start/quickstart')">Quickstart (15s)</a></li>
-            <li><a :href="withBase('/en/specter/commands/')">68 CLI Commands</a></li>
-            <li><a :href="withBase('/en/specter/start/installation')">Installation Guide</a></li>
-            <li><a :href="withBase('/en/specter/start/diagnostics')">Diagnostics (Doctor)</a></li>
-          </ul>
-        </div>
-
-        <!-- Col 3: Automation & MCP -->
-        <div class="nav-col">
-          <div class="nav-heading">AUTOMATION &amp; AI</div>
-          <ul class="nav-list">
             <li><a :href="withBase('/en/specter/automa/')">Automa Workflow DAG</a></li>
-            <li><a :href="withBase('/en/specter/runner/')">Runner Process Supervisor</a></li>
-            <li><a :href="withBase('/en/specter/automa/cdp')">Native Pure Rust CDP</a></li>
+            <li><a :href="withBase('/en/specter/runner/')">Native Process Supervisor</a></li>
+            <li><a :href="withBase('/en/specter/bridge/')">Bridge Multi-VPS Mesh</a></li>
             <li><a :href="withBase('/en/specter/skills/')">Model Context Protocol (MCP)</a></li>
           </ul>
         </div>
 
-        <!-- Col 4: Network & Solutions -->
+        <!-- Col 3: Reference & Guides -->
         <div class="nav-col">
-          <div class="nav-heading">SOLUTIONS &amp; RUNBOOKS</div>
+          <div class="nav-heading">{{ isVi ? 'HƯỚNG DẪN & TRA CỨU' : 'GUIDES & REFERENCE' }}</div>
           <ul class="nav-list">
-            <li><a :href="withBase('/en/specter/bridge/')">Bridge Mesh &amp; SOCKS5</a></li>
-            <li><a :href="withBase('/en/specter/cloud/')">Supabase Cloud Fleet</a></li>
-            <li><a :href="withBase('/en/specter/mmo/README')">Operational Runbooks (SOP)</a></li>
-            <li><a :href="withBase('/en/specter/mmo/06-glossary-terminology')">Technical Glossary</a></li>
+            <li>
+              <a :href="withBase('/en/specter/start/quickstart')">{{ isVi ? 'Bắt Đầu Nhanh (15s)' : 'Quickstart (15s)' }}</a>
+            </li>
+            <li>
+              <a :href="withBase('/en/specter/commands/')">{{ isVi ? 'Tra Cứu 68 Lệnh CLI' : '68 CLI Commands' }}</a>
+            </li>
+            <li>
+              <a :href="withBase('/en/specter/start/diagnostics')">{{ isVi ? 'Chẩn Đoán (Doctor)' : 'Diagnostics (Doctor)' }}</a>
+            </li>
+            <li>
+              <a :href="withBase('/en/specter/mmo/README')">{{ isVi ? 'Cẩm Nang Vận Hành (SOP)' : 'Operational Runbooks (SOP)' }}</a>
+            </li>
+            <li>
+              <a :href="withBase('/en/specter/mmo/06-glossary-terminology')">{{ isVi ? 'Thuật Ngữ Kỹ Thuật' : 'Technical Glossary' }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Community & Repos -->
+        <div class="nav-col">
+          <div class="nav-heading">{{ isVi ? 'CỘNG ĐỒNG & MÃ NGUỒN' : 'COMMUNITY & SOURCE' }}</div>
+          <ul class="nav-list">
+            <li>
+              <a href="https://tuquet.com" target="_blank" rel="noopener" class="ext-link">
+                {{ isVi ? 'Trang Chủ Tu Quet' : 'Tu Quet Home' }}
+                <ExternalLink :size="10" aria-hidden="true" />
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/tuquet" target="_blank" rel="noopener" class="ext-link">
+                GitHub: tuquet
+                <ExternalLink :size="10" aria-hidden="true" />
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/tuquet/scoop-bucket" target="_blank" rel="noopener" class="ext-link">
+                Scoop Package Bucket
+                <ExternalLink :size="10" aria-hidden="true" />
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/tuquet/docs" target="_blank" rel="noopener" class="ext-link">
+                Documentation Repo
+                <ExternalLink :size="10" aria-hidden="true" />
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/tuquet/cli" target="_blank" rel="noopener" class="ext-link">
+                Specter CLI Repo
+                <ExternalLink :size="10" aria-hidden="true" />
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -86,21 +155,23 @@ const { hasSidebar } = useSidebar()
     <div class="footer-bottom">
       <div class="bottom-inner">
         <p class="copyright-text">
-          &copy; 2026 Specter CLI. Engineered by Tuquet Ecosystem. 100% Free &amp; Open-Source.
+          &copy; 2026 Tu Quet Ecosystem. 100% Free &amp; Open-Source.
         </p>
 
         <div class="bottom-links">
+          <a href="https://tuquet.com" target="_blank" rel="noopener" class="ext-link">
+            tuquet.com
+            <ExternalLink :size="10" aria-hidden="true" />
+          </a>
+          <span class="link-sep">&bull;</span>
           <a href="https://github.com/tuquet" target="_blank" rel="noopener" class="ext-link">
             GitHub
             <ExternalLink :size="10" aria-hidden="true" />
           </a>
           <span class="link-sep">&bull;</span>
-          <a :href="withBase('/en/specter/commands/')">CLI Commands Catalog</a>
+          <a :href="withBase('/en/')">English</a>
           <span class="link-sep">&bull;</span>
-          <a href="https://tuquet.com/schema/cli.manifest.json" target="_blank" rel="noopener" class="ext-link">
-            Raw Manifest (JSON)
-            <ExternalLink :size="10" aria-hidden="true" />
-          </a>
+          <a :href="withBase('/vi/')">Tiếng Việt</a>
         </div>
       </div>
     </div>
@@ -150,11 +221,11 @@ const { hasSidebar } = useSidebar()
 }
 
 .footer-content {
-  max-width: 1040px;
+  max-width: 1140px;
   margin: 0 auto;
   padding: 40px 16px;
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 290px 1fr;
   gap: 36px;
 }
 
@@ -171,22 +242,23 @@ const { hasSidebar } = useSidebar()
 }
 
 .brand-symbol {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   background: var(--vp-c-bg-elv);
   border: 1px solid var(--vp-c-border);
-  color: var(--vp-c-text-1);
-  border-radius: 5px;
+  color: var(--vp-c-brand-1);
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  font-size: 13px;
+  font-size: 11px;
+  letter-spacing: -0.5px;
 }
 
 .brand-name {
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px;
   color: var(--vp-c-text-1);
   letter-spacing: -0.02em;
 }
@@ -209,11 +281,8 @@ const { hasSidebar } = useSidebar()
   width: fit-content;
 }
 
-.health-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #10b981;
+.text-green {
+  color: #10b981;
 }
 
 .health-text {
@@ -222,28 +291,25 @@ const { hasSidebar } = useSidebar()
   color: var(--vp-c-text-2);
 }
 
-.ssot-root-badge {
-  display: flex;
+.home-chip {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 11px;
-}
-
-.badge-label {
-  color: var(--vp-c-text-3);
-  font-weight: 600;
-  font-size: 9.5px;
-  letter-spacing: 0.04em;
-}
-
-.badge-code {
+  padding: 4px 8px;
   background: var(--vp-c-bg-elv);
   border: 1px solid var(--vp-c-border);
-  padding: 1px 5px;
-  border-radius: 4px;
-  color: var(--vp-c-text-1);
-  font-family: var(--vp-font-family-mono);
-  font-size: 10.5px;
+  border-radius: 5px;
+  width: fit-content;
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.home-chip:hover {
+  border-color: var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
 }
 
 .footer-nav-grid {
@@ -286,7 +352,7 @@ const { hasSidebar } = useSidebar()
 }
 
 .bottom-inner {
-  max-width: 1040px;
+  max-width: 1140px;
   margin: 0 auto;
   display: flex;
   align-items: center;
