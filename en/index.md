@@ -7,11 +7,11 @@ hero:
   tagline: "Comprehensive documentation, API references, architecture guides, and operational runbooks across the Tu Quet software ecosystem."
   actions:
     - theme: brand
-      text: Explore Specter Platform →
-      link: "/en/specter/"
+      text: Explore Documentation →
+      link: "/en/specter/start/quickstart"
     - theme: alt
-      text: Tra cứu Tiếng Việt
-      link: "/vi/"
+      text: GitHub Organization →
+      link: "https://github.com/tuquet"
 
 features:
   - icon: 👻

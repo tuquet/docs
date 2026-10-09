@@ -7,11 +7,11 @@ hero:
   tagline: "Tổng hợp toàn bộ tài liệu kỹ thuật, hướng dẫn cài đặt, đặc tả kiến trúc và cẩm nang vận hành cho toàn bộ các phần mềm trong hệ sinh thái Tu Quet."
   actions:
     - theme: brand
-      text: Khám Phá Nền Tảng Specter →
+      text: Khám Phá Tài Liệu →
       link: "/vi/specter/"
     - theme: alt
-      text: English Documentation Hub
-      link: "/en/"
+      text: Mã Nguồn GitHub →
+      link: "https://github.com/tuquet"
 
 features:
   - icon: 👻
