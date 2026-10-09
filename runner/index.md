@@ -4,6 +4,8 @@ Enterprise-scale browser automation suites frequently encounter orphan processes
 
 **Specter Runner** is an ultra-high performance universal distributed execution engine and supervisor daemon engineered natively in pure Rust, powered by the [`tuquet-runner`](https://github.com/tuquet/runner) microservice.
 
+<HairlineFigure name="cabinet" />
+
 ---
 
 ## 1. Zero-Zombie Guarantee: Win32 Job Objects & Linux Cgroups
@@ -255,7 +257,7 @@ In strict adherence to Specter's SSOT architecture, all Runner runtime configura
 
 ```json
 {
-  "$schema": "https://tuquet.github.io/schema/config/runner.schema.json",
+  "$schema": "https://tuquet.com/schema/config/runner.schema.json",
   "server_host": "127.0.0.1",
   "server_port": 8765,
   "max_concurrent_jobs": 4,

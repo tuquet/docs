@@ -4,6 +4,8 @@ Standard commercial browsers (Google Chrome, Microsoft Edge) maintain pervasive 
 
 **Specter Browser** is a specialized C++ Antidetect Chromium runtime and multi-profile sandbox subsystem powered by the [`tuquet-browser`](https://github.com/tuquet/browser) microservice. It provides deterministic hardware emulation seeds, memory-level canvas/WebGL protection, Bézier mouse trajectory spoofing, process tree group containment, and strict profile filesystem sandboxing.
 
+<HairlineFigure name="laptop" />
+
 ---
 
 ## 1. Core Architectural Pillars

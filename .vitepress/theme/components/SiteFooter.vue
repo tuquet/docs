@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { withBase } from 'vitepress'
-import { ShieldCheck, ExternalLink, Terminal } from 'lucide-vue-next'
+import { useSidebar } from 'vitepress/theme'
+import { ShieldCheck, ExternalLink } from 'lucide-vue-next'
+
+const { hasSidebar } = useSidebar()
 </script>
 
 <template>
-  <footer class="site-footer">
+  <footer class="site-footer" :class="{ 'has-sidebar': hasSidebar }">
     <div class="footer-divider"></div>
 
     <div class="footer-content">
@@ -94,7 +97,7 @@ import { ShieldCheck, ExternalLink, Terminal } from 'lucide-vue-next'
           <span class="link-sep">&bull;</span>
           <a :href="withBase('/commands/')">CLI Commands Catalog</a>
           <span class="link-sep">&bull;</span>
-          <a href="https://tuquet.github.io/schema/cli.manifest.json" target="_blank" rel="noopener" class="ext-link">
+          <a href="https://tuquet.com/schema/cli.manifest.json" target="_blank" rel="noopener" class="ext-link">
             Raw Manifest (JSON)
             <ExternalLink :size="10" aria-hidden="true" />
           </a>
@@ -112,6 +115,32 @@ import { ShieldCheck, ExternalLink, Terminal } from 'lucide-vue-next'
   z-index: 10;
   margin-top: 48px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-sizing: border-box;
+  transition: padding-left 0.25s ease, padding-right 0.25s ease;
+}
+
+@media (min-width: 960px) {
+  .site-footer.has-sidebar {
+    padding-left: var(--vp-sidebar-width);
+  }
+}
+
+@media (min-width: 1440px) {
+  .site-footer.has-sidebar {
+    padding-left: calc((100vw - var(--vp-layout-max-width)) / 2 + var(--vp-sidebar-width));
+    padding-right: calc((100vw - var(--vp-layout-max-width)) / 2);
+  }
+}
+
+@media (max-width: 1240px) {
+  .site-footer.has-sidebar .footer-content {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .site-footer.has-sidebar .footer-nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
 }
 
 .footer-divider {

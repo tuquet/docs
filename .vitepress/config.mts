@@ -1,3 +1,6 @@
+// Prevent Windows EPERM unlink error on .temp directory during VitePress build
+process.env.DEBUG = process.env.DEBUG || '1'
+
 import { defineConfig } from 'vitepress'
 import brand from './brand.config.json'
 
@@ -10,6 +13,7 @@ const docsSidebar = [
       { text: 'Installation (15s)', link: '/start/installation' },
       { text: 'Your First Profile', link: '/start/first-profile' },
       { text: 'System Diagnostics (Doctor)', link: '/start/diagnostics' },
+      { text: 'Interactive Figures (30)', link: '/figures/' },
     ],
   },
   {
@@ -103,10 +107,10 @@ export default defineConfig({
         logo: '/logo.svg',
 
         nav: [
-          { text: 'Documentation', link: '/start/quickstart', activeMatch: '/(start|browser|runner|automa|bridge|faker|cloud|skills|solutions)/' },
-          { text: 'CLI Commands (68)', link: '/commands/', activeMatch: '/commands/' },
+          { text: 'Docs', link: '/start/quickstart', activeMatch: '/(start|browser|runner|automa|bridge|faker|cloud|skills|solutions)/' },
+          { text: 'CLI', link: '/commands/', activeMatch: '/commands/' },
           {
-            text: 'Ecosystem',
+            text: 'Pillars',
             items: [
               { text: 'Browser', link: '/browser/' },
               { text: 'Runner', link: '/runner/' },
@@ -117,8 +121,8 @@ export default defineConfig({
               { text: 'Skills', link: '/skills/' },
             ],
           },
-          { text: 'Operational SOP (MMO)', link: '/mmo/README', activeMatch: '/mmo/' },
-          { text: 'GitHub', link: 'https://github.com/tuquet' },
+          { text: 'Figures (30)', link: '/figures/', activeMatch: '/figures/' },
+          { text: 'Runbooks', link: '/mmo/README', activeMatch: '/mmo/' },
         ],
 
         sidebar: {
@@ -152,6 +156,7 @@ export default defineConfig({
             },
           ],
           '/start/': docsSidebar,
+          '/figures/': docsSidebar,
           '/browser/': docsSidebar,
           '/runner/': docsSidebar,
           '/automa/': docsSidebar,
@@ -175,9 +180,9 @@ export default defineConfig({
 
         nav: [
           { text: 'Tài Liệu', link: '/start/quickstart', activeMatch: '/(start|solutions)/' },
-          { text: 'Lệnh CLI', link: '/commands/', activeMatch: '/commands/' },
+          { text: 'CLI', link: '/commands/', activeMatch: '/commands/' },
           {
-            text: 'Hệ Sinh Thái',
+            text: 'Trụ Cột',
             items: [
               { text: 'Browser', link: '/browser/' },
               { text: 'Runner', link: '/runner/' },
@@ -188,8 +193,7 @@ export default defineConfig({
               { text: 'Skills', link: '/skills/' },
             ],
           },
-          { text: 'Cẩm Nang SOP (MMO)', link: '/mmo/README', activeMatch: '/mmo/' },
-          { text: 'GitHub', link: 'https://github.com/tuquet' },
+          { text: 'Runbooks', link: '/mmo/README', activeMatch: '/mmo/' },
         ],
 
         sidebar: {

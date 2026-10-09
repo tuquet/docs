@@ -4,6 +4,8 @@ Operating high-concurrency browser automation, affiliate advertising accounts, a
 
 **Specter Bridge Mesh** enables you to orchestrate and multiplex an entire fleet of remote Virtual Private Servers (VPS) and residential proxies from a single workstation using the pure-Rust [`tuquet-bridge`](https://github.com/tuquet/cli) engine.
 
+<HairlineFigure name="patch" />
+
 ---
 
 ## 1. Mesh Topology & Port Mapping Architecture
@@ -63,7 +65,7 @@ All mesh server definitions are declared in SSOT Pillar 4 (`~/.specter/bridge/br
 
 ```json
 {
-  "$schema": "https://tuquet.github.io/schema/config/bridge.schema.json",
+  "$schema": "https://tuquet.com/schema/config/bridge.schema.json",
   "workstation": {
     "name": "WORKSTATION-MAIN",
     "default_server": "vps-us-01"

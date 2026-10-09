@@ -72,6 +72,8 @@ Specter generates organic typing cadences:
 - **Digram Frequency Modeling**: Common character combinations (such as *th*, *er*, *in*, *an*) are typed with shorter intervals than awkward key transitions.
 - **Thinking Pauses**: Introduces occasional longer pauses (300–600ms) between words or input fields to simulate human typing cadence.
 
+<HairlineFigure name="keyboard" />
+
 ---
 
 ## 4. Inertial Wheel Scrolling

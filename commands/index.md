@@ -6,7 +6,9 @@ description: Comprehensive catalog of 68 canonical commands defined in the SSOT 
 # Specter CLI Commands Reference
 
 > **Single Source of Truth (SSOT):** All 68 commands, configuration flags, and arguments below are synchronized directly from `schema/cli.manifest.json`.
-> For automated pipeline integrations: [Download Raw Schema (cli.manifest.json)](https://tuquet.github.io/schema/cli.manifest.json).
+> For automated pipeline integrations: [Download Raw Schema (cli.manifest.json)](https://tuquet.com/schema/cli.manifest.json).
+
+<HairlineFigure name="terminal" />
 
 ---
 

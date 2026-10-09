@@ -2,6 +2,8 @@
 
 Comprehensive reference catalog of operational, networking, financial, and infrastructure security terminology formatted for technical operators, media buyers, and project leads.
 
+<HairlineFigure name="loupe" />
+
 ---
 
 ## Navigation Directory

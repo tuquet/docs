@@ -6,6 +6,8 @@ Off-chain clustering algorithms detect Sybil farming rings by identifying shared
 
 **Specter** provides Web3 operators and DeFi researchers with isolated wallet environments, independent hardware fingerprints, and dedicated proxy channels.
 
+<HairlineFigure name="lockers" />
+
 ---
 
 ## 1. Anti-Sybil Protection Architecture

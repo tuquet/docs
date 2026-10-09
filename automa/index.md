@@ -4,6 +4,8 @@ Modern browser scraping, data extraction, and form-filling workflows require a b
 
 **Specter Automa** is a next-generation workflow orchestration platform powered by the [`tuquet-automa`](https://github.com/tuquet/automa) microservice. It pairs an extensible **Workflow Engine Directed Acyclic Graph (DAG)** compiler with native pure-Rust Chrome DevTools Protocol (CDP) execution, supervised by the local runner daemon and SQLite persistence layer.
 
+<HairlineFigure name="branches" />
+
 ---
 
 ## 1. Hybrid Architecture: Visual Studio & Headless Rust Engine

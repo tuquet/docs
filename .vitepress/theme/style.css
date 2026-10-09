@@ -531,3 +531,47 @@ kbd {
     border-radius: 6px;
   }
 }
+
+/* =========================================================
+   4. Hero Isometric Turntable Container (21st.dev Standard)
+   ========================================================= */
+
+.VPHero .image {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  order: 2;
+}
+
+.VPHero .image-container {
+  width: 100% !important;
+  max-width: 580px !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+}
+
+.VPHero .image-bg {
+  display: none !important;
+}
+
+@media (max-width: 960px) {
+  .VPHero .image {
+    margin: 28px auto 0 auto !important;
+    max-width: 440px !important;
+  }
+}
+
+/* Hide the bottom arrow pointer under the circular turntable platter */
+.hairline-turntable-figure svg > g > path:nth-of-type(3),
+.hairline-turntable-figure svg path[d*="L200 "],
+.hairline-turntable-figure svg path[d*="L 200 "],
+.hairline-turntable-figure svg path[d^="M196"],
+.hairline-turntable-figure svg path[d^="M 196"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+

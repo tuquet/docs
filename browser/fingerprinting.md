@@ -4,6 +4,8 @@ Modern anti-bot security systems (Cloudflare Turnstile, DataDome, Kasada, Akamai
 
 **Specter** provides comprehensive, mathematically consistent hardware and software fingerprint masking implemented directly inside the C++ Chromium engine.
 
+<HairlineFigure name="padlock" />
+
 ---
 
 ## 1. Why JavaScript Extension Shims Fail

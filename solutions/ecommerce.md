@@ -6,6 +6,8 @@ Retail platforms employ advanced device-fingerprinting and behavioral heuristics
 
 **Specter** enables e-commerce agencies and multi-store operators to scale independent storefronts with complete operational security.
 
+<HairlineFigure name="basket" />
+
 ---
 
 ## 1. Multi-Storefront Isolation Architecture

@@ -6,6 +6,8 @@ Social networks employ aggressive behavioral heuristics to detect automated or m
 
 **Specter** enables growth teams to scale social media operations safely by combining deep fingerprint masking with organic biometric human dynamics.
 
+<HairlineFigure name="phone" />
+
 ---
 
 ## 1. Social Account Protection Architecture

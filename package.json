@@ -16,5 +16,8 @@
     "onlyBuiltDependencies": [
       "esbuild"
     ]
+  },
+  "dependencies": {
+    "@lucasmarkes/hairline": "^0.3.0"
   }
 }

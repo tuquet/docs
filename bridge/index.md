@@ -4,6 +4,8 @@ Maintaining isolated network identities across hundreds of browser profiles requ
 
 **Specter Bridge** is a pure-Rust multi-server network bridge, tunnel mesh supervisor, and embedded protocol adapter powered by the [`tuquet-bridge`](https://github.com/tuquet/cli) engine. It manages local SOCKS5 tunnels, embedded HTTP translation adapters, direct SSH forwarding, and automated link healing without requiring external shell scripts.
 
+<HairlineFigure name="router" />
+
 ---
 
 ## 1. Multi-VPS Mesh & Protocol Translation Architecture
@@ -143,7 +145,7 @@ In strict adherence to Specter's SSOT architecture, all bridge configurations an
 
 ```json
 {
-  "$schema": "https://tuquet.github.io/schema/config/bridge.schema.json",
+  "$schema": "https://tuquet.com/schema/config/bridge.schema.json",
   "workstation": {
     "name": "WORKSTATION-VN",
     "default_server": "vps-us-01"

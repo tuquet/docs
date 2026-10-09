@@ -6,6 +6,8 @@ However, standard Chromium running in `--headless` or `--headless=new` mode is d
 
 **Specter** provides **True Stealth Headless Mode**, combining lightweight zero-display performance with the identical C++ hardware fingerprint masking of full desktop browser releases.
 
+<HairlineFigure name="exploded" />
+
 ---
 
 ## 1. Why Standard Headless Chromium Gets Detected

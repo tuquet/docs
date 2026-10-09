@@ -2,6 +2,8 @@
 
 Each **Specter** profile represents an isolated browser environment with its own unique digital fingerprint, cookies, cache, and optional proxy.
 
+<HairlineFigure name="terrain" />
+
 ---
 
 ## Step 1: Create a Profile

@@ -2,6 +2,8 @@
 
 **Specter** is distributed as a standalone native binary for Windows, macOS, and Linux. You do **not** need to install external runtimes, Node.js, compilers, or heavy developer dependencies.
 
+<HairlineFigure name="slow" />
+
 ---
 
 ## One-Liner Web Installer

@@ -4,6 +4,8 @@ Web Real-Time Communication (WebRTC) is an essential browser technology enabling
 
 **Specter** eliminates this vulnerability through **Kernel-Level WebRTC STUN Suppression** and remote DNS resolution built directly into the C++ Chromium engine.
 
+<HairlineFigure name="dish" />
+
 ---
 
 ## 1. Anatomy of a WebRTC IP Leak

@@ -18,4 +18,5 @@ scratch/
 node_modules/
 .vitepress/dist/
 .vitepress/cache/
+.vitepress/.temp/
 pnpm-lock.yaml

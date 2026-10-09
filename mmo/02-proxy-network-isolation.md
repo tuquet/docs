@@ -2,6 +2,8 @@
 
 Standard operating procedure for deploying clean residential proxy environments, preventing cross-profile correlation, and auditing IP reputation before executing financial transactions.
 
+<HairlineFigure name="plug" />
+
 ---
 
 ## 1. Operating Directives

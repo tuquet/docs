@@ -5,12 +5,15 @@ hero:
   name: "Specter CLI"
   text: "Run hundreds of stealth browsers. Zero lag. Zero fingerprint leaks."
   tagline: "Local-first stealth Chromium orchestration and distributed edge automation engine. 100% Free & Open-Source. Each profile is an isolated clean workstation with dedicated proxy routing and kernel-level process containment (Zero Zombie)."
+  image:
+    src: /logo.svg
+    alt: "Specter Isometric Turntable"
   actions:
     - theme: brand
       text: Install in 15s (One-Liner)
       link: "#install"
     - theme: alt
-      text: Explore 68 CLI Commands →
+      text: Explore CLI Commands →
       link: "/commands/"
 ---
 
@@ -29,11 +32,11 @@ A single command for any workstation, VPS, or CI/CD environment:
 ::: code-group
 
 ```powershell [Windows (PowerShell)]
-irm https://tuquet.github.io/install.ps1 | iex
+irm https://tuquet.com/install.ps1 | iex
 ```
 
 ```bash [Linux / VPS / macOS]
-curl -fsSL https://tuquet.github.io/install.sh | bash
+curl -fsSL https://tuquet.com/install.sh | bash
 ```
 
 ```powershell [Scoop Package Manager]

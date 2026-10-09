@@ -2,7 +2,7 @@
 
 Official documentation source for **Specter CLI** — Hạ tầng ẩn danh & Tự động hóa quy mô lớn.
 
-- **Production Portal**: [https://tuquet.github.io/docs/](https://tuquet.github.io/docs/)
+- **Production Portal**: [https://tuquet.com/docs/](https://tuquet.com/docs/)
 - **Built With**: VitePress 1.6 & Vue 3 SSG
 - **Design System**: shadcn/ui (Zinc & Slate) + Lucide Icons
 - **Single Source of Truth**: Driven by `~/.specter/` canonical specifications & `schema/cli.manifest.json`

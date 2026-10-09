@@ -4,6 +4,8 @@ Managing multi-account operations requires total data segregation. Commercial br
 
 **Specter** provides strict filesystem, memory, and network isolation through its **Isolated Browser Profile Sandbox**, managed natively by the [`tuquet-browser`](https://github.com/tuquet/browser) microservice.
 
+<HairlineFigure name="drawer" />
+
 ---
 
 ## 1. Sandbox Filesystem Isolation

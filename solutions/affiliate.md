@@ -6,6 +6,8 @@ Advertising platforms deploy sophisticated identity graph analysis: if two ad ac
 
 **Specter** provides multi-account media buyers with total profile segregation, deterministic hardware spoofing, and clean residential network routing.
 
+<HairlineFigure name="plot" />
+
 ---
 
 ## 1. Agency Protection Architecture

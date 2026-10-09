@@ -1,5 +1,5 @@
 {
-  "$schema": "https://tuquet.github.io/schema/cli.manifest.schema.json",
+  "$schema": "https://tuquet.com/schema/cli.manifest.schema.json",
   "productName": "Specter",
   "cliAlias": "specter",
   "canonicalRoot": "specter",

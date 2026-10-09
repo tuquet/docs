@@ -2,6 +2,8 @@
 
 Standard operating procedure for provisioning crypto-funded virtual private servers (VPS), enforcing zero-trust ingress, and shielding origin infrastructure behind edge reverse proxies.
 
+<HairlineFigure name="rail" />
+
 ---
 
 ## 1. Operating Directives

@@ -4,6 +4,8 @@ Automated account creation, KYC pre-flight verification, e-commerce checkout sim
 
 **Specter** includes an enterprise-grade, offline-first **Synthetic Persona & Identity Generator** powered by the native Rust crate [`tuquet-faker`](https://github.com/tuquet/faker). It produces mathematically verified, demographically weighted, and geographically cohesive test identities in sub-millisecond execution time with zero external network dependencies.
 
+<HairlineFigure name="riffle" />
+
 ---
 
 ## 1. National Citizen Identity (CCCD) Mathematical Model
@@ -234,7 +236,7 @@ All Faker settings and schema templates resolve exclusively to the canonical sto
 
 ```json
 {
-  "$schema": "https://tuquet.github.io/schema/config/faker.schema.json",
+  "$schema": "https://tuquet.com/schema/config/faker.schema.json",
   "email_domains": [
     "flowup.io.vn",
     "specter.dev",

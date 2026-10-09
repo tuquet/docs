@@ -4,6 +4,8 @@ Operating antidetect browser clusters, proxy mesh tunnels, and automated DAG wor
 
 **Specter Doctor** is a built-in automated diagnostic and self-healing engine (`specter doctor`) that verifies workstation readiness across all microservice pillars.
 
+<HairlineFigure name="query" />
+
 ---
 
 ## 1. Running Comprehensive System Diagnostics

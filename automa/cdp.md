@@ -4,6 +4,8 @@ Modern automated testing and web scraping frameworks (Playwright, Puppeteer, Sel
 
 **Specter** provides direct, native CDP DevTools integration, enabling software engineers and AI agents to attach standard automation code directly to isolated, fingerprint-protected browser profiles without modifying their existing automation test suites.
 
+<HairlineFigure name="phosphor" />
+
 ---
 
 ## 1. Dual Automation Modes: Driver vs Extension Stealth

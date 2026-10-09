@@ -4,6 +4,8 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
 
 **Specter** provides a high-throughput, undetectable web extraction engine that combines true stealth headless execution with native Chrome DevTools Protocol (CDP) and distributed worker orchestration.
 
+<HairlineFigure name="sieve" />
+
 ---
 
 ## 1. The Scraping Architecture Matrix

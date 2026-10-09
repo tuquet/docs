@@ -4,6 +4,8 @@ Managing large fleets of antidetect browser profiles across multiple physical wo
 
 **Specter Cloud** is an enterprise-grade multi-tenant synchronization and fleet management control plane powered by the [`tuquet-cloud`](https://github.com/tuquet/cloud) microservice, built upon **Supabase** and **PostgreSQL 15+** with strict Row-Level Security (RLS).
 
+<HairlineFigure name="vault" />
+
 ---
 
 ## 1. Zero-Trust Multi-Tenant Isolation with Row Level Security (RLS)
