@@ -39,8 +39,8 @@ When multiple accounts share identical hardware fingerprints or IP addresses, se
 | **Launch in Headless Mode** | `specter browser launch "Scraper" --headless` | Runs browser invisibly in background |
 | **List Profiles** | `specter browser profile list` | Inspects all local browser profiles & status |
 | **Create New Profile** | `specter browser profile create "New-Profile"` | Generates unique deterministic fingerprint & sandbox |
-| **Push Profile to Cloud** | `specter profile push <profile-id>` | Backs up profile archive to Cloudflare R2 |
-| **Pull Profile from Cloud** | `specter profile pull <profile-id>` | Restores profile archive onto current workstation |
+| **Push Profile to Cloud** | `specter browser profile push <profile-id>` | Backs up profile archive to Cloudflare R2 |
+| **Pull Profile from Cloud** | `specter browser profile pull <profile-id>` | Restores profile archive onto current workstation |
 | **Verify Fingerprint / Turnstile** | `specter browser verify --url "https://..."` | Tests bot detection score & Cloudflare Turnstile |
 | **Check Environment Health** | `specter doctor` | Scans tools, runtimes & SSOT integrity |
 | **Interactive Terminal Shell**| `specter` | Enters scoped interactive REPL environment |

@@ -54,7 +54,7 @@ When creating a profile, Specter uses a 32-bit pseudorandom seed (`--seed <u32>`
 
 ## 3. Command Reference
 
-All profile operations are exposed via `specter browser profile` (or shortcut `specter profile`):
+All profile operations are exposed via `specter browser profile`:
 
 ### Creating and Inspecting Profiles
 
