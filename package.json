@@ -1,6 +1,7 @@
 {
   "name": "@specter/docs",
   "version": "1.0.0",
+  "packageManager": "pnpm@10.5.2",
   "private": true,
   "type": "module",
   "scripts": {
