@@ -24,13 +24,13 @@ const isVi = computed(() => {
       <div class="footer-brand-col">
         <div class="brand-title-row">
           <div class="brand-symbol">TQ</div>
-          <span class="brand-name">{{ isVi ? 'Tài Liệu Tu Quet' : 'Tu Quet Docs' }}</span>
+          <span class="brand-name">{{ isVi ? 'Tài Liệu Tuquet' : 'Tuquet Docs' }}</span>
         </div>
         <p class="brand-tagline">
           {{
             isVi
-              ? 'Cổng tài liệu kỹ thuật tập trung và hướng dẫn phát triển cho hệ sinh thái phần mềm mã nguồn mở Tu Quet, tự động hóa Specter và công cụ lập trình.'
-              : 'Central documentation portal and developer guides across the Tu Quet open-source ecosystem, Specter stealth automation, and developer tooling.'
+              ? 'Cổng tài liệu kỹ thuật tập trung và hướng dẫn phát triển cho hệ sinh thái phần mềm mã nguồn mở Tuquet, tự động hóa Specter và công cụ lập trình.'
+              : 'Central documentation portal and developer guides across the Tuquet open-source ecosystem, Specter stealth automation, and developer tooling.'
           }}
         </p>
 
@@ -118,7 +118,7 @@ const isVi = computed(() => {
           <ul class="nav-list">
             <li>
               <a href="https://tuquet.com" target="_blank" rel="noopener" class="ext-link">
-                {{ isVi ? 'Trang Chủ Tu Quet' : 'Tu Quet Home' }}
+                {{ isVi ? 'Trang Chủ Tuquet' : 'Tuquet Home' }}
                 <ExternalLink :size="10" aria-hidden="true" />
               </a>
             </li>
@@ -155,7 +155,7 @@ const isVi = computed(() => {
     <div class="footer-bottom">
       <div class="bottom-inner">
         <p class="copyright-text">
-          &copy; 2026 Tu Quet Ecosystem. 100% Free &amp; Open-Source.
+          &copy; 2026 Tuquet Ecosystem. 100% Free &amp; Open-Source.
         </p>
 
         <div class="bottom-links">

@@ -168,11 +168,11 @@ export default defineConfig({
   ],
 
   lang: 'en-US',
-  title: 'Tu Quet Docs',
-  description: 'Central documentation portal across Tu Quet open-source software, Specter automation, and developer tooling.',
+  title: 'Tuquet Docs',
+  description: 'Central documentation portal across Tuquet open-source software, Specter automation, and developer tooling.',
 
   themeConfig: {
-    siteTitle: 'Tu Quet Docs',
+    siteTitle: 'Tuquet Docs',
     logo: '/logo.svg',
 
     nav: [
