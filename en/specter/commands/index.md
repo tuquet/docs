@@ -21,7 +21,7 @@ description: Comprehensive catalog of 68 canonical commands defined in the SSOT 
 | [**Stealth Browser & Profiles**](#browser) | `~/.specter/browser/` | **29** | C++ Antidetect Chromium launch, deterministic PRNG spoofing, and profile sandboxing. |
 | [**Proxy Tunnel & Network Mesh**](#bridge) | `~/.specter/bridge/` | **7** | Network tunnels, SOCKS5 routing (1080), embedded HTTP adapter (8118), and mesh supervisor. |
 | [**Faker & Synthetic Personas**](#faker) | `~/.specter/faker/` | **2** | Synthetic personas, valid 12-digit Modulo 11 CCCDs, and Vietnamese demographic profiles. |
-| [**Runner Supervisor & Daemon**](#runner) | `~/.specter/automa/` | **7** | Kernel-level Win32 Job Object & Linux cgroups supervisor. Zero orphan zombie processes. |
+| [**Runner Supervisor & Daemon**](#runner) | `~/.specter/automa/` | **7** | Native background worker supervisor daemon. Automatically reaps child processes (Zero Zombie). |
 | [**Supabase Cloud Fleet**](#cloud) | `~/.specter/system/` | **3** | Supabase fleet control plane (PostgreSQL 15+ RLS) and distributed lease locks. |
 
 ---

@@ -34,7 +34,7 @@ Modern anti-fraud scripts detect these overrides within milliseconds through:
  │              │                              │               │
  │              ▼                              ▼               │
  │   ┌─────────────────────────────────────────────────────┐   │
- │   │         Kernel-Level PRNG Hardware Seed             │   │
+ │   │          Native C++ PRNG Hardware Seed              │   │
  │   │      • Canvas RGB Buffer Modification               │   │
  │   │      • Direct WebGL Extensions Return               │   │
  │   │      • AudioBuffer DSP Micro-Decay Noise            │   │

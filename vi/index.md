@@ -16,7 +16,7 @@ hero:
 features:
   - icon: 👻
     title: Nền Tảng Specter
-    details: Trình duyệt ẩn danh Chromium C++, giám sát tiến trình hạt nhân Win32 Job Object, đồ thị DAG Automa và mạng lưới Proxy Mesh.
+    details: Ứng dụng native siêu nhẹ cho tự động hóa trình duyệt stealth, quản lý worker chạy ngầm ổn định 24/7 và hệ thống proxy đa tầng.
     link: /vi/specter/
   - icon: 🤖
     title: Telegram ChatOps

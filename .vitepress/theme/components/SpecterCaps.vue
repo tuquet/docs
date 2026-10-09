@@ -21,7 +21,7 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Specter is not an Electron bloatware hogging gigabytes of RAM. Written natively in pure Rust with Win32 Job Object and Linux cgroup supervision, processes run smoothly even on $5/mo VPS instances, atomically reaping child trees (Zero Zombie) for 24/7 uninterrupted uptime.
+            Specter is not an Electron bloatware hogging gigabytes of RAM. As an ultra-lightweight native application written in pure Rust, processes run smoothly even on $5/mo VPS instances, automatically reaping child trees (Zero Zombie) for 24/7 uninterrupted uptime.
           </p>
         </div>
         <div class="ev" aria-hidden="true">
@@ -29,17 +29,17 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
           <div class="ev-row"><span>specter-runner</span><b class="text-green"><i class="beat"></i>running (PID 4821)</b></div>
           <div class="ev-row"><span>active browsers</span><b>12 profiles · RSS 284MB</b></div>
           <div class="ev-row"><span>orphan processes</span><b class="text-green">0 zombie detected</b></div>
-          <div class="ev-note">Win32 Job Object limits enforced · Zero memory leak</div>
+          <div class="ev-note">Native process sandbox limits enforced · Zero memory leak</div>
         </div>
       </div>
 
-      <!-- 02: Kernel Stealth -->
+      <!-- 02: Native Stealth -->
       <div class="cap">
         <div class="n"><span>02</span></div>
         <div class="cap-in">
           <h3>
             <ShieldCheck :size="16" class="cap-ic" aria-hidden="true" />
-            <span>Kernel-Level Stealth. Beyond User-Agent Switching.</span>
+            <span>Native Stealth Engine. Beyond User-Agent Switching.</span>
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>

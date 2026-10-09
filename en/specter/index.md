@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Specter CLI"
   text: "Run hundreds of stealth browsers. Zero lag. Zero fingerprint leaks."
-  tagline: "Local-first stealth Chromium orchestration and distributed edge automation engine. 100% Free & Open-Source. Each profile is an isolated clean workstation with dedicated proxy routing and kernel-level process containment (Zero Zombie)."
+  tagline: "Local-first stealth Chromium orchestration and distributed edge automation engine. 100% Free & Open-Source. Each profile is an isolated clean workstation with dedicated proxy routing and native process sandbox (Zero Zombie)."
   image:
     src: /logo.svg
     alt: "Specter Isometric Turntable"

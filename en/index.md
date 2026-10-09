@@ -16,7 +16,7 @@ hero:
 features:
   - icon: 👻
     title: Specter Platform
-    details: Local-first stealth Chromium orchestration, DAG automation workflows, kernel-level process supervision, and multi-VPS network mesh.
+    details: Local-first stealth Chromium orchestration, DAG automation workflows, native process supervision (zero zombies), and multi-VPS network mesh.
     link: /en/specter/
   - icon: 🤖
     title: Telegram ChatOps

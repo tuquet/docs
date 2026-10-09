@@ -30,7 +30,7 @@ const specterDocsSidebar = [
     text: 'Runner',
     collapsed: false,
     items: [
-      { text: 'Kernel Supervisor', link: '/en/specter/runner/' },
+      { text: 'Native Process Supervisor', link: '/en/specter/runner/' },
     ],
   },
   {

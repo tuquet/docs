@@ -174,7 +174,7 @@ function copyCode(text: string) {
           </div>
           <div class="log-row success">
             <span class="log-prefix">[engine]</span>
-            <span class="log-msg">Spawning headless stealth browser instance (Win32 Job Object bound)</span>
+            <span class="log-msg">Spawning isolated headless stealth browser instance (Native process sandbox)</span>
           </div>
           <div class="log-row success">
             <span class="log-prefix">[scroll]</span>

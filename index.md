@@ -16,7 +16,7 @@ hero:
 features:
   - icon: 👻
     title: Specter Platform
-    details: Stealth Chromium orchestration, Win32 Job Object supervisor, DAG workflow automation, and multi-VPS network mesh.
+    details: Ultra-fast native stealth browser orchestration, reliable background process management (zero zombie processes), and multi-VPS network mesh.
     link: /en/specter/
   - icon: 🤖
     title: Telegram ChatOps

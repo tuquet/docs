@@ -2,7 +2,7 @@
 
 Web Real-Time Communication (WebRTC) is an essential browser technology enabling peer-to-peer audio, video, and data communication without plugins. However, WebRTC poses an existential threat to multi-account operations and antidetect browsing because it was designed to discover the fastest direct network path between peers—even when operating behind network proxies or VPNs.
 
-**Specter** eliminates this vulnerability through **Kernel-Level WebRTC STUN Suppression** and remote DNS resolution built directly into the C++ Chromium engine.
+**Specter** eliminates this vulnerability through **Native WebRTC STUN Suppression** and remote DNS resolution built directly into the C++ Chromium engine.
 
 <HairlineFigure name="dish" />
 

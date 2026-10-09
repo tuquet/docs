@@ -1,4 +1,4 @@
-# Runner Daemon & Kernel Process Supervisor
+# Runner Daemon & Native Process Supervisor
 
 Enterprise-scale browser automation suites frequently encounter orphan processes, resource exhaustion, and "zombie" browser instances that continue consuming RAM and CPU long after their parent script terminates. 
 
@@ -8,18 +8,18 @@ Enterprise-scale browser automation suites frequently encounter orphan processes
 
 ---
 
-## 1. Zero-Zombie Guarantee: Win32 Job Objects & Linux Cgroups
+## 1. Zero-Zombie Guarantee: Native Process Sandbox & Auto-Cleanup
 
-Traditional automation libraries (Playwright, Puppeteer, Selenium) spawn browser processes as child processes. If the Node.js or Python process crashes abruptly or is killed with `SIGKILL`, the browser child processes detach and become persistent zombies.
+Traditional automation libraries (Playwright, Puppeteer, Selenium) spawn browser processes as detached child processes. If the parent script crashes abruptly or is killed, child browser processes linger and become persistent zombies.
 
-Specter Runner eliminates this failure mode at the operating system kernel level using native Rust process groups (`command_group`):
+Specter Runner eliminates this failure mode natively using operating system process sandboxing (`command_group`):
 
 ```text
  ┌─────────────────────────────────────────────────────────────┐
- │            OS KERNEL PROCESS ISOLATION BOUNDARY             │
+ │             NATIVE PROCESS ISOLATION BOUNDARY               │
  │                                                             │
  │  ┌───────────────────────────────────────────────────────┐  │
- │  │        Win32 Job Object / Linux Cgroup Sandbox        │  │
+ │  │          Native Process Supervision Sandbox           │  │
  │  │                                                       │  │
  │  │   ┌──────────────────┐       ┌────────────────────┐   │  │
  │  │   │  Specter Runner  │ ────► │ Chromium (Parent)  │   │  │
@@ -31,18 +31,16 @@ Specter Runner eliminates this failure mode at the operating system kernel level
  │  │                              └────────────────────┘   │  │
  │  └───────────────────────────────────────────────────────┘  │
  │     ▲                                                       │
- │     └──── When Daemon Terminates: OS Kernel Immediately     │
- │           Kills 100% of Sub-Processes in Sandbox            │
+ │     └──── When Daemon Terminates: Native OS Sandbox         │
+ │           Cleans up 100% of Sub-Processes Automatically     │
  └─────────────────────────────────────────────────────────────┘
 ```
 
-1. **Win32 Job Objects (Windows)**:
-   - Binds the process tree to a Windows Job Object configured with `JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE`.
-   - When the Runner process handle is closed, the Windows kernel atomically terminates every child process within <0.1ms.
-2. **Cgroups & Namespaces (Linux)**:
-   - Binds child browser trees to dedicated systemd/cgroup slices and sets `prctl(PR_SET_PDEATHSIG, SIGKILL)`.
-3. **Hard Crash Resilience**:
-   - Even in power-loss or hard `kill -9` termination, the operating system kernel reclaims all RAM, file handles, and child sockets immediately.
+1. **Native Process Containment (Windows & Linux)**:
+   - Binds all spawned child browser processes and workers directly to the Runner supervisor lifecycle.
+   - When the Runner terminates or exits, the native sandbox terminates every child process within <0.1ms.
+2. **Hard Crash Resilience**:
+   - Even in sudden power-loss, kill signals, or unexpected crashes, the operating system cleans up and reclaims all RAM, file handles, and child sockets cleanly.
 
 ---
 

@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Specter CLI"
   text: "Hạ tầng điều khiển Chromium tàng hình & Tự động hóa phân tán"
-  tagline: "Bộ công cụ tự động hóa trình duyệt stealth mã nguồn mở hàng đầu. Mỗi profile là một máy trạm sạch, độc lập, cô lập tiến trình mức kernel và định tuyến proxy chuẩn mực."
+  tagline: "Bộ công cụ tự động hóa trình duyệt stealth mã nguồn mở hàng đầu. Mỗi profile là một máy trạm sạch, độc lập, cô lập tiến trình an toàn (Zero Zombie) và định tuyến proxy chuẩn mực."
   actions:
     - theme: brand
       text: Tài Liệu Kỹ Thuật Đầy Đủ (English) →
@@ -28,7 +28,7 @@ hero:
 - **[Trình Duyệt Chuyên Dụng (Dedicated Browser Runtime)](/en/specter/browser/)**: Nhân Chromium C++ chống phát hiện bot và cô lập profile.
 - **[Tự Động Hóa Kịch Bản (Automa Engine)](/en/specter/automa/)**: Bộ biên dịch DAG đồ thị và kết nối Chrome DevTools Protocol thuần Rust.
 - **[Mạng Lưới Đường Hầm (Bridge Mesh)](/en/specter/bridge/)**: Proxy SOCKS5, HTTP tunnel và lá chắn rò rỉ WebRTC.
-- **[Giám Sát Tiến Trình Kernel (Runner Supervisor)](/en/specter/runner/)**: Bảo vệ hệ thống với Win32 Job Object, loại bỏ 100% tiến trình zombie.
+- **[Bộ Giám Sát Tiến Trình Nền (Runner Supervisor)](/en/specter/runner/)**: Quản lý worker chạy ngầm ổn định, tự động dọn sạch tài nguyên khi dừng, không lo treo máy (Zero Zombie).
 - **[Hạm Đội Đám Mây (Supabase Cloud Fleet)](/en/specter/cloud/)**: Đồng bộ máy trạm tự động hóa qua PostgreSQL 15+ và cơ chế RLS Lease.
 - **[Cẩm Nang Vận Hành Nội Bộ (MMO SOP Runbook)](/en/specter/mmo/README)**: 6 bộ cẩm nang chi tiết về thẻ thanh toán ảo, proxy dân cư và an toàn số.
 

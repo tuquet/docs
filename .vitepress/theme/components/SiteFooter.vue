@@ -63,7 +63,7 @@ const { hasSidebar } = useSidebar()
           <div class="nav-heading">AUTOMATION &amp; AI</div>
           <ul class="nav-list">
             <li><a :href="withBase('/en/specter/automa/')">Automa Workflow DAG</a></li>
-            <li><a :href="withBase('/en/specter/runner/')">Runner Kernel Supervisor</a></li>
+            <li><a :href="withBase('/en/specter/runner/')">Runner Process Supervisor</a></li>
             <li><a :href="withBase('/en/specter/automa/cdp')">Native Pure Rust CDP</a></li>
             <li><a :href="withBase('/en/specter/skills/')">Model Context Protocol (MCP)</a></li>
           </ul>
