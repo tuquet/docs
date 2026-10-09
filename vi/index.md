@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: "Cổng Tài Liệu Tu Quet"
-  text: "Hạ tầng tự động hóa, công cụ lập trình & giải pháp mã nguồn mở."
-  tagline: "Tổng hợp toàn bộ tài liệu kỹ thuật, hướng dẫn cài đặt, đặc tả kiến trúc và cẩm nang vận hành cho toàn bộ các phần mềm trong hệ sinh thái Tu Quet."
+  name: "Tứ Quét Lab Room"
+  text: "Nơi thử nghiệm các công cụ tự động hóa phân tán, mã nguồn mở và hạ tầng tàng hình."
+  tagline: "Bước vào hệ sinh thái của Tứ Quét thì đừng ngại bẩn tay với code. Chọn stack bạn cần bên dưới, đọc tài liệu rồi bắt đầu giải mã hệ thống."
   actions:
     - theme: brand
       text: Khám Phá Tài Liệu →
