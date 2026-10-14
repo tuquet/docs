@@ -32,16 +32,11 @@ A single command for any workstation, VPS, or CI/CD environment:
 ::: code-group
 
 ```powershell [Windows (PowerShell)]
-irm https://tuquet.com/install.ps1 | iex
+powershell -c "irm https://raw.githubusercontent.com/tuquet/cli/main/install.ps1 | iex"
 ```
 
 ```bash [Linux / VPS / macOS]
-curl -fsSL https://tuquet.com/install.sh | bash
-```
-
-```powershell [Scoop Package Manager]
-scoop bucket add tuquet https://github.com/tuquet/scoop-bucket
-scoop install specter
+curl -fsSL https://raw.githubusercontent.com/tuquet/cli/main/install.sh | sh
 ```
 
 ```bash [Rust Cargo (Source)]

@@ -6,7 +6,7 @@
 
 ---
 
-## One-Liner Web Installer
+## One-Liner Web Installer (Khuyến nghị / Recommended)
 
 Run the appropriate command in your terminal:
 
@@ -17,26 +17,14 @@ powershell -c "irm https://raw.githubusercontent.com/tuquet/cli/main/install.ps1
 ```
 
 ```bash [macOS & Linux (curl)]
-curl -fsSL https://raw.githubusercontent.com/tuquet/cli/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/tuquet/cli/main/install.sh | sh
 ```
 
 ```bash [Linux (wget)]
-wget -qO- https://raw.githubusercontent.com/tuquet/cli/main/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/tuquet/cli/main/install.sh | sh
 ```
 
 :::
-
----
-
-## Windows Package Manager (Scoop)
-
-If you use [Scoop](https://scoop.sh) on Windows:
-
-```powershell
-scoop bucket add tuquet https://github.com/tuquet/scoop-bucket
-scoop install specter
-specter bootstrap
-```
 
 ---
 

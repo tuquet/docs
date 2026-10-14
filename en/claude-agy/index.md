@@ -13,10 +13,10 @@ description: Run Anthropic Claude Code CLI powered by Google Antigravity quotas 
 ## Quickstart
 
 ```bash
-# Install via Scoop
-scoop bucket add tuquet https://github.com/tuquet/scoop-bucket
-scoop install claude-agy
+# Install via Universal Installer
+curl -fsSL https://raw.githubusercontent.com/tuquet/claude-agy/main/scripts/setup.mjs | node
 
 # Launch Claude Code
 claude-agy
 ```
+
