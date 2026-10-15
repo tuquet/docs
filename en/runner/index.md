@@ -4,8 +4,8 @@ An unshielded workstation will choke when running mass automation. Detached scra
 
 **Workstation Runner** transforms raw developer hardware into a disciplined execution node. Powered by the pure-Rust [`tuquet-runner`](https://github.com/tuquet/runner) engine, it runs as an autonomous local daemon on port 8765. It enforces OS-level process containment via Windows Job Objects and POSIX groups, caps hardware quotas, and shields workstation iron from runaway automation tasks.
 
-::: tip Standalone Workstation Node
-`tuquet-runner` runs directly on the local machine. It exposes a lightweight HTTP/WebSocket control plane (`localhost:8765`), allowing external scripts or remote fleet controllers to dispatch jobs to the workstation with zero zombie process risk.
+::: tip Standalone Workstation Node & Tauri Desktop Host
+`tuquet-runner` runs directly on the local machine. It exposes a lightweight HTTP/WebSocket control plane (`localhost:8765`), allowing external scripts, remote fleet controllers, or the **Tauri Desktop Client** to dispatch jobs and inspect real-time telemetry with zero zombie process risk.
 :::
 
 <HairlineFigure name="cabinet" />

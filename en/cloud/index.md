@@ -1,122 +1,117 @@
-# Cloud Center & Multi-Tenant RBAC Hub
+# Cloud Center & Enterprise Control Plane
 
-Decentralized automation without a central control hub devolves into chaos: team members overwrite each other's cookies, rogue scrapers collide on identical accounts, and sensitive credentials leak across machines.
-
-**Cloud Center** is the central multi-tenant operation and security plane powered by [`tuquet-cloud`](https://github.com/tuquet/cloud). Built on PostgreSQL 15+ with strict Row-Level Security (RLS) and JWT claim-based RBAC, it centralizes profile vaults, device enrollments, and distributed lease locks. Workstation nodes check out profiles via atomic tokens (`acquire`/`release`), ensuring zero account collisions and total tenant isolation.
-
-::: tip Standalone Cloud Operation
-`tuquet-cloud` deploys independently against any cloud PostgreSQL 15+ database cluster. It provides complete multi-tenant boundaries and encrypted profile synchronization across your entire distributed workstation fleet.
-:::
-
-<HairlineFigure name="vault" />
-
----
-
-## 1. Zero-Trust Multi-Tenant Isolation with Row Level Security (RLS)
-
-Every database table, browser profile record, and telemetry metric in Specter Cloud is protected by PostgreSQL **Row-Level Security (RLS)** policies. 
+The Tuquet platform operates on a **Single-Source, Dual-Platform Architecture**: a unified modern Vue 3 / Vben 5 control interface deployed concurrently as:
+1. **Central Web Admin (Cloud)**: Distributed SaaS control plane for multi-tenant organizations, licensing, subscription billing, and fleet orchestration.
+2. **Native Desktop Application (Tauri Shell)**: A lightweight native desktop client directly embedding this exact frontend code, bridging directly into local workstation runners, hardware-accelerated stealth browsers, and the local SSOT root (`~/.specter/`).
 
 ```text
- ┌─────────────────────────────────────────────────────────────┐
- │                CLOUD CENTER POSTGRESQL 15+ ENGINE           │
- │                                                             │
- │   ┌───────────────────────┐       ┌───────────────────────┐ │
- │   │  Tenant Organization  │       │  Tenant Organization  │ │
- │   │        Alpha          │       │         Beta          │ │
- │   ├───────────────────────┤       ├───────────────────────┤ │
- │   │ 🔒 Profiles (1..N)    │       │ 🔒 Profiles (1..N)    │ │
- │   │ 🔒 Enrolled Devices   │       │ 🔒 Enrolled Devices   │ │
- │   │ 🔒 Automation Logs    │       │ 🔒 Automation Logs    │ │
- │   └───────────────────────┘       └───────────────────────┘ │
- │               ▲                               ▲             │
- │               │                               │             │
- │     [RLS Policy: Tenant A]          [RLS Policy: Tenant B]  │
- │               │                               │             │
- └───────────────┼───────────────────────────────┼─────────────┘
-                 │                               │
-        Workstation Node A              Workstation Node B
-```
-
-- **Cryptographic Tenant Isolation**: Workstations authenticate via signed JWT tokens carrying organization and device claims. No query can leak or read data belonging to another organization (`tenant_id = auth.jwt() ->> 'tenant_id'`).
-- **Role-Based Access Control (RBAC)**: Distinguish between Team Admins (profile creation, proxy assignment) and Operator nodes (read-only lease checkout).
-
----
-
-## 2. Central Schema: `runners.browsers` Database Model
-
-The central table `runners.browsers` stores virtual antidetect profiles and hardware fingerprint specifications:
-
-```sql
-CREATE TABLE IF NOT EXISTS runners.browsers (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    tenant_id UUID NOT NULL REFERENCES public.tenants(id) ON DELETE CASCADE,
-    name VARCHAR(128) NOT NULL,
-    browser_type VARCHAR(64) NOT NULL DEFAULT 'chromium',
-    engine_version VARCHAR(32) NOT NULL DEFAULT '148.0.7778.215',
-
-    -- Deterministic C++ Native Fingerprint Specifications
-    fingerprint_seed BIGINT NOT NULL DEFAULT floor(random() * 2147483647)::bigint,
-    os_platform VARCHAR(32) NOT NULL DEFAULT 'windows',
-    os_version VARCHAR(64) NOT NULL DEFAULT '10.0.0',
-    browser_brand VARCHAR(64) NOT NULL DEFAULT 'Chrome',
-    cpu_cores INT NOT NULL DEFAULT 8 CHECK (cpu_cores >= 1),
-    ram_gb INT NOT NULL DEFAULT 16 CHECK (ram_gb >= 1),
-    timezone TEXT NOT NULL DEFAULT 'Asia/Ho_Chi_Minh',
-    locale TEXT NOT NULL DEFAULT 'vi-VN',
-    accept_languages TEXT NOT NULL DEFAULT 'vi-VN,vi,en-US,en',
-
-    -- Network, Proxy & WebRTC STUN Shielding
-    proxy_id UUID REFERENCES runners.proxies(id) ON DELETE SET NULL,
-    custom_proxy TEXT,
-    webrtc_mode VARCHAR(32) NOT NULL DEFAULT 'proxy_shielded',
-
-    -- Session Snapshot & Encrypted Object Storage Synchronisation (.zip / .tar.zst)
-    storage_path TEXT,
-    storage_size_bytes BIGINT NOT NULL DEFAULT 0,
-    storage_hash VARCHAR(64),
-    cookies_count INT NOT NULL DEFAULT 0,
-    last_synced_at TIMESTAMPTZ,
-
-    -- Distributed Lease Lock & Execution State
-    status VARCHAR(32) NOT NULL DEFAULT 'idle',
-    locked_by_device_id UUID REFERENCES runners.devices(id) ON DELETE SET NULL,
-    locked_at TIMESTAMPTZ,
-    last_launched_at TIMESTAMPTZ,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now()),
-    metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
-
-    CONSTRAINT chk_runners_browsers_status CHECK (status IN ('idle', 'running', 'syncing', 'error'))
-);
+┌────────────────────────────────────────────────────────────────────────┐
+│             UNIFIED FRONTEND CONTROL PLANE (Vue 3 / Vben 5)           │
+│                                                                        │
+│   [Tenancy Hub]   [Automation Suite]   [Commerce & Wallet]   [System]  │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+          ┌─────────────────────────┴─────────────────────────┐
+          ▼                                                   ▼
+┌───────────────────────────────────┐       ┌───────────────────────────────────┐
+│     TARGET A: CLOUD WEB ADMIN     │       │    TARGET B: TAURI DESKTOP APP    │
+│     (Hosted SaaS Control Plane)   │       │    (Native Operator Workstation)  │
+├───────────────────────────────────┤       ├───────────────────────────────────┤
+│ • PostgreSQL 15+ & Row-Level Sec  │       │ • Rust Native Host Process        │
+│ • Central Multi-Tenant RBAC       │       │ • Direct IPC to Local Runner CLI  │
+│ • Subscription Plans & Billing    │       │ • Direct FS: ~/.specter/          │
+│ • Global Fleet & Device Telemetry │       │ • Hardware Stealth Chromium C++   │
+│ • OAuth & SSO Desktop Bridge      │       │ • Local SOCKS5 Mesh & Proxies     │
+└─────────────────┬─────────────────┘       └─────────────────┬─────────────────┘
+                  │                                           │
+                  │   Desktop Bridge SSO (tuquet://auth)      │
+                  └───────────────────►◄──────────────────────┘
 ```
 
 ---
 
-## 3. Distributed Profile Lease Locks
+## 1. Zero-Trust Multi-Tenant Architecture & RLS
 
-The primary failure mode in distributed browser automation is **concurrent profile execution**: two nodes opening the same profile simultaneously, triggering immediate security checkpoints and session invalidation on platforms like Google, Facebook, or Amazon.
+Every tenant organization in Tuquet Cloud operates inside a cryptographically isolated silo protected by PostgreSQL **Row-Level Security (RLS)** and dynamic JWT claims.
 
-Specter Cloud implements **Distributed Lease Locks** via atomic PostgreSQL RPC stored procedures:
+### Security Guarantees
+- **Tenant Cryptographic Boundary**: No query can read or write data across organizations (`tenant_id = auth.jwt() ->> 'tenant_id'`).
+- **Dynamic Plugin Gating**: Access to sub-systems is gated per-tenant by active licenses:
+  - `core-iam`: Multi-tenant organization identity and user RBAC.
+  - `automa`: DAG workflow builder and batch execution logs.
+  - `runners`: Device registry, remote workstation workers, and browser profile pools.
+  - `commerce`: Storefront, marketplace templates, and orders.
+  - `subscriptions`: Tier plans, credit wallets, and usage metering.
+
+---
+
+## 2. Route Specifications & Portal Capabilities
+
+The frontend routing hierarchy is dynamically filtered at runtime based on the authenticated operator's permissions and installed plugins:
+
+### A. Tenancy Management (`/tenants`)
+- **Route**: `/tenants` (`TenantsRoot`)
+- **Required Plugin**: `core-iam` | **Authority**: `superadmin`, `tenants:read`
+- **Capabilities**:
+  - Organization catalog, workspace quotas (maximum profiles, concurrent runner limits).
+  - `/tenants/:id`: Detailed quota allocation, member seat assignments, and active plugin toggles.
+
+### B. Automation & Fleet Suite (`/automation`)
+Unifies remote cloud fleets and local Tauri-connected workstation daemons.
+
+| Route Path | Module Name | Plugin Required | Capabilities |
+| :--- | :--- | :--- | :--- |
+| `/automation/overview` | `AutomationOverview` | `automa`, `runners` | Global overview of connected workers, active browser sessions, and workflow statistics. |
+| `/automation/workflows` | `AutomationWorkflows` | `automa` | Visual DAG workflow builder, kịch bản kéo thả, trigger schedules. |
+| `/automation/runs` | `AutomationRuns` | `automa` | Batch campaign runs, execution status, and task dispatching. |
+| `/automation/runs/:id` | `AutomationRunDetail` | `automa` | Detailed timeline, step-by-step CDP logs, and captured artifact downloads. |
+| `/automation/devices` | `AutomationDevices` | `runners` | Registered desktop workstations and remote VPS nodes connected to the mesh. |
+| `/automation/browsers` | `AutomationBrowsers` | `runners` | Central anti-detect browser profile vaults with fingerprint seeds. |
+| `/automation/proxies` | `AutomationProxies` | `runners` | Proxy pools, auto-healing SOCKS5 nodes, and health diagnostics. |
+
+### C. Commerce & Credit Wallet (`/commerce`)
+Built for monetization, template sharing, and pay-as-you-go automation runs.
+
+- **`/commerce/store`**: Internal catalog offering automation workflows, custom plugin extensions, and managed proxy packs.
+- **`/store` (`PublicStorefront`)**: Public unauthenticated storefront (`ignoreAccess: true`) enabling external customers to browse plans and scripts.
+- **`/commerce/orders`**: Purchase history, invoice receipts, and provisioning status.
+- **`/commerce/wallet`**: Credit balance, automated recharge rules, and real-time execution cost consumption.
+- **`/commerce/admin`**: Administrator-only catalog manager, pricing tier setup, and billing controls.
+
+### D. System & Security (`/system`)
+- **`/system/overview`**: Platform health metrics, active microservices, and cluster status.
+- **`/system/plugins`**: Dynamic plugin manager to enable/disable microservices across tenants.
+- **`/system/plans` & `/system/subscriptions`**: Manage SaaS subscription tiers (Free, Pro, Enterprise) and active tenant subscriptions.
+- **`/system/users` & `/system/roles`**: Enterprise IAM with fine-grained permission matrices.
+- **`/system/audit-logs`**: Immutable audit logs capturing every configuration change, lease checkout, and security event.
+
+---
+
+## 3. Desktop Bridge & Tauri Native Protocol
+
+When operating the desktop app or the Specter CLI, operators log in seamlessly via the **Desktop Bridge Protocol**:
 
 ```text
- Workstation A                     Cloud Control Plane              Workstation B
-      │                                    │                              │
-      │ ── 1. Acquire Lease (ID: 01) ────► │                              │
-      │    Status: LEASE_GRANTED           │                              │
-      │ ◄─ 2. Download Session Delta ───── │                              │
-      │                                    │ ◄── 3. Acquire Lease ────────│
-      │                                    │     Status: 409 LOCKED       │
-      │                                    │ ──► 4. Lease Denied ────────►│
-      │                                    │                              │
-      │ ── 5. Release Lease + Delta ─────► │                              │
-      │    Status: LEASE_RELEASED          │                              │
-      │                                    │ ──► 6. Lock Available ──────►│
+ 1. Operator runs: specter cloud login
+ 2. CLI spins local HTTP listener on 127.0.0.1:8765
+ 3. CLI opens browser to: https://admin.tuquet.com/auth/desktop?port=8765&machine_name=MyWorkstation
+ 4. Operator authorizes tenant workspace
+ 5. Frontend dispatches deep-link:
+    tuquet://auth/callback?token=<JWT>&refresh_token=<REFRESH>&tenant_id=<TENANT>
+    (Fallback: POSTs credentials directly to http://127.0.0.1:8765/callback)
+ 6. Local workstation saves identity to ~/.specter/system/.identity.json
 ```
 
-### Lease RPC Stored Procedures
+In the upcoming **Tauri release**, the native window directly wraps this router. The bridge executes in-memory via Tauri's native IPC channels (`invoke`), eliminating the need for local browser redirect loops while keeping 100% of the UI components identical.
+
+---
+
+## 4. Distributed Lease Locks & Concurrency Protection
+
+The central table `runners.browsers` guards against concurrent execution collisions. Before any runner (cloud or local Tauri node) launches a profile, it must acquire an exclusive lease lock:
 
 ```sql
--- Atomic Lease Acquisition
+-- Atomic Lease Acquisition Procedure
 SELECT runners.acquire_browser(
     p_browser_id => 'c8a30d9e-5e74-4b52-b141-f76159c946e3'::uuid,
     p_device_id  => 'a0b1c2d3-e4f5-6789-0123-456789abcdef'::uuid
@@ -124,104 +119,13 @@ SELECT runners.acquire_browser(
 
 -- Atomic Lease Release & Session Snapshot Sync
 SELECT runners.release_browser(
-    p_browser_id        => 'c8a30d9e-5e74-4b52-b141-f76159c946e3'::uuid,
-    p_device_id         => 'a0b1c2d3-e4f5-6789-0123-456789abcdef'::uuid,
-    p_storage_path      => 'tenant-01/c8a30d9e.tar.zst',
-    p_storage_size_bytes=> 14208512,
-    p_storage_hash      => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-    p_cookies_count     => 42
+    p_browser_id         => 'c8a30d9e-5e74-4b52-b141-f76159c946e3'::uuid,
+    p_device_id          => 'a0b1c2d3-e4f5-6789-0123-456789abcdef'::uuid,
+    p_storage_path       => 'tenant-01/c8a30d9e.tar.zst',
+    p_storage_size_bytes => 14208512,
+    p_storage_hash       => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+    p_cookies_count      => 42
 );
 ```
 
----
-
-## 4. Workstation Device Enrollment & Machine Identity
-
-When onboarding a machine, Specter anchors identity in SSOT Pillar 1 (`~/.specter/system/`):
-
-- `~/.specter/system/.machine_id`: Unique cryptographic hardware identifier generated from BIOS/UUID.
-- `~/.specter/system/.identity.json`: Active cloud enrollment claims, tenant ID, and workstation name.
-- `~/.specter/system/system.json`: Central cloud endpoint configuration and active environment.
-
-```text
-~/.specter/system/
-├── .machine_id               # Cryptographic hardware signature
-├── .identity.json            # Enrolled device credentials & JWT token
-└── system.json               # Environment endpoint and tenant mappings
-```
-
----
-
-## 5. Master CLI Command Reference
-
-### Workstation Authentication & Pairing
-
-```bash
-# Authenticate and enroll workstation with cloud endpoint
-specter cloud login --url https://cloud.specter.dev --token <TENANT_ENROLLMENT_TOKEN>
-
-# Custom workstation display name
-specter cloud login --token <TOKEN> --name "Frankfurt-VPS-Worker-01"
-
-# Verify active workstation enrollment and tenant status
-specter cloud whoami
-
-# Disconnect workstation from cloud and purge identity token
-specter cloud logout
-```
-
-### Managing Cloud Profiles & Leases
-
-```bash
-# List all central cloud browser profiles available to your organization
-specter browser profile cloud list
-
-# Output cloud profiles list in raw JSON format
-specter browser profile cloud list --json
-
-# Acquire exclusive lease lock on a profile
-specter browser profile cloud acquire "Facebook-Ad-VN"
-
-# Release lease lock and sync cookies back to cloud
-specter browser profile cloud release "Facebook-Ad-VN"
-```
-
-### System Configuration
-
-```bash
-# Display system and cloud configuration
-specter cloud config --show
-
-# Open system.json in default system editor
-specter cloud config --edit
-```
-
----
-
-## 6. AI Agent Integration (MCP Protocol)
-
-AI agents query enrollment identity and organization context via the native MCP tool **`specter_cloud_whoami`**:
-
-### Tool Call
-
-```json
-{
-  "name": "specter_cloud_whoami",
-  "arguments": {}
-}
-```
-
-### Response Schema
-
-```json
-{
-  "authenticated": true,
-  "device_id": "a0b1c2d3-e4f5-6789-0123-456789abcdef",
-  "device_name": "Frankfurt-VPS-Worker-01",
-  "tenant_id": "tenant-enterprise-alpha",
-  "cloud_endpoint": "https://cloud.specter.dev",
-  "status": "enrolled",
-  "assigned_profiles_count": 8
-}
-```
-
+If another node attempts to check out the same profile, the control plane immediately rejects with `409 LOCKED`, guaranteeing zero session bans due to simultaneous logins.

@@ -113,7 +113,7 @@ specter browser profile delete "TikTok-Agency-01" --force
 
 ## 4. Distributed Cloud Profile Synchronization
 
-In multi-node teams, profiles are stored centrally in **Cloud Center** and synchronized across workstations with distributed lease locks:
+In multi-node teams, profiles are stored centrally in **Cloud Center** and synchronized across workstations with distributed lease locks. Operators can orchestrate profiles seamlessly via the CLI or visually via the **Universal Control Plane (`/automation/browsers`)** across both Web and Tauri Desktop environments:
 
 ```bash
 # List central cloud browser profiles available to your organization

@@ -184,3 +184,7 @@ specter browser launch "Profile-US" --proxy socks5://127.0.0.1:1080
 specter browser launch "Profile-US" --proxy http://127.0.0.1:8118
 ```
 
+::: tip Universal Control Plane Integration
+In team deployments, proxies registered in `bridge.json` or external pools can be monitored, health-checked, and assigned to runners visually via **`/automation/proxies`** inside the **Universal Control Plane** (Web & Tauri Desktop).
+:::
+

@@ -54,10 +54,10 @@ const runnerSidebar = [
 
 const cloudSidebar = [
   {
-    text: 'Cloud Center',
+    text: 'Cloud & Desktop Control Plane',
     collapsed: false,
     items: [
-      { text: 'Multi-Tenant RBAC & Fleet Hub', link: '/en/cloud/' },
+      { text: 'Universal Control Plane & Multi-Tenancy', link: '/en/cloud/' },
     ],
   },
 ]
@@ -192,7 +192,7 @@ export default defineConfig({
           { text: 'Automa DAG Engine', link: '/en/automa/' },
           { text: 'Bridge Mesh Gateway', link: '/en/bridge/' },
           { text: 'Workstation Runner', link: '/en/runner/' },
-          { text: 'Cloud Center', link: '/en/cloud/' },
+          { text: 'Cloud & Desktop Control Plane', link: '/en/cloud/' },
         ],
         activeMatch: '^/en/(browser|automa|runner|bridge|cloud)/',
       },

@@ -6,6 +6,7 @@ import HeroShowcase from './components/HeroShowcase.vue'
 import ProofStrip from './components/ProofStrip.vue'
 import SpecterCaps from './components/SpecterCaps.vue'
 import SiteFooter from './components/SiteFooter.vue'
+import SplineRobot3D from './components/SplineRobot3D.vue'
 import HairlineTurntable from './components/HairlineTurntable.vue'
 import HairlineElevator from './components/HairlineElevator.vue'
 import HairlineFigure from './components/HairlineFigure.vue'
@@ -17,7 +18,7 @@ export default {
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
       'layout-top': () => h(BackgroundGlow),
-      'home-hero-image': () => h(HairlineElevator),
+      'home-hero-image': () => h(SplineRobot3D),
       'layout-bottom': () => h(SiteFooter),
     })
   },

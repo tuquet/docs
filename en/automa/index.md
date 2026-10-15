@@ -50,14 +50,14 @@ Automa resolves the tradeoff between usability and raw automation performance th
  └─────────────────────────────────────────────────────────────┘
 ```
 
-1. **Visual Web Studio (`specter automa studio`)**:
-   - Web canvas for visual workflow composition: blocks for Navigation, Element Click, Input Text, Loop Data, JavaScript Evaluation, and Conditions.
+1. **Visual Web Studio & Control Plane (`specter automa studio` / `/automation/workflows`)**:
+   - Visual drag-and-drop workflow composition available both in the standalone browser canvas and embedded natively in the **Universal Control Plane (Web & Tauri Desktop)**.
 2. **Topological DAG Compiler**:
    - Compiles connected block graphs into an optimized dependency tree, resolving variable scopes and async race conditions.
 3. **Pure-Rust CDP Execution Driver**:
    - Communicates directly over local WebSockets using the Chrome DevTools Protocol (CDP). Bypasses heavy Node.js runtimes and WebDriver abstraction overhead.
-4. **Local SQLite Store & Vault**:
-   - Workflows are stored and versioned in `~/.specter/automa/workflows/`, while execution records, timing benchmarks, and run histories are recorded in `~/.specter/automa/automa.sqlite`.
+4. **Local SQLite Store & Cloud Telemetry**:
+   - Workflows are stored and versioned in `~/.specter/automa/workflows/`, while execution records and step traces are saved locally in `~/.specter/automa/automa.sqlite` and synchronized to `/automation/runs` when enrolled with a tenant.
 
 ---
 

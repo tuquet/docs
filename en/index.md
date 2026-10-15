@@ -12,6 +12,9 @@ hero:
     - theme: alt
       text: GitHub Organization →
       link: "https://github.com/tuquet"
+  image:
+    src: /logo.svg
+    alt: "Specter 3D Cyber Bot"
 
 features:
   - icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 10h.01"/><path d="M15 10h.01"/><path d="M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg>'
@@ -35,7 +38,7 @@ features:
     details: Bare-metal workstation daemon. Locks down local hardware, isolates process trees, and protects the iron from runaway memory.
     link: /en/runner/
   - icon: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>'
-    title: Cloud Center
-    details: Central operation hub. Zero-trust multi-tenant RBAC, encrypted profile storage, and atomic lease locks.
+    title: Universal Control Plane
+    details: 1 Source, 2 Platforms (Web SaaS & Tauri Native Desktop). Multi-tenant RBAC, automation fleet, commerce wallet, and atomic lease locks.
     link: /en/cloud/
 ---
