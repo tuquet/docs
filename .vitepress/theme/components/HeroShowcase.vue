@@ -19,7 +19,7 @@ function copyCode(text: string) {
     <!-- Announcement Pill -->
     <a href="#install" class="announcement-pill">
       <span class="pulsing-dot"></span>
-      <span class="pill-category">SPECTER CLI</span>
+      <span class="pill-category">TQ CLI</span>
       <span class="pill-divider">/</span>
       <span class="pill-text">100% Free &amp; Local-First • Pure Rust Core • Zero Zombie</span>
       <ArrowRight :size="12" class="pill-arrow" aria-hidden="true" />
