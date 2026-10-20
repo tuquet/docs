@@ -1,7 +1,7 @@
 # Cloud Architecture & Technical Specification
 
 > **KISS & YAGNI Compliant**: Authoritative technical specification for `cloud`. Details the Micro-Kernel architecture, Base Core IAM data model, dynamic PostgreSQL Schema Plugin extension contract, zero-recursion $O(1)$ Row-Level Security (RLS), and dynamic PostgREST API introspection.  
-> 📖 **Terminology Standard**: Review the [**Terminology Dictionary & Anti-Hallucination Lexicon (docs/terminology_dictionary.md)**](./terminology_dictionary.md) for strict naming invariants and forbidden terms.
+> 📖 **Terminology Standard**: Review the [**Terminology Dictionary & Anti-Hallucination Lexicon (docs/terminology_dictionary.md)**](./terminology) for strict naming invariants and forbidden terms.
 
 ---
 
@@ -235,11 +235,11 @@ flowchart TD
    - The plugin's `uninstall.sql` MUST unregister itself and drop its isolated schema cleanly.
 
 > 💡 **Detailed Plugin ERDs**: Each plugin documents its internal schema, tables, and relationships inside its own dedicated directory:
-> - Storage ERD: [`supabase/plugins/storage/README.md`](../supabase/plugins/storage/README.md)
-> - Subscriptions ERD: [`supabase/plugins/subscriptions/README.md`](../supabase/plugins/subscriptions/README.md)
-> - Webhooks ERD: [`supabase/plugins/webhooks/README.md`](../supabase/plugins/webhooks/README.md)
-> - Automa ERD: [`supabase/plugins/automa/README.md`](../supabase/plugins/automa/README.md)
-> - Runners ERD: [`supabase/plugins/runners/README.md`](../supabase/plugins/runners/README.md)
+> - Storage ERD: ``supabase/plugins/storage/README.md``
+> - Subscriptions ERD: ``supabase/plugins/subscriptions/README.md``
+> - Webhooks ERD: ``supabase/plugins/webhooks/README.md``
+> - Automa ERD: ``supabase/plugins/automa/README.md``
+> - Runners ERD: ``supabase/plugins/runners/README.md``
 
 ---
 
