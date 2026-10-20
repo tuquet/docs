@@ -26,7 +26,7 @@ Social networks employ aggressive behavioral heuristics to detect automated or m
  │              │ (Isolated Cache)             │ (Isolated Cache)
  │              ▼                              ▼               │
  │   ┌─────────────────────────────────────────────────────┐   │
- │   │           Tuquet Biometric Dynamics Engine         │   │
+ │   │           Biometric Dynamics Engine         │   │
  │   │  • Organic Mouse Acceleration & Deceleration        │   │
  │   │  • Natural Keystroke Timing (Log-Normal Latency)    │   │
  │   │  • Smooth Physics-Based Inertial Wheel Scrolling    │   │
@@ -39,9 +39,9 @@ Social networks employ aggressive behavioral heuristics to detect automated or m
 ## 2. Core Operational Rules for Growth Teams
 
 1. **Biometric Input Emulation**:
-   - Social networks monitor inter-key intervals and mouse trajectories during post creation and direct messaging. Tuquet dispatches native hardware input events with realistic typing variance (40–180ms per key) and cubic Bézier cursor arcs, bypassing algorithmic bot flags.
+   - Social networks monitor inter-key intervals and mouse trajectories during post creation and direct messaging. dispatches native hardware input events with realistic typing variance (40–180ms per key) and cubic Bézier cursor arcs, bypassing algorithmic bot flags.
 2. **Persistent Cookie Sessions**:
-   - Frequently logging out and re-entering passwords triggers security suspicion. Tuquet persists login sessions indefinitely in isolated profile directories (`Default/Cookies`), allowing operators to switch between 50+ accounts in seconds without repeated logins.
+   - Frequently logging out and re-entering passwords triggers security suspicion. persists login sessions indefinitely in isolated profile directories (`Default/Cookies`), allowing operators to switch between 50+ accounts in seconds without repeated logins.
 3. **Dedicated Residential Proxy Pairing**:
    - Maintain strict geographic consistency for each account. If an account is registered with an American IP, never access it via a datacenter proxy or foreign node.
 

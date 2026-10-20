@@ -62,7 +62,7 @@ const cloudSidebar = [
   },
 ]
 
-// 2. Tuquet CLI Sidebars
+// 2. CLI Sidebars
 const cliSidebar = [
   {
     text: 'Getting Started',
@@ -102,7 +102,7 @@ const cliSidebar = [
 
 const cliCommandsSidebar = [
   {
-    text: 'Tuquet CLI',
+    text: 'CLI',
     items: [
       { text: '← Back to CLI Docs', link: '/en/cli/' },
     ],
@@ -136,7 +136,7 @@ const playbooksSidebar = [
     ],
   },
   {
-    text: 'Tuquet CLI',
+    text: 'CLI',
     items: [
       { text: '← Back to CLI Docs', link: '/en/cli/' },
     ],
@@ -152,7 +152,7 @@ const ecosystemDropdownEn = {
     { text: 'Yak Map Graph', link: '/en/yak-map/' },
     { text: 'UI Library', link: '/en/library/' },
     { text: 'Claude-Agy', link: '/en/claude-agy/' },
-    { text: 'Tuquet Home ↗', link: 'https://tuquet.com' },
+    { text: 'Home ↗', link: 'https://tuquet.com' },
   ],
 }
 
@@ -177,11 +177,11 @@ export default defineConfig({
   ],
 
   lang: 'en-US',
-  title: 'Tuquet Docs',
-  description: 'Central documentation portal across Tuquet open-source software, Tuquet automation, and developer tooling.',
+  title: 'Docs',
+  description: 'Central documentation portal across open-source software, automation, and developer tooling.',
 
   themeConfig: {
-    siteTitle: 'Tuquet Docs',
+    siteTitle: 'Docs',
     logo: '/logo.svg',
 
     nav: [
@@ -197,7 +197,7 @@ export default defineConfig({
         activeMatch: '^/en/(browser|automa|runner|bridge|cloud)/',
       },
       {
-        text: 'Tuquet CLI',
+        text: 'CLI',
         items: [
           { text: 'Platform Overview', link: '/en/cli/' },
           { text: 'Quickstart (15s)', link: '/en/cli/start/quickstart' },
@@ -238,13 +238,13 @@ export default defineConfig({
         { text: 'Telegram ChatOps', items: [{ text: 'Overview & Setup', link: '/en/chatops/' }] },
       ],
       '/en/storage/': [
-        { text: 'Tuquet Storage Hub', items: [{ text: 'Overview & Features', link: '/en/storage/' }] },
+        { text: 'Storage Hub', items: [{ text: 'Overview & Features', link: '/en/storage/' }] },
       ],
       '/en/yak-map/': [
         { text: 'Yak Map Graph', items: [{ text: 'Ecosystem Lineage', link: '/en/yak-map/' }] },
       ],
       '/en/library/': [
-        { text: 'Tuquet Library', items: [{ text: 'Packages & Storybook', link: '/en/library/' }] },
+        { text: 'Library', items: [{ text: 'Packages & Storybook', link: '/en/library/' }] },
       ],
       '/en/claude-agy/': [
         { text: 'Claude-Agy', items: [{ text: 'CLI Quickstart', link: '/en/claude-agy/' }] },

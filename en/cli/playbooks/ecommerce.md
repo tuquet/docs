@@ -25,7 +25,7 @@ Retail platforms employ advanced device-fingerprinting and behavioral heuristics
  │              │ (Zero Storage Bleed)         │ (Zero Storage Bleed)
  │              ▼                              ▼               │
  │   ┌─────────────────────────────────────────────────────┐   │
- │   │             Tuquet Sandboxed Storage               │   │
+ │   │             Sandboxed Storage               │   │
  │   │  • Persistent Session Cookies (Zero 2FA Logouts)    │   │
  │   │  • Isolated IndexedDB Orders & Listing Caches       │   │
  │   │  • Dedicated SOCKS5 Residential Tunnel Per Store    │   │
@@ -38,7 +38,7 @@ Retail platforms employ advanced device-fingerprinting and behavioral heuristics
 ## 2. Key Safeguards for Merchants
 
 1. **Persistent Session Continuity (Eliminate 2FA Fatigue)**:
-   - Repeatedly logging into seller accounts triggers aggressive two-factor authentication (SMS/Email OTP) and automated review flags. Tuquet persists authenticated cookie jars and session storage indefinitely in `~/.tuquet/browser/profiles/<id>/`, allowing you to reopen stores seamlessly with zero login challenges.
+   - Repeatedly logging into seller accounts triggers aggressive two-factor authentication (SMS/Email OTP) and automated review flags. persists authenticated cookie jars and session storage indefinitely in `~/.tuquet/browser/profiles/<id>/`, allowing you to reopen stores seamlessly with zero login challenges.
 2. **Strict Geographic Continuity**:
    - Pair US storefronts with dedicated, static residential proxies in the exact state where the company is registered. Tuquet's pre-flight proxy healthcheck (`test-proxy`) verifies connectivity before launching, preventing accidental unmasked connections.
 3. **Safe Team Handoff & Virtual Assistant Delegation**:

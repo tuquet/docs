@@ -26,7 +26,7 @@ Advertising platforms deploy sophisticated identity graph analysis: if two ad ac
  │              │ (No Cross-Leak)              │ (No Cross-Leak)
  │              ▼                              ▼               │
  │   ┌─────────────────────────────────────────────────────┐   │
- │   │            Tuquet C++ Chromium Isolation           │   │
+ │   │            C++ Chromium Isolation           │   │
  │   │  • Distinct IndexedDB, Cookies, LocalStorage        │   │
  │   │  • Unique Canvas & WebGL Hash Matrix                │   │
  │   │  • Biometric Bézier Mouse Trajectories             │   │

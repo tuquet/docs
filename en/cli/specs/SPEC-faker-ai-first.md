@@ -1,4 +1,4 @@
-# SPEC-faker-ai-first: AI-First Architecture & Expanded Commands for Tuquet Faker
+# SPEC-faker-ai-first: AI-First Architecture & Expanded Commands for Faker
 
 ## 1. Objective
 Transform `tuquet faker` from a human-first visual tool into an **AI-First synthetic identity runtime**. In the autonomous agent era, CLI tools are primarily consumed by LLMs, MCP sidecars, scripts, and automation pipelines. 

@@ -26,7 +26,7 @@
   transform: translateX(-50%);
   width: 1000px;
   height: 520px;
-  background: var(--tuquet-spotlight);
+  background: var(--spotlight);
   filter: blur(80px);
 }
 
@@ -35,8 +35,8 @@
   position: absolute;
   inset: 0;
   background-image: 
-    linear-gradient(to right, var(--tuquet-grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--tuquet-grid-line) 1px, transparent 1px);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 32px 32px;
   mask-image: radial-gradient(ellipse at 50% 15%, black 25%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse at 50% 15%, black 25%, transparent 75%);

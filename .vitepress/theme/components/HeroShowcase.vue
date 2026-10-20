@@ -41,7 +41,7 @@ function copyCode(text: string) {
             @click="activeTab = 'browser'"
           >
             <Terminal :size="12" class="tab-icon" aria-hidden="true" />
-            Tuquet Browser
+            Browser
           </button>
           <button 
             :class="['tab-btn', { active: activeTab === 'verify' }]" 
@@ -72,7 +72,7 @@ function copyCode(text: string) {
         </div>
       </div>
 
-      <!-- Tab Content 1: Tuquet Browser -->
+      <!-- Tab Content 1: Browser -->
       <div v-if="activeTab === 'browser'" class="card-body terminal-view">
         <div class="code-line prompt">
           <span class="prompt-symbol">$</span>
@@ -108,7 +108,7 @@ function copyCode(text: string) {
           </div>
           <div class="log-row highlight">
             <span class="log-prefix">[ready]</span>
-            <span class="log-msg">Tuquet Chromium sandbox live ● Zero fingerprint linkage detected</span>
+            <span class="log-msg">Chromium sandbox live ● Zero fingerprint linkage detected</span>
           </div>
         </div>
       </div>

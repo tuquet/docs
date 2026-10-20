@@ -1,9 +1,9 @@
 ---
-title: Tuquet CLI Commands Reference
+title: CLI Commands Reference
 description: Comprehensive catalog of 68 canonical commands defined in the SSOT Manifest (~/.tuquet/).
 ---
 
-# Tuquet CLI Commands Reference
+# CLI Commands Reference
 
 > **Single Source of Truth (SSOT):** All 68 commands, configuration flags, and arguments below are synchronized directly from `schema/cli.manifest.json`.
 > For automated pipeline integrations: [Download Raw Schema (cli.manifest.json)](https://tuquet.com/schema/cli.manifest.json).
@@ -51,7 +51,7 @@ tuquet bootstrap
 
 ### `tuquet config`
 
-**Description:** Inspect or edit configuration across Tuquet microservice pillars (~/.tuquet/).
+**Description:** Inspect or edit configuration across microservice pillars (~/.tuquet/).
 
 **Arguments:**
 
@@ -190,7 +190,7 @@ tuquet schema mcp
 
 ::: details Example Syntax
 ```bash
-# Interactive Tuquet REPL Shell
+# Interactive REPL Shell
 tuquet shell
 ```
 :::
@@ -202,7 +202,7 @@ tuquet shell
 **Description:** Show unified status overview across Cloud, Runner, Bridge, and Antidetect Browser.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Options & Flags:**
@@ -222,11 +222,11 @@ tuquet status
 
 ### `tuquet upgrade`
 
-**Description:** Check and atomically upgrade Tuquet CLI binary in-place to latest release.
+**Description:** Check and atomically upgrade CLI binary in-place to latest release.
 
 ::: details Example Syntax
 ```bash
-# upgrade Tuquet CLI
+# upgrade CLI
 tuquet upgrade
 ```
 :::
@@ -242,7 +242,7 @@ tuquet upgrade
 **Description:** Inspect and validate a workflow JSON file, its block sequence, and parameters.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_workflow_inspect`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `workflow_inspect`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Arguments:**
@@ -278,7 +278,7 @@ tuquet automa probe
 **Description:** Execute a DAG workflow directly via Chromium automation worker.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_workflow_run`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `workflow_run`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Arguments:**
@@ -419,7 +419,7 @@ tuquet automa workflow info
 **Description:** List all workflows saved in SQLite database and local file vault.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_workflow_list`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `workflow_list`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Options & Flags:**
@@ -990,7 +990,7 @@ tuquet browser search
 **Description:** Display installation status, executable path, and disk usage of dedicated browser.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_browser_status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `browser_status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 ::: details Example Syntax
@@ -1210,7 +1210,7 @@ tuquet faker card
 **Description:** Generate compliant personas with validated 12-digit CCCD, phone, and addresses.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_faker_generate`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `faker_generate`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Options & Flags:**
@@ -1261,7 +1261,7 @@ tuquet runner logs
 **Description:** Active capability negotiation probe returning manifest JSON for Runner.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_runner_probe`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `runner_probe`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 ::: details Example Syntax
@@ -1379,13 +1379,13 @@ tuquet runner worker
 
 ### `tuquet cloud login`
 
-**Description:** Authenticate and enroll this workstation with Tuquet Cloud.
+**Description:** Authenticate and enroll this workstation with Cloud.
 
 **Options & Flags:**
 
 | Flag | Shorthand | Type | Default | Description |
 | :--- | :---: | :---: | :---: | :--- |
-| `--url` | `-u` | `string` | — | Tuquet Cloud endpoint URL (e.g. https://cloud.tuquet.dev). |
+| `--url` | `-u` | `string` | — | Cloud endpoint URL (e.g. https://cloud.tuquet.dev). |
 | `--token` | `-t` | `string` | — | Organization / Tenant enrollment token. |
 | `--name` | `-n` | `string` | — | Custom workstation name (defaults to machine hostname). |
 
@@ -1400,7 +1400,7 @@ tuquet cloud login
 
 ### `tuquet cloud logout`
 
-**Description:** Log out and disconnect this workstation from Tuquet Cloud.
+**Description:** Log out and disconnect this workstation from Cloud.
 
 ::: details Example Syntax
 ```bash
@@ -1413,10 +1413,10 @@ tuquet cloud logout
 
 ### `tuquet cloud whoami`
 
-**Description:** Show current Tuquet Cloud identity, enrolled device GUID, and tenant ID.
+**Description:** Show current Cloud identity, enrolled device GUID, and tenant ID.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `tuquet_cloud_whoami`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `cloud_whoami`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 ::: details Example Syntax

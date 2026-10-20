@@ -1,5 +1,5 @@
 <template>
-  <div class="tuquet-file-tree not-prose">
+  <div class="file-tree not-prose">
     <div v-if="title" class="tree-header">
       <span class="tree-title">{{ title }}</span>
     </div>
@@ -16,7 +16,7 @@ defineProps<{
 </script>
 
 <style scoped>
-.tuquet-file-tree {
+.file-tree {
   margin: 18px 0;
   border: 1px solid var(--vp-c-border);
   border-radius: 8px;

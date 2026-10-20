@@ -21,12 +21,12 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Tuquet is not an Electron bloatware hogging gigabytes of RAM. As an ultra-lightweight native application written in pure Rust, processes run smoothly even on $5/mo VPS instances, automatically reaping child trees (Zero Zombie) for 24/7 uninterrupted uptime.
+            is not an Electron bloatware hogging gigabytes of RAM. As an ultra-lightweight native application written in pure Rust, processes run smoothly even on $5/mo VPS instances, automatically reaping child trees (Zero Zombie) for 24/7 uninterrupted uptime.
           </p>
         </div>
         <div class="ev" aria-hidden="true">
           <div class="ev-cmd"><b>$</b> tuquet runner probe</div>
-          <div class="ev-row"><span>tuquet-runner</span><b class="text-green"><i class="beat"></i>running (PID 4821)</b></div>
+          <div class="ev-row"><span>runner</span><b class="text-green"><i class="beat"></i>running (PID 4821)</b></div>
           <div class="ev-row"><span>active browsers</span><b>12 profiles · RSS 284MB</b></div>
           <div class="ev-row"><span>orphan processes</span><b class="text-green">0 zombie detected</b></div>
           <div class="ev-note">Native process sandbox limits enforced · Zero memory leak</div>
@@ -43,7 +43,7 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Superficial tools merely alter the navigator.userAgent string while leaking CDP debug ports or physical WebRTC host adapters. Tuquet delivers native C++ stealth: zero-port extension execution, biological Bézier mouse curvature, AudioContext frequency noise, and closed Shadow DOM piercing.
+            Superficial tools merely alter the navigator.userAgent string while leaking CDP debug ports or physical WebRTC host adapters. delivers native C++ stealth: zero-port extension execution, biological Bézier mouse curvature, AudioContext frequency noise, and closed Shadow DOM piercing.
           </p>
         </div>
         <div class="ev" aria-hidden="true">
@@ -65,7 +65,7 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Eliminate expensive centralized proxy databases or brittle sync brokers. Tuquet connects directly to Cloud Center (PostgreSQL 15+ with strict RLS). Distributed lease locks (acquire/release) distribute profiles seamlessly across workstations and VPS nodes without account collisions.
+            Eliminate expensive centralized proxy databases or brittle sync brokers. connects directly to Cloud Center (PostgreSQL 15+ with strict RLS). Distributed lease locks (acquire/release) distribute profiles seamlessly across workstations and VPS nodes without account collisions.
           </p>
         </div>
         <div class="ev" aria-hidden="true">
@@ -87,7 +87,7 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Launching browsers through dead proxies or leaked physical IPs is the primary cause of account bans. Tuquet automatically probes latency, verifies clean IP reputation, and freezes WebRTC host adapters before the first browser window is spawned.
+            Launching browsers through dead proxies or leaked physical IPs is the primary cause of account bans. automatically probes latency, verifies clean IP reputation, and freezes WebRTC host adapters before the first browser window is spawned.
           </p>
         </div>
         <div class="ev" aria-hidden="true">
@@ -109,7 +109,7 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Tuquet includes a built-in Model Context Protocol (MCP) server. Autonomous AI agents such as Claude Code, Cursor, and Antigravity can directly orchestrate profiles, solve challenges, and extract structured data without custom glue code.
+            includes a built-in Model Context Protocol (MCP) server. Autonomous AI agents such as Claude Code, Cursor, and Antigravity can directly orchestrate profiles, solve challenges, and extract structured data without custom glue code.
           </p>
         </div>
         <div class="ev" aria-hidden="true">

@@ -2,10 +2,10 @@
 
 Web scrapers wrapped in Python or heavy Node.js runtimes collapse under concurrent load. Selenium and Playwright introduce massive abstraction layers, chew through gigabytes of RAM, and get trapped by Shadow DOM barriers and bot shields.
 
-**Automa DAG Engine** is a decoupled workflow orchestration engine powered by [`tuquet-automa`](https://github.com/tuquet/automa). Deployable as an independent headless binary or composed inside the Tuquet combat rig. It compiles visual automation blocks into a topological DAG and drives Chrome DevTools Protocol (CDP) over raw WebSockets in pure Rust — piercing closed Shadow DOM, handling 500+ concurrent contexts, and consuming only 15MB RAM per tab.
+**Automa DAG Engine** is a decoupled workflow orchestration engine powered by [`automa`](https://github.com/tuquet/automa). Deployable as an independent headless binary or composed inside the combat rig. It compiles visual automation blocks into a topological DAG and drives Chrome DevTools Protocol (CDP) over raw WebSockets in pure Rust — piercing closed Shadow DOM, handling 500+ concurrent contexts, and consuming only 15MB RAM per tab.
 
 ::: tip Standalone Microservice
-`tuquet-automa` runs independently of Tuquet. Compile the Rust binary to parse workflow JSON schemas, execute headless CDP pipelines, or embed the Vue 3 workflow canvas into your own web applications.
+`automa` runs independently of Tuquet. Compile the Rust binary to parse workflow JSON schemas, execute headless CDP pipelines, or embed the Vue 3 workflow canvas into your own web applications.
 :::
 
 <HairlineFigure name="branches" />
@@ -178,10 +178,10 @@ In strict adherence to Tuquet's SSOT architecture, all Automa files resolve excl
 
 AI agents orchestrate and inspect workflows programmatically through three native MCP tools:
 
-1. **`tuquet_workflow_run`**:
+1. **`workflow_run`**:
    - Executes a workflow file with variable substitutions and returns execution status, duration, and error codes.
-2. **`tuquet_workflow_list`**:
+2. **`workflow_list`**:
    - Lists all available workflows stored in the local vault and database.
-3. **`tuquet_workflow_inspect`**:
+3. **`workflow_inspect`**:
    - Validates JSON structure, required input parameters, and transition blocks of a workflow before execution.
 

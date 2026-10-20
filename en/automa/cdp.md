@@ -12,7 +12,7 @@ Modern automated testing and web scraping frameworks (Playwright, Puppeteer, Sel
 
 Anti-bot systems (Cloudflare, DataDome) increasingly probe local loopback ports (scanning ports `9222`, `9229`, `9333`) to detect open DevTools debugging endpoints. 
 
-Tuquet provides two distinct automation modes to navigate this tradeoff:
+provides two distinct automation modes to navigate this tradeoff:
 
 ```text
  Mode 1: Driver Mode (--mode driver)        Mode 2: Extension Stealth (--mode extension / --no-cdp)
@@ -90,7 +90,7 @@ await page.goto('https://turnstile.zeroclick.io');
 from playwright.sync_api import sync_playwright
 
 with sync_playwright() as p:
-    # Connect directly to running Tuquet antidetect session
+    # Connect directly to running antidetect session
     browser = p.chromium.connect_over_cdp("http://127.0.0.1:9222")
     context = browser.contexts[0]
     page = context.pages[0] if context.pages else context.new_page()

@@ -24,13 +24,13 @@ const isVi = computed(() => {
       <div class="footer-brand-col">
         <div class="brand-title-row">
           <div class="brand-symbol">TQ</div>
-          <span class="brand-name">{{ isVi ? 'Tài Liệu Tuquet' : 'Tuquet Docs' }}</span>
+          <span class="brand-name">{{ isVi ? 'Tài Liệu Tuquet' : 'Docs' }}</span>
         </div>
         <p class="brand-tagline">
           {{
             isVi
-              ? 'Cổng tài liệu kỹ thuật tập trung và hướng dẫn phát triển cho hệ sinh thái phần mềm mã nguồn mở Tuquet, tự động hóa Tuquet và công cụ lập trình.'
-              : 'Central documentation portal and developer guides across the Tuquet open-source ecosystem, Tuquet stealth automation, and developer tooling.'
+              ? 'Cổng tài liệu kỹ thuật tập trung và hướng dẫn phát triển cho hệ sinh thái phần mềm mã nguồn mở Tuquet, tự động hóa và công cụ lập trình.'
+              : 'Central documentation portal and developer guides across the open-source ecosystem, stealth automation, and developer tooling.'
           }}
         </p>
 
@@ -57,19 +57,19 @@ const isVi = computed(() => {
           <div class="nav-heading">{{ isVi ? 'SẢN PHẨM HỆ SINH THÁI' : 'ECOSYSTEM PRODUCTS' }}</div>
           <ul class="nav-list">
             <li>
-              <a :href="withBase('/en/cli/')">Tuquet CLI</a>
+              <a :href="withBase('/en/cli/')">CLI</a>
             </li>
             <li>
               <a :href="withBase('/en/chatops/')">Telegram ChatOps</a>
             </li>
             <li>
-              <a :href="withBase('/en/storage/')">Tuquet Storage Hub</a>
+              <a :href="withBase('/en/storage/')">Storage Hub</a>
             </li>
             <li>
               <a :href="withBase('/en/yak-map/')">Yak Map Graph</a>
             </li>
             <li>
-              <a :href="withBase('/en/library/')">Tuquet UI Library</a>
+              <a :href="withBase('/en/library/')">UI Library</a>
             </li>
             <li>
               <a :href="withBase('/en/claude-agy/')">Claude-Agy Accelerator</a>
@@ -118,7 +118,7 @@ const isVi = computed(() => {
           <ul class="nav-list">
             <li>
               <a href="https://tuquet.com" target="_blank" rel="noopener" class="ext-link">
-                {{ isVi ? 'Trang Chủ Tuquet' : 'Tuquet Home' }}
+                {{ isVi ? 'Trang Chủ Tuquet' : 'Home' }}
                 <ExternalLink :size="10" aria-hidden="true" />
               </a>
             </li>
@@ -142,7 +142,7 @@ const isVi = computed(() => {
             </li>
             <li>
               <a href="https://github.com/tuquet/cli" target="_blank" rel="noopener" class="ext-link">
-                Tuquet CLI Repo
+                CLI Repo
                 <ExternalLink :size="10" aria-hidden="true" />
               </a>
             </li>
@@ -155,7 +155,7 @@ const isVi = computed(() => {
     <div class="footer-bottom">
       <div class="bottom-inner">
         <p class="copyright-text">
-          &copy; 2026 Tuquet Ecosystem. 100% Free &amp; Open-Source.
+          &copy; 2026 Ecosystem. 100% Free &amp; Open-Source.
         </p>
 
         <div class="bottom-links">

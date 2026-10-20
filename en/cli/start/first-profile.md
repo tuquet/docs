@@ -14,7 +14,7 @@ Create a new profile with a descriptive name matching your campaign or account:
 tuquet browser profile create "Facebook-Ad-US-01"
 ```
 
-Tuquet automatically assigns:
+automatically assigns:
 - An authentic hardware fingerprint (GPU WebGL, AudioContext, Canvas noise).
 - Realistic screen resolution and CPU concurrency.
 - Isolated sandbox storage in `~/.tuquet/browser/profiles/Facebook-Ad-US-01`.

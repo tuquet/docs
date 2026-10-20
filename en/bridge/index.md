@@ -2,10 +2,10 @@
 
 Corporate and data-center firewalls lock down outbound ports. Automation scripts leak real residential IPs through DNS fallback and silent socket drops. One unshielded TCP packet ruins months of profile farming.
 
-**Bridge Mesh Gateway** is a standalone network tunnel supervisor and protocol adapter engineered in pure Rust (`tuquet-bridge`). Runs completely independent of Tuquet or embedded as the network backbone. It binds local SOCKS5 listeners, translates legacy HTTP `CONNECT` calls on port 8118, executes pre-flight egress verification before letting packets touch the wire, and auto-heals severed tunnels in under 3 seconds.
+**Bridge Mesh Gateway** is a standalone network tunnel supervisor and protocol adapter engineered in pure Rust (`bridge`). Runs completely independent of or embedded as the network backbone. It binds local SOCKS5 listeners, translates legacy HTTP `CONNECT` calls on port 8118, executes pre-flight egress verification before letting packets touch the wire, and auto-heals severed tunnels in under 3 seconds.
 
 ::: tip Standalone Microservice
-`tuquet-bridge` operates as an independent daemon. Use it to establish multi-hop SOCKS5/HTTP tunnels and enforce WebRTC leak shielding across arbitrary CLI tools, git clients, and headless scrapers.
+`bridge` operates as an independent daemon. Use it to establish multi-hop SOCKS5/HTTP tunnels and enforce WebRTC leak shielding across arbitrary CLI tools, git clients, and headless scrapers.
 :::
 
 <HairlineFigure name="router" />
@@ -47,7 +47,7 @@ Corporate and data-center firewalls lock down outbound ports. Automation scripts
 ```
 
 1. **Embedded HTTP-to-SOCKS5 Bridge (Port 8118)**:
-   - Many CLI scrapers, git clients, and legacy libraries only accept HTTP proxy URLs. Tuquet includes a pure-Rust HTTP proxy listener that translates HTTP `CONNECT` tunneling into local SOCKS5 sessions with sub-millisecond overhead.
+   - Many CLI scrapers, git clients, and legacy libraries only accept HTTP proxy URLs. includes a pure-Rust HTTP proxy listener that translates HTTP `CONNECT` tunneling into local SOCKS5 sessions with sub-millisecond overhead.
 2. **Local SSH Port Forwarding (Port 2222)**:
    - Exposes a direct SSH pipe into remote VPS nodes, enabling instantaneous terminal administration and file transfers (`ssh -p 2222 root@127.0.0.1`) without exposing port 22 to the public internet.
 3. **Auto-Healing Supervisor Mode (`--foreground`)**:

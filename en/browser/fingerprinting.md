@@ -21,11 +21,11 @@ Modern anti-fraud scripts detect these overrides within milliseconds through:
 3. **Execution Timing & Stack Trace Leaks**:
    - Accessing overridden properties generates measurable execution delay or leaks external extension script URLs in error stack traces.
 
-### The Tuquet Native C++ Advantage
+### The Native C++ Advantage
 
 ```text
  ┌─────────────────────────────────────────────────────────────┐
- │                SPECTER C++ CHROMIUM ENGINE                  │
+ │                TUQUET C++ CHROMIUM ENGINE                  │
  │                                                             │
  │   ┌──────────────────────┐       ┌──────────────────────┐   │
  │   │  Blink Rendering &   │       │  V8 JavaScript VM    │   │
@@ -50,13 +50,13 @@ Modern anti-fraud scripts detect these overrides within milliseconds through:
  └─────────────────────────────────────────────────────────────┘
 ```
 
-Tuquet modifies the Chromium source code directly at the C++ level. Hardware parameters are altered inside Blink and V8 before any webpage JavaScript begins execution. To the anti-bot script, the reported values are genuine native properties of the browser engine.
+modifies the Chromium source code directly at the C++ level. Hardware parameters are altered inside Blink and V8 before any webpage JavaScript begins execution. To the anti-bot script, the reported values are genuine native properties of the browser engine.
 
 ---
 
 ## 2. Core Detection Vectors & Mitigations
 
-| Detection Vector | Attack Methodology | Tuquet C++ Defense Mechanism |
+| Detection Vector | Attack Methodology | C++ Defense Mechanism |
 | :--- | :--- | :--- |
 | **WebGL & GPU Vendor** | Renders 3D scenes to extract GPU vendor, renderer strings (`WEBGL_debug_renderer_info`), and shader precision limits. | Returns authentic GPU profiles (e.g. NVIDIA GeForce RTX 4080, Apple M2 Max, Intel Iris Xe) with matching OpenGL extension lists. |
 | **Canvas 2D Hash** | Draws off-screen shapes and typography to measure sub-pixel font rendering variations via `toDataURL` and `getImageData`. | Injects deterministic mathematical micro-noise derived from the profile seed into the raw pixel buffer, preserving visual fidelity while producing a unique hash. |
@@ -81,7 +81,7 @@ Because derivation is mathematical and deterministic:
 
 ## 4. Live Verification & Stealth Testing
 
-Tuquet includes a built-in automated test command to verify stealth capabilities against live managed challenge pages:
+includes a built-in automated test command to verify stealth capabilities against live managed challenge pages:
 
 ```bash
 # Execute live Turnstile and anti-bot verification in a visual browser window

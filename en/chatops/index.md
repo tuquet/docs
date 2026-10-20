@@ -1,5 +1,5 @@
 ---
-title: Telegram ChatOps (Tuquet Bot)
+title: Telegram ChatOps (Bot)
 description: 24/7 server monitoring, incident response, and GitHub CI dispatch via Telegram.
 ---
 
@@ -14,7 +14,7 @@ description: 24/7 server monitoring, incident response, and GitHub CI dispatch v
 
 * **24/7 Server Health Watchdog**: Monitors CPU, memory, disk usage, and system services every 60 seconds with instant alerting on threshold breaches.
 * **Interactive ChatOps Interface**: Execute operational commands (`/stats`, `/ping`, `/services`, `/deploy`) via authorized Telegram private chats and group topics.
-* **GitHub CI & Release Broadcaster**: Watches GitHub Actions across the Tuquet ecosystem and alerts on build/deploy successes and test failures.
+* **GitHub CI & Release Broadcaster**: Watches GitHub Actions across the ecosystem and alerts on build/deploy successes and test failures.
 * **Automated RSS Feed Relayer**: Automatically detects new blog posts from `tuquet.com/feed.xml` and broadcasts formatted summaries with Markdown previews.
 
 ---

@@ -2,7 +2,7 @@
 
 Operating antidetect browser clusters, proxy mesh tunnels, and automated DAG workflows requires verified system dependencies, intact SQLite databases, and properly permissioned storage pillars.
 
-**Tuquet Doctor** is a built-in automated diagnostic and self-healing engine (`tuquet doctor`) that verifies workstation readiness across all microservice pillars.
+**Doctor** is a built-in automated diagnostic and self-healing engine (`tuquet doctor`) that verifies workstation readiness across all microservice pillars.
 
 <HairlineFigure name="query" />
 
@@ -47,7 +47,7 @@ The diagnostic scanner inspects 5 critical subsystems:
 
 ## 2. Diagnostic Output & Verdict Card
 
-When all dependencies are operational, Tuquet displays a clean diagnostic verdict:
+When all dependencies are operational, displays a clean diagnostic verdict:
 
 ```text
 ╭─ DIAGNOSTIC VERDICT ────────────────────────────── ● ALL SYSTEMS OPERATIONAL ─╮
@@ -70,7 +70,7 @@ If a dependency is missing, Doctor highlights the specific missing component and
 
 ## 3. Automated Self-Healing (`--fix`)
 
-When run with the `--fix` flag, Tuquet automatically resolves configuration drift, missing runtimes, and storage inconsistencies:
+When run with the `--fix` flag, automatically resolves configuration drift, missing runtimes, and storage inconsistencies:
 
 ```bash
 # Automatically remediate environment issues and download missing runtimes

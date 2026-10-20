@@ -2,12 +2,12 @@
 layout: home
 
 hero:
-  name: "Tuquet CLI"
+  name: "CLI"
   text: "Run hundreds of stealth browsers. Zero lag. Zero fingerprint leaks."
   tagline: "The full combat rig assembling the Lab Room's independent engines — Chromium stealth, DAG runner, mesh bridges, and cloud sync into a single operational unit. 100% Free & Open-Source."
   image:
     src: /logo.svg
-    alt: "Tuquet Isometric Elevator"
+    alt: "Isometric Elevator"
   actions:
     - theme: brand
       text: Install in 15s (One-Liner)
@@ -84,7 +84,7 @@ tuquet automa run ./workflows/scrape.json --headless
 
 ## Frequently Asked Questions (FAQ)
 
-::: details 1. Is Tuquet CLI truly free and open-source?
+::: details 1. Is CLI truly free and open-source?
 100% free and open-source under the MIT license. No licensing keys, no monthly SaaS tiers, and no profile limits (bounded only by your local disk storage).
 :::
 

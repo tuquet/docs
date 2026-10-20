@@ -2,10 +2,10 @@
 
 An unshielded workstation will choke when running mass automation. Detached scrapers spawn rogue child processes, leak gigabytes of LevelDB memory, and freeze the operating system under concurrent load.
 
-**Workstation Runner** transforms raw developer hardware into a disciplined execution node. Powered by the pure-Rust [`tuquet-runner`](https://github.com/tuquet/runner) engine, it runs as an autonomous local daemon on port 8765. It enforces OS-level process containment via Windows Job Objects and POSIX groups, caps hardware quotas, and shields workstation iron from runaway automation tasks.
+**Workstation Runner** transforms raw developer hardware into a disciplined execution node. Powered by the pure-Rust [`runner`](https://github.com/tuquet/runner) engine, it runs as an autonomous local daemon on port 8765. It enforces OS-level process containment via Windows Job Objects and POSIX groups, caps hardware quotas, and shields workstation iron from runaway automation tasks.
 
 ::: tip Standalone Workstation Node & Tauri Desktop Host
-`tuquet-runner` runs directly on the local machine. It exposes a lightweight HTTP/WebSocket control plane (`localhost:8765`), allowing external scripts, remote fleet controllers, or the **Tauri Desktop Client** to dispatch jobs and inspect real-time telemetry with zero zombie process risk.
+`runner` runs directly on the local machine. It exposes a lightweight HTTP/WebSocket control plane (`localhost:8765`), allowing external scripts, remote fleet controllers, or the **Tauri Desktop Client** to dispatch jobs and inspect real-time telemetry with zero zombie process risk.
 :::
 
 <HairlineFigure name="cabinet" />
@@ -16,7 +16,7 @@ An unshielded workstation will choke when running mass automation. Detached scra
 
 Traditional automation libraries (Playwright, Puppeteer, Selenium) spawn browser processes as detached child processes. If the parent script crashes abruptly or is killed, child browser processes linger and become persistent zombies.
 
-Tuquet Runner eliminates this failure mode natively using operating system process sandboxing (`command_group`):
+The Runner engine eliminates this failure mode natively using operating system process sandboxing (`command_group`):
 
 ```text
  ┌─────────────────────────────────────────────────────────────┐
@@ -26,7 +26,7 @@ Tuquet Runner eliminates this failure mode natively using operating system proce
  │  │          Native Process Supervision Sandbox           │  │
  │  │                                                       │  │
  │  │   ┌──────────────────┐       ┌────────────────────┐   │  │
- │  │   │  Tuquet Runner  │ ────► │ Chromium (Parent)  │   │  │
+ │  │   │  Runner Engine  │ ────► │ Chromium (Parent)  │   │  │
  │  │   │  Daemon (8765)   │       └─────────┬──────────┘   │  │
  │  │   └──────────────────┘                 │              │  │
  │  │                                        ▼              │  │
@@ -128,12 +128,12 @@ The runner operates as a local HTTP daemon worker running on port `8765` by defa
 
 ## 4. Autonomous Cloud Fleet Worker Mode
 
-In distributed scraping fleets, edge nodes and cloud VPS instances operate as headless execution workers enrolled with **Tuquet Cloud**.
+In distributed scraping fleets, edge nodes and cloud VPS instances operate as headless execution workers enrolled with **Cloud**.
 
 When running in worker mode:
 
 ```bash
-tuquet runner worker --interval 15 --headless
+tq runner worker --interval 15 --headless
 ```
 
 The daemon automatically executes an autonomous 5-stage lifecycle:
@@ -153,62 +153,62 @@ All runner operations can be managed via the unified Master CLI:
 
 ```bash
 # Start runner daemon on default port 8765
-tuquet runner start
+tq runner start
 
 # Start in background as a detached supervisor daemon
-tuquet runner start --detach
+tq runner start --detach
 
 # Custom host, port, and log verbosity
-tuquet runner start --host 0.0.0.0 --port 9000 --log-level debug
+tq runner start --host 0.0.0.0 --port 9000 --log-level debug
 
 # Enable Autonomous Cloud Fleet Mesh worker mode
-tuquet runner start --detach --cloud
+tq runner start --detach --cloud
 ```
 
 ### Cloud Fleet Worker
 
 ```bash
 # Start polling and executing cloud workflows every 15 seconds
-tuquet runner worker --interval 15
+tq runner worker --interval 15
 
 # Execute a single job on a specific cloud profile and exit
-tuquet runner worker --cloud-profile "Facebook-Ad-VN" --workflow ./task.json --once
+tq runner worker --cloud-profile "Facebook-Ad-VN" --workflow ./task.json --once
 ```
 
 ### Inspecting Status & Logs
 
 ```bash
 # Check daemon health and active worker threads
-tuquet runner status
+tq runner status
 
 # Output status in raw JSON format for machine monitoring
-tuquet runner status --json
+tq runner status --json
 
 # Follow and tail live daemon execution logs
-tuquet runner logs --follow --lines 100
+tq runner logs --follow --lines 100
 ```
 
 ### Lifecycle Control
 
 ```bash
 # Restart the running runner daemon
-tuquet runner restart --detach
+tq runner restart --detach
 
 # Gracefully stop the runner daemon
-tuquet runner stop
+tq runner stop
 
 # Force terminate active jobs without waiting
-tuquet runner stop --force
+tq runner stop --force
 ```
 
 ### Active Probe & OpenAPI Specification
 
 ```bash
 # Active capability negotiation probe returning manifest JSON
-tuquet runner probe
+tq runner probe
 
 # Export OpenAPI v3 JSON specification to file
-tuquet runner export-openapi --output ./openapi.json
+tq runner export-openapi --output ./openapi.json
 ```
 
 ---
@@ -225,7 +225,7 @@ runner run ./job.yaml
 runner exec --driver shell --command "dir"
 runner exec --driver agent --prompt "Scrape top 10 products"
 
-# Enroll workstation with Tuquet Cloud (zero-touch device registration)
+# Enroll workstation with Cloud (zero-touch device registration)
 runner enroll --env prod --token <ENROLLMENT_TOKEN>
 
 # Manage and switch cloud environments (dev, local, prod)
@@ -270,21 +270,21 @@ In strict adherence to Tuquet's SSOT architecture, all Runner runtime configurat
 Manage configuration directly from the CLI:
 
 ```bash
-tuquet runner config --show
-tuquet runner config --edit
+tq runner config --show
+tq runner config --edit
 ```
 
 ---
 
 ## 8. AI Agent Integration (MCP Protocol)
 
-AI agents query and orchestrate the local runner through the native MCP tool **`tuquet_runner_probe`**:
+AI agents query and orchestrate the local runner through the native MCP tool **`runner_probe`**:
 
 ### Tool Call
 
 ```json
 {
-  "name": "tuquet_runner_probe",
+  "name": "runner_probe",
   "arguments": {}
 }
 ```

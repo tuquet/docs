@@ -2,7 +2,7 @@
 
 Operating high-concurrency browser automation, affiliate advertising accounts, and e-commerce stores across multiple countries requires an organized, distributed egress network. Routing all traffic through a single proxy endpoint creates a single point of failure and increases the risk of correlated account bans.
 
-**Tuquet Bridge Mesh** enables you to orchestrate and multiplex an entire fleet of remote Virtual Private Servers (VPS) and residential proxies from a single workstation using the pure-Rust [`tuquet-bridge`](https://github.com/tuquet/cli) engine.
+**Bridge Mesh** enables you to orchestrate and multiplex an entire fleet of remote Virtual Private Servers (VPS) and residential proxies from a single workstation using the pure-Rust [`bridge`](https://github.com/tuquet/cli) engine.
 
 <HairlineFigure name="patch" />
 

@@ -5,6 +5,6 @@ description: Complete catalog of 30 interactive isometric line-art figures acros
 
 # Interactive Visual Figures
 
-A complete catalog of **30 isometric line-art figures** organized across **9 shelves**, embodying physical and architectural metaphors throughout the Tuquet ecosystem. Move your cursor across each figure to interact with its physics in real time.
+A complete catalog of **30 isometric line-art figures** organized across **9 shelves**, embodying physical and architectural metaphors throughout the ecosystem. Move your cursor across each figure to interact with its physics in real time.
 
 <FigureCatalogue />

@@ -14,7 +14,7 @@ However, standard Chromium running in `--headless` or `--headless=new` mode is d
 
 Websites run automated JavaScript diagnostics that distinguish default headless browsers within milliseconds:
 
-| Detection Vector | Standard Headless Chromium | Tuquet True Stealth Headless |
+| Detection Vector | Standard Headless Chromium | True Stealth Headless |
 | :--- | :--- | :--- |
 | **`navigator.webdriver`** | Evaluates to `true` by default. | Evaluates natively to `false` via internal V8 C++ patches. |
 | **User-Agent String** | Contains `HeadlessChrome/128.0.0.0`. | Strips `Headless` tokens, matching retail desktop Chrome releases. |

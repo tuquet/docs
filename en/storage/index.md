@@ -1,9 +1,9 @@
 ---
-title: Tuquet Storage Hub
+title: Storage Hub
 description: Multi-tenant, zero-egress cloud storage engine powered by Cloudflare Pages, D1, R2, and WebDAV.
 ---
 
-# Tuquet Storage Hub (`tuquet/storage`)
+# Storage Hub (`tuquet/storage`)
 
 > **Multi-Tenant Serverless Asset & Image Hosting Gateway**  
 > Unified management for Telegram channels, Discord webhooks, Cloudflare R2, S3-compatible endpoints, Hugging Face, and WebDAV under a single interface.

@@ -1,9 +1,9 @@
 ---
-title: Tuquet Component Library
+title: Component Library
 description: Production-grade Vue 3 components, high-density data tables, and export utilities.
 ---
 
-# Tuquet Library (`tuquet/lib`)
+# Library (`tuquet/lib`)
 
 > **Enterprise Vue 3 Component System, High-Density Data Tables & Automation Primitives**  
 > Battle-tested UI primitives built on Shadcn-Vue, Radix Vue, and TanStack Table.

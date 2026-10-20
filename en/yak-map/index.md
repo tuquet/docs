@@ -6,7 +6,7 @@ description: Interactive visual dependency graph, monorepo data flows, and archi
 # 🗺️ Yak Map (`tuquet/yak-map`)
 
 > **Interactive Visual Dependency Graph & Ecosystem Lineage**  
-> Map dependencies, data flows, and architectural derivations across 14+ repositories in the Tuquet automation ecosystem.
+> Map dependencies, data flows, and architectural derivations across 14+ repositories in the automation ecosystem.
 
 ---
 

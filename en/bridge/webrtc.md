@@ -37,9 +37,9 @@ When a website initializes an `RTCPeerConnection` object in JavaScript, the brow
 
 ---
 
-## 2. Tuquet 3-Tier WebRTC Protection Modes
+## 2. 3-Tier WebRTC Protection Modes
 
-Tuquet replaces fragile JavaScript shims with native Chromium C++ flags configured per profile in `profile.json`:
+replaces fragile JavaScript shims with native Chromium C++ flags configured per profile in `profile.json`:
 
 ```text
  Mode 1: disabled        Mode 2: proxy_only               Mode 3: public
@@ -63,11 +63,11 @@ Tuquet replaces fragile JavaScript shims with native Chromium C++ flags configur
 
 Even when IP traffic is routed through a proxy, poorly configured clients often perform DNS queries through the local workstation's operating system resolver, exposing your true ISP and geographic location to DNS logging servers.
 
-Tuquet guarantees **Zero DNS Leakage**:
+guarantees **Zero DNS Leakage**:
 1. **Remote Hostname Resolution**:
    - All domain lookups are serialized inside the SOCKS5 handshake (RFC 1928 SOCKS5 Address Type `0x03` - Domain Name). The local machine never initiates DNS queries; resolution occurs entirely on the remote VPS or residential proxy server.
 2. **DNS-over-HTTPS (DoH) Fallback**:
-   - When HTTP tunneling is active, Tuquet routes secure DNS queries over Cloudflare or Google DoH endpoints through the encrypted tunnel.
+   - When HTTP tunneling is active, routes secure DNS queries over Cloudflare or Google DoH endpoints through the encrypted tunnel.
 
 ---
 

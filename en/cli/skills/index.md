@@ -16,14 +16,14 @@ The **Model Context Protocol (MCP)** is an open industry standard that allows La
 
 ```text
  ┌─────────────────────────┐                ┌─────────────────────────┐
- │   Autonomous AI Agent   │                │     Tuquet MCP Host    │
+ │   Autonomous AI Agent   │                │     MCP Host    │
  │ (Claude Code, Cursor,   │ ── JSON-RPC ─► │     (tuquet mcp)       │
  │  Google Antigravity)    │ ◄── stdio ───  │                         │
  └─────────────────────────┘                └───────────┬─────────────┘
                                                         │
                       ┌─────────────────────────────────┼─────────────────────────────────┐
                       ▼                                 ▼                                 ▼
-             tuquet_faker_generate            tuquet_workflow_run               tuquet_browser_status
+             faker_generate            workflow_run               browser_status
              (Generate 100% compliant         (Execute complex headless         (Verify dedicated runtime
               Vietnamese CCCD & Personas)      scraping DAG workflows)           health and active profiles)
 ```
@@ -32,19 +32,19 @@ The **Model Context Protocol (MCP)** is an open industry standard that allows La
 
 ## 2. Complete MCP Tools Catalog
 
-When launched via `tuquet mcp`, Tuquet registers native tools into the AI agent's tool registry:
+When launched via `tuquet mcp`, registers native tools into the AI agent's tool registry:
 
 | Tool Name | Arguments | Capabilities & Agent Action |
 | :--- | :--- | :--- |
-| **`tuquet_status`** | `{}` | Returns unified JSON status across Cloud pairing, local Runner daemon, and dedicated Browser engine. |
-| **`tuquet_workflow_run`** | `workflow` (string), `variables` (object), `headless` (boolean), `timeout` (number) | Executes an Automa workflow DAG directly, interpolates dynamic runtime variables, and returns execution status. |
-| **`tuquet_workflow_list`** | `search` (string), `vault_only` (boolean) | Lists all workflows stored in the local vault and database. |
-| **`tuquet_workflow_inspect`** | `workflow` (string) | Validates workflow JSON syntax, inputs, parameters, and step transitions before execution. |
-| **`tuquet_faker_generate`** | `count` (number), `gender` (string), `nat` (string), `domain` (string) | Generates mathematically verified synthetic identities (CCCD Modulo 11, addresses, credentials) for form-filling. |
-| **`tuquet_browser_status`** | `{}` | Returns installation path, Chromium version, profile list, and disk footprint. |
-| **`tuquet_runner_probe`** | `{}` | Negotiates hardware capabilities and active concurrent worker slots on the local runner. |
-| **`tuquet_cloud_whoami`** | `{}` | Inspects active workstation enrollment GUID, tenant ID, and cloud authentication state. |
-| **`tuquet_tree`** | `path` (string), `depth` (number) | Structured filesystem inspection respecting gitignore boundaries. |
+| **`status`** | `{}` | Returns unified JSON status across Cloud pairing, local Runner daemon, and dedicated Browser engine. |
+| **`workflow_run`** | `workflow` (string), `variables` (object), `headless` (boolean), `timeout` (number) | Executes an Automa workflow DAG directly, interpolates dynamic runtime variables, and returns execution status. |
+| **`workflow_list`** | `search` (string), `vault_only` (boolean) | Lists all workflows stored in the local vault and database. |
+| **`workflow_inspect`** | `workflow` (string) | Validates workflow JSON syntax, inputs, parameters, and step transitions before execution. |
+| **`faker_generate`** | `count` (number), `gender` (string), `nat` (string), `domain` (string) | Generates mathematically verified synthetic identities (CCCD Modulo 11, addresses, credentials) for form-filling. |
+| **`browser_status`** | `{}` | Returns installation path, Chromium version, profile list, and disk footprint. |
+| **`runner_probe`** | `{}` | Negotiates hardware capabilities and active concurrent worker slots on the local runner. |
+| **`cloud_whoami`** | `{}` | Inspects active workstation enrollment GUID, tenant ID, and cloud authentication state. |
+| **`tree`** | `path` (string), `depth` (number) | Structured filesystem inspection respecting gitignore boundaries. |
 
 ---
 
@@ -96,17 +96,17 @@ Add to `.cursor/mcp.json` or Workspace Settings:
 
 ## 4. End-to-End Autonomous Agent Execution Flow
 
-Here is how an autonomous agent uses Tuquet to complete complex operational requests:
+Here is how an autonomous agent uses to complete complex operational requests:
 
 ```text
  1. User Prompt:
     "Generate 3 verified Vietnamese users and register them on the test staging portal."
 
- 2. Agent Decision 1: Call tuquet_faker_generate
+ 2. Agent Decision 1: Call faker_generate
     Tool Arguments: { "count": 3, "nat": "VN" }
     Result: Returns 3 compliant identities with valid CCCD, phone, and diacritic-free emails.
 
- 3. Agent Decision 2: Call tuquet_workflow_run
+ 3. Agent Decision 2: Call workflow_run
     Tool Arguments: { 
       "workflow": "staging_register", 
       "variables": { "USERS": [...] },

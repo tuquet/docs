@@ -21,7 +21,7 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
  │                                             │               │
  │                                             ▼               │
  │   ┌─────────────────────────────────────────────────────┐   │
- │   │         Tuquet Headless Antidetect Engine          │   │
+ │   │         Headless Antidetect Engine          │   │
  │   │                                                     │   │
  │   │ • C++ Hardware Fingerprint Emulation (No JS Shims)  │   │
  │   │ • Biometric Bézier Mouse Trajectories & Scroll      │   │
@@ -31,7 +31,7 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
  │                             │                               │
  │                             ▼                               │
  │   ┌─────────────────────────────────────────────────────┐   │
- │   │           Egress Network (Tuquet Bridge)           │   │
+ │   │                 Egress Network (Bridge)                │   │
  │   │ • Residential SOCKS5 Proxy Rotation                 │   │
  │   │ • Zero WebRTC / DNS Leakage                         │   │
  │   └─────────────────────────┬───────────────────────────┘   │
@@ -48,7 +48,7 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
 ## 2. Key Technical Advantages
 
 1. **Native Turnstile Challenge Resolution**:
-   - Rather than paying third-party CAPTCHA solving APIs ($1–$3 per 1,000 solves) that introduce 15–30s latency, Tuquet renders real JavaScript contexts with biometric mouse physics, resolving Turnstile managed challenges in under 2 seconds.
+   - Rather than paying third-party CAPTCHA solving APIs ($1–$3 per 1,000 solves) that introduce 15–30s latency, renders real JavaScript contexts with biometric mouse physics, resolving Turnstile managed challenges in under 2 seconds.
 2. **Maximum Workstation Density**:
    - Operating in True Stealth Headless mode (`--headless`) bypasses desktop window compositing, saving 90% of GPU VRAM. Run 25–50 concurrent worker instances on an 8-core, 16GB RAM VPS.
 3. **Turnkey CLI Pipeline Integration**:

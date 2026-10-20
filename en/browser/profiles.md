@@ -2,7 +2,7 @@
 
 Managing multi-account operations requires total data segregation. Commercial browsers share cached storage, DNS tables, and GPU contexts across tabs and windows, allowing anti-fraud trackers to correlate identities and execute portfolio-wide bans.
 
-**Tuquet** provides strict filesystem, memory, and network isolation through its **Isolated Browser Profile Sandbox**, managed natively by the [`tuquet-browser`](https://github.com/tuquet/browser) microservice.
+**Tuquet** provides strict filesystem, memory, and network isolation through its **Isolated Browser Profile Sandbox**, managed natively by the [`browser`](https://github.com/tuquet/browser) microservice.
 
 <HairlineFigure name="drawer" />
 
@@ -10,7 +10,7 @@ Managing multi-account operations requires total data segregation. Commercial br
 
 ## 1. Sandbox Filesystem Isolation
 
-Every browser profile created in Tuquet resides in its own sandboxed directory under SSOT Pillar 3 (`~/.tuquet/browser/profiles/<profile_id>/`).
+Every browser profile created in resides in its own sandboxed directory under SSOT Pillar 3 (`~/.tuquet/browser/profiles/<profile_id>/`).
 
 ```text
 ~/.tuquet/browser/profiles/Facebook-Ad-VN-01/
@@ -30,7 +30,7 @@ Every browser profile created in Tuquet resides in its own sandboxed directory u
 
 ## 2. Deterministic PRNG Hardware Specification (`profile.json`)
 
-When creating a profile, Tuquet uses a 32-bit pseudorandom seed (`--seed <u32>`) to derive all hardware and environment attributes deterministically. Once generated, this digital signature remains immutable across reboots:
+When creating a profile, uses a 32-bit pseudorandom seed (`--seed <u32>`) to derive all hardware and environment attributes deterministically. Once generated, this digital signature remains immutable across reboots:
 
 ```json
 {
@@ -92,7 +92,7 @@ tuquet browser profile test-proxy "TikTok-Agency-01" --json
 
 ### Exporting & Archiving Profiles (Pack / Unpack)
 
-Tuquet incorporates a high-efficiency archive engine powered by **Zstandard (zstd)** with intelligent cache filtering. When archiving a profile, it strips disposable disk bloat (`Cache`, `Code Cache`, `GPUCache`, `Service Worker/CacheStorage`), reducing 500MB+ user directories to lightweight ~15MB portable snapshots:
+incorporates a high-efficiency archive engine powered by **Zstandard (zstd)** with intelligent cache filtering. When archiving a profile, it strips disposable disk bloat (`Cache`, `Code Cache`, `GPUCache`, `Service Worker/CacheStorage`), reducing 500MB+ user directories to lightweight ~15MB portable snapshots:
 
 ```bash
 # Pack profile into a lightweight .tar.zst archive (Zstd level 3)

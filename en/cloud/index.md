@@ -1,12 +1,12 @@
 # Cloud Center & Enterprise Control Plane
 
-The Tuquet platform operates on a **Single-Source, Dual-Platform Architecture**: a unified modern Vue 3 / Tuquet 5 control interface deployed concurrently as:
+The platform operates on a **Single-Source, Dual-Platform Architecture**: a unified modern Vue 3 / 5 control interface deployed concurrently as:
 1. **Central Web Admin (Cloud)**: Distributed SaaS control plane for multi-tenant organizations, licensing, subscription billing, and fleet orchestration.
 2. **Native Desktop Application (Tauri Shell)**: A lightweight native desktop client directly embedding this exact frontend code, bridging directly into local workstation runners, hardware-accelerated stealth browsers, and the local SSOT root (`~/.tuquet/`).
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│             UNIFIED FRONTEND CONTROL PLANE (Vue 3 / Tuquet 5)           │
+│             UNIFIED FRONTEND CONTROL PLANE (Vue 3 / 5)           │
 │                                                                        │
 │   [Tenancy Hub]   [Automation Suite]   [Commerce & Wallet]   [System]  │
 └───────────────────────────────────┬────────────────────────────────────┘
@@ -32,7 +32,7 @@ The Tuquet platform operates on a **Single-Source, Dual-Platform Architecture**:
 
 ## 1. Zero-Trust Multi-Tenant Architecture & RLS
 
-Every tenant organization in Tuquet Cloud operates inside a cryptographically isolated silo protected by PostgreSQL **Row-Level Security (RLS)** and dynamic JWT claims.
+Every tenant organization in Cloud operates inside a cryptographically isolated silo protected by PostgreSQL **Row-Level Security (RLS)** and dynamic JWT claims.
 
 ### Security Guarantees
 - **Tenant Cryptographic Boundary**: No query can read or write data across organizations (`tenant_id = auth.jwt() ->> 'tenant_id'`).
@@ -89,7 +89,7 @@ Built for monetization, template sharing, and pay-as-you-go automation runs.
 
 ## 3. Desktop Bridge & Tauri Native Protocol
 
-When operating the desktop app or the Tuquet CLI, operators log in seamlessly via the **Desktop Bridge Protocol**:
+When operating the desktop app or the CLI, operators log in seamlessly via the **Desktop Bridge Protocol**:
 
 ```text
  1. Operator runs: tuquet cloud login
