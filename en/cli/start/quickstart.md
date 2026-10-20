@@ -3,7 +3,7 @@
 **__PRODUCT__** is the agentic antidetect browser and CLI automation engine designed for AI agents, growth teams, and automation engineers to run multiple accounts without getting detected or banned.
 
 > [!TIP] Command Architecture
-> `specter` is the primary CLI command for browser profile lifecycle, stealth verification, and automation. Subcommands follow the canonical microservice domains (e.g. `specter browser launch`, `specter automa run`).
+> `tuquet` is the primary CLI command for browser profile lifecycle, stealth verification, and automation. Subcommands follow the canonical microservice domains (e.g. `tuquet browser launch`, `tuquet automa run`).
 
 ---
 
@@ -16,7 +16,7 @@ When you browse the internet, websites collect dozens of subtle tracking signals
 
 When multiple accounts share identical hardware fingerprints or IP addresses, security systems on platforms like Facebook, Google, Amazon, and TikTok immediately link the accounts and issue automated suspensions.
 
-**Specter** solves this by generating a completely authentic, independent digital fingerprint for every profile you create. To the website, each profile looks like a brand-new physical computer located in your target region.
+**Tuquet** solves this by generating a completely authentic, independent digital fingerprint for every profile you create. To the website, each profile looks like a brand-new physical computer located in your target region.
 
 ---
 
@@ -34,14 +34,14 @@ When multiple accounts share identical hardware fingerprints or IP addresses, se
 
 | Action | Canonical Command | Description |
 | :--- | :--- | :--- |
-| **Launch Default Profile** | `specter browser launch default` | Opens default isolated profile with CDP port |
-| **Launch with Proxy** | `specter browser launch "Store-US" --proxy socks5://127.0.0.1:1080` | Routes browser network through SOCKS5 tunnel |
-| **Launch in Headless Mode** | `specter browser launch "Scraper" --headless` | Runs browser invisibly in background |
-| **List Profiles** | `specter browser profile list` | Inspects all local browser profiles & status |
-| **Create New Profile** | `specter browser profile create "New-Profile"` | Generates unique deterministic fingerprint & sandbox |
-| **Push Profile to Cloud** | `specter browser profile push <profile-id>` | Backs up profile archive to Cloudflare R2 |
-| **Pull Profile from Cloud** | `specter browser profile pull <profile-id>` | Restores profile archive onto current workstation |
-| **Verify Fingerprint / Turnstile** | `specter browser verify --url "https://..."` | Tests bot detection score & Cloudflare Turnstile |
-| **Cloud & Desktop SSO Login**| `specter cloud login` | Authenticates with Central Control Plane via Desktop Bridge |
-| **Check Environment Health** | `specter doctor` | Scans tools, runtimes & SSOT integrity |
-| **Interactive Terminal Shell**| `specter` | Enters scoped interactive REPL environment |
+| **Launch Default Profile** | `tuquet browser launch default` | Opens default isolated profile with CDP port |
+| **Launch with Proxy** | `tuquet browser launch "Store-US" --proxy socks5://127.0.0.1:1080` | Routes browser network through SOCKS5 tunnel |
+| **Launch in Headless Mode** | `tuquet browser launch "Scraper" --headless` | Runs browser invisibly in background |
+| **List Profiles** | `tuquet browser profile list` | Inspects all local browser profiles & status |
+| **Create New Profile** | `tuquet browser profile create "New-Profile"` | Generates unique deterministic fingerprint & sandbox |
+| **Push Profile to Cloud** | `tuquet browser profile push <profile-id>` | Backs up profile archive to Cloudflare R2 |
+| **Pull Profile from Cloud** | `tuquet browser profile pull <profile-id>` | Restores profile archive onto current workstation |
+| **Verify Fingerprint / Turnstile** | `tuquet browser verify --url "https://..."` | Tests bot detection score & Cloudflare Turnstile |
+| **Cloud & Desktop SSO Login**| `tuquet cloud login` | Authenticates with Central Control Plane via Desktop Bridge |
+| **Check Environment Health** | `tuquet doctor` | Scans tools, runtimes & SSOT integrity |
+| **Interactive Terminal Shell**| `tuquet` | Enters scoped interactive REPL environment |

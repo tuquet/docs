@@ -21,12 +21,12 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Specter is not an Electron bloatware hogging gigabytes of RAM. As an ultra-lightweight native application written in pure Rust, processes run smoothly even on $5/mo VPS instances, automatically reaping child trees (Zero Zombie) for 24/7 uninterrupted uptime.
+            Tuquet is not an Electron bloatware hogging gigabytes of RAM. As an ultra-lightweight native application written in pure Rust, processes run smoothly even on $5/mo VPS instances, automatically reaping child trees (Zero Zombie) for 24/7 uninterrupted uptime.
           </p>
         </div>
         <div class="ev" aria-hidden="true">
-          <div class="ev-cmd"><b>$</b> specter runner probe</div>
-          <div class="ev-row"><span>specter-runner</span><b class="text-green"><i class="beat"></i>running (PID 4821)</b></div>
+          <div class="ev-cmd"><b>$</b> tuquet runner probe</div>
+          <div class="ev-row"><span>tuquet-runner</span><b class="text-green"><i class="beat"></i>running (PID 4821)</b></div>
           <div class="ev-row"><span>active browsers</span><b>12 profiles · RSS 284MB</b></div>
           <div class="ev-row"><span>orphan processes</span><b class="text-green">0 zombie detected</b></div>
           <div class="ev-note">Native process sandbox limits enforced · Zero memory leak</div>
@@ -43,11 +43,11 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Superficial tools merely alter the navigator.userAgent string while leaking CDP debug ports or physical WebRTC host adapters. Specter delivers native C++ stealth: zero-port extension execution, biological Bézier mouse curvature, AudioContext frequency noise, and closed Shadow DOM piercing.
+            Superficial tools merely alter the navigator.userAgent string while leaking CDP debug ports or physical WebRTC host adapters. Tuquet delivers native C++ stealth: zero-port extension execution, biological Bézier mouse curvature, AudioContext frequency noise, and closed Shadow DOM piercing.
           </p>
         </div>
         <div class="ev" aria-hidden="true">
-          <div class="ev-cmd"><b>$</b> specter browser verify --url "https://turnstile.zerocdn.com"</div>
+          <div class="ev-cmd"><b>$</b> tuquet browser verify --url "https://turnstile.zerocdn.com"</div>
           <div class="ev-row"><span>CDP debug port</span><b>--remote-debugging-port=0</b></div>
           <div class="ev-row"><span>navigator.webdriver</span><b class="text-green">false (Clean)</b></div>
           <div class="ev-row"><span>Cloudflare Turnstile</span><b class="text-green">Bypassed (1,240ms)</b></div>
@@ -65,11 +65,11 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Eliminate expensive centralized proxy databases or brittle sync brokers. Specter connects directly to Cloud Center (PostgreSQL 15+ with strict RLS). Distributed lease locks (acquire/release) distribute profiles seamlessly across workstations and VPS nodes without account collisions.
+            Eliminate expensive centralized proxy databases or brittle sync brokers. Tuquet connects directly to Cloud Center (PostgreSQL 15+ with strict RLS). Distributed lease locks (acquire/release) distribute profiles seamlessly across workstations and VPS nodes without account collisions.
           </p>
         </div>
         <div class="ev" aria-hidden="true">
-          <div class="ev-cmd"><b>$</b> specter browser profile cloud acquire "scraper-node-01"</div>
+          <div class="ev-cmd"><b>$</b> tuquet browser profile cloud acquire "scraper-node-01"</div>
           <div class="ev-row"><span>control plane</span><b>PostgreSQL 15+ & RLS</b></div>
           <div class="ev-row"><span>lease lock</span><b class="text-green">ACQUIRED (TTL 1800s)</b></div>
           <div class="ev-row"><span>distributed fleet</span><b>1 Local Station + 3 Cloud VPS</b></div>
@@ -87,11 +87,11 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Launching browsers through dead proxies or leaked physical IPs is the primary cause of account bans. Specter automatically probes latency, verifies clean IP reputation, and freezes WebRTC host adapters before the first browser window is spawned.
+            Launching browsers through dead proxies or leaked physical IPs is the primary cause of account bans. Tuquet automatically probes latency, verifies clean IP reputation, and freezes WebRTC host adapters before the first browser window is spawned.
           </p>
         </div>
         <div class="ev" aria-hidden="true">
-          <div class="ev-cmd"><b>$</b> specter proxy probe socks5://user:pass@127.0.0.1:1080</div>
+          <div class="ev-cmd"><b>$</b> tuquet proxy probe socks5://user:pass@127.0.0.1:1080</div>
           <div class="ev-row"><span>exit IP</span><b>198.51.100.42 (US - Comcast)</b></div>
           <div class="ev-row"><span>latency</span><b class="text-green">18ms (Fast)</b></div>
           <div class="ev-row"><span>WebRTC shield</span><b class="text-green">0 Host Leaks (Disabled)</b></div>
@@ -109,11 +109,11 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
             <ArrowRight :size="14" class="arw" aria-hidden="true" />
           </h3>
           <p>
-            Specter includes a built-in Model Context Protocol (MCP) server. Autonomous AI agents such as Claude Code, Cursor, and Antigravity can directly orchestrate profiles, solve challenges, and extract structured data without custom glue code.
+            Tuquet includes a built-in Model Context Protocol (MCP) server. Autonomous AI agents such as Claude Code, Cursor, and Antigravity can directly orchestrate profiles, solve challenges, and extract structured data without custom glue code.
           </p>
         </div>
         <div class="ev" aria-hidden="true">
-          <div class="ev-cmd"><b>$</b> specter mcp serve --stdio</div>
+          <div class="ev-cmd"><b>$</b> tuquet mcp serve --stdio</div>
           <div class="ev-row"><span>protocol</span><b>Model Context Protocol v1.0</b></div>
           <div class="ev-row"><span>exported tools</span><b>9 Native Tools</b></div>
           <div class="ev-row"><span>connected AI</span><b class="text-green">Claude Code · Cursor · AGY</b></div>

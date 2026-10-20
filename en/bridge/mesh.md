@@ -2,7 +2,7 @@
 
 Operating high-concurrency browser automation, affiliate advertising accounts, and e-commerce stores across multiple countries requires an organized, distributed egress network. Routing all traffic through a single proxy endpoint creates a single point of failure and increases the risk of correlated account bans.
 
-**Specter Bridge Mesh** enables you to orchestrate and multiplex an entire fleet of remote Virtual Private Servers (VPS) and residential proxies from a single workstation using the pure-Rust [`tuquet-bridge`](https://github.com/tuquet/cli) engine.
+**Tuquet Bridge Mesh** enables you to orchestrate and multiplex an entire fleet of remote Virtual Private Servers (VPS) and residential proxies from a single workstation using the pure-Rust [`tuquet-bridge`](https://github.com/tuquet/cli) engine.
 
 <HairlineFigure name="patch" />
 
@@ -40,7 +40,7 @@ Each configured server endpoint in `bridge.json` is mapped to deterministic loca
 
 Network tunnels across the public internet frequently experience silent connection drops, TCP resets, or ISP renegotiations. Standard SSH tunnels detach or become zombie sockets, silently halting automation tasks or causing traffic to fail over to insecure direct routes.
 
-Specter's supervisor mode (`--foreground` / `-f`) eliminates this vulnerability:
+Tuquet's supervisor mode (`--foreground` / `-f`) eliminates this vulnerability:
 
 ```text
   Supervisor Ping Loop (Every 5s)
@@ -51,7 +51,7 @@ Specter's supervisor mode (`--foreground` / `-f`) eliminates this vulnerability:
        │
        └── NO (Socket Dropped / Timeout)
              │
-             ├── 1. Terminate Stale PID (~/.specter/bridge/pids/<server>.json)
+             ├── 1. Terminate Stale PID (~/.tuquet/bridge/pids/<server>.json)
              ├── 2. Calculate Exponential Backoff (1s, 2s, 4s...)
              ├── 3. Re-establish Encrypted Tunnel Handshake
              └── 4. Re-bind Local Listeners & Signal Controller Ready
@@ -61,7 +61,7 @@ Specter's supervisor mode (`--foreground` / `-f`) eliminates this vulnerability:
 
 ## 3. Configuration & Multi-Server Mesh (`bridge.json`)
 
-All mesh server definitions are declared in SSOT Pillar 4 (`~/.specter/bridge/bridge.json`):
+All mesh server definitions are declared in SSOT Pillar 4 (`~/.tuquet/bridge/bridge.json`):
 
 ```json
 {
@@ -112,31 +112,31 @@ All mesh server definitions are declared in SSOT Pillar 4 (`~/.specter/bridge/br
 
 ```bash
 # Start all enabled bridge servers in background
-specter bridge start
+tuquet bridge start
 
 # Start bridges and launch embedded HTTP-to-SOCKS5 adapter (port 8118)
-specter bridge start --http
+tuquet bridge start --http
 
 # Start bridge with direct local SSH port forwarding (port 2222, 2223...)
-specter bridge start --ssh
+tuquet bridge start --ssh
 
 # Start only servers matching a specific tag (e.g. all US nodes)
-specter bridge start -t us
+tuquet bridge start -t us
 
 # Run supervisor in foreground with auto-healing and live telemetry
-specter bridge start -f
+tuquet bridge start -f
 ```
 
 ### Inspecting Mesh Health & Managing Nodes
 
 ```bash
 # Display live interactive health check dashboard
-specter bridge status
+tuquet bridge status
 
 # Enable or disable servers without editing JSON manually
-specter bridge enable vps-de-03
-specter bridge disable vps-sg-02
+tuquet bridge enable vps-de-03
+tuquet bridge disable vps-sg-02
 
 # Terminate all active bridge tunnel processes
-specter bridge stop all
+tuquet bridge stop all
 ```

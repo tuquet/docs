@@ -4,7 +4,7 @@ Running automated browser workloads with full graphical user interfaces (GUI win
 
 However, standard Chromium running in `--headless` or `--headless=new` mode is detected instantly by anti-bot platforms due to dozens of default telemetry flags.
 
-**Specter** provides **True Stealth Headless Mode**, combining lightweight zero-display performance with the identical C++ hardware fingerprint masking of full desktop browser releases.
+**Tuquet** provides **True Stealth Headless Mode**, combining lightweight zero-display performance with the identical C++ hardware fingerprint masking of full desktop browser releases.
 
 <HairlineFigure name="exploded" />
 
@@ -14,7 +14,7 @@ However, standard Chromium running in `--headless` or `--headless=new` mode is d
 
 Websites run automated JavaScript diagnostics that distinguish default headless browsers within milliseconds:
 
-| Detection Vector | Standard Headless Chromium | Specter True Stealth Headless |
+| Detection Vector | Standard Headless Chromium | Tuquet True Stealth Headless |
 | :--- | :--- | :--- |
 | **`navigator.webdriver`** | Evaluates to `true` by default. | Evaluates natively to `false` via internal V8 C++ patches. |
 | **User-Agent String** | Contains `HeadlessChrome/128.0.0.0`. | Strips `Headless` tokens, matching retail desktop Chrome releases. |
@@ -47,23 +47,23 @@ Organizations running data collection pipelines achieve **3x to 5x higher concur
 
 ```bash
 # Launch profile in true stealth headless mode
-specter browser launch "Scraper-Node-01" --headless
+tuquet browser launch "Scraper-Node-01" --headless
 
 # Launch headless profile with dedicated residential proxy
-specter browser launch "Scraper-Node-01" --headless --proxy socks5://127.0.0.1:1080
+tuquet browser launch "Scraper-Node-01" --headless --proxy socks5://127.0.0.1:1080
 
 # Launch headless with CDP bridge for Playwright / Puppeteer script attachment
-specter browser launch "Scraper-Node-01" --headless --port 9222 --detach
+tuquet browser launch "Scraper-Node-01" --headless --port 9222 --detach
 ```
 
 ### Executing Headless Automa Workflows
 
 ```bash
 # Execute workflow in headless mode with timeout safety
-specter automa run ./scrape_catalog.workflow.json --headless --timeout 90
+tuquet automa run ./scrape_catalog.workflow.json --headless --timeout 90
 
 # Execute headless workflow with runtime variable overrides
-specter automa run ./scrape_catalog.workflow.json \
+tuquet automa run ./scrape_catalog.workflow.json \
   --headless \
   -p TARGET_CATEGORY="electronics" \
   -p MAX_PAGES="10"

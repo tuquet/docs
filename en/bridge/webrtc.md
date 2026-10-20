@@ -2,7 +2,7 @@
 
 Web Real-Time Communication (WebRTC) is an essential browser technology enabling peer-to-peer audio, video, and data communication without plugins. However, WebRTC poses an existential threat to multi-account operations and antidetect browsing because it was designed to discover the fastest direct network path between peers—even when operating behind network proxies or VPNs.
 
-**Specter** eliminates this vulnerability through **Native WebRTC STUN Suppression** and remote DNS resolution built directly into the C++ Chromium engine.
+**Tuquet** eliminates this vulnerability through **Native WebRTC STUN Suppression** and remote DNS resolution built directly into the C++ Chromium engine.
 
 <HairlineFigure name="dish" />
 
@@ -37,9 +37,9 @@ When a website initializes an `RTCPeerConnection` object in JavaScript, the brow
 
 ---
 
-## 2. Specter 3-Tier WebRTC Protection Modes
+## 2. Tuquet 3-Tier WebRTC Protection Modes
 
-Specter replaces fragile JavaScript shims with native Chromium C++ flags configured per profile in `profile.json`:
+Tuquet replaces fragile JavaScript shims with native Chromium C++ flags configured per profile in `profile.json`:
 
 ```text
  Mode 1: disabled        Mode 2: proxy_only               Mode 3: public
@@ -63,11 +63,11 @@ Specter replaces fragile JavaScript shims with native Chromium C++ flags configu
 
 Even when IP traffic is routed through a proxy, poorly configured clients often perform DNS queries through the local workstation's operating system resolver, exposing your true ISP and geographic location to DNS logging servers.
 
-Specter guarantees **Zero DNS Leakage**:
+Tuquet guarantees **Zero DNS Leakage**:
 1. **Remote Hostname Resolution**:
    - All domain lookups are serialized inside the SOCKS5 handshake (RFC 1928 SOCKS5 Address Type `0x03` - Domain Name). The local machine never initiates DNS queries; resolution occurs entirely on the remote VPS or residential proxy server.
 2. **DNS-over-HTTPS (DoH) Fallback**:
-   - When HTTP tunneling is active, Specter routes secure DNS queries over Cloudflare or Google DoH endpoints through the encrypted tunnel.
+   - When HTTP tunneling is active, Tuquet routes secure DNS queries over Cloudflare or Google DoH endpoints through the encrypted tunnel.
 
 ---
 
@@ -77,7 +77,7 @@ Verify that your workstation is 100% leak-proof across independent audit platfor
 
 ```bash
 # Launch test profile with proxy and open WebRTC leak verification tool
-specter browser launch "Test-Profile" \
+tuquet browser launch "Test-Profile" \
   --proxy socks5://127.0.0.1:1080 \
   --url "https://browserleaks.com/webrtc"
 ```

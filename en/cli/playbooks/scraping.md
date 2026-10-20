@@ -2,7 +2,7 @@
 
 Modern data collection, competitive intelligence, and price monitoring pipelines face sophisticated anti-bot countermeasures. Target websites deploy Cloudflare Turnstile, DataDome, PerimeterX, and Akamai to block generic HTTP requests (curl, Python Requests) and flag standard headless browsers within milliseconds.
 
-**Specter** provides a high-throughput, undetectable web extraction engine that combines true stealth headless execution with native Chrome DevTools Protocol (CDP) and distributed worker orchestration.
+**Tuquet** provides a high-throughput, undetectable web extraction engine that combines true stealth headless execution with native Chrome DevTools Protocol (CDP) and distributed worker orchestration.
 
 <HairlineFigure name="sieve" />
 
@@ -15,13 +15,13 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
  │            DISTRIBUTED HIGH-VOLUME SCRAPING STACK           │
  │                                                             │
  │   ┌──────────────────────┐       ┌──────────────────────┐   │
- │   │ Cron / Airflow / CI  │ ────► │ specter automa run   │   │
+ │   │ Cron / Airflow / CI  │ ────► │ tuquet automa run   │   │
  │   │ Orchestration Trigger│       │ (or runner worker)   │   │
  │   └──────────────────────┘       └──────────┬───────────┘   │
  │                                             │               │
  │                                             ▼               │
  │   ┌─────────────────────────────────────────────────────┐   │
- │   │         Specter Headless Antidetect Engine          │   │
+ │   │         Tuquet Headless Antidetect Engine          │   │
  │   │                                                     │   │
  │   │ • C++ Hardware Fingerprint Emulation (No JS Shims)  │   │
  │   │ • Biometric Bézier Mouse Trajectories & Scroll      │   │
@@ -31,7 +31,7 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
  │                             │                               │
  │                             ▼                               │
  │   ┌─────────────────────────────────────────────────────┐   │
- │   │           Egress Network (Specter Bridge)           │   │
+ │   │           Egress Network (Tuquet Bridge)           │   │
  │   │ • Residential SOCKS5 Proxy Rotation                 │   │
  │   │ • Zero WebRTC / DNS Leakage                         │   │
  │   └─────────────────────────┬───────────────────────────┘   │
@@ -48,7 +48,7 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
 ## 2. Key Technical Advantages
 
 1. **Native Turnstile Challenge Resolution**:
-   - Rather than paying third-party CAPTCHA solving APIs ($1–$3 per 1,000 solves) that introduce 15–30s latency, Specter renders real JavaScript contexts with biometric mouse physics, resolving Turnstile managed challenges in under 2 seconds.
+   - Rather than paying third-party CAPTCHA solving APIs ($1–$3 per 1,000 solves) that introduce 15–30s latency, Tuquet renders real JavaScript contexts with biometric mouse physics, resolving Turnstile managed challenges in under 2 seconds.
 2. **Maximum Workstation Density**:
    - Operating in True Stealth Headless mode (`--headless`) bypasses desktop window compositing, saving 90% of GPU VRAM. Run 25–50 concurrent worker instances on an 8-core, 16GB RAM VPS.
 3. **Turnkey CLI Pipeline Integration**:
@@ -62,7 +62,7 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
 
 ```bash
 # Launch a headless scraper profile through residential proxy
-specter browser launch "Scraper-Node-01" \
+tuquet browser launch "Scraper-Node-01" \
   --headless \
   --proxy socks5://127.0.0.1:1080 \
   --port 9222 \
@@ -73,7 +73,7 @@ specter browser launch "Scraper-Node-01" \
 
 ```bash
 # Run automated extraction workflow with runtime parameter substitution
-specter automa run ./workflows/ecommerce_catalog.workflow.json \
+tuquet automa run ./workflows/ecommerce_catalog.workflow.json \
   --headless \
   --timeout 120 \
   -p TARGET_URL="https://example-store.com/products" \
@@ -86,5 +86,5 @@ In distributed scraping fleets, worker nodes continuously poll tasks from the ce
 
 ```bash
 # Start background worker daemon polling extraction jobs every 10s
-specter runner worker --interval 10 --headless
+tuquet runner worker --interval 10 --headless
 ```

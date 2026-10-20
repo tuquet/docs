@@ -16,7 +16,7 @@ An unshielded workstation will choke when running mass automation. Detached scra
 
 Traditional automation libraries (Playwright, Puppeteer, Selenium) spawn browser processes as detached child processes. If the parent script crashes abruptly or is killed, child browser processes linger and become persistent zombies.
 
-Specter Runner eliminates this failure mode natively using operating system process sandboxing (`command_group`):
+Tuquet Runner eliminates this failure mode natively using operating system process sandboxing (`command_group`):
 
 ```text
  ┌─────────────────────────────────────────────────────────────┐
@@ -26,7 +26,7 @@ Specter Runner eliminates this failure mode natively using operating system proc
  │  │          Native Process Supervision Sandbox           │  │
  │  │                                                       │  │
  │  │   ┌──────────────────┐       ┌────────────────────┐   │  │
- │  │   │  Specter Runner  │ ────► │ Chromium (Parent)  │   │  │
+ │  │   │  Tuquet Runner  │ ────► │ Chromium (Parent)  │   │  │
  │  │   │  Daemon (8765)   │       └─────────┬──────────┘   │  │
  │  │   └──────────────────┘                 │              │  │
  │  │                                        ▼              │  │
@@ -133,7 +133,7 @@ In distributed scraping fleets, edge nodes and cloud VPS instances operate as he
 When running in worker mode:
 
 ```bash
-specter runner worker --interval 15 --headless
+tuquet runner worker --interval 15 --headless
 ```
 
 The daemon automatically executes an autonomous 5-stage lifecycle:
@@ -153,62 +153,62 @@ All runner operations can be managed via the unified Master CLI:
 
 ```bash
 # Start runner daemon on default port 8765
-specter runner start
+tuquet runner start
 
 # Start in background as a detached supervisor daemon
-specter runner start --detach
+tuquet runner start --detach
 
 # Custom host, port, and log verbosity
-specter runner start --host 0.0.0.0 --port 9000 --log-level debug
+tuquet runner start --host 0.0.0.0 --port 9000 --log-level debug
 
 # Enable Autonomous Cloud Fleet Mesh worker mode
-specter runner start --detach --cloud
+tuquet runner start --detach --cloud
 ```
 
 ### Cloud Fleet Worker
 
 ```bash
 # Start polling and executing cloud workflows every 15 seconds
-specter runner worker --interval 15
+tuquet runner worker --interval 15
 
 # Execute a single job on a specific cloud profile and exit
-specter runner worker --cloud-profile "Facebook-Ad-VN" --workflow ./task.json --once
+tuquet runner worker --cloud-profile "Facebook-Ad-VN" --workflow ./task.json --once
 ```
 
 ### Inspecting Status & Logs
 
 ```bash
 # Check daemon health and active worker threads
-specter runner status
+tuquet runner status
 
 # Output status in raw JSON format for machine monitoring
-specter runner status --json
+tuquet runner status --json
 
 # Follow and tail live daemon execution logs
-specter runner logs --follow --lines 100
+tuquet runner logs --follow --lines 100
 ```
 
 ### Lifecycle Control
 
 ```bash
 # Restart the running runner daemon
-specter runner restart --detach
+tuquet runner restart --detach
 
 # Gracefully stop the runner daemon
-specter runner stop
+tuquet runner stop
 
 # Force terminate active jobs without waiting
-specter runner stop --force
+tuquet runner stop --force
 ```
 
 ### Active Probe & OpenAPI Specification
 
 ```bash
 # Active capability negotiation probe returning manifest JSON
-specter runner probe
+tuquet runner probe
 
 # Export OpenAPI v3 JSON specification to file
-specter runner export-openapi --output ./openapi.json
+tuquet runner export-openapi --output ./openapi.json
 ```
 
 ---
@@ -225,7 +225,7 @@ runner run ./job.yaml
 runner exec --driver shell --command "dir"
 runner exec --driver agent --prompt "Scrape top 10 products"
 
-# Enroll workstation with Specter Cloud (zero-touch device registration)
+# Enroll workstation with Tuquet Cloud (zero-touch device registration)
 runner enroll --env prod --token <ENROLLMENT_TOKEN>
 
 # Manage and switch cloud environments (dev, local, prod)
@@ -233,7 +233,7 @@ runner env list
 runner env switch prod
 
 # Connect outbound worker to central WebSocket control plane
-runner worker --server wss://hub.specter.dev/api/v1/runner/ws --token <TOKEN>
+runner worker --server wss://hub.tuquet.dev/api/v1/runner/ws --token <TOKEN>
 
 # Display system information, hardware fingerprint, and enrollment status
 runner info
@@ -246,10 +246,10 @@ runner purge
 
 ## 7. SSOT Storage & Configuration (Pillar 2)
 
-In strict adherence to Specter's SSOT architecture, all Runner runtime configuration and SQLite job history resolve under `~/.specter/automa/`:
+In strict adherence to Tuquet's SSOT architecture, all Runner runtime configuration and SQLite job history resolve under `~/.tuquet/automa/`:
 
 ```text
-~/.specter/automa/
+~/.tuquet/automa/
 ├── runner.json               # Runner daemon configuration (port, concurrency)
 ├── automa.sqlite             # Execution history, job states, telemetry
 └── workflows/                # Local DAG workflow definitions
@@ -270,21 +270,21 @@ In strict adherence to Specter's SSOT architecture, all Runner runtime configura
 Manage configuration directly from the CLI:
 
 ```bash
-specter runner config --show
-specter runner config --edit
+tuquet runner config --show
+tuquet runner config --edit
 ```
 
 ---
 
 ## 8. AI Agent Integration (MCP Protocol)
 
-AI agents query and orchestrate the local runner through the native MCP tool **`specter_runner_probe`**:
+AI agents query and orchestrate the local runner through the native MCP tool **`tuquet_runner_probe`**:
 
 ### Tool Call
 
 ```json
 {
-  "name": "specter_runner_probe",
+  "name": "tuquet_runner_probe",
   "arguments": {}
 }
 ```
@@ -293,7 +293,7 @@ AI agents query and orchestrate the local runner through the native MCP tool **`
 
 ```json
 {
-  "protocol": "specter.automa.v1",
+  "protocol": "tuquet.automa.v1",
   "name": "automa-runner",
   "version": "0.1.0",
   "engine": "chromium-extension-worker",

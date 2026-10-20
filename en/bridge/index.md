@@ -2,7 +2,7 @@
 
 Corporate and data-center firewalls lock down outbound ports. Automation scripts leak real residential IPs through DNS fallback and silent socket drops. One unshielded TCP packet ruins months of profile farming.
 
-**Bridge Mesh Gateway** is a standalone network tunnel supervisor and protocol adapter engineered in pure Rust (`tuquet-bridge`). Runs completely independent of Specter or embedded as the network backbone. It binds local SOCKS5 listeners, translates legacy HTTP `CONNECT` calls on port 8118, executes pre-flight egress verification before letting packets touch the wire, and auto-heals severed tunnels in under 3 seconds.
+**Bridge Mesh Gateway** is a standalone network tunnel supervisor and protocol adapter engineered in pure Rust (`tuquet-bridge`). Runs completely independent of Tuquet or embedded as the network backbone. It binds local SOCKS5 listeners, translates legacy HTTP `CONNECT` calls on port 8118, executes pre-flight egress verification before letting packets touch the wire, and auto-heals severed tunnels in under 3 seconds.
 
 ::: tip Standalone Microservice
 `tuquet-bridge` operates as an independent daemon. Use it to establish multi-hop SOCKS5/HTTP tunnels and enforce WebRTC leak shielding across arbitrary CLI tools, git clients, and headless scrapers.
@@ -47,7 +47,7 @@ Corporate and data-center firewalls lock down outbound ports. Automation scripts
 ```
 
 1. **Embedded HTTP-to-SOCKS5 Bridge (Port 8118)**:
-   - Many CLI scrapers, git clients, and legacy libraries only accept HTTP proxy URLs. Specter includes a pure-Rust HTTP proxy listener that translates HTTP `CONNECT` tunneling into local SOCKS5 sessions with sub-millisecond overhead.
+   - Many CLI scrapers, git clients, and legacy libraries only accept HTTP proxy URLs. Tuquet includes a pure-Rust HTTP proxy listener that translates HTTP `CONNECT` tunneling into local SOCKS5 sessions with sub-millisecond overhead.
 2. **Local SSH Port Forwarding (Port 2222)**:
    - Exposes a direct SSH pipe into remote VPS nodes, enabling instantaneous terminal administration and file transfers (`ssh -p 2222 root@127.0.0.1`) without exposing port 22 to the public internet.
 3. **Auto-Healing Supervisor Mode (`--foreground`)**:
@@ -59,13 +59,13 @@ Corporate and data-center firewalls lock down outbound ports. Automation scripts
 
 ## 2. Command Reference
 
-All bridge operations are managed via the `specter bridge` and `specter proxy` commands:
+All bridge operations are managed via the `tuquet bridge` and `tuquet proxy` commands:
 
 ### Monitoring Bridge Health & Status
 
 ```bash
 # Display interactive health check dashboard of all configured VPS nodes and ports
-specter bridge status
+tuquet bridge status
 ```
 
 Output summary:
@@ -73,7 +73,7 @@ Output summary:
 ```text
 ╭─ NETWORK BRIDGE & MULTI-VPS MESH ────────────── ● CONTROLLER READY ─╮
 │  Workstation:    WORKSTATION-VN                                     │
-│  Config Source:  ~/.specter/bridge/bridge.json                       │
+│  Config Source:  ~/.tuquet/bridge/bridge.json                       │
 │  Default Server: vps-us-01                                          │
 ╰─────────────────────────────────────────────────────────────────────╯
 
@@ -87,59 +87,59 @@ Output summary:
 
 ```bash
 # Start all enabled bridge connections in the background
-specter bridge start
+tuquet bridge start
 
 # Start bridges including the embedded HTTP-to-SOCKS5 adapter (port 8118)
-specter bridge start --http
+tuquet bridge start --http
 
 # Start bridge with direct SSH forwarding (port 2222)
-specter bridge start --ssh
+tuquet bridge start --ssh
 
 # Run supervisor in foreground (auto-reconnects dropped tunnels automatically)
-specter bridge start -f
+tuquet bridge start -f
 
 # Target a specific server or tag
-specter bridge start vps-us-01
-specter bridge start -t mmo-farm
+tuquet bridge start vps-us-01
+tuquet bridge start -t mmo-farm
 
 # Stop running bridge tunnels
-specter bridge stop
-specter bridge stop all
+tuquet bridge stop
+tuquet bridge stop all
 ```
 
 ### Probing Proxy Connectivity & Egress IP
 
 ```bash
 # Probe connectivity, latency, and public egress IP of any proxy URL
-specter proxy probe socks5://127.0.0.1:1080
+tuquet proxy probe socks5://127.0.0.1:1080
 
 # Probe proxy with JSON output for automated scripting
-specter proxy probe http://127.0.0.1:8118 --json
+tuquet proxy probe http://127.0.0.1:8118 --json
 ```
 
 ### Managing Server Configurations
 
 ```bash
 # Enable or disable a server in bridge.json without editing files manually
-specter bridge enable vps-us-01
-specter bridge disable vps-sg-02
+tuquet bridge enable vps-us-01
+tuquet bridge disable vps-sg-02
 
 # Validate configuration schema, port collisions, and workload definitions
-specter bridge check
+tuquet bridge check
 
 # Display or edit canonical configuration
-specter bridge config --show
-specter bridge config --edit
+tuquet bridge config --show
+tuquet bridge config --edit
 ```
 
 ---
 
 ## 3. SSOT Storage & Configuration (Pillar 4)
 
-In strict adherence to Specter's SSOT architecture, all bridge configurations and active process IDs resolve to `~/.specter/bridge/`:
+In strict adherence to Tuquet's SSOT architecture, all bridge configurations and active process IDs resolve to `~/.tuquet/bridge/`:
 
 ```text
-~/.specter/bridge/
+~/.tuquet/bridge/
 ├── bridge.json               # Canonical server list, port mappings, and credentials
 ├── bin/                      # Auxiliary tunnel binaries (ssh, cloudflared)
 └── pids/                     # Background daemon process locks (<server>.json)
@@ -178,10 +178,10 @@ Once the bridge is active, route browser profiles directly through local ports:
 
 ```bash
 # Launch profile through local SOCKS5 bridge
-specter browser launch "Profile-US" --proxy socks5://127.0.0.1:1080
+tuquet browser launch "Profile-US" --proxy socks5://127.0.0.1:1080
 
 # Launch profile through local HTTP adapter
-specter browser launch "Profile-US" --proxy http://127.0.0.1:8118
+tuquet browser launch "Profile-US" --proxy http://127.0.0.1:8118
 ```
 
 ::: tip Universal Control Plane Integration

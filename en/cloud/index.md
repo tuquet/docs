@@ -1,12 +1,12 @@
 # Cloud Center & Enterprise Control Plane
 
-The Tuquet platform operates on a **Single-Source, Dual-Platform Architecture**: a unified modern Vue 3 / Vben 5 control interface deployed concurrently as:
+The Tuquet platform operates on a **Single-Source, Dual-Platform Architecture**: a unified modern Vue 3 / Tuquet 5 control interface deployed concurrently as:
 1. **Central Web Admin (Cloud)**: Distributed SaaS control plane for multi-tenant organizations, licensing, subscription billing, and fleet orchestration.
-2. **Native Desktop Application (Tauri Shell)**: A lightweight native desktop client directly embedding this exact frontend code, bridging directly into local workstation runners, hardware-accelerated stealth browsers, and the local SSOT root (`~/.specter/`).
+2. **Native Desktop Application (Tauri Shell)**: A lightweight native desktop client directly embedding this exact frontend code, bridging directly into local workstation runners, hardware-accelerated stealth browsers, and the local SSOT root (`~/.tuquet/`).
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│             UNIFIED FRONTEND CONTROL PLANE (Vue 3 / Vben 5)           │
+│             UNIFIED FRONTEND CONTROL PLANE (Vue 3 / Tuquet 5)           │
 │                                                                        │
 │   [Tenancy Hub]   [Automation Suite]   [Commerce & Wallet]   [System]  │
 └───────────────────────────────────┬────────────────────────────────────┘
@@ -19,7 +19,7 @@ The Tuquet platform operates on a **Single-Source, Dual-Platform Architecture**:
 ├───────────────────────────────────┤       ├───────────────────────────────────┤
 │ • PostgreSQL 15+ & Row-Level Sec  │       │ • Rust Native Host Process        │
 │ • Central Multi-Tenant RBAC       │       │ • Direct IPC to Local Runner CLI  │
-│ • Subscription Plans & Billing    │       │ • Direct FS: ~/.specter/          │
+│ • Subscription Plans & Billing    │       │ • Direct FS: ~/.tuquet/          │
 │ • Global Fleet & Device Telemetry │       │ • Hardware Stealth Chromium C++   │
 │ • OAuth & SSO Desktop Bridge      │       │ • Local SOCKS5 Mesh & Proxies     │
 └─────────────────┬─────────────────┘       └─────────────────┬─────────────────┘
@@ -89,17 +89,17 @@ Built for monetization, template sharing, and pay-as-you-go automation runs.
 
 ## 3. Desktop Bridge & Tauri Native Protocol
 
-When operating the desktop app or the Specter CLI, operators log in seamlessly via the **Desktop Bridge Protocol**:
+When operating the desktop app or the Tuquet CLI, operators log in seamlessly via the **Desktop Bridge Protocol**:
 
 ```text
- 1. Operator runs: specter cloud login
+ 1. Operator runs: tuquet cloud login
  2. CLI spins local HTTP listener on 127.0.0.1:8765
  3. CLI opens browser to: https://admin.tuquet.com/auth/desktop?port=8765&machine_name=MyWorkstation
  4. Operator authorizes tenant workspace
  5. Frontend dispatches deep-link:
     tuquet://auth/callback?token=<JWT>&refresh_token=<REFRESH>&tenant_id=<TENANT>
     (Fallback: POSTs credentials directly to http://127.0.0.1:8765/callback)
- 6. Local workstation saves identity to ~/.specter/system/.identity.json
+ 6. Local workstation saves identity to ~/.tuquet/system/.identity.json
 ```
 
 In the upcoming **Tauri release**, the native window directly wraps this router. The bridge executes in-memory via Tauri's native IPC channels (`invoke`), eliminating the need for local browser redirect loops while keeping 100% of the UI components identical.

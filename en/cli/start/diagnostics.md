@@ -2,7 +2,7 @@
 
 Operating antidetect browser clusters, proxy mesh tunnels, and automated DAG workflows requires verified system dependencies, intact SQLite databases, and properly permissioned storage pillars.
 
-**Specter Doctor** is a built-in automated diagnostic and self-healing engine (`specter doctor`) that verifies workstation readiness across all microservice pillars.
+**Tuquet Doctor** is a built-in automated diagnostic and self-healing engine (`tuquet doctor`) that verifies workstation readiness across all microservice pillars.
 
 <HairlineFigure name="query" />
 
@@ -14,7 +14,7 @@ Execute the diagnostic scanner at any time:
 
 ```bash
 # Run complete ecosystem health check
-specter doctor
+tuquet doctor
 ```
 
 The diagnostic scanner inspects 5 critical subsystems:
@@ -26,15 +26,15 @@ The diagnostic scanner inspects 5 critical subsystems:
     • Git                 - Version control for local workflow repositories
 
  2. Dedicated Browser Runtime:
-    • C++ Chromium LTS    - Checks binary presence in ~/.specter/browser/runtimes/
+    • C++ Chromium LTS    - Checks binary presence in ~/.tuquet/browser/runtimes/
     • Executable Bit      - Verifies launch permissions and integrity hash
 
- 3. SSOT Storage Pillars (~/.specter/):
-    • ~/.specter/system/   - Machine identity (.machine_id) and credentials
-    • ~/.specter/automa/   - Workflow vault and execution database
-    • ~/.specter/browser/  - Profile sandboxes and antidetect runtimes
-    • ~/.specter/bridge/   - Mesh configuration and daemon PIDs
-    • ~/.specter/faker/    - Synthetic persona schemas and templates
+ 3. SSOT Storage Pillars (~/.tuquet/):
+    • ~/.tuquet/system/   - Machine identity (.machine_id) and credentials
+    • ~/.tuquet/automa/   - Workflow vault and execution database
+    • ~/.tuquet/browser/  - Profile sandboxes and antidetect runtimes
+    • ~/.tuquet/bridge/   - Mesh configuration and daemon PIDs
+    • ~/.tuquet/faker/    - Synthetic persona schemas and templates
 
  4. Automa SQLite Database:
     • automa.sqlite       - Verifies schema migrations and read/write access
@@ -47,7 +47,7 @@ The diagnostic scanner inspects 5 critical subsystems:
 
 ## 2. Diagnostic Output & Verdict Card
 
-When all dependencies are operational, Specter displays a clean diagnostic verdict:
+When all dependencies are operational, Tuquet displays a clean diagnostic verdict:
 
 ```text
 ╭─ DIAGNOSTIC VERDICT ────────────────────────────── ● ALL SYSTEMS OPERATIONAL ─╮
@@ -63,22 +63,22 @@ If a dependency is missing, Doctor highlights the specific missing component and
   Tool / Runtime       Status        Action Needed
   ──────────────────────────────────────────────────────────────────────────
   ssh (OpenSSH)        ● MISSING     sudo apt install openssh-client
-  Chromium LTS         ○ NOT FOUND   Run 'specter doctor --fix' to auto-download
+  Chromium LTS         ○ NOT FOUND   Run 'tuquet doctor --fix' to auto-download
 ```
 
 ---
 
 ## 3. Automated Self-Healing (`--fix`)
 
-When run with the `--fix` flag, Specter automatically resolves configuration drift, missing runtimes, and storage inconsistencies:
+When run with the `--fix` flag, Tuquet automatically resolves configuration drift, missing runtimes, and storage inconsistencies:
 
 ```bash
 # Automatically remediate environment issues and download missing runtimes
-specter doctor --fix
+tuquet doctor --fix
 ```
 
 The remediation pipeline executes in sequence:
-1. **Initializes SSOT Pillars**: Creates all missing canonical storage directories under `~/.specter/`.
-2. **Initializes SQLite Store**: Runs schema migrations for `~/.specter/automa/automa.sqlite`.
+1. **Initializes SSOT Pillars**: Creates all missing canonical storage directories under `~/.tuquet/`.
+2. **Initializes SQLite Store**: Runs schema migrations for `~/.tuquet/automa/automa.sqlite`.
 3. **Provisions Antidetect Chromium**: Downloads and unpacks the verified C++ Antidetect Chromium LTS release.
 4. **Validates Proxy Bridge**: Verifies SSH tunnel dependencies and default configurations.

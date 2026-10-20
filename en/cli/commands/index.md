@@ -1,9 +1,9 @@
 ---
-title: Specter CLI Commands Reference
-description: Comprehensive catalog of 68 canonical commands defined in the SSOT Manifest (~/.specter/).
+title: Tuquet CLI Commands Reference
+description: Comprehensive catalog of 68 canonical commands defined in the SSOT Manifest (~/.tuquet/).
 ---
 
-# Specter CLI Commands Reference
+# Tuquet CLI Commands Reference
 
 > **Single Source of Truth (SSOT):** All 68 commands, configuration flags, and arguments below are synchronized directly from `schema/cli.manifest.json`.
 > For automated pipeline integrations: [Download Raw Schema (cli.manifest.json)](https://tuquet.com/schema/cli.manifest.json).
@@ -16,21 +16,21 @@ description: Comprehensive catalog of 68 canonical commands defined in the SSOT 
 
 | Pillar | SSOT Directory | Commands | Primary Domain & Purpose |
 | :--- | :--- | :---: | :--- |
-| [**System & Onboarding**](#system) | `~/.specter/system/` | **11** | Machine identity (.machine_id), shell history, and ecosystem-wide diagnostics. |
-| [**Automa & Headless Scraper**](#automa) | `~/.specter/automa/` | **9** | Topological DAG workflow execution, variables, and CDP scraping engine. |
-| [**Stealth Browser & Profiles**](#browser) | `~/.specter/browser/` | **29** | C++ Antidetect Chromium launch, deterministic PRNG spoofing, and profile sandboxing. |
-| [**Proxy Tunnel & Network Mesh**](#bridge) | `~/.specter/bridge/` | **7** | Network tunnels, SOCKS5 routing (1080), embedded HTTP adapter (8118), and mesh supervisor. |
-| [**Faker & Synthetic Personas**](#faker) | `~/.specter/faker/` | **2** | Synthetic personas, valid 12-digit Modulo 11 CCCDs, and Vietnamese demographic profiles. |
-| [**Runner Supervisor & Daemon**](#runner) | `~/.specter/automa/` | **7** | Native background worker supervisor daemon. Automatically reaps child processes (Zero Zombie). |
-| [**Cloud Center Fleet**](#cloud) | `~/.specter/system/` | **3** | Central operation plane (PostgreSQL 15+ RLS) and distributed lease locks. |
+| [**System & Onboarding**](#system) | `~/.tuquet/system/` | **11** | Machine identity (.machine_id), shell history, and ecosystem-wide diagnostics. |
+| [**Automa & Headless Scraper**](#automa) | `~/.tuquet/automa/` | **9** | Topological DAG workflow execution, variables, and CDP scraping engine. |
+| [**Stealth Browser & Profiles**](#browser) | `~/.tuquet/browser/` | **29** | C++ Antidetect Chromium launch, deterministic PRNG spoofing, and profile sandboxing. |
+| [**Proxy Tunnel & Network Mesh**](#bridge) | `~/.tuquet/bridge/` | **7** | Network tunnels, SOCKS5 routing (1080), embedded HTTP adapter (8118), and mesh supervisor. |
+| [**Faker & Synthetic Personas**](#faker) | `~/.tuquet/faker/` | **2** | Synthetic personas, valid 12-digit Modulo 11 CCCDs, and Vietnamese demographic profiles. |
+| [**Runner Supervisor & Daemon**](#runner) | `~/.tuquet/automa/` | **7** | Native background worker supervisor daemon. Automatically reaps child processes (Zero Zombie). |
+| [**Cloud Center Fleet**](#cloud) | `~/.tuquet/system/` | **3** | Central operation plane (PostgreSQL 15+ RLS) and distributed lease locks. |
 
 ---
 
 ## System & Onboarding {#system}
 
-> **SSOT Storage Root:** `~/.specter/system/`
+> **SSOT Storage Root:** `~/.tuquet/system/`
 
-### `specter bootstrap`
+### `tuquet bootstrap`
 
 **Description:** Initialize 5 SSOT storage pillars, SQLite database, native MCP stdio server, and download Chromium Golden LTS.
 
@@ -43,15 +43,15 @@ description: Comprehensive catalog of 68 canonical commands defined in the SSOT 
 ::: details Example Syntax
 ```bash
 # One-Command Workstation Onboarding
-specter bootstrap
+tuquet bootstrap
 ```
 :::
 
 ---
 
-### `specter config`
+### `tuquet config`
 
-**Description:** Inspect or edit configuration across Specter microservice pillars (~/.specter/).
+**Description:** Inspect or edit configuration across Tuquet microservice pillars (~/.tuquet/).
 
 **Arguments:**
 
@@ -69,13 +69,13 @@ specter bootstrap
 ::: details Example Syntax
 ```bash
 # Unified Configuration Manager
-specter config
+tuquet config
 ```
 :::
 
 ---
 
-### `specter doctor`
+### `tuquet doctor`
 
 **Description:** Check system dependencies, required tools, network tunnels, and environment health.
 
@@ -88,26 +88,26 @@ specter config
 ::: details Example Syntax
 ```bash
 # System & Dependency Health Check
-specter doctor
+tuquet doctor
 ```
 :::
 
 ---
 
-### `specter mcp`
+### `tuquet mcp`
 
 **Description:** Run Model Context Protocol (MCP) JSON-RPC 2.0 stdio server for AI agents.
 
 ::: details Example Syntax
 ```bash
 # Run MCP Stdio Server
-specter mcp
+tuquet mcp
 ```
 :::
 
 ---
 
-### `specter schema`
+### `tuquet schema`
 
 **Description:** Inspect and export CLI command manifests and microservice JSON schemas.
 
@@ -120,13 +120,13 @@ specter mcp
 ::: details Example Syntax
 ```bash
 # Schema Manifest & Introspection
-specter schema
+tuquet schema
 ```
 :::
 
 ---
 
-### `specter schema commands`
+### `tuquet schema commands`
 
 **Description:** List or export the full command manifest catalog matching the VS Code contributes standard.
 
@@ -140,13 +140,13 @@ specter schema
 ::: details Example Syntax
 ```bash
 # Export Command Manifest
-specter schema commands
+tuquet schema commands
 ```
 :::
 
 ---
 
-### `specter schema config`
+### `tuquet schema config`
 
 **Description:** Export the JSON Schema definition for a microservice configuration file.
 
@@ -159,26 +159,26 @@ specter schema commands
 ::: details Example Syntax
 ```bash
 # Export Configuration JSON Schema
-specter schema config
+tuquet schema config
 ```
 :::
 
 ---
 
-### `specter schema mcp`
+### `tuquet schema mcp`
 
 **Description:** Export the AI Agent Model Context Protocol (MCP) tool schemas generated from this manifest.
 
 ::: details Example Syntax
 ```bash
 # Export MCP Agent Tools Catalog
-specter schema mcp
+tuquet schema mcp
 ```
 :::
 
 ---
 
-### `specter shell`
+### `tuquet shell`
 
 **Description:** Launch interactive scoped terminal shell session with auto-completion and hotkeys.
 
@@ -190,19 +190,19 @@ specter schema mcp
 
 ::: details Example Syntax
 ```bash
-# Interactive Specter REPL Shell
-specter shell
+# Interactive Tuquet REPL Shell
+tuquet shell
 ```
 :::
 
 ---
 
-### `specter status`
+### `tuquet status`
 
 **Description:** Show unified status overview across Cloud, Runner, Bridge, and Antidetect Browser.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `specter_status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `tuquet_status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Options & Flags:**
@@ -214,20 +214,20 @@ Exported as a native Model Context Protocol (MCP) tool named `specter_status`. A
 ::: details Example Syntax
 ```bash
 # System Status Overview
-specter status
+tuquet status
 ```
 :::
 
 ---
 
-### `specter upgrade`
+### `tuquet upgrade`
 
-**Description:** Check and atomically upgrade Specter CLI binary in-place to latest release.
+**Description:** Check and atomically upgrade Tuquet CLI binary in-place to latest release.
 
 ::: details Example Syntax
 ```bash
-# upgrade Specter CLI
-specter upgrade
+# upgrade Tuquet CLI
+tuquet upgrade
 ```
 :::
 
@@ -235,14 +235,14 @@ specter upgrade
 
 ## Automa & Headless Scraper {#automa}
 
-> **SSOT Storage Root:** `~/.specter/automa/`
+> **SSOT Storage Root:** `~/.tuquet/automa/`
 
-### `specter automa inspect`
+### `tuquet automa inspect`
 
 **Description:** Inspect and validate a workflow JSON file, its block sequence, and parameters.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `specter_workflow_inspect`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `tuquet_workflow_inspect`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Arguments:**
@@ -254,31 +254,31 @@ Exported as a native Model Context Protocol (MCP) tool named `specter_workflow_i
 ::: details Example Syntax
 ```bash
 # Inspect Workflow DAG
-specter automa inspect
+tuquet automa inspect
 ```
 :::
 
 ---
 
-### `specter automa probe`
+### `tuquet automa probe`
 
 **Description:** Probe Automa manifest capabilities and protocol version.
 
 ::: details Example Syntax
 ```bash
 # Probe Automation Engine
-specter automa probe
+tuquet automa probe
 ```
 :::
 
 ---
 
-### `specter automa run`
+### `tuquet automa run`
 
 **Description:** Execute a DAG workflow directly via Chromium automation worker.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `specter_workflow_run`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `tuquet_workflow_run`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Arguments:**
@@ -299,26 +299,26 @@ Exported as a native Model Context Protocol (MCP) tool named `specter_workflow_r
 ::: details Example Syntax
 ```bash
 # Execute Automation Workflow
-specter automa run
+tuquet automa run
 ```
 :::
 
 ---
 
-### `specter automa studio`
+### `tuquet automa studio`
 
 **Description:** Launch Automa Web Studio in default system browser.
 
 ::: details Example Syntax
 ```bash
 # Launch Automa Web Studio
-specter automa studio
+tuquet automa studio
 ```
 :::
 
 ---
 
-### `specter automa workflow delete`
+### `tuquet automa workflow delete`
 
 **Description:** Delete a workflow from database and vault.
 
@@ -337,13 +337,13 @@ specter automa studio
 ::: details Example Syntax
 ```bash
 # Delete Stored Workflow
-specter automa workflow delete
+tuquet automa workflow delete
 ```
 :::
 
 ---
 
-### `specter automa workflow export`
+### `tuquet automa workflow export`
 
 **Description:** Export a workflow from database or vault to a JSON file.
 
@@ -362,13 +362,13 @@ specter automa workflow delete
 ::: details Example Syntax
 ```bash
 # Export Workflow File
-specter automa workflow export
+tuquet automa workflow export
 ```
 :::
 
 ---
 
-### `specter automa workflow import`
+### `tuquet automa workflow import`
 
 **Description:** Import a workflow file (.json) into SQLite database and vault.
 
@@ -389,13 +389,13 @@ specter automa workflow export
 ::: details Example Syntax
 ```bash
 # Import Workflow File
-specter automa workflow import
+tuquet automa workflow import
 ```
 :::
 
 ---
 
-### `specter automa workflow info`
+### `tuquet automa workflow info`
 
 **Description:** Inspect details, triggers, parameters, and block sequence of a stored workflow.
 
@@ -408,18 +408,18 @@ specter automa workflow import
 ::: details Example Syntax
 ```bash
 # Inspect Stored Workflow Details
-specter automa workflow info
+tuquet automa workflow info
 ```
 :::
 
 ---
 
-### `specter automa workflow list`
+### `tuquet automa workflow list`
 
 **Description:** List all workflows saved in SQLite database and local file vault.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `specter_workflow_list`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `tuquet_workflow_list`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Options & Flags:**
@@ -431,7 +431,7 @@ Exported as a native Model Context Protocol (MCP) tool named `specter_workflow_l
 ::: details Example Syntax
 ```bash
 # List Stored Workflows
-specter automa workflow list
+tuquet automa workflow list
 ```
 :::
 
@@ -439,22 +439,22 @@ specter automa workflow list
 
 ## Stealth Browser & Profiles {#browser}
 
-> **SSOT Storage Root:** `~/.specter/browser/`
+> **SSOT Storage Root:** `~/.tuquet/browser/`
 
-### `specter browser clean`
+### `tuquet browser clean`
 
 **Description:** Delete installed browser runtime to reclaim disk space.
 
 ::: details Example Syntax
 ```bash
 # Clean Browser Runtimes
-specter browser clean
+tuquet browser clean
 ```
 :::
 
 ---
 
-### `specter browser ext add`
+### `tuquet browser ext add`
 
 **Description:** Register a new browser extension from an unpacked directory.
 
@@ -473,13 +473,13 @@ specter browser clean
 ::: details Example Syntax
 ```bash
 # Add Local Extension
-specter browser ext add
+tuquet browser ext add
 ```
 :::
 
 ---
 
-### `specter browser ext catalog`
+### `tuquet browser ext catalog`
 
 **Description:** Browse and search available extensions from scoop catalog.
 
@@ -492,13 +492,13 @@ specter browser ext add
 ::: details Example Syntax
 ```bash
 # Browse Extensions Catalog
-specter browser ext catalog
+tuquet browser ext catalog
 ```
 :::
 
 ---
 
-### `specter browser ext disable`
+### `tuquet browser ext disable`
 
 **Description:** Disable an extension.
 
@@ -511,13 +511,13 @@ specter browser ext catalog
 ::: details Example Syntax
 ```bash
 # Disable Extension
-specter browser ext disable
+tuquet browser ext disable
 ```
 :::
 
 ---
 
-### `specter browser ext enable`
+### `tuquet browser ext enable`
 
 **Description:** Enable an extension for automated browser sessions.
 
@@ -530,13 +530,13 @@ specter browser ext disable
 ::: details Example Syntax
 ```bash
 # Enable Extension
-specter browser ext enable
+tuquet browser ext enable
 ```
 :::
 
 ---
 
-### `specter browser ext info`
+### `tuquet browser ext info`
 
 **Description:** Show detailed metadata and manifest for an extension.
 
@@ -549,13 +549,13 @@ specter browser ext enable
 ::: details Example Syntax
 ```bash
 # Extension Information
-specter browser ext info
+tuquet browser ext info
 ```
 :::
 
 ---
 
-### `specter browser ext install`
+### `tuquet browser ext install`
 
 **Description:** Download and install an extension package from scoop catalog.
 
@@ -574,13 +574,13 @@ specter browser ext info
 ::: details Example Syntax
 ```bash
 # Install Extension Package
-specter browser ext install
+tuquet browser ext install
 ```
 :::
 
 ---
 
-### `specter browser ext launch`
+### `tuquet browser ext launch`
 
 **Description:** Launch browser with specified extension(s) or all enabled extensions.
 
@@ -594,26 +594,26 @@ specter browser ext install
 ::: details Example Syntax
 ```bash
 # Launch Browser With Extensions
-specter browser ext launch
+tuquet browser ext launch
 ```
 :::
 
 ---
 
-### `specter browser ext list`
+### `tuquet browser ext list`
 
 **Description:** List all registered browser extensions.
 
 ::: details Example Syntax
 ```bash
 # List Registered Extensions
-specter browser ext list
+tuquet browser ext list
 ```
 :::
 
 ---
 
-### `specter browser ext path`
+### `tuquet browser ext path`
 
 **Description:** Print the absolute filesystem path of an extension (defaults to 'automa').
 
@@ -626,13 +626,13 @@ specter browser ext list
 ::: details Example Syntax
 ```bash
 # Extension Filesystem Path
-specter browser ext path
+tuquet browser ext path
 ```
 :::
 
 ---
 
-### `specter browser ext remove`
+### `tuquet browser ext remove`
 
 **Description:** Unregister a browser extension by ID.
 
@@ -645,13 +645,13 @@ specter browser ext path
 ::: details Example Syntax
 ```bash
 # Remove Extension
-specter browser ext remove
+tuquet browser ext remove
 ```
 :::
 
 ---
 
-### `specter browser install`
+### `tuquet browser install`
 
 **Description:** Download and provision Chromium C++ Antidetect engine from curated manifest.
 
@@ -670,13 +670,13 @@ specter browser ext remove
 ::: details Example Syntax
 ```bash
 # Install Antidetect Chromium
-specter browser install
+tuquet browser install
 ```
 :::
 
 ---
 
-### `specter browser launch`
+### `tuquet browser launch`
 
 **Description:** Launch an antidetect browser profile with direct CDP DevTools bridge.
 
@@ -702,39 +702,39 @@ specter browser install
 ::: details Example Syntax
 ```bash
 # Launch Browser In Profile
-specter browser launch
+tuquet browser launch
 ```
 :::
 
 ---
 
-### `specter browser list`
+### `tuquet browser list`
 
 **Description:** List all locally installed Chromium runtimes on this workstation.
 
 ::: details Example Syntax
 ```bash
 # List Installed Browser Engines
-specter browser list
+tuquet browser list
 ```
 :::
 
 ---
 
-### `specter browser path`
+### `tuquet browser path`
 
 **Description:** Print the absolute executable path of the browser (for scripting / integrations).
 
 ::: details Example Syntax
 ```bash
 # Browser Executable Path
-specter browser path
+tuquet browser path
 ```
 :::
 
 ---
 
-### `specter browser profile cloud acquire`
+### `tuquet browser profile cloud acquire`
 
 **Description:** Acquire exclusive distributed lease lock on a cloud browser profile.
 
@@ -753,13 +753,13 @@ specter browser path
 ::: details Example Syntax
 ```bash
 # Acquire Cloud Profile Lease Lock
-specter browser profile cloud acquire
+tuquet browser profile cloud acquire
 ```
 :::
 
 ---
 
-### `specter browser profile cloud list`
+### `tuquet browser profile cloud list`
 
 **Description:** List all central cloud browser profiles in current tenant.
 
@@ -772,13 +772,13 @@ specter browser profile cloud acquire
 ::: details Example Syntax
 ```bash
 # List Cloud Browser Profiles
-specter browser profile cloud list
+tuquet browser profile cloud list
 ```
 :::
 
 ---
 
-### `specter browser profile cloud release`
+### `tuquet browser profile cloud release`
 
 **Description:** Release distributed lease lock and synchronize session delta back to cloud.
 
@@ -797,13 +797,13 @@ specter browser profile cloud list
 ::: details Example Syntax
 ```bash
 # Release Cloud Profile Lease Lock
-specter browser profile cloud release
+tuquet browser profile cloud release
 ```
 :::
 
 ---
 
-### `specter browser profile create`
+### `tuquet browser profile create`
 
 **Description:** Create a new isolated profile with deterministic hardware specs and PRNG seed.
 
@@ -826,13 +826,13 @@ specter browser profile cloud release
 ::: details Example Syntax
 ```bash
 # Create Browser Profile
-specter browser profile create
+tuquet browser profile create
 ```
 :::
 
 ---
 
-### `specter browser profile delete`
+### `tuquet browser profile delete`
 
 **Description:** Delete a browser profile and permanently purge its sandbox directory.
 
@@ -851,13 +851,13 @@ specter browser profile create
 ::: details Example Syntax
 ```bash
 # Delete Browser Profile
-specter browser profile delete
+tuquet browser profile delete
 ```
 :::
 
 ---
 
-### `specter browser profile inspect`
+### `tuquet browser profile inspect`
 
 **Description:** Inspect detailed hardware fingerprint specifications of an isolated profile.
 
@@ -870,26 +870,26 @@ specter browser profile delete
 ::: details Example Syntax
 ```bash
 # Inspect Profile Hardware Specs
-specter browser profile inspect
+tuquet browser profile inspect
 ```
 :::
 
 ---
 
-### `specter browser profile list`
+### `tuquet browser profile list`
 
-**Description:** List all local browser profiles in ~/.specter/browser/profiles/.
+**Description:** List all local browser profiles in ~/.tuquet/browser/profiles/.
 
 ::: details Example Syntax
 ```bash
 # List Browser Profiles
-specter browser profile list
+tuquet browser profile list
 ```
 :::
 
 ---
 
-### `specter browser profile pack`
+### `tuquet browser profile pack`
 
 **Description:** Pack a profile into a lightweight .tar.zst archive with cache filtering and SHA-256 hash.
 
@@ -909,13 +909,13 @@ specter browser profile list
 ::: details Example Syntax
 ```bash
 # Pack Profile Snapshot
-specter browser profile pack
+tuquet browser profile pack
 ```
 :::
 
 ---
 
-### `specter browser profile test-proxy`
+### `tuquet browser profile test-proxy`
 
 **Description:** Probe and test the proxy configured for a specific profile.
 
@@ -935,13 +935,13 @@ specter browser profile pack
 ::: details Example Syntax
 ```bash
 # Test Profile Proxy
-specter browser profile test-proxy
+tuquet browser profile test-proxy
 ```
 :::
 
 ---
 
-### `specter browser profile unpack`
+### `tuquet browser profile unpack`
 
 **Description:** Unpack and restore a profile from a .tar.zst archive into SSOT storage with integrity check.
 
@@ -960,13 +960,13 @@ specter browser profile test-proxy
 ::: details Example Syntax
 ```bash
 # Unpack Profile Snapshot
-specter browser profile unpack
+tuquet browser profile unpack
 ```
 :::
 
 ---
 
-### `specter browser search`
+### `tuquet browser search`
 
 **Description:** Search and list available engine releases from the curated manifest.
 
@@ -979,30 +979,30 @@ specter browser profile unpack
 ::: details Example Syntax
 ```bash
 # Search Browser Releases
-specter browser search
+tuquet browser search
 ```
 :::
 
 ---
 
-### `specter browser status`
+### `tuquet browser status`
 
 **Description:** Display installation status, executable path, and disk usage of dedicated browser.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `specter_browser_status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `tuquet_browser_status`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 ::: details Example Syntax
 ```bash
 # Browser Engine Status
-specter browser status
+tuquet browser status
 ```
 :::
 
 ---
 
-### `specter browser use`
+### `tuquet browser use`
 
 **Description:** Switch the active Chromium antidetect version (e.g. '148', '144', 'lts').
 
@@ -1015,13 +1015,13 @@ specter browser status
 ::: details Example Syntax
 ```bash
 # Switch Active Browser Engine
-specter browser use
+tuquet browser use
 ```
 :::
 
 ---
 
-### `specter browser verify`
+### `tuquet browser verify`
 
 **Description:** Live visual verification & stealth presentation (Cloudflare Turnstile, Bézier mouse, smooth scroll).
 
@@ -1036,7 +1036,7 @@ specter browser use
 ::: details Example Syntax
 ```bash
 # Live Stealth Verification Demo
-specter browser verify
+tuquet browser verify
 ```
 :::
 
@@ -1044,24 +1044,24 @@ specter browser verify
 
 ## Proxy Tunnel & Network Mesh {#bridge}
 
-> **SSOT Storage Root:** `~/.specter/bridge/`
+> **SSOT Storage Root:** `~/.tuquet/bridge/`
 
-### `specter bridge check`
+### `tuquet bridge check`
 
-**Description:** Validate ~/.specter/bridge/bridge.json configuration schema, ports, and workloads.
+**Description:** Validate ~/.tuquet/bridge/bridge.json configuration schema, ports, and workloads.
 
 ::: details Example Syntax
 ```bash
 # Validate Bridge Configuration
-specter bridge check
+tuquet bridge check
 ```
 :::
 
 ---
 
-### `specter bridge disable`
+### `tuquet bridge disable`
 
-**Description:** Disable a server in bridge configuration (~/.specter/bridge/bridge.json).
+**Description:** Disable a server in bridge configuration (~/.tuquet/bridge/bridge.json).
 
 **Arguments:**
 
@@ -1072,15 +1072,15 @@ specter bridge check
 ::: details Example Syntax
 ```bash
 # Disable Bridge Server
-specter bridge disable
+tuquet bridge disable
 ```
 :::
 
 ---
 
-### `specter bridge enable`
+### `tuquet bridge enable`
 
-**Description:** Enable a server in bridge configuration (~/.specter/bridge/bridge.json).
+**Description:** Enable a server in bridge configuration (~/.tuquet/bridge/bridge.json).
 
 **Arguments:**
 
@@ -1091,13 +1091,13 @@ specter bridge disable
 ::: details Example Syntax
 ```bash
 # Enable Bridge Server
-specter bridge enable
+tuquet bridge enable
 ```
 :::
 
 ---
 
-### `specter bridge start`
+### `tuquet bridge start`
 
 **Description:** Start background SOCKS5 proxy (1080) and HTTP adapter (8118) for configured VPS servers.
 
@@ -1118,26 +1118,26 @@ specter bridge enable
 ::: details Example Syntax
 ```bash
 # Start Bridge Mesh Tunnels
-specter bridge start
+tuquet bridge start
 ```
 :::
 
 ---
 
-### `specter bridge status`
+### `tuquet bridge status`
 
 **Description:** Show health check dashboard of all configured VPSs, ports, and proxy workloads.
 
 ::: details Example Syntax
 ```bash
 # Bridge Mesh Status
-specter bridge status
+tuquet bridge status
 ```
 :::
 
 ---
 
-### `specter bridge stop`
+### `tuquet bridge stop`
 
 **Description:** Stop running bridge tunnels and proxy background daemons.
 
@@ -1150,13 +1150,13 @@ specter bridge status
 ::: details Example Syntax
 ```bash
 # Stop Bridge Tunnels
-specter bridge stop
+tuquet bridge stop
 ```
 :::
 
 ---
 
-### `specter proxy probe`
+### `tuquet proxy probe`
 
 **Description:** Probe connectivity, latency, and public egress IP of a proxy.
 
@@ -1176,7 +1176,7 @@ specter bridge stop
 ::: details Example Syntax
 ```bash
 # Probe Proxy Egress & Latency
-specter proxy probe
+tuquet proxy probe
 ```
 :::
 
@@ -1184,9 +1184,9 @@ specter proxy probe
 
 ## Faker & Synthetic Personas {#faker}
 
-> **SSOT Storage Root:** `~/.specter/faker/`
+> **SSOT Storage Root:** `~/.tuquet/faker/`
 
-### `specter faker card`
+### `tuquet faker card`
 
 **Description:** Inspect a single detailed persona card with full credentials and citizen data.
 
@@ -1199,18 +1199,18 @@ specter proxy probe
 ::: details Example Syntax
 ```bash
 # Display Detailed Persona Card
-specter faker card
+tuquet faker card
 ```
 :::
 
 ---
 
-### `specter faker generate`
+### `tuquet faker generate`
 
 **Description:** Generate compliant personas with validated 12-digit CCCD, phone, and addresses.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `specter_faker_generate`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `tuquet_faker_generate`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 **Options & Flags:**
@@ -1226,7 +1226,7 @@ Exported as a native Model Context Protocol (MCP) tool named `specter_faker_gene
 ::: details Example Syntax
 ```bash
 # Generate Synthetic Identities
-specter faker generate
+tuquet faker generate
 ```
 :::
 
@@ -1234,9 +1234,9 @@ specter faker generate
 
 ## Runner Supervisor & Daemon {#runner}
 
-> **SSOT Storage Root:** `~/.specter/automa/` (runner.json, automa.sqlite)
+> **SSOT Storage Root:** `~/.tuquet/automa/` (runner.json, automa.sqlite)
 
-### `specter runner logs`
+### `tuquet runner logs`
 
 **Description:** View or tail runner daemon execution and telemetry logs.
 
@@ -1250,30 +1250,30 @@ specter faker generate
 ::: details Example Syntax
 ```bash
 # View Runner Logs
-specter runner logs
+tuquet runner logs
 ```
 :::
 
 ---
 
-### `specter runner probe`
+### `tuquet runner probe`
 
 **Description:** Active capability negotiation probe returning manifest JSON for Runner.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `specter_runner_probe`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `tuquet_runner_probe`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 ::: details Example Syntax
 ```bash
 # Probe Runner Capabilities
-specter runner probe
+tuquet runner probe
 ```
 :::
 
 ---
 
-### `specter runner restart`
+### `tuquet runner restart`
 
 **Description:** Restart the local runner daemon.
 
@@ -1286,13 +1286,13 @@ specter runner probe
 ::: details Example Syntax
 ```bash
 # Restart Runner Daemon
-specter runner restart
+tuquet runner restart
 ```
 :::
 
 ---
 
-### `specter runner start`
+### `tuquet runner start`
 
 **Description:** Start local runner daemon and cloud worker HTTP server on port 8765.
 
@@ -1306,13 +1306,13 @@ specter runner restart
 ::: details Example Syntax
 ```bash
 # Start Runner Daemon
-specter runner start
+tuquet runner start
 ```
 :::
 
 ---
 
-### `specter runner status`
+### `tuquet runner status`
 
 **Description:** Inspect local runner daemon status and health check endpoint.
 
@@ -1325,13 +1325,13 @@ specter runner start
 ::: details Example Syntax
 ```bash
 # Runner Daemon Status
-specter runner status
+tuquet runner status
 ```
 :::
 
 ---
 
-### `specter runner stop`
+### `tuquet runner stop`
 
 **Description:** Gracefully stop the running runner daemon.
 
@@ -1344,13 +1344,13 @@ specter runner status
 ::: details Example Syntax
 ```bash
 # Stop Runner Daemon
-specter runner stop
+tuquet runner stop
 ```
 :::
 
 ---
 
-### `specter runner worker`
+### `tuquet runner worker`
 
 **Description:** Run as an autonomous cloud fleet worker polling and executing jobs.
 
@@ -1367,7 +1367,7 @@ specter runner stop
 ::: details Example Syntax
 ```bash
 # Cloud Fleet Mesh Worker
-specter runner worker
+tuquet runner worker
 ```
 :::
 
@@ -1375,54 +1375,54 @@ specter runner worker
 
 ## Cloud Center Fleet {#cloud}
 
-> **SSOT Storage Root:** `~/.specter/system/` (system.json, .identity.json)
+> **SSOT Storage Root:** `~/.tuquet/system/` (system.json, .identity.json)
 
-### `specter cloud login`
+### `tuquet cloud login`
 
-**Description:** Authenticate and enroll this workstation with Specter Cloud.
+**Description:** Authenticate and enroll this workstation with Tuquet Cloud.
 
 **Options & Flags:**
 
 | Flag | Shorthand | Type | Default | Description |
 | :--- | :---: | :---: | :---: | :--- |
-| `--url` | `-u` | `string` | — | Specter Cloud endpoint URL (e.g. https://cloud.specter.dev). |
+| `--url` | `-u` | `string` | — | Tuquet Cloud endpoint URL (e.g. https://cloud.tuquet.dev). |
 | `--token` | `-t` | `string` | — | Organization / Tenant enrollment token. |
 | `--name` | `-n` | `string` | — | Custom workstation name (defaults to machine hostname). |
 
 ::: details Example Syntax
 ```bash
 # Cloud Authentication Login
-specter cloud login
+tuquet cloud login
 ```
 :::
 
 ---
 
-### `specter cloud logout`
+### `tuquet cloud logout`
 
-**Description:** Log out and disconnect this workstation from Specter Cloud.
+**Description:** Log out and disconnect this workstation from Tuquet Cloud.
 
 ::: details Example Syntax
 ```bash
 # Cloud Disconnect & Logout
-specter cloud logout
+tuquet cloud logout
 ```
 :::
 
 ---
 
-### `specter cloud whoami`
+### `tuquet cloud whoami`
 
-**Description:** Show current Specter Cloud identity, enrolled device GUID, and tenant ID.
+**Description:** Show current Tuquet Cloud identity, enrolled device GUID, and tenant ID.
 
 ::: tip Native Model Context Protocol (MCP) Tool
-Exported as a native Model Context Protocol (MCP) tool named `specter_cloud_whoami`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
+Exported as a native Model Context Protocol (MCP) tool named `tuquet_cloud_whoami`. Autonomous AI agents (Claude Code, Cursor, Antigravity) can invoke this tool directly over stdio without glue code.
 :::
 
 ::: details Example Syntax
 ```bash
 # Display Cloud Enrollment Identity
-specter cloud whoami
+tuquet cloud whoami
 ```
 :::
 

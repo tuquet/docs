@@ -1,5 +1,5 @@
 {
-  "name": "@specter/docs",
+  "name": "@tuquet/docs",
   "version": "1.0.0",
   "packageManager": "pnpm@10.5.2",
   "private": true,

@@ -4,7 +4,7 @@ Decentralized finance (DeFi) protocols, Layer 2 networks (zkSync, LayerZero, Arb
 
 Off-chain clustering algorithms detect Sybil farming rings by identifying shared canvas signatures, identical browser extensions, common WebRTC IP leaks, and concurrent RPC node access.
 
-**Specter** provides Web3 operators and DeFi researchers with isolated wallet environments, independent hardware fingerprints, and dedicated proxy channels.
+**Tuquet** provides Web3 operators and DeFi researchers with isolated wallet environments, independent hardware fingerprints, and dedicated proxy channels.
 
 <HairlineFigure name="lockers" />
 
@@ -39,11 +39,11 @@ Off-chain clustering algorithms detect Sybil farming rings by identifying shared
 ## 2. Core Operational Rules for Airdrop Operators
 
 1. **Independent Wallet Extension Sandboxing**:
-   - Web3 wallet extensions (MetaMask, Phantom, Rabby) store encrypted keyrings in local browser storage. Specter completely isolates extension states per profile, ensuring that no extension can inspect or enumerate other wallets.
+   - Web3 wallet extensions (MetaMask, Phantom, Rabby) store encrypted keyrings in local browser storage. Tuquet completely isolates extension states per profile, ensuring that no extension can inspect or enumerate other wallets.
 2. **Deterministic Fingerprint Masking**:
-   - Web3 dApps (Galxe, Layer3, QuestN, Snapshot) execute canvas and WebGL fingerprint queries during signature requests. Specter assigns a unique PRNG seed to each wallet profile, preventing off-chain cluster association.
+   - Web3 dApps (Galxe, Layer3, QuestN, Snapshot) execute canvas and WebGL fingerprint queries during signature requests. Tuquet assigns a unique PRNG seed to each wallet profile, preventing off-chain cluster association.
 3. **WebRTC STUN Shielding**:
-   - Interacting with Web3 dApps often initiates WebRTC connections for telemetry. Specter disables non-proxied UDP traffic (`--webrtc-mode disabled`), preventing your true ISP IP from leaking alongside wallet signatures.
+   - Interacting with Web3 dApps often initiates WebRTC connections for telemetry. Tuquet disables non-proxied UDP traffic (`--webrtc-mode disabled`), preventing your true ISP IP from leaking alongside wallet signatures.
 
 ---
 
@@ -51,14 +51,14 @@ Off-chain clustering algorithms detect Sybil farming rings by identifying shared
 
 ```bash
 # 1. Create a dedicated profile for a Web3 wallet node
-specter browser profile create "Web3-Node-01" \
+tuquet browser profile create "Web3-Node-01" \
   --seed 748291 \
   --proxy socks5://127.0.0.1:1080 \
   --timezone "Asia/Singapore"
 
 # 2. Verify proxy leak protection
-specter browser profile test-proxy "Web3-Node-01"
+tuquet browser profile test-proxy "Web3-Node-01"
 
 # 3. Launch the profile with Web3 wallet extension active
-specter browser launch "Web3-Node-01"
+tuquet browser launch "Web3-Node-01"
 ```

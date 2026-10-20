@@ -2,7 +2,7 @@
 
 Modern anti-bot security systems (Cloudflare Turnstile, DataDome, Kasada, Akamai, PerimeterX) no longer rely solely on IP addresses and HTTP cookies to identify users. They interrogate hardware attributes, browser engine internals, and audio/video rendering sub-systems to construct a persistent **Digital Browser Fingerprint**.
 
-**Specter** provides comprehensive, mathematically consistent hardware and software fingerprint masking implemented directly inside the C++ Chromium engine.
+**Tuquet** provides comprehensive, mathematically consistent hardware and software fingerprint masking implemented directly inside the C++ Chromium engine.
 
 <HairlineFigure name="padlock" />
 
@@ -21,7 +21,7 @@ Modern anti-fraud scripts detect these overrides within milliseconds through:
 3. **Execution Timing & Stack Trace Leaks**:
    - Accessing overridden properties generates measurable execution delay or leaks external extension script URLs in error stack traces.
 
-### The Specter Native C++ Advantage
+### The Tuquet Native C++ Advantage
 
 ```text
  ┌─────────────────────────────────────────────────────────────┐
@@ -50,13 +50,13 @@ Modern anti-fraud scripts detect these overrides within milliseconds through:
  └─────────────────────────────────────────────────────────────┘
 ```
 
-Specter modifies the Chromium source code directly at the C++ level. Hardware parameters are altered inside Blink and V8 before any webpage JavaScript begins execution. To the anti-bot script, the reported values are genuine native properties of the browser engine.
+Tuquet modifies the Chromium source code directly at the C++ level. Hardware parameters are altered inside Blink and V8 before any webpage JavaScript begins execution. To the anti-bot script, the reported values are genuine native properties of the browser engine.
 
 ---
 
 ## 2. Core Detection Vectors & Mitigations
 
-| Detection Vector | Attack Methodology | Specter C++ Defense Mechanism |
+| Detection Vector | Attack Methodology | Tuquet C++ Defense Mechanism |
 | :--- | :--- | :--- |
 | **WebGL & GPU Vendor** | Renders 3D scenes to extract GPU vendor, renderer strings (`WEBGL_debug_renderer_info`), and shader precision limits. | Returns authentic GPU profiles (e.g. NVIDIA GeForce RTX 4080, Apple M2 Max, Intel Iris Xe) with matching OpenGL extension lists. |
 | **Canvas 2D Hash** | Draws off-screen shapes and typography to measure sub-pixel font rendering variations via `toDataURL` and `getImageData`. | Injects deterministic mathematical micro-noise derived from the profile seed into the raw pixel buffer, preserving visual fidelity while producing a unique hash. |
@@ -81,14 +81,14 @@ Because derivation is mathematical and deterministic:
 
 ## 4. Live Verification & Stealth Testing
 
-Specter includes a built-in automated test command to verify stealth capabilities against live managed challenge pages:
+Tuquet includes a built-in automated test command to verify stealth capabilities against live managed challenge pages:
 
 ```bash
 # Execute live Turnstile and anti-bot verification in a visual browser window
-specter browser verify --url "https://turnstile.zeroclick.io"
+tuquet browser verify --url "https://turnstile.zeroclick.io"
 
 # Verify with custom challenge timeout
-specter browser verify --timeout 45
+tuquet browser verify --timeout 45
 ```
 
 Terminal output:

@@ -4,7 +4,7 @@ Online merchants scaling cross-border e-commerce, dropshipping, and brand portfo
 
 Retail platforms employ advanced device-fingerprinting and behavioral heuristics. If two seller dashboards share an IP address, WebGL signature, or browser session token, security algorithms execute an immediate account linkage. An intellectual property complaint or customer dispute on Store A results in all related stores being suspended simultaneously, freezing payouts and paralyzing your business.
 
-**Specter** enables e-commerce agencies and multi-store operators to scale independent storefronts with complete operational security.
+**Tuquet** enables e-commerce agencies and multi-store operators to scale independent storefronts with complete operational security.
 
 <HairlineFigure name="basket" />
 
@@ -25,7 +25,7 @@ Retail platforms employ advanced device-fingerprinting and behavioral heuristics
  │              │ (Zero Storage Bleed)         │ (Zero Storage Bleed)
  │              ▼                              ▼               │
  │   ┌─────────────────────────────────────────────────────┐   │
- │   │             Specter Sandboxed Storage               │   │
+ │   │             Tuquet Sandboxed Storage               │   │
  │   │  • Persistent Session Cookies (Zero 2FA Logouts)    │   │
  │   │  • Isolated IndexedDB Orders & Listing Caches       │   │
  │   │  • Dedicated SOCKS5 Residential Tunnel Per Store    │   │
@@ -38,11 +38,11 @@ Retail platforms employ advanced device-fingerprinting and behavioral heuristics
 ## 2. Key Safeguards for Merchants
 
 1. **Persistent Session Continuity (Eliminate 2FA Fatigue)**:
-   - Repeatedly logging into seller accounts triggers aggressive two-factor authentication (SMS/Email OTP) and automated review flags. Specter persists authenticated cookie jars and session storage indefinitely in `~/.specter/browser/profiles/<id>/`, allowing you to reopen stores seamlessly with zero login challenges.
+   - Repeatedly logging into seller accounts triggers aggressive two-factor authentication (SMS/Email OTP) and automated review flags. Tuquet persists authenticated cookie jars and session storage indefinitely in `~/.tuquet/browser/profiles/<id>/`, allowing you to reopen stores seamlessly with zero login challenges.
 2. **Strict Geographic Continuity**:
-   - Pair US storefronts with dedicated, static residential proxies in the exact state where the company is registered. Specter's pre-flight proxy healthcheck (`test-proxy`) verifies connectivity before launching, preventing accidental unmasked connections.
+   - Pair US storefronts with dedicated, static residential proxies in the exact state where the company is registered. Tuquet's pre-flight proxy healthcheck (`test-proxy`) verifies connectivity before launching, preventing accidental unmasked connections.
 3. **Safe Team Handoff & Virtual Assistant Delegation**:
-   - Export store profiles into encrypted archives (`specter browser profile pack`) to delegate customer support or order fulfillment to remote virtual assistants without sharing raw master passwords.
+   - Export store profiles into encrypted archives (`tuquet browser profile pack`) to delegate customer support or order fulfillment to remote virtual assistants without sharing raw master passwords.
 
 ---
 
@@ -50,17 +50,17 @@ Retail platforms employ advanced device-fingerprinting and behavioral heuristics
 
 ```bash
 # 1. Create a dedicated profile for an Amazon US store
-specter browser profile create "Amazon-US-Store" \
+tuquet browser profile create "Amazon-US-Store" \
   --os windows \
   --proxy socks5://127.0.0.1:1080 \
   --timezone "America/Los_Angeles"
 
 # 2. Verify proxy health before launch
-specter browser profile test-proxy "Amazon-US-Store"
+tuquet browser profile test-proxy "Amazon-US-Store"
 
 # 3. Launch the store management session
-specter browser launch "Amazon-US-Store"
+tuquet browser launch "Amazon-US-Store"
 
 # 4. Pack profile for backup or team member handoff
-specter browser profile pack "Amazon-US-Store" -o ./amazon_us_backup.tar.zst
+tuquet browser profile pack "Amazon-US-Store" -o ./amazon_us_backup.tar.zst
 ```

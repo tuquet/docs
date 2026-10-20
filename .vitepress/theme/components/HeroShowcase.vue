@@ -41,7 +41,7 @@ function copyCode(text: string) {
             @click="activeTab = 'browser'"
           >
             <Terminal :size="12" class="tab-icon" aria-hidden="true" />
-            Specter Browser
+            Tuquet Browser
           </button>
           <button 
             :class="['tab-btn', { active: activeTab === 'verify' }]" 
@@ -72,14 +72,14 @@ function copyCode(text: string) {
         </div>
       </div>
 
-      <!-- Tab Content 1: Specter Browser -->
+      <!-- Tab Content 1: Tuquet Browser -->
       <div v-if="activeTab === 'browser'" class="card-body terminal-view">
         <div class="code-line prompt">
           <span class="prompt-symbol">$</span>
-          <span class="command-text">specter browser launch "Store-US-01" --proxy socks5://127.0.0.1:1080</span>
+          <span class="command-text">tuquet browser launch "Store-US-01" --proxy socks5://127.0.0.1:1080</span>
           <button 
             class="copy-btn" 
-            @click="copyCode('specter browser launch &quot;Store-US-01&quot; --proxy socks5://127.0.0.1:1080')"
+            @click="copyCode('tuquet browser launch &quot;Store-US-01&quot; --proxy socks5://127.0.0.1:1080')"
           >
             <span v-if="!copied" class="copy-inner"><Copy :size="11" /> Copy</span>
             <span v-else class="copied-text"><Check :size="11" /> Copied</span>
@@ -88,7 +88,7 @@ function copyCode(text: string) {
         <div class="log-stream">
           <div class="log-row info">
             <span class="log-prefix">[init]</span>
-            <span class="log-msg">Mounting isolated sandbox: ~/.specter/browser/profiles/Store-US-01</span>
+            <span class="log-msg">Mounting isolated sandbox: ~/.tuquet/browser/profiles/Store-US-01</span>
           </div>
           <div class="log-row success">
             <span class="log-prefix">[hardware]</span>
@@ -108,7 +108,7 @@ function copyCode(text: string) {
           </div>
           <div class="log-row highlight">
             <span class="log-prefix">[ready]</span>
-            <span class="log-msg">Specter Chromium sandbox live ● Zero fingerprint linkage detected</span>
+            <span class="log-msg">Tuquet Chromium sandbox live ● Zero fingerprint linkage detected</span>
           </div>
         </div>
       </div>
@@ -117,10 +117,10 @@ function copyCode(text: string) {
       <div v-if="activeTab === 'verify'" class="card-body terminal-view">
         <div class="code-line prompt">
           <span class="prompt-symbol">$</span>
-          <span class="command-text">specter browser verify --url "https://turnstile.zerocdn.com"</span>
+          <span class="command-text">tuquet browser verify --url "https://turnstile.zerocdn.com"</span>
           <button 
             class="copy-btn" 
-            @click="copyCode('specter browser verify --url &quot;https://turnstile.zerocdn.com&quot;')"
+            @click="copyCode('tuquet browser verify --url &quot;https://turnstile.zerocdn.com&quot;')"
           >
             <span v-if="!copied" class="copy-inner"><Copy :size="11" /> Copy</span>
             <span v-else class="copied-text"><Check :size="11" /> Copied</span>
@@ -158,10 +158,10 @@ function copyCode(text: string) {
       <div v-if="activeTab === 'automa'" class="card-body terminal-view">
         <div class="code-line prompt">
           <span class="prompt-symbol">$</span>
-          <span class="command-text">specter automa run ./workflows/scrape-catalog.json --headless</span>
+          <span class="command-text">tuquet automa run ./workflows/scrape-catalog.json --headless</span>
           <button 
             class="copy-btn" 
-            @click="copyCode('specter automa run ./workflows/scrape-catalog.json --headless')"
+            @click="copyCode('tuquet automa run ./workflows/scrape-catalog.json --headless')"
           >
             <span v-if="!copied" class="copy-inner"><Copy :size="11" /> Copy</span>
             <span v-else class="copied-text"><Check :size="11" /> Copied</span>
@@ -199,10 +199,10 @@ function copyCode(text: string) {
       <div v-if="activeTab === 'proxy'" class="card-body tunnel-view">
         <div class="code-line prompt">
           <span class="prompt-symbol">$</span>
-          <span class="command-text">specter proxy probe socks5://127.0.0.1:1080</span>
+          <span class="command-text">tuquet proxy probe socks5://127.0.0.1:1080</span>
           <button 
             class="copy-btn" 
-            @click="copyCode('specter proxy probe socks5://127.0.0.1:1080')"
+            @click="copyCode('tuquet proxy probe socks5://127.0.0.1:1080')"
           >
             <span v-if="!copied" class="copy-inner"><Copy :size="11" /> Copy</span>
             <span v-else class="copied-text"><Check :size="11" /> Copied</span>

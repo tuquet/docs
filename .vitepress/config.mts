@@ -62,7 +62,7 @@ const cloudSidebar = [
   },
 ]
 
-// 2. Specter CLI Sidebars
+// 2. Tuquet CLI Sidebars
 const cliSidebar = [
   {
     text: 'Getting Started',
@@ -102,7 +102,7 @@ const cliSidebar = [
 
 const cliCommandsSidebar = [
   {
-    text: 'Specter CLI',
+    text: 'Tuquet CLI',
     items: [
       { text: '← Back to CLI Docs', link: '/en/cli/' },
     ],
@@ -136,7 +136,7 @@ const playbooksSidebar = [
     ],
   },
   {
-    text: 'Specter CLI',
+    text: 'Tuquet CLI',
     items: [
       { text: '← Back to CLI Docs', link: '/en/cli/' },
     ],
@@ -178,7 +178,7 @@ export default defineConfig({
 
   lang: 'en-US',
   title: 'Tuquet Docs',
-  description: 'Central documentation portal across Tuquet open-source software, Specter automation, and developer tooling.',
+  description: 'Central documentation portal across Tuquet open-source software, Tuquet automation, and developer tooling.',
 
   themeConfig: {
     siteTitle: 'Tuquet Docs',
@@ -197,7 +197,7 @@ export default defineConfig({
         activeMatch: '^/en/(browser|automa|runner|bridge|cloud)/',
       },
       {
-        text: 'Specter CLI',
+        text: 'Tuquet CLI',
         items: [
           { text: 'Platform Overview', link: '/en/cli/' },
           { text: 'Quickstart (15s)', link: '/en/cli/start/quickstart' },

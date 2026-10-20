@@ -4,7 +4,7 @@ Digital growth teams, social media marketing (SMM) agencies, and community manag
 
 Social networks employ aggressive behavioral heuristics to detect automated or multi-managed accounts. If two accounts share device signatures, navigate pages with robotic click timing, or toggle between geographically conflicting IP addresses, algorithms trigger immediate shadowbans, algorithmic reach throttling, or forced SMS/phone verification checkpoints.
 
-**Specter** enables growth teams to scale social media operations safely by combining deep fingerprint masking with organic biometric human dynamics.
+**Tuquet** enables growth teams to scale social media operations safely by combining deep fingerprint masking with organic biometric human dynamics.
 
 <HairlineFigure name="phone" />
 
@@ -26,7 +26,7 @@ Social networks employ aggressive behavioral heuristics to detect automated or m
  │              │ (Isolated Cache)             │ (Isolated Cache)
  │              ▼                              ▼               │
  │   ┌─────────────────────────────────────────────────────┐   │
- │   │           Specter Biometric Dynamics Engine         │   │
+ │   │           Tuquet Biometric Dynamics Engine         │   │
  │   │  • Organic Mouse Acceleration & Deceleration        │   │
  │   │  • Natural Keystroke Timing (Log-Normal Latency)    │   │
  │   │  • Smooth Physics-Based Inertial Wheel Scrolling    │   │
@@ -39,9 +39,9 @@ Social networks employ aggressive behavioral heuristics to detect automated or m
 ## 2. Core Operational Rules for Growth Teams
 
 1. **Biometric Input Emulation**:
-   - Social networks monitor inter-key intervals and mouse trajectories during post creation and direct messaging. Specter dispatches native hardware input events with realistic typing variance (40–180ms per key) and cubic Bézier cursor arcs, bypassing algorithmic bot flags.
+   - Social networks monitor inter-key intervals and mouse trajectories during post creation and direct messaging. Tuquet dispatches native hardware input events with realistic typing variance (40–180ms per key) and cubic Bézier cursor arcs, bypassing algorithmic bot flags.
 2. **Persistent Cookie Sessions**:
-   - Frequently logging out and re-entering passwords triggers security suspicion. Specter persists login sessions indefinitely in isolated profile directories (`Default/Cookies`), allowing operators to switch between 50+ accounts in seconds without repeated logins.
+   - Frequently logging out and re-entering passwords triggers security suspicion. Tuquet persists login sessions indefinitely in isolated profile directories (`Default/Cookies`), allowing operators to switch between 50+ accounts in seconds without repeated logins.
 3. **Dedicated Residential Proxy Pairing**:
    - Maintain strict geographic consistency for each account. If an account is registered with an American IP, never access it via a datacenter proxy or foreign node.
 
@@ -51,14 +51,14 @@ Social networks employ aggressive behavioral heuristics to detect automated or m
 
 ```bash
 # 1. Create a dedicated profile for a Twitter/X growth account
-specter browser profile create "Twitter-Brand-US" \
+tuquet browser profile create "Twitter-Brand-US" \
   --seed 94102 \
   --proxy socks5://127.0.0.1:1080 \
   --timezone "America/New_York"
 
 # 2. Verify proxy leak protection before opening
-specter browser profile test-proxy "Twitter-Brand-US"
+tuquet browser profile test-proxy "Twitter-Brand-US"
 
 # 3. Launch profile in visual interactive mode
-specter browser launch "Twitter-Brand-US"
+tuquet browser launch "Twitter-Brand-US"
 ```

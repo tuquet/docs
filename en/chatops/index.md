@@ -48,6 +48,6 @@ npm start
 | :--- | :---: | :--- |
 | `/stats` | Admin | Displays real-time CPU, RAM, disk, and load averages. |
 | `/ping [target]` | Admin | Tests ICMP and HTTPS response latency with SSL expiry verification. |
-| `/services` | Admin | Inspects systemd services status (`docker`, `specter`, `caddy`). |
+| `/services` | Admin | Inspects systemd services status (`docker`, `tuquet`, `caddy`). |
 | `/ci [repo]` | Admin | Fetches latest GitHub Actions workflow status across ecosystem repositories. |
 | `/help` | User | Displays authorized commands and bot operational documentation. |

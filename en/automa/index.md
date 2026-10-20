@@ -2,10 +2,10 @@
 
 Web scrapers wrapped in Python or heavy Node.js runtimes collapse under concurrent load. Selenium and Playwright introduce massive abstraction layers, chew through gigabytes of RAM, and get trapped by Shadow DOM barriers and bot shields.
 
-**Automa DAG Engine** is a decoupled workflow orchestration engine powered by [`tuquet-automa`](https://github.com/tuquet/automa). Deployable as an independent headless binary or composed inside the Specter combat rig. It compiles visual automation blocks into a topological DAG and drives Chrome DevTools Protocol (CDP) over raw WebSockets in pure Rust — piercing closed Shadow DOM, handling 500+ concurrent contexts, and consuming only 15MB RAM per tab.
+**Automa DAG Engine** is a decoupled workflow orchestration engine powered by [`tuquet-automa`](https://github.com/tuquet/automa). Deployable as an independent headless binary or composed inside the Tuquet combat rig. It compiles visual automation blocks into a topological DAG and drives Chrome DevTools Protocol (CDP) over raw WebSockets in pure Rust — piercing closed Shadow DOM, handling 500+ concurrent contexts, and consuming only 15MB RAM per tab.
 
 ::: tip Standalone Microservice
-`tuquet-automa` runs independently of Specter. Compile the Rust binary to parse workflow JSON schemas, execute headless CDP pipelines, or embed the Vue 3 workflow canvas into your own web applications.
+`tuquet-automa` runs independently of Tuquet. Compile the Rust binary to parse workflow JSON schemas, execute headless CDP pipelines, or embed the Vue 3 workflow canvas into your own web applications.
 :::
 
 <HairlineFigure name="branches" />
@@ -44,79 +44,79 @@ Automa resolves the tradeoff between usability and raw automation performance th
  │                             ▼                               │
  │   ┌─────────────────────────────────────────────────────┐   │
  │   │              Local SQLite Persistence               │   │
- │   │         (~/.specter/automa/automa.sqlite)            │   │
+ │   │         (~/.tuquet/automa/automa.sqlite)            │   │
  │   │  • Execution Logs, Step Traces, Workflow Vault      │   │
  │   └─────────────────────────────────────────────────────┘   │
  └─────────────────────────────────────────────────────────────┘
 ```
 
-1. **Visual Web Studio & Control Plane (`specter automa studio` / `/automation/workflows`)**:
+1. **Visual Web Studio & Control Plane (`tuquet automa studio` / `/automation/workflows`)**:
    - Visual drag-and-drop workflow composition available both in the standalone browser canvas and embedded natively in the **Universal Control Plane (Web & Tauri Desktop)**.
 2. **Topological DAG Compiler**:
    - Compiles connected block graphs into an optimized dependency tree, resolving variable scopes and async race conditions.
 3. **Pure-Rust CDP Execution Driver**:
    - Communicates directly over local WebSockets using the Chrome DevTools Protocol (CDP). Bypasses heavy Node.js runtimes and WebDriver abstraction overhead.
 4. **Local SQLite Store & Cloud Telemetry**:
-   - Workflows are stored and versioned in `~/.specter/automa/workflows/`, while execution records and step traces are saved locally in `~/.specter/automa/automa.sqlite` and synchronized to `/automation/runs` when enrolled with a tenant.
+   - Workflows are stored and versioned in `~/.tuquet/automa/workflows/`, while execution records and step traces are saved locally in `~/.tuquet/automa/automa.sqlite` and synchronized to `/automation/runs` when enrolled with a tenant.
 
 ---
 
 ## 2. Command Reference
 
-All workflow actions can be executed via the `specter automa` command suite:
+All workflow actions can be executed via the `tuquet automa` command suite:
 
 ### Direct Workflow Execution
 
 ```bash
 # Execute a workflow directly via native browser worker
-specter automa run ./scrape_products.workflow.json
+tuquet automa run ./scrape_products.workflow.json
 
 # Execute in headless mode with a 60-second safety timeout
-specter automa run ./checkout.workflow.json --headless --timeout 60
+tuquet automa run ./checkout.workflow.json --headless --timeout 60
 
 # Pass runtime variables (key-value interpolation)
-specter automa run ./login.workflow.json \
+tuquet automa run ./login.workflow.json \
   -p USERNAME="admin@enterprise.vn" \
   -p TARGET_URL="https://app.enterprise.vn"
 
 # Execute workflow against a specific cloud browser profile
-specter automa run ./task.workflow.json --cloud_profile "Facebook-Ad-VN"
+tuquet automa run ./task.workflow.json --cloud_profile "Facebook-Ad-VN"
 ```
 
 ### Workflow Vault & Database Management
 
 ```bash
 # List all workflows saved in database and file vault
-specter automa workflow list
+tuquet automa workflow list
 
 # Filter workflows by keyword search
-specter automa workflow list --search "shopee"
+tuquet automa workflow list --search "shopee"
 
 # Import a workflow JSON file into local vault and SQLite DB
-specter automa workflow import ./flows/checkout.json --id "checkout-flow" --name "E-commerce Checkout"
+tuquet automa workflow import ./flows/checkout.json --id "checkout-flow" --name "E-commerce Checkout"
 
 # Inspect detailed block sequence, parameters, and triggers
-specter automa inspect ./checkout-flow.workflow.json
+tuquet automa inspect ./checkout-flow.workflow.json
 
 # Export workflow from database to a standalone JSON file
-specter automa workflow export "checkout-flow" -o ./exported.json
+tuquet automa workflow export "checkout-flow" -o ./exported.json
 
 # Delete workflow from database and vault
-specter automa workflow delete "checkout-flow" --vault
+tuquet automa workflow delete "checkout-flow" --vault
 ```
 
 ### Visual Studio & Diagnostics
 
 ```bash
 # Launch Automa Web Studio in default system browser
-specter automa studio
+tuquet automa studio
 
 # Probe Automa engine manifest capabilities
-specter automa probe
+tuquet automa probe
 
-# Inspect or edit Automa configuration (~/.specter/automa/automa.json)
-specter automa config --show
-specter automa config --edit
+# Inspect or edit Automa configuration (~/.tuquet/automa/automa.json)
+tuquet automa config --show
+tuquet automa config --edit
 ```
 
 ---
@@ -162,10 +162,10 @@ Automa workflows are stored as declarative JSON manifests containing node defini
 
 ## 4. SSOT Storage & Microservice Pillar 2
 
-In strict adherence to Specter's SSOT architecture, all Automa files resolve exclusively to `~/.specter/automa/`:
+In strict adherence to Tuquet's SSOT architecture, all Automa files resolve exclusively to `~/.tuquet/automa/`:
 
 ```text
-~/.specter/automa/
+~/.tuquet/automa/
 ├── automa.json               # Engine configuration & studio port settings
 ├── automa.sqlite             # Execution history, step logs, workflow records
 ├── runner.json               # Runner daemon supervisor configuration
@@ -178,10 +178,10 @@ In strict adherence to Specter's SSOT architecture, all Automa files resolve exc
 
 AI agents orchestrate and inspect workflows programmatically through three native MCP tools:
 
-1. **`specter_workflow_run`**:
+1. **`tuquet_workflow_run`**:
    - Executes a workflow file with variable substitutions and returns execution status, duration, and error codes.
-2. **`specter_workflow_list`**:
+2. **`tuquet_workflow_list`**:
    - Lists all available workflows stored in the local vault and database.
-3. **`specter_workflow_inspect`**:
+3. **`tuquet_workflow_inspect`**:
    - Validates JSON structure, required input parameters, and transition blocks of a workflow before execution.
 

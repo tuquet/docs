@@ -1,5 +1,5 @@
 /**
- * Specter Documentation Design System
+ * Tuquet Documentation Design System
  * Aesthetic Standard: shadcn/ui (zinc & slate)
  * Minimalist, high-contrast, developer-first typography and crisp 1px borders.
  * Built strictly with VitePress canonical token architecture.
@@ -30,8 +30,8 @@
   --vp-c-text-3: #a1a1aa;       /* zinc-400 */
 
   /* Ambient Grid & Glow Tokens (Light) */
-  --specter-grid-line: rgba(0, 0, 0, 0.04);
-  --specter-spotlight: radial-gradient(
+  --tuquet-grid-line: rgba(0, 0, 0, 0.04);
+  --tuquet-spotlight: radial-gradient(
     ellipse at top,
     rgba(0, 0, 0, 0.025) 0%,
     rgba(0, 0, 0, 0.005) 40%,
@@ -88,8 +88,8 @@
   --vp-c-text-3: #71717a;       /* zinc-500 */
 
   /* Ambient Grid & Glow Tokens (Dark) */
-  --specter-grid-line: rgba(255, 255, 255, 0.025);
-  --specter-spotlight: radial-gradient(
+  --tuquet-grid-line: rgba(255, 255, 255, 0.025);
+  --tuquet-spotlight: radial-gradient(
     ellipse at top,
     rgba(255, 255, 255, 0.05) 0%,
     rgba(161, 161, 170, 0.02) 40%,

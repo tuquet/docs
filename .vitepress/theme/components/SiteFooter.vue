@@ -29,8 +29,8 @@ const isVi = computed(() => {
         <p class="brand-tagline">
           {{
             isVi
-              ? 'Cổng tài liệu kỹ thuật tập trung và hướng dẫn phát triển cho hệ sinh thái phần mềm mã nguồn mở Tuquet, tự động hóa Specter và công cụ lập trình.'
-              : 'Central documentation portal and developer guides across the Tuquet open-source ecosystem, Specter stealth automation, and developer tooling.'
+              ? 'Cổng tài liệu kỹ thuật tập trung và hướng dẫn phát triển cho hệ sinh thái phần mềm mã nguồn mở Tuquet, tự động hóa Tuquet và công cụ lập trình.'
+              : 'Central documentation portal and developer guides across the Tuquet open-source ecosystem, Tuquet stealth automation, and developer tooling.'
           }}
         </p>
 
@@ -57,7 +57,7 @@ const isVi = computed(() => {
           <div class="nav-heading">{{ isVi ? 'SẢN PHẨM HỆ SINH THÁI' : 'ECOSYSTEM PRODUCTS' }}</div>
           <ul class="nav-list">
             <li>
-              <a :href="withBase('/en/cli/')">Specter CLI</a>
+              <a :href="withBase('/en/cli/')">Tuquet CLI</a>
             </li>
             <li>
               <a :href="withBase('/en/chatops/')">Telegram ChatOps</a>
@@ -142,7 +142,7 @@ const isVi = computed(() => {
             </li>
             <li>
               <a href="https://github.com/tuquet/cli" target="_blank" rel="noopener" class="ext-link">
-                Specter CLI Repo
+                Tuquet CLI Repo
                 <ExternalLink :size="10" aria-hidden="true" />
               </a>
             </li>

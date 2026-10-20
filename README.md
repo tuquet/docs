@@ -1,11 +1,11 @@
-# Specter Documentation Portal
+# Tuquet Documentation Portal
 
-Official documentation source for **Specter CLI** — Hạ tầng ẩn danh & Tự động hóa quy mô lớn.
+Official documentation source for **Tuquet CLI** — Hạ tầng ẩn danh & Tự động hóa quy mô lớn.
 
 - **Production Portal**: [https://docs.tuquet.com/](https://docs.tuquet.com/)
 - **Built With**: VitePress 1.6 & Vue 3 SSG
 - **Design System**: shadcn/ui (Zinc & Slate) + Lucide Icons
-- **Single Source of Truth**: Driven by `~/.specter/` canonical specifications & `schema/cli.manifest.json`
+- **Single Source of Truth**: Driven by `~/.tuquet/` canonical specifications & `schema/cli.manifest.json`
 
 ## Documentation Structure
 

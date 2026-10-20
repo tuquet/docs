@@ -2,7 +2,7 @@
 
 Modern automated testing and web scraping frameworks (Playwright, Puppeteer, Selenium, SeleniumBase) rely on the **Chrome DevTools Protocol (CDP)** to communicate with browser instances over bi-directional WebSockets.
 
-**Specter** provides direct, native CDP DevTools integration, enabling software engineers and AI agents to attach standard automation code directly to isolated, fingerprint-protected browser profiles without modifying their existing automation test suites.
+**Tuquet** provides direct, native CDP DevTools integration, enabling software engineers and AI agents to attach standard automation code directly to isolated, fingerprint-protected browser profiles without modifying their existing automation test suites.
 
 <HairlineFigure name="phosphor" />
 
@@ -12,7 +12,7 @@ Modern automated testing and web scraping frameworks (Playwright, Puppeteer, Sel
 
 Anti-bot systems (Cloudflare, DataDome) increasingly probe local loopback ports (scanning ports `9222`, `9229`, `9333`) to detect open DevTools debugging endpoints. 
 
-Specter provides two distinct automation modes to navigate this tradeoff:
+Tuquet provides two distinct automation modes to navigate this tradeoff:
 
 ```text
  Mode 1: Driver Mode (--mode driver)        Mode 2: Extension Stealth (--mode extension / --no-cdp)
@@ -35,13 +35,13 @@ To launch a profile and expose the CDP debugging bridge:
 
 ```bash
 # Launch profile with default remote debugging port 9222
-specter browser launch "Scraper-Node-01" --port 9222
+tuquet browser launch "Scraper-Node-01" --port 9222
 
 # Launch in headless mode with dedicated proxy
-specter browser launch "Scraper-Node-01" --port 9222 --headless --proxy socks5://127.0.0.1:1080
+tuquet browser launch "Scraper-Node-01" --port 9222 --headless --proxy socks5://127.0.0.1:1080
 
 # Detach process to run continuously in background
-specter browser launch "Scraper-Node-01" --port 9222 --detach
+tuquet browser launch "Scraper-Node-01" --port 9222 --detach
 ```
 
 ---
@@ -90,7 +90,7 @@ await page.goto('https://turnstile.zeroclick.io');
 from playwright.sync_api import sync_playwright
 
 with sync_playwright() as p:
-    # Connect directly to running Specter antidetect session
+    # Connect directly to running Tuquet antidetect session
     browser = p.chromium.connect_over_cdp("http://127.0.0.1:9222")
     context = browser.contexts[0]
     page = context.pages[0] if context.pages else context.new_page()
