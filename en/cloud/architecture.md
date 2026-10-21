@@ -377,3 +377,34 @@ curl.exe -s -H "Accept: application/openapi+json" http://127.0.0.1:54321/rest/v1
 # Generate types directly from linked production database
 supabase gen types typescript --linked > types/supabase.ts
 ```
+
+
+### 3.6. Cloud Antidetect Engine & Central Proxy Mesh (`browsers` & `workers`)
+
+The `browsers` and `workers` schemas provide centralized fleet management for virtual antidetect browser profiles and dynamic proxy pools:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ [workers.proxies] (Tenant Proxy Pool)                                  │
+│ ├── host, port, protocol (http/socks5), username, password_hash        │
+│ ├── country_code, city, is_residential, status, latency_ms             │
+│ └── change_ip_url (Dynamic Mobile/Residential Rotation Webhook)        │
+└──────────────────────────────────┬─────────────────────────────────────┘
+                                   │ Referenced by proxy_id
+                                   ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│ [browsers.profiles] (Virtual Antidetect Browser Fleet)                 │
+│ ├── fingerprint_seed (Deterministic C++ PRNG hardware seed)            │
+│ ├── proxy_id (FK -> workers.proxies) OR custom_proxy (direct string)   │
+│ ├── change_ip_url (Profile-specific rotation trigger)                  │
+│ ├── auto_timezone (Auto-derive --timezone from proxy exit IP)          │
+│ ├── auto_locale (Auto-match navigator.languages to proxy country)     │
+│ └── webrtc_mode ('proxy_shielded' -> --disable-non-proxied-udp)        │
+└──────────────────────────────────┬─────────────────────────────────────┘
+                                   │ Leased by acquire_browser_profile()
+                                   ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│ [automation.jobs] (Workflow Execution Session)                         │
+│ └── Executed on [workers.devices] with zero WebRTC STUN leaks          │
+└────────────────────────────────────────────────────────────────────────┘
+```

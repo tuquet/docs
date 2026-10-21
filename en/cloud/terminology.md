@@ -39,7 +39,8 @@ Use this quick-reference matrix for anti-hallucination audits during documentati
 | **`Campaign Run`** | `automa.campaign_runs` | ❌ *Batch Job*, *Execution*, *Run Task* | Execution session of an automation campaign dispatched across distributed runners. |
 | **`Execution Log`** | `automa.execution_logs` | ❌ *Audit Log*, *System Log*, *Trace File* | Telemetry stream recording block-level execution events during an automation run. |
 | **`Transactional Outbox`**| `events.outbox` | ❌ *Message Queue*, *Kafka Stream*, *RabbitMQ* | Pure PostgreSQL ACID-compliant event outbox for reliable asynchronous webhook dispatching. |
-| **`Proxy`** | `runners.proxies` (`proxy_id`) | ❌ *VPN*, *Tunnel Node*, *IP Route* | Tenant-isolated network proxy endpoint (HTTP/HTTPS/SOCKS5) with health metrics, geo data, and dynamic assignment to runners & browsers. |
+| **`Proxy`** | `workers.proxies` (`proxy_id`) | ❌ *VPN*, *Tunnel Node*, *IP Route* | Tenant-isolated network proxy endpoint (HTTP/HTTPS/SOCKS5) with health metrics, geo data, dynamic assignment, and optional `change_ip_url` webhook for 4G/residential IP rotation. |
+| **`Browser Profile`** | `browsers.profiles` | ❌ *Virtual Machine*, *Worker Session* | Central antidetect identity container configured with deterministic C++ seed, WebRTC shield, `auto_timezone`, and `auto_locale` proxy geo-alignment. |
 | **`Usage Meter`** | `billing.usage_meters` | ❌ *Quota Counter*, *Metric Tracker* | Real-time gauge measuring resource consumption within the current billing cycle. |
 
 ---

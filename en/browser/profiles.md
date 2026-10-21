@@ -63,6 +63,19 @@ When creating a profile, `browser` uses a 32-bit pseudorandom seed (`--seed <u32
 
 ---
 
+
+### 2.1. Smart Proxy & Geo Alignment (GoLogin / AdsPower Architecture)
+
+In commercial anti-detect browser operations, having an IP address from one region while the system clock or locale reflects a different geographical location is an immediate red flag for fraud engines (Cloudflare Turnstile, DataDome, Google, Facebook).
+
+Tuquet provides automated network and geography synchronization:
+- **`auto_timezone: true`**: When launching with a proxy, the worker probes the exit IP and queries local GeoIP tables to dynamically inject `--timezone=<Region/City>` into Chromium, matching the browser clock 100% to the proxy's physical location.
+- **`auto_locale: true`**: Automatically synchronizes the `Intl`, `navigator.languages`, and `Accept-Language` HTTP headers with the proxy's country code.
+- **`change_ip_url`**: Supports rotation webhooks for dynamic residential and mobile 4G/5G proxies. When specified, worker nodes can trigger an on-demand IP refresh prior to workflow execution.
+- **`webrtc_mode: "proxy_shielded"`**: Forces `--disable-non-proxied-udp` and sets the WebRTC IP handling policy to `disable_non_proxied_udp`, completely eliminating public STUN/TURN IP leaks.
+
+---
+
 ## 3. Command Reference
 
 All profile operations are exposed via `tq browser profile` (or `tuquet browser profile`):
