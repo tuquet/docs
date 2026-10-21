@@ -4,7 +4,7 @@
 
 Establish complete, multi-layered error catching, contextual metadata enrichment, and telemetry resilience across the Web Admin (`apps/web-admin`) application.
 
-Currently, error tracking through Bugsink (Sentry-compatible endpoint `https://9691efe9e0064c9f828dd7463dc3d414@tuquet.bugsink.com/1`) catches Vue component lifecycle errors, explicit manual `captureError` calls, and Vue Router navigation failures. However, significant telemetry blind spots exist in the browser runtime:
+Currently, error tracking through Cloudflare Worker Error Relay (Sentry-compatible endpoint `https://tuquet@tuquet-error-relay.tunyk-93.workers.dev/1`) catches Vue component lifecycle errors, explicit manual `captureError` calls, and Vue Router navigation failures. However, significant telemetry blind spots exist in the browser runtime:
 
 1. **Early Boot & Pre-Bootstrap Crashes:** Errors in `main.ts`, `initPreferences()`, `initStores()`, `initComponentAdapter()`, or CSS font loaders occur before `initBugsink(app, router)` is invoked, leaving initial blank screen crashes completely uncaptured.
 2. **Unhandled Promise Rejections & Global Window Errors:** Explicitly passing an `integrations: [...]` array without merging default browser integrations (`globalHandlersIntegration`, `breadcrumbsIntegration`, etc.) risks missing unhandled promise rejections and global script syntax/runtime errors.
@@ -119,7 +119,7 @@ export function addNetworkBreadcrumb(data: {
 - **Always do:**
   - Wrap all logging and Sentry invocations in fail-safe blocks (`try/catch`).
   - Sanitize query strings and headers to prevent leaking auth tokens, passwords, or CCCD numbers.
-  - Tag all events with `app: 'specter-admin'`, `environment`, `release`, and active `workspace_id`.
+  - Tag all events with `app: 'tuquet-admin'`, `environment`, `release`, and active `workspace_id`.
   - Add contextual breadcrumbs for network requests, router navigations, and Vite preload errors.
 - **Ask first:**
   - Enabling heavy integrations such as Session Replay (high DOM serialization and network overhead).
@@ -149,7 +149,7 @@ export function addNetworkBreadcrumb(data: {
 
 ### Assumptions:
 
-1. **Telemetry Backend:** Bugsink server at `https://tuquet.bugsink.com` fully implements the standard Sentry Store API protocol (v7/v8 envelope format) used by `@sentry/vue`.
+1. **Telemetry Backend:** Cloudflare Worker Edge Relay at `https://tuquet-error-relay.tunyk-93.workers.dev` fully implements the standard Sentry Store API protocol (v7/v8 envelope format) used by `@sentry/vue`, performing in-memory deduplication before dispatching alerts to Hermes & Telegram.
 2. **Session Replay:** Full DOM Session Replay (`@sentry-internal/replay` / `Sentry.replayIntegration()`) is deliberately **NOT** enabled due to mobile CPU/bandwidth constraints; lightweight breadcrumb tracking is preferred.
 3. **Network Request Errors:** Benign user aborts (`AbortError`, `DOMException: The user aborted a request`) should be filtered out to avoid alert fatigue.
 
