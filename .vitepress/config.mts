@@ -18,36 +18,37 @@ const browserSidebar = [
   },
 ]
 
-const automaSidebar = [
+const automationSidebar = [
   {
-    text: 'Automa DAG Engine',
+    text: 'Automation Engine',
     collapsed: false,
     items: [
-      { text: 'Workflow Automation', link: '/en/automa/' },
-      { text: 'Headless Stealth Mode', link: '/en/automa/stealth-headless' },
-      { text: 'Native Rust CDP Protocol', link: '/en/automa/cdp' },
+      { text: 'Workflow Automation', link: '/en/automation/' },
+      { text: 'Headless Stealth Mode', link: '/en/automation/stealth-headless' },
+      { text: 'Native Rust CDP Protocol', link: '/en/automation/cdp' },
     ],
   },
 ]
 
-const bridgeSidebar = [
+const gatewaySidebar = [
   {
-    text: 'Bridge Mesh Gateway',
+    text: 'Network Gateway',
     collapsed: false,
     items: [
-      { text: 'SOCKS5 & HTTP Tunnels', link: '/en/bridge/' },
-      { text: 'Multi-Server Mesh', link: '/en/bridge/mesh' },
-      { text: 'WebRTC Leak Shield', link: '/en/bridge/webrtc' },
+      { text: 'SOCKS5 & HTTP Tunnels', link: '/en/gateway/' },
+      { text: 'Priority & Roadmap', link: '/en/gateway/roadmap' },
+      { text: 'Multi-Server Mesh', link: '/en/gateway/mesh' },
+      { text: 'WebRTC Leak Shield', link: '/en/gateway/webrtc' },
     ],
   },
 ]
 
-const runnerSidebar = [
+const workerSidebar = [
   {
-    text: 'Workstation Runner',
+    text: 'Distributed Worker',
     collapsed: false,
     items: [
-      { text: 'Workstation Daemon & HTTP API', link: '/en/runner/' },
+      { text: 'Workstation Daemon & HTTP API', link: '/en/worker/' },
     ],
   },
 ]
@@ -277,9 +278,9 @@ export default defineConfig({
         text: 'Services',
         items: [
           { text: 'Stealth Chromium Browser', link: '/en/browser/' },
-          { text: 'Automa DAG Engine', link: '/en/automa/' },
-          { text: 'Bridge Mesh Gateway', link: '/en/bridge/' },
-          { text: 'Workstation Runner', link: '/en/runner/' },
+          { text: 'Automation Engine', link: '/en/automation/' },
+          { text: 'Network Gateway', link: '/en/gateway/' },
+          { text: 'Distributed Worker', link: '/en/worker/' },
           { text: 'Cloud & Desktop Control Plane', link: '/en/cloud/' },
           { text: 'Admin Portal & Control Center', link: '/en/admin/' },
         ],
@@ -316,9 +317,9 @@ export default defineConfig({
 
     sidebar: {
       '/en/browser/': browserSidebar,
-      '/en/automa/': automaSidebar,
-      '/en/bridge/': bridgeSidebar,
-      '/en/runner/': runnerSidebar,
+      '/en/automation/': automationSidebar,
+      '/en/gateway/': gatewaySidebar,
+      '/en/worker/': workerSidebar,
       '/en/cloud/': cloudSidebar,
       '/en/admin/': adminSidebar,
       '/en/cli/playbooks/': playbooksSidebar,
