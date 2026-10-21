@@ -6,17 +6,17 @@
 Hiện nay các thành phần trong hệ sinh thái `tuquet` bao gồm:
 - **Network Bridge Mesh:** Proxy SOCKS5 (`1080`), HTTP Forwarder (`8118`), OpenSSH Tunnel (`2222`), Cloudflare Access.
 - **Antidetect Browser Fleet:** Chromium Stealth runtime, các isolated profile sandbox (`~/.tq/browser/profiles`).
-- **Workstation Runner & Automa Engine:** Runner Daemon RPC, database SQLite (`automa.sqlite`), workflow DAG execution.
+- **Workstation Worker & Automation Engine:** Worker Daemon RPC, database SQLite (`automation.sqlite`), workflow execution.
 - **Cloud Mesh:** Trạng thái kết nối với Supabase Control Plane & Multi-Tenancy.
 
-Người dùng phải chạy các lệnh đơn lẻ (`tq status`, `tq bridge status`, `tq browser ps`, `tq runner logs`) để theo dõi tình trạng hệ thống. Không có góc nhìn tổng thể thời gian thực (real-time live monitoring) tương tự như các công cụ kỹ sư chuyên nghiệp (`k9s`, `lazygit`, `btop`).
+Người dùng phải chạy các lệnh đơn lẻ (`tq status`, `tq gateway status`, `tq browser ps`, `tq worker logs`) để theo dõi tình trạng hệ thống. Không có góc nhìn tổng thể thời gian thực (real-time live monitoring) tương tự như các công cụ kỹ sư chuyên nghiệp (`k9s`, `lazygit`, `btop`).
 
 ### 1.2 Mục tiêu kiến trúc
 Xây dựng lệnh `tq tui` — **Live Mission Control Terminal Dashboard** toàn màn hình (fullscreen interactive TUI) bằng Rust thuần dựa trên `crossterm` đã có sẵn trong dự án:
 1. **Zero New External Dependencies:** Sử dụng trực tiếp `crossterm = "0.29.0"` có sẵn trong `cli/Cargo.toml` với Double-Buffering & Box-Drawing symbols (`clack` unicode palette) để đảm bảo biên dịch offline siêu tốc, không bị phụ thuộc tải thêm crate mới.
-2. **Real-Time Polling & Live FPS:** Tick loop bất đồng bộ 1000ms/render cập nhật trạng thái sống/chết của các port (1080, 8118, 2222), CPU/RAM của tiến trình browser, và runner jobs.
+2. **Real-Time Polling & Live FPS:** Tick loop bất đồng bộ 1000ms/render cập nhật trạng thái sống/chết của các port (1080, 8118, 2222), CPU/RAM của tiến trình browser, và worker jobs.
 3. **Interactive Control Hotkeys:**
-   - `b` / `B`: Bật / tắt Specter Bridge tunnel ngay trong dashboard (`bridge start` / `bridge stop`).
+   - `b` / `B`: Bật / tắt Gateway tunnel ngay trong dashboard (`gateway start` / `gateway stop`).
    - `r` / `R`: Refresh lại toàn bộ metrics ngay lập tức.
    - `k` / `K`: Kill toàn bộ browser profile đang chạy mồ côi (orphaned Chrome instances).
    - `Tab` / `Left` / `Right`: Chuyển đổi tab chi tiết: `Overview` -> `Bridge Mesh` -> `Browser Fleet` -> `Workflows`.

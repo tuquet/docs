@@ -49,7 +49,7 @@ Cloud phân tách dữ liệu thành **7 schema chuyên biệt** nhằm đảm b
 | Tên Schema | Phạm Vi Chức Năng | Bảng Dữ Liệu Tiêu Biểu | Header PostgREST Bắt Buộc |
 | :-- | :-- | :-- | :-- |
 | `public` | Quản lý danh tính, Workspace, RBAC, Plugins | `tenants`, `profiles`, `system_plugins`, `roles`, `permissions`, `audit_logs` | _(Mặc định — không cần header)_ |
-| `runners` | Quản lý thiết bị máy trạm, Chromium, Proxies | `devices`, `browsers`, `proxies` | `Accept-Profile: runners` |
+| `workers` | Quản lý thiết bị máy trạm, Chromium, Proxies | `devices`, `browsers`, `proxies` | `Accept-Profile: workers` |
 | `automa` | Kịch bản đồ họa, chiến dịch chạy, nhật ký bước | `workflows`, `campaign_runs`, `execution_logs` | `Accept-Profile: automa` |
 | `billing` | Hợp đồng thuê bao SaaS, gói cước, Ví Xu & Thanh toán | `subscriptions`, `plans`, `usage_meters`, `wallets`, `wallet_transactions`, `payment_gateways`, `payment_intents` | `Accept-Profile: billing` |
 | `commerce` | Cửa hàng sản phẩm số, kho serial, đơn hàng & giao hàng | `categories`, `products`, `product_variants`, `stock_items`, `orders`, `order_items`, `order_deliveries` | `Accept-Profile: commerce` |
@@ -62,7 +62,7 @@ Toàn bộ các truy vấn HTTP tới Supabase sử dụng hàm dùng chung `sup
 
 ```typescript
 export type AdminSchema =
-  'automa' | 'billing' | 'commerce' | 'events' | 'media' | 'public' | 'runners';
+  'automa' | 'billing' | 'commerce' | 'events' | 'media' | 'public' | 'workers';
 
 export interface SupabaseRequestOptions extends RequestInit {
   preferRepresentation?: boolean;
@@ -119,7 +119,7 @@ graph LR
     CoreIAM --> T["/tenants, /tenants/:id"]
     CoreIAM --> S1["/system/plugins, /system/users, /system/audit-logs, /system/roles"]
     Automa["automa"] --> A1["/automation/workflows, /automation/runs, /automation/runs/:id"]
-    Runners["runners"] --> A2["/automation/devices, /automation/browsers, /automation/proxies"]
+    Workers["workers"] --> A2["/automation/devices, /automation/browsers, /automation/proxies"]
     Commerce["commerce"] --> C1["/commerce/store, /commerce/orders, /commerce/admin"]
     Subs["subscriptions"] --> C2["/commerce/wallet"]
     Subs --> S2["/system/plans, /system/subscriptions"]
@@ -148,13 +148,13 @@ Hệ thống quản trị bao gồm **27 tuyến đường** chuẩn mực phân
 ├── /tenants                        [core-iam]                lucide:building-2
 │   ├── /tenants                    Danh sách Workspace (VxeGrid)
 │   └── /tenants/:id                Chi tiết Workspace (4 tabs: overview, members, usage, audit)
-├── /automation                     [automa|runners]          lucide:workflow
+├── /automation                     [automa|workers]          lucide:workflow
 │   ├── /automation/workflows       [automa]                  Sơ đồ kịch bản Canvas Workflows
 │   ├── /automation/runs            [automa]                  Lịch sử các đợt chạy chiến dịch
 │   ├── /automation/runs/:id        [automa]                  Chi tiết lần chạy & Terminal Logs Viewer (Polling 3s)
-│   ├── /automation/devices         [runners]                 Thiết bị & Nodes Desk / Cloud VPS
-│   ├── /automation/browsers        [runners]                 Hồ sơ trình duyệt Chromium tự động hóa
-│   └── /automation/proxies         [runners]                 Pool Proxy mạng phân tán
+│   ├── /automation/devices         [workers]                 Thiết bị & Nodes Desk / Cloud VPS
+│   ├── /automation/browsers        [workers]                 Hồ sơ trình duyệt Chromium tự động hóa
+│   └── /automation/proxies         [workers]                 Pool Proxy mạng phân tán
 ├── /commerce                       [commerce|subscriptions]  lucide:shopping-bag
 │   ├── /commerce/store             [commerce]                Cửa hàng tài nguyên số & Thanh toán đa kênh
 │   ├── /commerce/orders            [commerce]                Lịch sử đơn hàng & Hộp thoại nhận tài nguyên

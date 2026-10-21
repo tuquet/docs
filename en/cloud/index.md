@@ -62,11 +62,11 @@ Unifies remote cloud fleets and local Tauri-connected workstation daemons.
 | Route Path | Module Name | Plugin Required | Capabilities |
 | :--- | :--- | :--- | :--- |
 | `/automation/overview` | `AutomationOverview` | `automa`, `runners` | Global overview of connected workers, active browser sessions, and workflow statistics. |
-| `/automation/workflows` | `AutomationWorkflows` | `automa` | Visual DAG workflow builder, kịch bản kéo thả, trigger schedules. |
+| `/automation/workflows` | `AutomationWorkflows` | `automation` | Quản lý workflows, kịch bản tự động hoá, trigger schedules. |
 | `/automation/runs` | `AutomationRuns` | `automa` | Batch campaign runs, execution status, and task dispatching. |
 | `/automation/runs/:id` | `AutomationRunDetail` | `automa` | Detailed timeline, step-by-step CDP logs, and captured artifact downloads. |
 | `/automation/devices` | `AutomationDevices` | `runners` | Registered desktop workstations and remote VPS nodes connected to the mesh. |
-| `/automation/browsers` | `AutomationBrowsers` | `runners` | Central anti-detect browser profile vaults with fingerprint seeds. |
+| `/automation/browsers` | `AutomationBrowsers` | `runners` | Central anti-detect browser instances with fingerprint seeds. |
 | `/automation/proxies` | `AutomationProxies` | `runners` | Proxy pools, auto-healing SOCKS5 nodes, and health diagnostics. |
 
 ### C. Commerce & Credit Wallet (`/commerce`)
@@ -108,17 +108,17 @@ In the upcoming **Tauri release**, the native window directly wraps this router.
 
 ## 4. Distributed Lease Locks & Concurrency Protection
 
-The central table `runners.browsers` guards against concurrent execution collisions. Before any runner (cloud or local Tauri node) launches a profile, it must acquire an exclusive lease lock:
+The central table `workers.browsers` guards against concurrent execution collisions. Before any worker (cloud or local Tauri node) launches a profile, it must acquire an exclusive lease lock:
 
 ```sql
 -- Atomic Lease Acquisition Procedure
-SELECT runners.acquire_browser(
+SELECT workers.acquire_browser(
     p_browser_id => 'c8a30d9e-5e74-4b52-b141-f76159c946e3'::uuid,
     p_device_id  => 'a0b1c2d3-e4f5-6789-0123-456789abcdef'::uuid
 );
 
 -- Atomic Lease Release & Session Snapshot Sync
-SELECT runners.release_browser(
+SELECT workers.release_browser(
     p_browser_id         => 'c8a30d9e-5e74-4b52-b141-f76159c946e3'::uuid,
     p_device_id          => 'a0b1c2d3-e4f5-6789-0123-456789abcdef'::uuid,
     p_storage_path       => 'tenant-01/c8a30d9e.tar.zst',

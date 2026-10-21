@@ -9,17 +9,17 @@
 
 ## 1. Objective (Mục Tiêu & Phạm Vi)
 
-Xây dựng phân hệ Quản trị Hạ tầng Thực thi (**Runners Fleet** — plugin `runners`) thuộc nhánh điều hướng `/automation/*`, kết nối **100% dữ liệu đo đếm thực tế** từ schema `runners` của Cloud qua header `Accept-Profile: runners` và thăm dò cổng loopback cục bộ (`127.0.0.1:8765`):
+Xây dựng phân hệ Quản trị Hạ tầng Thực thi (**Runners Fleet** — plugin `runners`) thuộc nhánh điều hướng `/automation/*`, kết nối **100% dữ liệu đo đếm thực tế** từ schema `runners` của Cloud qua header `Accept-Profile: workers` và thăm dò cổng loopback cục bộ (`127.0.0.1:8765`):
 
 1. **Quản Trị Thiết Bị & Máy Trạm (`/automation/devices`):**
-   - Hiển thị danh mục thiết bị từ `runners.devices` (`id`, `tenant_id`, `name`, `machine_fingerprint`, `status`, `version`, `os_info`, `cpu_cores`, `ram_mb`, `capabilities`, `active_jobs`, `last_heartbeat_at`) qua bảng `useVbenVxeGrid`.
+   - Hiển thị danh mục thiết bị từ `workers.devices` (`id`, `tenant_id`, `name`, `machine_fingerprint`, `status`, `version`, `os_info`, `cpu_cores`, `ram_mb`, `capabilities`, `active_jobs`, `last_heartbeat_at`) qua bảng `useVbenVxeGrid`.
    - Hiển thị 4 thẻ chỉ số KPI thời gian thực: Tổng số máy trạm (`total_nodes`), Thiết bị trực tuyến (`online_nodes`: `idle` + `busy`), Tác vụ đang chạy (`active_jobs`), và Trạng thái kết nối Loopback Daemon (`127.0.0.1:8765`).
    - Hỗ trợ xem chi tiết cấu hình phần cứng (`NodeDetailModal` với `VxeForm`), hướng dẫn ghép nối máy trạm (`ConnectFleetModal`), và thu hồi quyền thiết bị (`revokeFleetDeviceApi`).
 2. **Quản Trị Hồ Sơ Trình Duyệt Anti-Detect (`/automation/browsers`):**
-   - Hiển thị danh mục hồ sơ trình duyệt từ `runners.browsers` liên kết `locked_by_device:locked_by_device_id(name)` và `proxy:proxy_id(host,port,protocol)` qua bảng `useVbenVxeGrid`.
+   - Hiển thị danh mục hồ sơ trình duyệt từ `workers.browsers` liên kết `locked_by_device:locked_by_device_id(name)` và `proxy:proxy_id(host,port,protocol)` qua bảng `useVbenVxeGrid`.
    - Hỗ trợ lọc theo trạng thái (`all`, `idle`, `running`, `syncing`, `error`) và theo Workspace (`?tenant=`).
 3. **Quản Trị Bể Proxy Mạng Phân Tán (`/automation/proxies`):**
-   - Hiển thị danh sách proxy từ `runners.proxies` (`host`, `port`, `protocol`, `country_code`, `city`, `status`, `latency_ms`, `is_residential`, `error_count`, `last_checked_at`) qua bảng `useVbenVxeGrid`.
+   - Hiển thị danh sách proxy từ `workers.proxies` (`host`, `port`, `protocol`, `country_code`, `city`, `status`, `latency_ms`, `is_residential`, `error_count`, `last_checked_at`) qua bảng `useVbenVxeGrid`.
    - Trực quan hóa độ trễ mạng `latency_ms` (`< 300ms` tốt, `300-800ms` trung bình, `> 800ms` cao) và lọc theo trạng thái (`all`, `active`, `failing`, `testing`, `disabled`).
 
 ---
@@ -29,7 +29,7 @@ Xây dựng phân hệ Quản trị Hạ tầng Thực thi (**Runners Fleet** �
 - **Framework:** Vue 3.5 (`<script setup lang="ts">`), Vue Router 4, TypeScript 5, `vue-i18n`.
 - **Data Grid & Form Engine:** `useVbenVxeGrid` (`VxeTable`) và `VxeForm` từ `src/adapter/vxe-table.ts`.
 - **UI & Icons:** `@tuquet/vue-ui` (`Badge`, `Button`, `Card`, `Dialog`, `toast`), `@lucide/vue`.
-- **Unified Data Access Layer:** `src/api/core/automation.ts` (phần 2 kết nối `schema: 'runners'` và `probeLocalDaemonApi`).
+- **Unified Data Access Layer:** `src/api/core/automation.ts` (phần 2 kết nối `schema: 'workers'` và `probeLocalDaemonApi`).
 
 ---
 
@@ -64,7 +64,7 @@ apps/web-admin/src/
 │   ├── en-US/page.json                           # Từ điển page.automation.{devices,browsers,proxies} (en-US)
 │   └── vi-VN/page.json                           # Từ điển page.automation.{devices,browsers,proxies} (vi-VN)
 ├── router/routes/modules/
-│   └── automation.ts                             # Định tuyến /automation/{devices,browsers,proxies} (plugin: 'runners')
+│   └── automation.ts                             # Định tuyến /automation/{devices,browsers,proxies} (plugin: 'workers')
 └── views/automation/
     ├── devices/
     │   ├── index.vue                             # Bảng thiết bị Runner (useVbenVxeGrid) & 4 thẻ KPI
@@ -177,7 +177,7 @@ export async function probeLocalDaemonApi(port = 8765) {
 1. **Unit Tests (`automation.test.ts`):**
    - Kiểm tra `mapRawDeviceToFleetNode` chuẩn hóa đúng dung lượng RAM, danh sách `capabilities` và các trường mặc định.
    - Kiểm tra `calculateFleetMetrics` cộng chính xác số thiết bị trực tuyến (`idle` + `busy`) và tổng số `active_jobs`.
-   - Kiểm tra `buildFleetFilterQuery` và các hàm `getFleetDevicesApi`, `revokeFleetDeviceApi`, `getFleetBrowsersApi`, `getFleetProxiesApi` gửi đúng header `{ schema: 'runners' }`.
+   - Kiểm tra `buildFleetFilterQuery` và các hàm `getFleetDevicesApi`, `revokeFleetDeviceApi`, `getFleetBrowsersApi`, `getFleetProxiesApi` gửi đúng header `{ schema: 'workers' }`.
 2. **Router Plugin Gate Tests (`plugin-gate.test.ts`):**
    - Xác minh 3 tuyến `devices`, `browsers`, `proxies` được lọc độc lập theo plugin `runners` bên trong menu `/automation`.
 
@@ -186,13 +186,13 @@ export async function probeLocalDaemonApi(port = 8765) {
 ## 7. Boundaries (Ranh Giới Kỹ Thuật)
 
 - **Always:**
-  - Truyền `{ schema: 'runners' }` cho mọi truy vấn tới `devices`, `browsers`, `proxies`.
-  - Gắn `meta.plugin: 'runners'` trên 3 tuyến `/automation/devices`, `/automation/browsers`, `/automation/proxies`.
+  - Truyền `{ schema: 'workers' }` cho mọi truy vấn tới `devices`, `browsers`, `proxies`.
+  - Gắn `meta.plugin: 'workers'` trên 3 tuyến `/automation/devices`, `/automation/browsers`, `/automation/proxies`.
   - Giới hạn timeout $\le 1200\text{ms}$ và `mode: 'no-cors'` khi gọi `probeLocalDaemonApi` để không bao giờ làm treo giao diện nếu người dùng chặn quyền Private Network Access (PNA).
 - **Ask first:**
   - Thay đổi cấu trúc bảng trong schema `runners` tại `tuquet/cloud`.
 - **Never:**
-  - Không lưu trữ danh sách máy trạm giả lập trong `localStorage` để fallback khi bảng `runners.devices` rỗng.
+  - Không lưu trữ danh sách máy trạm giả lập trong `localStorage` để fallback khi bảng `workers.devices` rỗng.
   - Không để lộ chuỗi mật khẩu proxy (`password_encrypted`) lên giao diện bảng.
 
 ---
@@ -201,12 +201,12 @@ export async function probeLocalDaemonApi(port = 8765) {
 
 - [x] **SC1:** 3 màn hình `/automation/devices`, `/automation/browsers`, `/automation/proxies` hiển thị dữ liệu thực tế từ schema `runners` trên nền bảng `useVbenVxeGrid`.
 - [x] **SC2:** Thăm dò Loopback Daemon (`127.0.0.1:8765`) trên `/automation/devices` hoạt động bất đồng bộ, an toàn PNA và hiển thị độ trễ thực tế.
-- [x] **SC3:** Thao tác thu hồi thiết bị (`revokeFleetDeviceApi`) xóa bản ghi khỏi `runners.devices` và cập nhật lại bảng cùng 4 thẻ KPI.
+- [x] **SC3:** Thao tác thu hồi thiết bị (`revokeFleetDeviceApi`) xóa bản ghi khỏi `workers.devices` và cập nhật lại bảng cùng 4 thẻ KPI.
 - [x] **SC4:** Toàn bộ unit tests trong `automation.test.ts` và `plugin-gate.test.ts` pass 100%, `typecheck` đạt 0 lỗi.
 
 ---
 
 ## 9. Resolved Decisions (Các Quyết Định Đã Chốt)
 
-1. **Hợp nhất điều hướng dưới `/automation/*` với ranh giới `plugin: 'runners'` độc lập:** Người vận hành theo dõi thiết bị, trình duyệt và proxy ngay trong cùng nhóm menu `/automation` với quy trình và phiên chạy, nhưng hệ thống vẫn kiểm tra quyền `runners:*:read` và trạng thái cài đặt plugin `runners` tách biệt với `automa`.
+1. **Hợp nhất điều hướng dưới `/automation/*` với ranh giới `plugin: 'workers'` độc lập:** Người vận hành theo dõi thiết bị, trình duyệt và proxy ngay trong cùng nhóm menu `/automation` với quy trình và phiên chạy, nhưng hệ thống vẫn kiểm tra quyền `workers:*:read` và trạng thái cài đặt plugin `runners` tách biệt với `automa`.
 2. **Provisioning hạ tầng qua CLI & Commerce:** Việc khởi tạo hồ sơ trình duyệt vật lý được thực hiện trực tiếp từ Desk / CLI daemon hoặc cấp phát tự động qua Cửa hàng Tài nguyên Số (`/commerce/store`), giữ cho giao diện quản trị tập trung vào giám sát telemetry và điều phối.

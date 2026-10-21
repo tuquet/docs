@@ -34,8 +34,8 @@ Sau khi Chợ sản phẩm số và hệ thống thanh toán đã vận hành tr
      - Số lượng phiên bot đang hoạt động trên từng máy chủ.
      - Tự động cảnh báo và cô lập máy chủ khi phát hiện dấu hiệu quá tải hoặc lỗi mạng.
 4. **Cầu Nối Trực Tiếp Thời Gian Thực (Native BFF WebSocket / SSE Bridge):**
-   - Web Admin kết nối trực tiếp với native Rust Runner daemon (`127.0.0.1:8765`):
-     - Xem trực tiếp dòng chảy kịch bản (Visual DAG Execution): Node nào đang chạy, thời gian thực thi, log chi tiết từng bước.
+   - Web Admin kết nối trực tiếp với native Rust Worker daemon (`127.0.0.1:8765`):
+     - Xem trực tiếp dòng chảy kịch bản: Bước/Action nào đang chạy, thời gian thực thi, log chi tiết từng bước.
      - Nút dừng khẩn cấp (Emergency Kill) toàn bộ bot trên 1 node chỉ bằng 1 thao tác.
 5. **Cam Kết Vận Hành Sạch & Tối Ưu Chi Phí Điện Toán (Zero-Zombie Guarantee):**
    - Cơ chế giám sát tiến trình cấp kernel (Win32 Job Objects / Unix process group):
@@ -51,7 +51,7 @@ Sau khi Chợ sản phẩm số và hệ thống thanh toán đã vận hành tr
 | **Độ sẵn sàng hệ thống (Uptime SLA)** | **99.9%** | Giám sát liên tục trạng thái cụm máy chủ VPS 24/7/365 |
 | **Độ chính xác đo cước tài nguyên** | **Tuyệt đối 100%** | Kiểm toán đối soát thời gian chạy thực tế và số tiền trừ ví qua Sổ cái kép |
 | **Tỷ lệ triệt tiêu tiến trình mồ côi** | **100% (Zero-Zombie)** | Kiểm toán RAM/CPU của VPS sau 10.000 phiên chạy kịch bản liên tục |
-| **Tiết kiệm chi phí hạ tầng máy chủ** | $\ge 40\%$ | So sánh chi phí VPS của kiến trúc Runner với Selenium/Puppeteer thông thường |
+| **Tiết kiệm chi phí hạ tầng máy chủ** | $\ge 40\%$ | So sánh chi phí VPS của kiến trúc Worker với Selenium/Puppeteer thông thường |
 | **Khả năng mở rộng quy mô cụm** | $\ge 1.000$ VPS Nodes | Thử nghiệm kết nối và điều phối cụm 1.000 máy chủ phân tán |
 
 ---
@@ -59,6 +59,6 @@ Sau khi Chợ sản phẩm số và hệ thống thanh toán đã vận hành tr
 ## 🛡️ 4. Tiêu Chuẩn Nghiệm Thu Kỹ Thuật (Acceptance Checklist)
 
 - [ ] Bộ đo cước tự động gửi heartbeat mỗi 60 giây và trừ tiền ví theo đúng đơn giá gói dịch vụ đã chọn.
-- [ ] Khi số dư ví cạn, hệ thống gửi lệnh `Graceful Pause` cho runner đóng phiên an toàn mà không làm hỏng dữ liệu đang cào.
-- [ ] Web Admin hiển thị trực quan biểu đồ trạng thái của từng node trong DAG kịch bản đang chạy qua WebSocket.
+- [ ] Khi số dư ví cạn, hệ thống gửi lệnh `Graceful Pause` cho worker đóng phiên an toàn mà không làm hỏng dữ liệu đang cào.
+- [ ] Web Admin hiển thị trực quan trạng thái của từng bước kịch bản đang chạy qua WebSocket.
 - [ ] Khi đóng cửa sổ hoặc tắt bot, toàn bộ cây tiến trình Chromium con bị terminate sạch sẽ trong $\le 100\text{ ms}$.

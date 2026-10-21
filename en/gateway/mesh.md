@@ -61,7 +61,7 @@ Tuquet's supervisor mode (`--foreground` / `-f`) eliminates this vulnerability:
 
 ## 3. Configuration & Multi-Server Mesh (`bridge.json`)
 
-All mesh server definitions are declared in SSOT Pillar 4 (`~/.tuquet/bridge/bridge.json`):
+All mesh server definitions are declared in SSOT Pillar 4 (`~/.tq/gateway/gateway.json`):
 
 ```json
 {

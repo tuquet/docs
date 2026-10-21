@@ -33,9 +33,9 @@ graph TD
     AutoMod --> Workflows["/automation/workflows (automa)"]
     AutoMod --> Runs["/automation/runs (automa)"]
     AutoMod --> RunDetail["/automation/runs/:id (automa)"]
-    AutoMod --> Devices["/automation/devices (runners)"]
-    AutoMod --> Browsers["/automation/browsers (runners)"]
-    AutoMod --> Proxies["/automation/proxies (runners)"]
+    AutoMod --> Devices["/automation/devices (workers)"]
+    AutoMod --> Browsers["/automation/browsers (workers)"]
+    AutoMod --> Proxies["/automation/proxies (workers)"]
 
     CommerceMod --> CStore["/commerce/store (commerce)"]
     CommerceMod --> COrders["/commerce/orders (commerce)"]
@@ -62,9 +62,9 @@ graph TD
 | 4 | **`/automation/workflows`** | `AutomationWorkflows` | `automa` | `['superadmin', 'automa:workflows:read']` | `BasicLayout` | `workflows/index.vue` | `automa.workflows` |
 | 5 | **`/automation/runs`** | `AutomationRuns` | `automa` | `['superadmin', 'automa:campaigns:read']` | `BasicLayout` | `runs/index.vue` | `automa.campaign_runs` |
 | 6 | **`/automation/runs/:id`** | `AutomationRunDetail` | `automa` | `['superadmin', 'automa:logs:read']` | `BasicLayout` | `runs/detail.vue` | `automa.campaign_runs`, `automa.execution_logs` |
-| 7 | **`/automation/devices`** | `AutomationDevices` | `runners` | `['superadmin', 'runners:devices:read']` | `BasicLayout` | `devices/index.vue` | `runners.devices` |
-| 8 | **`/automation/browsers`** | `AutomationBrowsers` | `runners` | `['superadmin', 'runners:browsers:read']` | `BasicLayout` | `browsers/index.vue` | `runners.browsers` |
-| 9 | **`/automation/proxies`** | `AutomationProxies` | `runners` | `['superadmin', 'runners:proxies:read']` | `BasicLayout` | `proxies/index.vue` | `runners.proxies` |
+| 7 | **`/automation/devices`** | `AutomationDevices` | `workers` | `['superadmin', 'workers:devices:read']` | `BasicLayout` | `devices/index.vue` | `workers.devices` |
+| 8 | **`/automation/browsers`** | `AutomationBrowsers` | `workers` | `['superadmin', 'workers:browsers:read']` | `BasicLayout` | `browsers/index.vue` | `workers.browsers` |
+| 9 | **`/automation/proxies`** | `AutomationProxies` | `workers` | `['superadmin', 'workers:proxies:read']` | `BasicLayout` | `proxies/index.vue` | `workers.proxies` |
 | 10 | **`/commerce/store`** | `CommerceStore` | `commerce` | `['superadmin', 'commerce:read']` | `BasicLayout` | `commerce/store/index.vue` | `commerce.categories`, `products`, `product_variants` |
 | 11 | **`/commerce/orders`** | `CommerceOrders` | `commerce` | `['superadmin', 'commerce:read']` | `BasicLayout` | `commerce/orders/index.vue` | `commerce.orders`, `order_items`, `order_deliveries` |
 | 12 | **`/commerce/wallet`** | `CommerceWallet` | `subscriptions` | `['superadmin', 'subscriptions:read', 'commerce:read']` | `BasicLayout` | `commerce/wallet/index.vue` | `billing.wallets`, `wallet_transactions`, `payment_intents` |
@@ -96,7 +96,7 @@ Mỗi khi người dùng khởi động phiên làm việc, router chạy hàm l
 2. **Route khai báo `meta.plugin`:** Kiểm tra xem plugin ID có nằm trong danh sách các plugin đã cài đặt (`status === 'installed'` trong `public.system_plugins`) hay không.
 3. **Đệ quy trên Route Con (`children`):**
    - Nếu toàn bộ route con bị lọc bỏ và route cha không có `component`, route cha tự động bị cắt tỉa (pruned) khỏi menu.
-   - Trong nhóm `/automation`, các route con thuộc `automa` (`workflows`, `runs`, `runs/:id`) và các route con thuộc `runners` (`devices`, `browsers`, `proxies`) được đánh giá độc lập.
+   - Trong nhóm `/automation`, các route con thuộc `automa` (`workflows`, `runs`, `runs/:id`) và các route con thuộc `workers` (`devices`, `browsers`, `proxies`) được đánh giá độc lập.
    - Trong nhóm `/commerce`, các route con thuộc `commerce` (`store`, `orders`, `admin`) và route con thuộc `subscriptions` (`wallet`) được đánh giá độc lập.
 
 ---
@@ -107,7 +107,7 @@ Thay vì kiểm tra vai trò cứng (`role: ['admin']`), router áp dụng cơ c
 
 1. **Superadmin Bypass:** Nếu tài khoản có `platform_role === 'superadmin'` (qua JWT `app_metadata` hoặc hàm `public.is_platform_admin()`), user sở hữu quyền `superadmin` và toàn quyền truy cập 100% routes.
 2. **Tenant Dynamic Permissions:** Với user thông thường, hệ thống truy vấn các vai trò của user qua `public.tenant_members` $\rightarrow$ `public.member_roles` $\rightarrow$ `public.roles` $\rightarrow$ `public.role_permissions`.
-3. Khớp chuỗi permission định dạng `<module>:<action>` hoặc `<module>:<resource>:<action>` (ví dụ `runners:devices:read`, `automa:workflows:read`, `commerce:read`).
+3. Khớp chuỗi permission định dạng `<module>:<action>` hoặc `<module>:<resource>:<action>` (ví dụ `workers:devices:read`, `automa:workflows:read`, `commerce:read`).
 
 ---
 

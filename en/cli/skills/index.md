@@ -36,13 +36,13 @@ When launched via `tuquet mcp`, registers native tools into the AI agent's tool 
 
 | Tool Name | Arguments | Capabilities & Agent Action |
 | :--- | :--- | :--- |
-| **`status`** | `{}` | Returns unified JSON status across Cloud pairing, local Runner daemon, and dedicated Browser engine. |
-| **`workflow_run`** | `workflow` (string), `variables` (object), `headless` (boolean), `timeout` (number) | Executes an Automa workflow DAG directly, interpolates dynamic runtime variables, and returns execution status. |
-| **`workflow_list`** | `search` (string), `vault_only` (boolean) | Lists all workflows stored in the local vault and database. |
-| **`workflow_inspect`** | `workflow` (string) | Validates workflow JSON syntax, inputs, parameters, and step transitions before execution. |
+| **`status`** | `{}` | Returns unified JSON status across Cloud pairing, local Worker daemon, and dedicated Browser engine. |
+| **`workflow_run`** | `workflow` (string), `variables` (object), `headless` (boolean), `timeout` (number) | Executes an automation workflow by stored database ID, interpolates dynamic runtime variables, and returns execution status. |
+| **`workflow_list`** | `search` (string) | Lists all workflows stored in the SQLite database. |
+| **`workflow_inspect`** | `workflow` (string) | Validates workflow JSON syntax, inputs, parameters, and step actions before execution. |
 | **`faker_generate`** | `count` (number), `gender` (string), `nat` (string), `domain` (string) | Generates mathematically verified synthetic identities (CCCD Modulo 11, addresses, credentials) for form-filling. |
 | **`browser_status`** | `{}` | Returns installation path, Chromium version, profile list, and disk footprint. |
-| **`runner_probe`** | `{}` | Negotiates hardware capabilities and active concurrent worker slots on the local runner. |
+| **`worker_probe`** | `{}` | Negotiates hardware capabilities and active concurrent worker slots on the local worker daemon. |
 | **`cloud_whoami`** | `{}` | Inspects active workstation enrollment GUID, tenant ID, and cloud authentication state. |
 | **`tree`** | `path` (string), `depth` (number) | Structured filesystem inspection respecting gitignore boundaries. |
 

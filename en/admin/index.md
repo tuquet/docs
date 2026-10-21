@@ -50,7 +50,6 @@ Bộ **15 bản đặc tả kỹ thuật chuẩn hóa (Canonical Module Specs)**
 - [`specs/SPEC-platform-foundation.md`](specs/SPEC-platform-foundation.md) — Kiến trúc monorepo, hạ tầng build cục bộ `build:local`, PWA auto-update và cổng kiểm định chất lượng.
 - [`specs/SPEC-layout-preferences-coherence.md`](specs/SPEC-layout-preferences-coherence.md) — Kiểm toán chống khóa giao diện (Anti-Lockout), bảo vệ điều hướng Sidebar và đồng bộ Preferences Drawer.
 - [`specs/SPEC-i18n-en-vi.md`](specs/SPEC-i18n-en-vi.md) — Kiến trúc đa ngôn ngữ `en-US` / `vi-VN`, từ điển thuật ngữ `term.json`, tái sử dụng `$t('common.*')` và chuẩn Sentence case tiếng Việt.
-- [`specs/SPEC-specter-3d-ghost-banner.md`](specs/SPEC-specter-3d-ghost-banner.md) — Bộ 3 banner tương tác trên trang xác thực (`phone`, `robot 3d`, `ghost 3d` WebGL 60fps).
 - [`specs/SPEC-data-access.md`](specs/SPEC-data-access.md) — Tầng truy cập đa schema `supabaseRequest({ schema, skipAuth })` (7 schemas) và nạp quyền động từ cơ sở dữ liệu.
 - [`specs/SPEC-route-foundation.md`](specs/SPEC-route-foundation.md) — Kiến trúc 27 routes, bộ lọc `filterRoutesByPlugins()` và bảo toàn vị trí cuộn nội trang.
 - [`specs/SPEC-tenants-truth.md`](specs/SPEC-tenants-truth.md) — Quản trị `/tenants` và `/tenants/:id` (4 chế độ `overview / members / usage / audit` với `useVbenVxeGrid` & `VxeForm`).

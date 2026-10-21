@@ -60,10 +60,10 @@ tuquet browser launch "Scraper-Node-01" --headless --port 9222 --detach
 
 ```bash
 # Execute workflow in headless mode with timeout safety
-tuquet automa run ./scrape_catalog.workflow.json --headless --timeout 90
+tq automation run scrape-catalog --headless --timeout 90
 
 # Execute headless workflow with runtime variable overrides
-tuquet automa run ./scrape_catalog.workflow.json \
+tq automation run scrape-catalog \
   --headless \
   -p TARGET_CATEGORY="electronics" \
   -p MAX_PAGES="10"

@@ -1,11 +1,11 @@
-# Workstation Runner & Bare-Metal Daemon
+# Workstation Worker & Bare-Metal Daemon
 
 An unshielded workstation will choke when running mass automation. Detached scrapers spawn rogue child processes, leak gigabytes of LevelDB memory, and freeze the operating system under concurrent load.
 
-**Workstation Runner** transforms raw developer hardware into a disciplined execution node. Powered by the pure-Rust [`runner`](https://github.com/tuquet/runner) engine, it runs as an autonomous local daemon on port 8765. It enforces OS-level process containment via Windows Job Objects and POSIX groups, caps hardware quotas, and shields workstation iron from runaway automation tasks.
+**Workstation Worker** transforms raw developer hardware into a disciplined execution node. Powered by the pure-Rust worker daemon (`tq worker`), it runs as an autonomous local supervisor on port 8765. It enforces OS-level process containment via Windows Job Objects and POSIX groups, caps hardware quotas, and shields workstation iron from runaway automation tasks.
 
 ::: tip Standalone Workstation Node & Tauri Desktop Host
-`runner` runs directly on the local machine. It exposes a lightweight HTTP/WebSocket control plane (`localhost:8765`), allowing external scripts, remote fleet controllers, or the **Tauri Desktop Client** to dispatch jobs and inspect real-time telemetry with zero zombie process risk.
+`tq worker` runs directly on the local machine. It exposes a lightweight HTTP/WebSocket control plane (`localhost:8765`), allowing external scripts, remote fleet controllers, or the **Tauri Desktop Client** to dispatch jobs and inspect real-time telemetry with zero zombie process risk.
 :::
 
 <HairlineFigure name="cabinet" />
@@ -16,7 +16,7 @@ An unshielded workstation will choke when running mass automation. Detached scra
 
 Traditional automation libraries (Playwright, Puppeteer, Selenium) spawn browser processes as detached child processes. If the parent script crashes abruptly or is killed, child browser processes linger and become persistent zombies.
 
-The Runner engine eliminates this failure mode natively using operating system process sandboxing (`command_group`):
+The Worker engine eliminates this failure mode natively using operating system process sandboxing (`command_group`):
 
 ```text
  ┌─────────────────────────────────────────────────────────────┐
@@ -41,8 +41,8 @@ The Runner engine eliminates this failure mode natively using operating system p
 ```
 
 1. **Native Process Containment (Windows & Linux)**:
-   - Binds all spawned child browser processes and workers directly to the Runner supervisor lifecycle.
-   - When the Runner terminates or exits, the native sandbox terminates every child process within <0.1ms.
+   - Binds all spawned child browser processes and workers directly to the Worker supervisor lifecycle.
+   - When the Worker terminates or exits, the native sandbox terminates every child process within <0.1ms.
 2. **Hard Crash Resilience**:
    - Even in sudden power-loss, kill signals, or unexpected crashes, the operating system cleans up and reclaims all RAM, file handles, and child sockets cleanly.
 
@@ -64,7 +64,7 @@ The runner operates as a local HTTP daemon worker running on port `8765` by defa
 
 ## 3. Universal Contract Schema: Automa & Browser Convergence
 
-`runner` standardizes job execution payloads across ecosystem pillars, seamlessly uniting **Automa** (workflow DAG execution) with **Browser** (Antidetect Chromium, deterministic PRNG fingerprint spoofing, proxy routing, and profile sandboxing):
+`worker` standardizes job execution payloads across ecosystem pillars, seamlessly uniting **Automation** (workflow execution) with **Browser** (Antidetect Chromium, deterministic PRNG fingerprint spoofing, proxy routing, and profile sandboxing):
 
 ### 1. Automa Workflow Execution with Dedicated Browser Config (`driver: "automa"`)
 
@@ -74,7 +74,7 @@ The runner operates as a local HTTP daemon worker running on port `8765` by defa
   "driver": "automa",
   "payload": {
     "workflow": {
-      "path": "./workflows/scrape-catalog.json",
+      "id": "scrape-catalog",
       "variables": {
         "target_domain": "example.com",
         "max_retries": 3
@@ -133,133 +133,125 @@ In distributed scraping fleets, edge nodes and cloud VPS instances operate as he
 When running in worker mode:
 
 ```bash
-tq runner worker --interval 15 --headless
+tq worker start --interval 15 --headless
 ```
 
 The daemon automatically executes an autonomous 5-stage lifecycle:
 1. **Poll Cloud Queue**: Polls pending automation tasks from the Cloud Center central control plane.
 2. **Lease Acquisition**: Claims an exclusive profile lock (`acquire_browser`) to prevent concurrent session conflicts.
 3. **Snapshot Unpacking**: Downloads and unpacks the profile session delta (`.tar.zst`).
-4. **Execution & Telemetry**: Executes the Automa workflow DAG via native CDP.
+4. **Execution & Telemetry**: Executes the automation workflow via native CDP.
 5. **Delta Sync & Release**: Packs updated session cookies, syncs back to cloud storage, and releases the lease lock (`release_browser`).
 
 ---
 
 ## 5. Master CLI Command Reference
 
-All runner operations can be managed via the unified Master CLI:
+All worker operations can be managed via the unified Master CLI:
 
-### Starting the Runner Daemon
+### Starting the Worker Daemon
 
 ```bash
-# Start runner daemon on default port 8765
-tq runner start
+# Start worker daemon on default port 8765
+tq worker start
 
 # Start in background as a detached supervisor daemon
-tq runner start --detach
+tq worker start --detach
 
 # Custom host, port, and log verbosity
-tq runner start --host 0.0.0.0 --port 9000 --log-level debug
+tq worker start --host 0.0.0.0 --port 9000 --log-level debug
 
 # Enable Autonomous Cloud Fleet Mesh worker mode
-tq runner start --detach --cloud
+tq worker start --detach --cloud
 ```
 
 ### Cloud Fleet Worker
 
 ```bash
 # Start polling and executing cloud workflows every 15 seconds
-tq runner worker --interval 15
-
-# Execute a single job on a specific cloud profile and exit
-tq runner worker --cloud-profile "Facebook-Ad-VN" --workflow ./task.json --once
+tq worker start --interval 15 --headless
 ```
 
 ### Inspecting Status & Logs
 
 ```bash
 # Check daemon health and active worker threads
-tq runner status
+tq worker status
 
 # Output status in raw JSON format for machine monitoring
-tq runner status --json
+tq worker status --json
 
 # Follow and tail live daemon execution logs
-tq runner logs --follow --lines 100
+tq worker logs --follow --lines 100
 ```
 
 ### Lifecycle Control
 
 ```bash
-# Restart the running runner daemon
-tq runner restart --detach
+# Restart the running worker daemon
+tq worker restart --detach
 
-# Gracefully stop the runner daemon
-tq runner stop
+# Gracefully stop the worker daemon
+tq worker stop
 
 # Force terminate active jobs without waiting
-tq runner stop --force
+tq worker stop --force
 ```
 
 ### Active Probe & OpenAPI Specification
 
 ```bash
 # Active capability negotiation probe returning manifest JSON
-tq runner probe
+tq worker probe
 
 # Export OpenAPI v3 JSON specification to file
-tq runner export-openapi --output ./openapi.json
+tq worker export-openapi --output ./openapi.json
 ```
 
 ---
 
-## 6. Standalone Binary Reference (`runner`)
+## 6. Standalone Worker Daemon Reference (`tq worker`)
 
-For lightweight edge nodes, VPS instances, or Docker containers, the standalone pure-Rust binary `runner` can be operated independently:
+For lightweight edge nodes, VPS instances, or Docker containers, the standalone pure-Rust worker supervisor can be operated via `tq worker`:
 
 ```bash
-# Execute a local YAML/JSON job specification file
-runner run ./job.yaml
-
-# Directly execute an ad-hoc command or agent prompt
-runner exec --driver shell --command "dir"
-runner exec --driver agent --prompt "Scrape top 10 products"
+# Start worker supervisor daemon on default port 8765
+tq worker start --port 8765
 
 # Enroll workstation with Cloud (zero-touch device registration)
-runner enroll --env prod --token <ENROLLMENT_TOKEN>
+tq worker enroll --env prod --token <ENROLLMENT_TOKEN>
 
 # Manage and switch cloud environments (dev, local, prod)
-runner env list
-runner env switch prod
+tq worker env list
+tq worker env switch prod
 
 # Connect outbound worker to central WebSocket control plane
-runner worker --server wss://hub.tuquet.dev/api/v1/runner/ws --token <TOKEN>
+tq worker start --server wss://hub.tuquet.dev/api/v1/worker/ws --token <TOKEN>
 
 # Display system information, hardware fingerprint, and enrollment status
-runner info
+tq worker info
 
 # Reset local device enrollment credentials by deleting .identity.json
-runner purge
+tq worker purge
 ```
 
 ---
 
 ## 7. SSOT Storage & Configuration (Pillar 2)
 
-In strict adherence to Tuquet's SSOT architecture, all Runner runtime configuration and SQLite job history resolve under `~/.tuquet/automa/`:
+In strict adherence to Tuquet's SSOT architecture, all Worker runtime configuration and execution logs resolve under `~/.tq/worker/`:
 
 ```text
-~/.tuquet/automa/
-├── runner.json               # Runner daemon configuration (port, concurrency)
-├── automa.sqlite             # Execution history, job states, telemetry
-└── workflows/                # Local DAG workflow definitions
+~/.tq/worker/
+├── worker.json               # Worker daemon configuration (port, concurrency)
+└── logs/                     # Process logs and supervisor telemetry
 ```
 
-### `runner.json` Configuration File
+### `worker.json` Configuration File
 
 ```json
 {
-  "$schema": "https://tuquet.com/schema/config/runner.schema.json",
+  "$schema": "https://tuquet.com/schema/config/worker.schema.json",
   "server_host": "127.0.0.1",
   "server_port": 8765,
   "max_concurrent_jobs": 4,
@@ -270,8 +262,8 @@ In strict adherence to Tuquet's SSOT architecture, all Runner runtime configurat
 Manage configuration directly from the CLI:
 
 ```bash
-tq runner config --show
-tq runner config --edit
+tq worker config --show
+tq worker config --edit
 ```
 
 ---

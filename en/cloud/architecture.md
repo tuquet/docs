@@ -283,7 +283,7 @@ SET search_path = ''
 Every object lookup within SQL routines uses fully-qualified names (`public.profiles`, `public.tenants`, `extensions.gen_random_uuid()`), eliminating schema search-path hijacking vulnerabilities.
 
 ### 4.4. High-Throughput Append-Only BRIN Indexing
-High-write telemetry tables (`automa.execution_logs`, `events.outbox`, `events.deliveries`, `runners.browsers`, `public.audit_logs`) leverage **BRIN (Block Range Indexes)** on `created_at` / `logged_at`. BRIN indexes occupy **<1% of the storage and RAM of B-Trees**, avoiding cache pool eviction while maintaining microsecond range scans.
+High-write telemetry tables (`automa.execution_logs`, `events.outbox`, `events.deliveries`, `workers.browsers`, `public.audit_logs`) leverage **BRIN (Block Range Indexes)** on `created_at` / `logged_at`. BRIN indexes occupy **<1% of the storage and RAM of B-Trees**, avoiding cache pool eviction while maintaining microsecond range scans.
 
 ### 4.5. High-Concurrency Queue Processing (`FOR UPDATE SKIP LOCKED` + `pg_notify`)
 The Transactional Outbox engine (`events.outbox`) uses `SELECT ... FOR UPDATE SKIP LOCKED` via `events.claim_outbox_batch(...)`. This allows concurrent background worker threads to claim batches of pending webhooks without row lock contention. Real-time workers are signaled via `pg_notify('events_outbox_channel', ...)` without expensive busy-polling.
@@ -292,7 +292,7 @@ The Transactional Outbox engine (`events.outbox`) uses `SELECT ... FOR UPDATE SK
 The Core Kernel exposes `public.resolve_plugin_dependencies(p_target_plugins TEXT[])` which calculates the exact topological installation order (DAG) using SQL Recursive CTEs against `public.system_plugins`. This allows enterprise Migration Wizards to provision custom, tailored plugin combinations on-demand without manual ordering.
 
 ### 4.7. Dead Lease Reaper Engine
-The Compute Grid engine exposes `runners.reap_stale_browser_locks()` (and `public.reap_stale_browser_locks`) to automatically transition browser profiles back to `idle` if a workstation crashes or loses network connectivity (correlated with `runners.devices.last_heartbeat_at`).
+The Compute Grid engine exposes `workers.reap_stale_browser_locks()` (and `public.reap_stale_browser_locks`) to automatically transition browser profiles back to `idle` if a workstation crashes or loses network connectivity (correlated with `workers.devices.last_heartbeat_at`).
 
 ---
 

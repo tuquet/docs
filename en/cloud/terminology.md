@@ -33,10 +33,10 @@ Use this quick-reference matrix for anti-hallucination audits during documentati
 | **`Member Role`** | `public.member_roles` | ❌ *User Role*, *Role Assignment* | Many-to-many bridge assigning roles to a tenant member within a specific tenant. |
 | **`Plugin`** | `public.system_plugins` | ❌ *Module*, *Extension*, *Addon*, *Package* | Autonomous database module with a dedicated folder `supabase/plugins/<id>/` and PostgreSQL schema. |
 | **`Storage`** | `media.assets` & `tenant-assets` | ❌ *Vault*, *Media Bucket*, *File Drive* | Cloud media asset storage service. The term "Vault" is **FORBIDDEN** in cloud services. |
-| **`Browser`** | `runners.browsers` / `runners.node_browsers` | ❌ *Profile*, *Browser Profile*, *Anti-detect Profile* | Isolated anti-detect virtual browser container on local workstation disk or central cloud fleet. Calling a browser instance a "Profile" is **FORBIDDEN** to prevent confusion with `public.profiles`. |
-| **`Device / Runner`** | `runners.devices` | ❌ *Worker*, *Agent Node*, *Bot*, *Client Daemon* | Physical workstation, laptop, or edge node running CLI master (`tuquet`) or Runner (`runner`) reporting heartbeats and telemetry to Cloud. |
+| **`Browser`** | `workers.browsers` / `workers.node_browsers` | ❌ *Profile*, *Browser Profile*, *Anti-detect Profile* | Isolated anti-detect virtual browser container on local workstation disk or central cloud fleet. Calling a browser instance a "Profile" is **FORBIDDEN** to prevent confusion with `public.profiles`. |
+| **`Device / Worker`** | `workers.devices` | ❌ *Runner*, *Agent Node*, *Bot*, *Client Daemon* | Physical workstation, laptop, or edge node running CLI master (`tq`) or Worker daemon (`tq worker`) reporting heartbeats and telemetry to Cloud. |
 | **`Workflow`** | `automa.workflows` | ❌ *Script*, *Flowchart*, *Automation Pipeline* | Visual node graph AST automation workflow compatible with VueFlow graph JSON. |
-| **`Campaign Run`** | `automa.campaign_runs` | ❌ *Batch Job*, *Execution*, *Run Task* | Execution session of an automation campaign dispatched across distributed runners. |
+| **`Campaign Run`** | `automa.campaign_runs` | ❌ *Batch Job*, *Execution*, *Run Task* | Execution session of an automation campaign dispatched across distributed workers. |
 | **`Execution Log`** | `automa.execution_logs` | ❌ *Audit Log*, *System Log*, *Trace File* | Telemetry stream recording block-level execution events during an automation run. |
 | **`Transactional Outbox`**| `events.outbox` | ❌ *Message Queue*, *Kafka Stream*, *RabbitMQ* | Pure PostgreSQL ACID-compliant event outbox for reliable asynchronous webhook dispatching. |
 | **`Proxy`** | `workers.proxies` (`proxy_id`) | ❌ *VPN*, *Tunnel Node*, *IP Route* | Tenant-isolated network proxy endpoint (HTTP/HTTPS/SOCKS5) with health metrics, geo data, dynamic assignment, and optional `change_ip_url` webhook for 4G/residential IP rotation. |
@@ -126,7 +126,7 @@ Use this quick-reference matrix for anti-hallucination audits during documentati
 
 1. **`Storage` (Never Use "Vault")**:
    - Cloud media asset storage service backed by the Supabase Storage Engine.
-   - The term "Vault" is strictly **FORBIDDEN** for cloud storage. "Vault" only exists in `automa` referring to the offline local scenario directory (`apps/vault`).
+   - The term "Vault" is strictly **FORBIDDEN** across all ecosystem layers. Local workflows and execution state reside exclusively in the canonical SQLite database `~/.tq/automation/automation.sqlite`.
 2. **`Media Asset` (`media.assets`)**:
    - File metadata catalog: `file_path`, `mime_type`, `file_size_bytes`, `metadata JSONB`.
    - Schema: Resides in schema `media` (preventing collision with Supabase's internal `storage` schema).
@@ -166,21 +166,21 @@ Use this quick-reference matrix for anti-hallucination audits during documentati
 
 ### 3.6. Distributed Fleet & Automa Cloud Bridge Domain
 
-1. **`Device / Runner` (`runners.devices`)**:
-   - Execution machine node (Desktop Workstation, Laptop, or Cloud VPS running the master CLI `tuquet` or standalone `runner` engine).
-   - Calling runners "Workers", "Bots", or "Agent Nodes" is strictly **FORBIDDEN**.
-2. **`Node Browser` (`runners.node_browsers`)**:
+1. **`Device / Worker` (`workers.devices`)**:
+   - Execution machine node (Desktop Workstation, Laptop, or Cloud VPS running the master CLI `tq` or standalone worker daemon `tq worker`).
+   - Calling workers "Runners", "Bots", or "Agent Nodes" is strictly **FORBIDDEN**.
+2. **`Node Browser` (`workers.node_browsers`)**:
    - Node-local isolated browser container (`*.browser.json`) with distinct fingerprint, proxy, cookie jar, and local storage.
    - Invariant: Calling an anti-detect browser instance a "Profile" is strictly **FORBIDDEN** to prevent confusion with `public.profiles`.
    - Node-Local Resource Affinity: Full browser user data directories (`userDataDir`) reside strictly on the local workstation disk; only metadata and status (`idle`, `running`, `error`) are synced to the cloud.
 3. **`Workflow` (`automa.workflows`)**:
    - Visual automation graph AST JSON compatible with VueFlow and Chrome Extension runners.
 4. **`Campaign Run` (`automa.campaign_runs`)**:
-   - Execution session dispatching an automation workflow across one or more runners.
+   - Execution session dispatching an automation workflow across one or more workers.
 5. **`Execution Log` (`automa.execution_logs`)**:
    - Real-time telemetry log stream generated by block executions during a campaign run.
-6. **`Proxy` (`runners.proxies`)**:
-   - Central proxy pool entity managed per tenant with protocol (`http`, `https`, `socks5`), health telemetry (`latency_ms`), status (`active`, `dead`, `slow`, `banned`), geo data, and dynamic assignment to runners (`assigned_device_id`) and browser containers (`assigned_browser_id`).
+6. **`Proxy` (`workers.proxies`)**:
+   - Central proxy pool entity managed per tenant with protocol (`http`, `https`, `socks5`), health telemetry (`latency_ms`), status (`active`, `dead`, `slow`, `banned`), geo data, and dynamic assignment to workers (`assigned_device_id`) and browser containers (`assigned_browser_id`).
 
 ---
 
@@ -209,7 +209,7 @@ Before committing documentation, migrations, or code, authors and AI Agents **MU
 - [ ] **4. Plugin Taxonomy Check**: Are new features placed in their own isolated PostgreSQL schema rather than polluting `public`?
 - [ ] **5. Vault Term Check**: In cloud storage context, did I use `Storage` / `media.assets` and completely eliminate the term `Vault`?
 - [ ] **6. Browser vs Profile Check**: In automation context, did I refer to anti-detect browsers as `Browser` instead of `Profile`?
-- [ ] **7. Runner Check**: Did I refer to execution nodes as `Runner` (`automa.runners`) instead of `Worker` or `Bot`?
+- [ ] **7. Worker Check**: Did I refer to execution nodes as `Worker` (`workers.devices`) instead of `Runner` or `Bot`?
 - [ ] **8. Outbox Check**: Is asynchronous event dispatching modeled as a `Transactional Outbox` (`events.outbox`) without hallucinating external message brokers?
 - [ ] **9. CWE-426 Check**: Does every SQL function and procedure declare `SET search_path = ''` with fully-qualified schema object names?
 - [ ] **10. PostgREST API Check**: Did I avoid creating static JSON specification files and rely on live OpenAPI introspection at `/rest/v1/`?

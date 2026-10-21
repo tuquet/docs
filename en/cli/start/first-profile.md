@@ -17,7 +17,7 @@ tuquet browser profile create "Facebook-Ad-US-01"
 automatically assigns:
 - An authentic hardware fingerprint (GPU WebGL, AudioContext, Canvas noise).
 - Realistic screen resolution and CPU concurrency.
-- Isolated sandbox storage in `~/.tuquet/browser/profiles/Facebook-Ad-US-01`.
+- Isolated sandbox storage in `~/.tq/browser/profiles/Facebook-Ad-US-01`.
 
 ---
 

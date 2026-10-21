@@ -12,12 +12,11 @@
 | 1 | `platform-foundation` | [`SPEC-platform-foundation.md`](SPEC-platform-foundation.md) | Kiến trúc monorepo (`pnpm` + `turbo`), hạ tầng build cục bộ `build:local`, vòng đời PWA auto-update, và cổng kiểm định chất lượng (`vue-tsc`, `oxlint`, `vitest`) | — |
 | 2 | `layout-preferences-coherence` | [`SPEC-layout-preferences-coherence.md`](SPEC-layout-preferences-coherence.md) | Kiểm toán chống khóa giao diện (Anti-Lockout), bảo vệ điều hướng Sidebar, cô lập `initialPreferences` và đồng bộ 100% Preferences Drawer với Layout | `platform-foundation` |
 | 3 | `i18n-en-vi` | [`SPEC-i18n-en-vi.md`](SPEC-i18n-en-vi.md) | Kiến trúc đa ngôn ngữ `en-US` / `vi-VN` đối xứng 100%, từ điển thuật ngữ `term.json`, tái sử dụng `$t('common.*')`, và quy chuẩn Sentence case tiếng Việt | `platform-foundation` |
-| 4 | `specter-3d-ghost-banner` | [`SPEC-specter-3d-ghost-banner.md`](SPEC-specter-3d-ghost-banner.md) | Bộ sưu tập 3 banner tương tác trên trang xác thực (`AuthPageLayout`): `HairlinePhoneBanner` (`phone`), `SplineRobotBanner` (`robot 3d`), và `SpecterGhostBanner` (`ghost 3d` — Three.js WebGL 60fps) kèm thanh chọn 4 chế độ lưu `localStorage` | `platform-foundation` |
-| 5 | `data-access` | [`SPEC-data-access.md`](SPEC-data-access.md) | Tầng truy xuất `supabaseRequest({ schema, skipAuth })` đa schema (`public`, `runners`, `automa`, `billing`, `commerce`, `media`, `events`), nạp quyền hiệu lực từ DB và danh sách plugin `installed` | `platform-foundation` |
+| 4 | `data-access` | [`SPEC-data-access.md`](SPEC-data-access.md) | Tầng truy xuất `supabaseRequest({ schema, skipAuth })` đa schema (`public`, `runners`, `automa`, `billing`, `commerce`, `media`, `events`), nạp quyền hiệu lực từ DB và danh sách plugin `installed` | `platform-foundation` |
 | 6 | `route-foundation` | [`SPEC-route-foundation.md`](SPEC-route-foundation.md) | Kiến trúc 27 routes (5 phân hệ Sidebar `/dashboard`, `/tenants`, `/automation`, `/commerce`, `/system` + 8 routes `core.ts`), bộ lọc `filterRoutesByPlugins()`, và bảo toàn cuộn nội trang | `data-access`, `i18n-en-vi` |
 | 7 | `tenants-truth` | [`SPEC-tenants-truth.md`](SPEC-tenants-truth.md) | Quản trị `/tenants` (`useVbenVxeGrid`) và `/tenants/:id` (4 chế độ `overview / members / usage / audit` với `useVbenVxeGrid`), mời thành viên (`tenant_invitations`) và gán vai trò (`member_roles`) | `route-foundation` |
 | 8 | `automation-engine` | [`SPEC-automation-engine.md`](SPEC-automation-engine.md) | Quản trị kịch bản `/automation/workflows` (`automa.workflows`), lịch sử chạy `/automation/runs` (`automa.campaign_runs`), và chi tiết nhật ký `/automation/runs/:id` (`automa.execution_logs` polling 3s) qua client hợp nhất `src/api/core/automation.ts` | `route-foundation` |
-| 9 | `fleet-inventory` | [`SPEC-fleet-inventory.md`](SPEC-fleet-inventory.md) | Quản trị hạ tầng thực thi dưới `/automation`: thiết bị `/automation/devices` (`runners.devices`), hồ sơ trình duyệt `/automation/browsers` (`runners.browsers`), và bể proxy `/automation/proxies` (`runners.proxies`) dùng `useVbenVxeGrid` | `route-foundation`, `automation-engine` |
+| 9 | `fleet-inventory` | [`SPEC-fleet-inventory.md`](SPEC-fleet-inventory.md) | Quản trị hạ tầng thực thi dưới `/automation`: thiết bị `/automation/devices` (`workers.devices`), hồ sơ trình duyệt `/automation/browsers` (`workers.browsers`), và bể proxy `/automation/proxies` (`workers.proxies`) dùng `useVbenVxeGrid` | `route-foundation`, `automation-engine` |
 | 10 | `system-catalog` | [`SPEC-system-catalog.md`](SPEC-system-catalog.md) | Quản trị kho plugin hệ thống `/system/plugins` (`public.system_plugins` — phân tách 6 Core Kernel Plugins & Extension Plugins) và bảng giá gói cước `/system/plans` (`billing.plans`) bằng `useVbenVxeGrid` | `route-foundation` |
 | 11 | `superadmin-routes` | [`SPEC-superadmin-routes.md`](SPEC-superadmin-routes.md) | Bộ 4 trang đặc quyền giám sát xuyên tenant cho Platform Superadmin: `/system/users`, `/system/roles`, `/system/subscriptions`, và `/system/audit-logs` chuẩn hóa 100% trên `useVbenVxeGrid` | `route-foundation`, `system-catalog` |
 | 12 | `payment-gateway` | [`SPEC-payment-gateway.md`](SPEC-payment-gateway.md) | Cổng thanh toán đa kênh theo chuẩn Provider Adapter (`bank_transfer` VietQR, `e_wallet` MoMo, `card_intl` Stripe, `crypto` USDT, `internal_wallet` trừ Xu tức thì), Ví Xu Tenant (`billing.wallets` `BIGINT`), sổ cái `billing.wallet_transactions`, `billing.payment_intents` (`manual_review`) và Edge Function `payment-webhook` | `data-access`, `system-catalog` |
@@ -39,8 +38,7 @@
 flowchart TD
     PF["1. platform-foundation"] --> LPC["2. layout-preferences-coherence"]
     PF --> I18N["3. i18n-en-vi"]
-    PF --> GHOST["4. specter-3d-ghost-banner"]
-    PF --> DA["5. data-access"]
+    PF --> DA["4. data-access"]
     PF --> ECS["16. enum-constants-ssot"]
     I18N --> ECS
     DA --> ECS

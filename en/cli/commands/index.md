@@ -29,13 +29,13 @@ Autonomous background worker daemon and local execution node (`workers`).
 ---
 
 ## 3. `tq automation` — Workflow & Automation Orchestration
-Manage, validate, and execute browser automation DAGs (`automation`).
+Manage, validate, and execute browser automation workflows (`automation`).
 
 | Command | Description |
 | :--- | :--- |
-| `tq automation run <file>` | Execute a workflow directly via local or cloud headless browser |
-| `tq automation list` | List available automation workflows in local storage or cloud |
-| `tq automation inspect <file>` | Validate syntax, inspect node dependencies, and view execution graph |
+| `tq automation run <id>` | Execute a workflow by stored ID via local or cloud headless browser |
+| `tq automation list` | List available automation workflows in SQLite database or cloud |
+| `tq automation inspect <id>` | Validate syntax and inspect workflow actions and parameters |
 
 ---
 

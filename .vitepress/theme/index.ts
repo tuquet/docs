@@ -12,6 +12,7 @@ import HairlineElevator from './components/HairlineElevator.vue'
 import HairlineFigure from './components/HairlineFigure.vue'
 import FigureCatalogue from './components/FigureCatalogue.vue'
 import FileTree from './components/FileTree.vue'
+import { initBugsink } from './bugsink'
 
 export default {
   extends: DefaultTheme,
@@ -23,6 +24,7 @@ export default {
     })
   },
   enhanceApp({ app }: { app: any }) {
+    initBugsink(app)
     app.component('HeroShowcase', HeroShowcase)
     app.component('ProofStrip', ProofStrip)
     app.component('SpecterCaps', SpecterCaps)

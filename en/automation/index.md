@@ -1,35 +1,29 @@
-# Automa DAG Engine & Native CDP Driver
+# Automation Engine & Native CDP Driver
 
 Web scrapers wrapped in Python or heavy Node.js runtimes collapse under concurrent load. Selenium and Playwright introduce massive abstraction layers, chew through gigabytes of RAM, and get trapped by Shadow DOM barriers and bot shields.
 
-**Automa DAG Engine** is a decoupled workflow orchestration engine powered by [`automa`](https://github.com/tuquet/automa). Deployable as an independent headless binary or composed inside the combat rig. It compiles visual automation blocks into a topological DAG and drives Chrome DevTools Protocol (CDP) over raw WebSockets in pure Rust — piercing closed Shadow DOM, handling 500+ concurrent contexts, and consuming only 15MB RAM per tab.
-
-::: tip Standalone Microservice
-`automa` runs independently of Tuquet. Compile the Rust binary to parse workflow JSON schemas, execute headless CDP pipelines, or embed the Vue 3 workflow canvas into your own web applications.
-:::
-
-<HairlineFigure name="branches" />
+**Tuquet Automation Engine** executes browser workflows using Chrome DevTools Protocol (CDP) over raw WebSockets in pure Rust — piercing closed Shadow DOM, handling 500+ concurrent contexts, and consuming only 15MB RAM per tab.
 
 ---
 
-## 1. Hybrid Architecture: Visual Studio & Headless Rust Engine
+## 1. Architecture: Declarative Workflow & Headless Rust Engine
 
-Automa resolves the tradeoff between usability and raw automation performance through a decoupled hybrid architecture:
+Tuquet Automation resolves the tradeoff between simplicity and raw automation performance through a lightweight pipeline:
 
 ```text
  ┌─────────────────────────────────────────────────────────────┐
- │                AUTOMA WORKFLOW ARCHITECTURE                 │
+ │               AUTOMATION WORKFLOW PIPELINE                  │
  │                                                             │
  │   ┌──────────────────────┐       ┌──────────────────────┐   │
- │   │  Vue 3 Web Studio    │ ────► │ JSON Workflow Schema │   │
- │   │  (Drag-and-Drop DAG) │       │ (*.workflow.json)    │   │
+ │   │ Workflow Record (DB) │ ────► │ JSON Workflow Schema │   │
+ │   │ (automation.sqlite)  │       │ (Actions / Blocks)   │   │
  │   └──────────────────────┘       └──────────┬───────────┘   │
  │                                             │               │
  │                                             ▼               │
  │   ┌─────────────────────────────────────────────────────┐   │
- │   │           Rust Automa Core Execution Engine         │   │
+ │   │          Rust Automation Execution Engine           │   │
  │   │                                                     │   │
- │   │  • Topological DAG Sorting & Branch Evaluation      │   │
+ │   │  • Step-by-Step Block Dispatch                      │   │
  │   │  • Dynamic Runtime Variable Substitution (-p / -var)│   │
  │   │  • Timeout & Error Recovery State Machine           │   │
  │   └─────────────────────────┬───────────────────────────┘   │
@@ -44,20 +38,20 @@ Automa resolves the tradeoff between usability and raw automation performance th
  │                             ▼                               │
  │   ┌─────────────────────────────────────────────────────┐   │
  │   │              Local SQLite Persistence               │   │
- │   │         (~/.tuquet/automa/automa.sqlite)            │   │
- │   │  • Execution Logs, Step Traces, Workflow Vault      │   │
+ │   │        (~/.tq/automation/automation.sqlite)         │   │
+ │   │  • Execution Logs, Step Traces, Workflow Records    │   │
  │   └─────────────────────────────────────────────────────┘   │
  └─────────────────────────────────────────────────────────────┘
 ```
 
-1. **Visual Web Studio & Control Plane (`tuquet automa studio` / `/automation/workflows`)**:
-   - Visual drag-and-drop workflow composition available both in the standalone browser canvas and embedded natively in the **Universal Control Plane (Web & Tauri Desktop)**.
-2. **Topological DAG Compiler**:
-   - Compiles connected block graphs into an optimized dependency tree, resolving variable scopes and async race conditions.
+1. **Workflow Management (`tq automation list` / `/automation/workflows`)**:
+   - Manage and trigger automation workflows via CLI or Web Admin.
+2. **Step-by-Step Execution Driver**:
+   - Evaluates workflow action blocks, parameters, and variable substitutions.
 3. **Pure-Rust CDP Execution Driver**:
    - Communicates directly over local WebSockets using the Chrome DevTools Protocol (CDP). Bypasses heavy Node.js runtimes and WebDriver abstraction overhead.
 4. **Local SQLite Store & Cloud Telemetry**:
-   - Workflows are stored and versioned in `~/.tuquet/automa/workflows/`, while execution records and step traces are saved locally in `~/.tuquet/automa/automa.sqlite` and synchronized to `/automation/runs` when enrolled with a tenant.
+   - Workflows and execution logs are stored locally in `~/.tq/automation/automation.sqlite` and synchronized to `/automation/runs` when enrolled with a tenant.
 
 ---
 
@@ -68,62 +62,59 @@ All workflow actions can be executed via the `tuquet automa` command suite:
 ### Direct Workflow Execution
 
 ```bash
-# Execute a workflow directly via native browser worker
-tuquet automa run ./scrape_products.workflow.json
+# Execute a workflow from SQLite database via native browser worker
+tq automation run <workflow_id>
 
 # Execute in headless mode with a 60-second safety timeout
-tuquet automa run ./checkout.workflow.json --headless --timeout 60
+tq automation run <workflow_id> --headless --timeout 60
 
 # Pass runtime variables (key-value interpolation)
-tuquet automa run ./login.workflow.json \
+tq automation run login-flow \
   -p USERNAME="admin@enterprise.vn" \
   -p TARGET_URL="https://app.enterprise.vn"
 
 # Execute workflow against a specific cloud browser profile
-tuquet automa run ./task.workflow.json --cloud_profile "Facebook-Ad-VN"
+tq automation run task-flow --cloud-profile "Facebook-Ad-VN"
 ```
 
-### Workflow Vault & Database Management
+### Workflow Database Management
 
 ```bash
-# List all workflows saved in database and file vault
-tuquet automa workflow list
+# List all workflows saved in SQLite database
+tq automation list
 
 # Filter workflows by keyword search
-tuquet automa workflow list --search "shopee"
+tq automation list --search "shopee"
 
-# Import a workflow JSON file into local vault and SQLite DB
-tuquet automa workflow import ./flows/checkout.json --id "checkout-flow" --name "E-commerce Checkout"
+# Import a workflow JSON file into SQLite database
+tq automation import ./flows/checkout.json --id "checkout-flow" --name "E-commerce Checkout"
 
 # Inspect detailed block sequence, parameters, and triggers
-tuquet automa inspect ./checkout-flow.workflow.json
+tq automation inspect "checkout-flow"
 
 # Export workflow from database to a standalone JSON file
-tuquet automa workflow export "checkout-flow" -o ./exported.json
+tq automation export "checkout-flow" -o ./exported.json
 
-# Delete workflow from database and vault
-tuquet automa workflow delete "checkout-flow" --vault
+# Delete workflow from SQLite database
+tq automation delete "checkout-flow"
 ```
 
-### Visual Studio & Diagnostics
+### Diagnostics & Engine Settings
 
 ```bash
-# Launch Automa Web Studio in default system browser
-tuquet automa studio
+# Probe Automation engine manifest capabilities
+tq automation probe
 
-# Probe Automa engine manifest capabilities
-tuquet automa probe
-
-# Inspect or edit Automa configuration (~/.tuquet/automa/automa.json)
-tuquet automa config --show
-tuquet automa config --edit
+# Inspect or edit Automation configuration (~/.tq/automation/automation.json)
+tq automation config --show
+tq automation config --edit
 ```
 
 ---
 
-## 3. Workflow File Structure (`*.workflow.json`)
+## 3. Workflow Data Structure
 
-Automa workflows are stored as declarative JSON manifests containing node definitions, parameter bindings, and transition edges:
+Automation workflows are stored in SQLite (`automation.sqlite`) as declarative JSON containing node definitions, parameter bindings, and actions:
 
 ```json
 {
@@ -162,26 +153,24 @@ Automa workflows are stored as declarative JSON manifests containing node defini
 
 ## 4. SSOT Storage & Microservice Pillar 2
 
-In strict adherence to Tuquet's SSOT architecture, all Automa files resolve exclusively to `~/.tuquet/automa/`:
+In strict adherence to Tuquet's SSOT architecture, all Automation files resolve exclusively to `~/.tq/automation/`:
 
 ```text
-~/.tuquet/automa/
-├── automa.json               # Engine configuration & studio port settings
-├── automa.sqlite             # Execution history, step logs, workflow records
-├── runner.json               # Runner daemon supervisor configuration
-└── workflows/                # Local workflow file vault (*.workflow.json)
+~/.tq/automation/
+├── automation.json           # Engine configuration settings
+└── automation.sqlite         # Execution history, step logs, workflow records
 ```
 
 ---
 
 ## 5. AI Agent Integration (Native MCP Protocol)
 
-AI agents orchestrate and inspect workflows programmatically through three native MCP tools:
+AI agents orchestrate and inspect workflows programmatically through native MCP tools:
 
 1. **`workflow_run`**:
-   - Executes a workflow file with variable substitutions and returns execution status, duration, and error codes.
+   - Executes a workflow from database ID with variable substitutions and returns execution status, duration, and error codes.
 2. **`workflow_list`**:
-   - Lists all available workflows stored in the local vault and database.
+   - Lists all available workflows stored in the SQLite database.
 3. **`workflow_inspect`**:
    - Validates JSON structure, required input parameters, and transition blocks of a workflow before execution.
 

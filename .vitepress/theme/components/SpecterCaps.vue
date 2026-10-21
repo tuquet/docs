@@ -25,8 +25,8 @@ import { Cpu, ShieldCheck, Cloud, Network, Bot, ArrowRight } from 'lucide-vue-ne
           </p>
         </div>
         <div class="ev" aria-hidden="true">
-          <div class="ev-cmd"><b>$</b> tuquet runner probe</div>
-          <div class="ev-row"><span>runner</span><b class="text-green"><i class="beat"></i>running (PID 4821)</b></div>
+          <div class="ev-cmd"><b>$</b> tuquet worker probe</div>
+          <div class="ev-row"><span>worker</span><b class="text-green"><i class="beat"></i>running (PID 4821)</b></div>
           <div class="ev-row"><span>active browsers</span><b>12 profiles · RSS 284MB</b></div>
           <div class="ev-row"><span>orphan processes</span><b class="text-green">0 zombie detected</b></div>
           <div class="ev-note">Native process sandbox limits enforced · Zero memory leak</div>

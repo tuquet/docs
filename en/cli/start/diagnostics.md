@@ -29,15 +29,16 @@ The diagnostic scanner inspects 5 critical subsystems:
     • C++ Chromium LTS    - Checks binary presence in ~/.tuquet/browser/runtimes/
     • Executable Bit      - Verifies launch permissions and integrity hash
 
- 3. SSOT Storage Pillars (~/.tuquet/):
-    • ~/.tuquet/system/   - Machine identity (.machine_id) and credentials
-    • ~/.tuquet/automa/   - Workflow vault and execution database
-    • ~/.tuquet/browser/  - Profile sandboxes and antidetect runtimes
-    • ~/.tuquet/bridge/   - Mesh configuration and daemon PIDs
-    • ~/.tuquet/faker/    - Synthetic persona schemas and templates
+ 3. SSOT Storage Pillars (~/.tq/):
+    • ~/.tq/system/       - Machine identity (.machine_id) and credentials
+    • ~/.tq/automation/   - Workflow execution database (automation.sqlite)
+    • ~/.tq/worker/       - Worker supervisor daemon config and logs
+    • ~/.tq/browser/      - Profile sandboxes and antidetect runtimes
+    • ~/.tq/gateway/      - Mesh configuration and daemon PIDs
+    • ~/.tq/faker/        - Synthetic persona schemas and templates
 
- 4. Automa SQLite Database:
-    • automa.sqlite       - Verifies schema migrations and read/write access
+ 4. Automation SQLite Database:
+    • automation.sqlite   - Verifies schema migrations and read/write access
 
  5. AI Agent MCP Protocol:
     • Native MCP Server   - Confirms JSON-RPC stdio responsiveness
@@ -74,11 +75,11 @@ When run with the `--fix` flag, automatically resolves configuration drift, miss
 
 ```bash
 # Automatically remediate environment issues and download missing runtimes
-tuquet doctor --fix
+tq doctor --fix
 ```
 
 The remediation pipeline executes in sequence:
-1. **Initializes SSOT Pillars**: Creates all missing canonical storage directories under `~/.tuquet/`.
-2. **Initializes SQLite Store**: Runs schema migrations for `~/.tuquet/automa/automa.sqlite`.
+1. **Initializes SSOT Pillars**: Creates all missing canonical storage directories under `~/.tq/`.
+2. **Initializes SQLite Store**: Runs schema migrations for `~/.tq/automation/automation.sqlite`.
 3. **Provisions Antidetect Chromium**: Downloads and unpacks the verified C++ Antidetect Chromium LTS release.
-4. **Validates Proxy Bridge**: Verifies SSH tunnel dependencies and default configurations.
+4. **Validates Proxy Gateway**: Verifies SSH tunnel dependencies and default configurations.

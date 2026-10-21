@@ -181,7 +181,7 @@ export async function getFleetDevicesApi(status?: string) {
     path: `/rest/v1/devices?${query.toString()}`,
     options: {
       method: 'GET',
-      schema: 'runners', // Tự động đính kèm Accept-Profile: runners
+      schema: 'workers', // Tự động đính kèm Accept-Profile: workers
     },
   });
 }

@@ -89,6 +89,6 @@ Chi tiết Workspace được thiết kế dạng **Single Route với 4 Tabs n�
 ## 4. Quyết Định Kiến Trúc & Ràng Buộc (Gotchas)
 
 1. **Loại Bỏ Tab "API Keys" (Quyết định D4):**
-   - Không tồn tại bảng API Keys độc lập ở backend Supabase. Khóa kết nối headless thực tế được gắn với từng máy trạm qua cơ chế `enroll_device` của schema `runners`. Vì vậy tab này được lược bỏ để tránh lưu khóa giả vào `metadata`.
+   - Không tồn tại bảng API Keys độc lập ở backend Supabase. Khóa kết nối headless thực tế được gắn với từng máy trạm qua cơ chế `enroll_device` của schema `workers`. Vì vậy tab này được lược bỏ để tránh lưu khóa giả vào `metadata`.
 2. **Không Khởi Tạo Router Con Cho Từng Tab:**
    - Thay vì tạo `/tenants/:id/overview`, `/tenants/:id/members`... hệ thống sử dụng một component điều phối `detail.vue` lắng nghe `$route.query.tab`. Cách tiếp cận này giúp chuyển tab mượt mà không tải lại toàn bộ layout.

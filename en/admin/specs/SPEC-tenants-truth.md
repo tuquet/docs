@@ -15,9 +15,9 @@ Xây dựng phân hệ Quản trị Workspace (`/tenants` và `/tenants/:id`) k�
    - Hiển thị danh mục toàn bộ Workspace mà người dùng có quyền truy cập (hoặc toàn bộ nền tảng đối với Superadmin) qua bảng `useVbenVxeGrid`.
    - Hỗ trợ tìm kiếm theo tên/slug/UUID, lọc theo trạng thái (`active`, `suspended`, `archived`), tạo Workspace mới qua `VxeForm` modal, và chọn Workspace làm ngữ cảnh hoạt động hiện tại (`activeTenantId`).
 2. **Chi Tiết Workspace 4 Tabs Đồng Bộ URL (`/tenants/:id?tab=overview|members|usage|audit`):**
-   - **Tab `overview`:** Hiển thị hồ sơ định danh Workspace (`VxeForm`), số lượng máy trạm Runner trực tuyến / tổng số từ `runners.devices`, gói thuê bao hiện hành từ `billing.subscriptions`, và các thao tác quản trị (chọn làm Workspace đang hoạt động, đổi tên/slug, lưu trữ/xóa).
+   - **Tab `overview`:** Hiển thị hồ sơ định danh Workspace (`VxeForm`), số lượng máy trạm Runner trực tuyến / tổng số từ `workers.devices`, gói thuê bao hiện hành từ `billing.subscriptions`, và các thao tác quản trị (chọn làm Workspace đang hoạt động, đổi tên/slug, lưu trữ/xóa).
    - **Tab `members`:** Bảng `useVbenVxeGrid` hiển thị danh sách thành viên thật từ `public.tenant_members` liên kết `profiles` và vai trò qua `member_roles(role_id,roles(id,name,display_name))` (`owner`, `admin`, `member`, `viewer`). Hỗ trợ mời thành viên mới vào `public.tenant_invitations` (`role_id`, `token_hash`, `invited_by`, `expires_at`), đổi vai trò trong `public.member_roles`, và thu hồi quyền thành viên.
-   - **Tab `usage`:** Hiển thị hạn mức và mức tiêu thụ tài nguyên thực tế từ `billing.subscriptions`, `billing.plans` (mặc định rơi về gói `free` nếu chưa có hợp đồng riêng), `billing.usage_meters`, `runners.devices` và `public.tenant_members`.
+   - **Tab `usage`:** Hiển thị hạn mức và mức tiêu thụ tài nguyên thực tế từ `billing.subscriptions`, `billing.plans` (mặc định rơi về gói `free` nếu chưa có hợp đồng riêng), `billing.usage_meters`, `workers.devices` và `public.tenant_members`.
    - **Tab `audit`:** Bảng `useVbenVxeGrid` tra cứu nhật ký kiểm toán an ninh của Workspace từ `public.audit_logs` (`tenant_id = eq.<tenantId>`).
 
 ---
@@ -181,7 +181,7 @@ export async function removeWorkspaceMemberApi(memberId: string): Promise<void>;
   - Sử dụng `useVbenVxeGrid` cho bảng danh sách Workspace, và `VxeForm` cho các Modal nhập liệu (Create/Edit Workspace, Invite/Edit Member).
   - Sử dụng lưới CSS Grid chuẩn (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`) cho thẻ thông tin định danh chỉ đọc (Read-only Metadata) trên `workspace-overview-tab.vue` để đảm bảo tương thích Mobile 100%.
   - Đồng bộ 2 chiều tab đang mở với query parameter `?tab=overview|members|usage|audit` qua `router.replace`.
-  - Truyền đúng `{ schema: 'runners' }` và `{ schema: 'billing' }` khi truy vấn thiết bị và gói cước.
+  - Truyền đúng `{ schema: 'workers' }` và `{ schema: 'billing' }` khi truy vấn thiết bị và gói cước.
 - **Ask first:**
   - Thay đổi cấu trúc bảng `public.tenant_invitations` hoặc `public.member_roles`.
 - **Never:**
@@ -205,7 +205,7 @@ export async function removeWorkspaceMemberApi(memberId: string): Promise<void>;
 
 ## 9. Resolved Decisions (Các Quyết Định Đã Chốt)
 
-1. **Tập trung 4 Tabs chuẩn mực (`overview`, `members`, `usage`, `audit`):** Không sử dụng tab API Keys tĩnh tại cấp Workspace vì toàn bộ kết nối từ máy trạm Desk và Headless Runner được xác thực định danh theo từng thiết bị qua `runners.devices.device_token_hash` và cổng Desktop Loopback SSO (`/auth/desktop`).
+1. **Tập trung 4 Tabs chuẩn mực (`overview`, `members`, `usage`, `audit`):** Không sử dụng tab API Keys tĩnh tại cấp Workspace vì toàn bộ kết nối từ máy trạm Desk và Headless Runner được xác thực định danh theo từng thiết bị qua `workers.devices.device_token_hash` và cổng Desktop Loopback SSO (`/auth/desktop`).
 2. **Fallback hạn mức tự động về gói `free`:** Khi một Workspace mới khởi tạo chưa có bản ghi trong `billing.subscriptions`, tầng API tự động đối chiếu định nghĩa gói `free` trong `billing.plans` để luôn hiển thị đầy đủ thanh đo lường hạn mức.
 3. **Tinh gọn nút thao tác & Chuyên biệt hóa Danger Zone (Phương án A):** Giữ các nút thao tác nhanh (`Set Primary`, `Pair CLI`, `Settings`, `Refresh`) trên thanh `WorkspaceHero` ở đầu trang; thẻ phía dưới trong Tab `Overview` chỉ đóng vai trò khu vực **Quản lý vòng đời / Danger zone** (`Archive or delete`) để loại bỏ sự trùng lặp 3 nút giống hệt nhau trên cùng màn hình.
 

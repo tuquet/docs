@@ -83,9 +83,9 @@ const isVi = computed(() => {
           <ul class="nav-list">
             <li><a :href="withBase('/en/browser/')">Stealth Chromium Runtime</a></li>
             <li><a :href="withBase('/en/browser/fingerprinting')">Fingerprint Masking</a></li>
-            <li><a :href="withBase('/en/automa/')">Automa Workflow DAG</a></li>
-            <li><a :href="withBase('/en/runner/')">Workstation Runner</a></li>
-            <li><a :href="withBase('/en/bridge/')">Bridge Mesh Gateway</a></li>
+            <li><a :href="withBase('/en/automation/')">Automation Engine</a></li>
+            <li><a :href="withBase('/en/worker/')">Workstation Worker</a></li>
+            <li><a :href="withBase('/en/gateway/')">Mesh Gateway</a></li>
             <li><a :href="withBase('/en/cloud/')">Cloud Center & RBAC</a></li>
           </ul>
         </div>

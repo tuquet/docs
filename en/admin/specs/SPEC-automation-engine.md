@@ -29,7 +29,7 @@ Xây dựng phân hệ Quản trị Kịch bản Tự động hóa (**Automa Eng
 - **Framework:** Vue 3.5 (`<script setup lang="ts">`), Vue Router 4, TypeScript 5, `vue-i18n`.
 - **Data Grid & Form Engine:** `useVbenVxeGrid` (`VxeTable`) và `VxeForm` từ `src/adapter/vxe-table.ts`.
 - **UI & Icons:** `@tuquet/vue-ui` (`Badge`, `Button`, `Card`, `Dialog`, `toast`), `@lucide/vue`.
-- **Unified Data Access Layer:** `src/api/core/automation.ts` (phần 1 kết nối `schema: 'automa'`, dùng chung module với `schema: 'runners'`).
+- **Unified Data Access Layer:** `src/api/core/automation.ts` (phần 1 kết nối `schema: 'automa'`, dùng chung module với `schema: 'workers'`).
 
 ---
 
@@ -209,4 +209,4 @@ export function isRunActive(status: CampaignStatus): boolean {
 ## 9. Resolved Decisions (Các Quyết Định Đã Chốt)
 
 1. **Polling 3 giây thay cho WebSocket Realtime trên `automa.execution_logs`:** Do bảng nhật ký thực thi sinh lượng bản ghi lớn trong các chiến dịch song song, cơ chế HTTP Polling 3 giây theo con trỏ `id.gt.<sinceId>` chỉ kích hoạt khi người vận hành mở trang chi tiết phiên chạy đang hoạt động, bảo vệ băng thông WAL của PostgreSQL.
-2. **Kiến trúc 1 Tầng API Frontend (`automation.ts`) $\leftrightarrow$ 2 Schema DB (`automa` + `runners`):** Toàn bộ hàm truy vấn của nhánh `/automation/*` và khóa dịch `page.automation.*` được gom chung về một điểm tập trung ở frontend nhưng vẫn phân tách rõ `schema: 'automa'` và `schema: 'runners'` ở tầng PostgREST.
+2. **Kiến trúc 1 Tầng API Frontend (`automation.ts`) $\leftrightarrow$ 2 Schema DB (`automa` + `runners`):** Toàn bộ hàm truy vấn của nhánh `/automation/*` và khóa dịch `page.automation.*` được gom chung về một điểm tập trung ở frontend nhưng vẫn phân tách rõ `schema: 'automa'` và `schema: 'workers'` ở tầng PostgREST.

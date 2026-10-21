@@ -228,10 +228,10 @@ Terminal output:
 
 ## 6. SSOT Configuration & Storage Architecture (Pillar 5)
 
-All Faker settings and schema templates resolve exclusively to the canonical storage pillar under `~/.tuquet/faker/`:
+All Faker settings and schema templates resolve exclusively to the canonical storage pillar under `~/.tq/faker/`:
 
 ```text
-~/.tuquet/faker/
+~/.tq/faker/
 ├── faker.json                # Primary configuration & email domain pool
 └── templates/                # Custom demographic templates & local weights
 ```

@@ -104,7 +104,7 @@ Phân hệ thương mại điện tử gồm **4 tuyến đường nội bộ** 
 - **Nguồn Dữ Liệu:** `commerce.orders`, `commerce.order_items`, `commerce.order_deliveries`
 - **Chức Năng Cốt Lõi:**
   - Hiển thị 3 thẻ KPI (Tổng đơn hàng, Đơn hoàn tất, Tổng Xu đã chi) và bảng `useVbenVxeGrid<CommerceOrderRecord>` tích hợp bộ lọc trạng thái và từ khóa.
-  - Hộp thoại **Nhận Tài Nguyên (`OrderDeliveriesDialog`)**: Sao chép 1 chạm hoặc tải tệp `.txt` cho danh sách tài khoản/key (`serial_stock`), xem thông tin cấp phát tự động cho `resource` (`automa.workflows`, `runners.proxies`, `billing.subscriptions`), hoặc tải tệp `digital_file`.
+  - Hộp thoại **Nhận Tài Nguyên (`OrderDeliveriesDialog`)**: Sao chép 1 chạm hoặc tải tệp `.txt` cho danh sách tài khoản/key (`serial_stock`), xem thông tin cấp phát tự động cho `resource` (`automa.workflows`, `workers.proxies`, `billing.subscriptions`), hoặc tải tệp `digital_file`.
 
 ### 2.3. Ví Xu & Sổ Cái Giao Dịch (`/commerce/wallet`)
 

@@ -73,7 +73,7 @@ Output summary:
 ```text
 ╭─ NETWORK BRIDGE & MULTI-VPS MESH ────────────── ● CONTROLLER READY ─╮
 │  Workstation:    WORKSTATION-VN                                     │
-│  Config Source:  ~/.tuquet/bridge/bridge.json                       │
+│  Config Source:  ~/.tq/gateway/gateway.json                         │
 │  Default Server: vps-us-01                                          │
 ╰─────────────────────────────────────────────────────────────────────╯
 
@@ -136,11 +136,11 @@ tuquet bridge config --edit
 
 ## 3. SSOT Storage & Configuration (Pillar 4)
 
-In strict adherence to Tuquet's SSOT architecture, all bridge configurations and active process IDs resolve to `~/.tuquet/bridge/`:
+In strict adherence to Tuquet's SSOT architecture, all gateway configurations and active process IDs resolve to `~/.tq/gateway/`:
 
 ```text
-~/.tuquet/bridge/
-├── bridge.json               # Canonical server list, port mappings, and credentials
+~/.tq/gateway/
+├── gateway.json              # Canonical server list, port mappings, and credentials
 ├── bin/                      # Auxiliary tunnel binaries (ssh, cloudflared)
 └── pids/                     # Background daemon process locks (<server>.json)
 ```

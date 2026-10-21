@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "CLI"
   text: "Run hundreds of stealth browsers. Zero lag. Zero fingerprint leaks."
-  tagline: "The full combat rig assembling the Lab Room's independent engines — Chromium stealth, DAG runner, mesh bridges, and cloud sync into a single operational unit. 100% Free & Open-Source."
+  tagline: "The master operational rig assembling the ecosystem's independent engines — Chromium stealth, workflow automation, mesh bridges, and cloud sync into a single operational unit. 100% Free & Open-Source."
   image:
     src: /logo.svg
     alt: "Isometric Elevator"
@@ -47,25 +47,25 @@ cargo install --git https://github.com/tuquet/cli tuquet
 
 ---
 
-## 5 Core Operational Commands
+## Core Operational Commands
 
 The entire operational workflow condensed into straightforward, intuitive commands:
 
 ```bash
-# 1. Initialize SSOT environment (~/.tuquet/) and provision Chromium LTS
-tuquet bootstrap
+# 1. Initialize SSOT environment (~/.tq/) and check system readiness
+tq doctor
 
-# 2. Launch profile bound to residential proxy (WebRTC & DNS shielded)
-tuquet browser launch "Store-US-01" --proxy socks5://user:pass@ip:port
+# 2. Launch browser profile bound to residential proxy
+tq browser launch "Store-US-01" --proxy socks5://user:pass@ip:port
 
-# 3. Live stealth verification (Cloudflare Turnstile & Bézier cursor)
-tuquet browser verify --url "https://turnstile.zerocdn.com"
+# 3. Probe latency and verify public egress IP
+tq gateway probe socks5://user:pass@ip:port
 
-# 4. Probe latency and verify public egress IP before opening tabs
-tuquet proxy probe socks5://user:pass@ip:port
+# 4. Execute headless automation workflow via pure-Rust CDP driver
+tq automation run scrape-flow --headless
 
-# 5. Execute headless automation workflow via pure-Rust CDP driver
-tuquet automa run ./workflows/scrape.json --headless
+# 5. Start background worker node for distributed tasks
+tq worker start --headless
 ```
 
 ---
@@ -74,11 +74,11 @@ tuquet automa run ./workflows/scrape.json --headless
 
 | Domain | Canonical Command | Technology & Value Delivered |
 | :--- | :--- | :--- |
-| **Dropship & E-Com** | `tuquet browser launch` | Complete isolation of Canvas, WebGL, AudioContext, and Fonts. Each profile behaves as an independent physical device. |
-| **Web Scraping** | `tuquet automa run` | Pierces closed Shadow DOM, bypasses Turnstile, inertial deceleration scroll. Ultra-low RAM footprint. |
-| **Cloud Center** | `tuquet browser profile cloud` | Syncs profiles via Cloud Center (PostgreSQL 15+ & RLS). Distributed lease locks (`acquire`/`release`) prevent account collisions. |
-| **Proxy Gateway** | `tuquet proxy probe` | Automated pre-flight probe verifies clean IP, country location, and eliminates WebRTC leaks before opening tabs. |
-| **Synthetic Personas** | `tuquet faker generate` | Generates authentic test identities (names, birthdays, addresses, valid CCCDs) for instant automated form filling. |
+| **Dropship & E-Com** | `tq browser launch` | Complete isolation of Canvas, WebGL, AudioContext, and Fonts. Each profile behaves as an independent physical device. |
+| **Web Scraping** | `tq automation run` | Pierces closed Shadow DOM, bypasses Turnstile, inertial deceleration scroll. Ultra-low RAM footprint. |
+| **Cloud Center** | `tq auth tenant` | Syncs profiles via Cloud Center (PostgreSQL 15+ & RLS). Distributed lease locks prevent account collisions. |
+| **Proxy Gateway** | `tq gateway probe` | Automated pre-flight probe verifies clean IP, country location, and eliminates WebRTC leaks before opening tabs. |
+| **Synthetic Personas** | `tq faker generate` | Generates authentic test identities (names, birthdays, addresses, valid CCCDs) for instant automated form filling. |
 
 ---
 
@@ -89,7 +89,7 @@ tuquet automa run ./workflows/scrape.json --headless
 :::
 
 ::: details 2. Where is my profile data stored?
-100% Local-First. All profiles, session cookies, and execution histories reside under `~/.tuquet/` on your local workstation, or inside your self-hosted Cloud Center database. Zero data is ever sent to third-party telemetry servers.
+100% Local-First. All profiles, session cookies, and execution histories reside under `~/.tq/` on your local workstation, or inside your self-hosted Cloud Center database. Zero data is ever sent to third-party telemetry servers.
 :::
 
 ::: details 3. How do I coordinate browser fleets across multiple VPS instances?

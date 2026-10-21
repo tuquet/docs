@@ -23,4 +23,4 @@ pnpm build
 
 ## License
 
-[MIT](LICENSE) © Tuquet
+MIT © Tuquet

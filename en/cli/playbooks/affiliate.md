@@ -43,7 +43,7 @@ Advertising platforms deploy sophisticated identity graph analysis: if two ad ac
 2. **Matching Network Geography & VCC BINs**:
    - Pair each ad account profile with a dedicated residential SOCKS5 proxy matching the issuing country and postal code of your virtual credit card (VCC).
 3. **Cookie Warming & Aging**:
-   - Avoid launching ad campaigns on sterile browser profiles. Import authenticated session cookies or execute automated warmup browsing workflows via `tuquet automa run ./warmup.json`.
+   - Avoid launching ad campaigns on sterile browser profiles. Import authenticated session cookies or execute automated warmup browsing workflows via `tq automation run warmup-flow`.
 4. **Biometric Bézier Cursor Dynamics**:
    - Ad platform checkout and campaign creation pages analyze cursor movement. Tuquet's cubic Bézier trajectory engine simulates natural human acceleration and micro-corrections during ad setup.
 

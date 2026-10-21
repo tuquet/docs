@@ -144,7 +144,6 @@ const adminSidebar = [
       { text: 'SPEC: Browser Error Observability', link: '/en/admin/specs/SPEC-browser-error-observability' },
       { text: 'SPEC: Enum Constants SSOT', link: '/en/admin/specs/SPEC-enum-constants-ssot' },
       { text: 'SPEC: i18n EN/VI Localization', link: '/en/admin/specs/SPEC-i18n-en-vi' },
-      { text: 'SPEC: 3D Ghost Banner', link: '/en/admin/specs/SPEC-specter-3d-ghost-banner' },
       { text: 'SPEC: Tauri Desktop Integration', link: '/en/admin/specs/SPEC-tauri-desktop' },
       { text: 'SPEC: CI/CD Public Release', link: '/en/admin/specs/SPEC-cicd-public-release' },
     ],
@@ -188,6 +187,7 @@ const cliSidebar = [
     items: [
       { text: 'Personas & CCCD Generator', link: '/en/cli/faker/' },
       { text: 'AI Agent & MCP Protocol', link: '/en/cli/skills/' },
+      { text: 'Agent Rules & Strict SSOT', link: '/en/cli/skills/agent-rules' },
     ],
   },
 ]
@@ -200,16 +200,13 @@ const cliCommandsSidebar = [
     ],
   },
   {
-    text: 'Commands Catalog (68)',
+    text: 'Commands Catalog',
     items: [
-      { text: 'Overview & Navigation', link: '/en/cli/commands/' },
-      { text: 'System & Onboarding (11)', link: '/en/cli/commands/#system' },
-      { text: 'Automa & Headless Scraper (9)', link: '/en/cli/commands/#automa' },
-      { text: 'Stealth Browser & Profiles (29)', link: '/en/cli/commands/#browser' },
-      { text: 'Proxy Tunnel & Network Mesh (7)', link: '/en/cli/commands/#bridge' },
-      { text: 'Faker & Synthetic Personas (2)', link: '/en/cli/commands/#faker' },
-      { text: 'Runner Supervisor & Daemon (7)', link: '/en/cli/commands/#runner' },
-      { text: 'Cloud Center Commands (3)', link: '/en/cli/commands/#cloud' },
+      { text: 'Core Commands Overview', link: '/en/cli/commands/' },
+      { text: '1. tq auth (IAM & Context)', link: '/en/cli/commands/#_1-tq-auth-authentication-session-context' },
+      { text: '2. tq worker (Fleet Worker)', link: '/en/cli/commands/#_2-tq-worker-execution-node-fleet-worker' },
+      { text: '3. tq automation (Workflows)', link: '/en/cli/commands/#_3-tq-automation-workflow-automation-orchestration' },
+      { text: '4. tq gateway (Network Mesh)', link: '/en/cli/commands/#_4-tq-gateway-secure-network-vps-mesh' },
     ],
   },
 ]
@@ -234,19 +231,6 @@ const playbooksSidebar = [
     ],
   },
 ]
-
-// 4. Ecosystem Dropdown
-const ecosystemDropdownEn = {
-  text: 'Ecosystem',
-  items: [
-    { text: 'Telegram ChatOps', link: '/en/chatops/' },
-    { text: 'Storage Hub', link: '/en/storage/' },
-    { text: 'Yak Map Graph', link: '/en/yak-map/' },
-    { text: 'UI Library', link: '/en/library/' },
-    { text: 'Claude-Agy', link: '/en/claude-agy/' },
-    { text: 'Home ↗', link: 'https://tuquet.com' },
-  ],
-}
 
 export default defineConfig({
   base: '/',

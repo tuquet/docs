@@ -32,7 +32,7 @@ wget -qO- https://raw.githubusercontent.com/tuquet/cli/main/install.sh | sh
 
 In approximately 15 seconds, the automated installer completes:
 
-1. **Client Deployment**: Installs `tuquet` into user-space (`~/.tuquet/bin/`) without requiring administrator or root privileges.
+1. **Client Deployment**: Installs `tq` into user-space (`~/.tq/bin/`) without requiring administrator or root privileges.
 2. **PATH Configuration**: Registers the command globally so you can run `tuquet` from any terminal or shell.
 3. **Dedicated Antidetect Engine**: Provisions the optimized Antidetect Chromium LTS runtime.
 4. **Environment Check**: Validates network tunnels and local storage directories.

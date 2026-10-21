@@ -16,7 +16,7 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
  │                                                             │
  │   ┌──────────────────────┐       ┌──────────────────────┐   │
  │   │ Cron / Airflow / CI  │ ────► │ tuquet automa run   │   │
- │   │ Orchestration Trigger│       │ (or runner worker)   │   │
+ │   │ Orchestration Trigger│       │ (or worker daemon)   │   │
  │   └──────────────────────┘       └──────────┬───────────┘   │
  │                                             │               │
  │                                             ▼               │
@@ -69,11 +69,11 @@ tuquet browser launch "Scraper-Node-01" \
   --detach
 ```
 
-### Executing Declarative Automa Extraction DAG
+### Executing Declarative Extraction Workflow
 
 ```bash
-# Run automated extraction workflow with runtime parameter substitution
-tuquet automa run ./workflows/ecommerce_catalog.workflow.json \
+# Run automated extraction workflow by stored ID with runtime parameter substitution
+tq automation run ecommerce-catalog \
   --headless \
   --timeout 120 \
   -p TARGET_URL="https://example-store.com/products" \
@@ -86,5 +86,5 @@ In distributed scraping fleets, worker nodes continuously poll tasks from the ce
 
 ```bash
 # Start background worker daemon polling extraction jobs every 10s
-tuquet runner worker --interval 10 --headless
+tq worker start --headless
 ```
