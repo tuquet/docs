@@ -161,30 +161,33 @@ const cliSidebar = [
       { text: 'Quickstart (15s)', link: '/en/cli/start/quickstart' },
       { text: 'Installation Guide', link: '/en/cli/start/installation' },
       { text: 'First Profile Setup', link: '/en/cli/start/first-profile' },
-      { text: 'System Diagnostics (Doctor)', link: '/en/cli/start/diagnostics' },
-      { text: 'Interactive Figures (30)', link: '/en/cli/figures/' },
+      { text: 'System Diagnostics', link: '/en/cli/start/diagnostics' },
     ],
   },
   {
-    text: 'CLI Commands Catalog',
+    text: 'Command Reference',
     collapsed: false,
     items: [
-      { text: '68 Commands Catalog', link: '/en/cli/commands/' },
+      { text: 'Commands Catalog', link: '/en/cli/commands/' },
     ],
   },
   {
-    text: 'Identity & AI Extensions',
+    text: 'Combat Playbooks',
+    collapsed: false,
+    items: [
+      { text: 'Affiliate & Media Buying', link: '/en/cli/playbooks/affiliate' },
+      { text: 'E-commerce & Dropshipping', link: '/en/cli/playbooks/ecommerce' },
+      { text: 'Web Scraping & Data Mining', link: '/en/cli/playbooks/scraping' },
+      { text: 'Social Media Management', link: '/en/cli/playbooks/smm' },
+      { text: 'Crypto & Airdrop Farming', link: '/en/cli/playbooks/crypto' },
+    ],
+  },
+  {
+    text: 'Identity & AI Protocol',
     collapsed: false,
     items: [
       { text: 'Personas & CCCD Generator', link: '/en/cli/faker/' },
       { text: 'AI Agent & MCP Protocol', link: '/en/cli/skills/' },
-    ],
-  },
-  {
-    text: 'Specifications & RFCs',
-    collapsed: true,
-    items: [
-      { text: 'SPEC: Faker AI-First Generation', link: '/en/cli/specs/SPEC-faker-ai-first' },
     ],
   },
 ]
@@ -273,73 +276,45 @@ export default defineConfig({
     siteTitle: 'Docs',
     logo: '/logo.svg',
 
-    nav: [
+        nav: [
       {
-        text: 'Services',
+        text: 'Core Services',
         items: [
           { text: 'Stealth Chromium Browser', link: '/en/browser/' },
           { text: 'Automation Engine', link: '/en/automation/' },
           { text: 'Network Gateway', link: '/en/gateway/' },
           { text: 'Distributed Worker', link: '/en/worker/' },
-          { text: 'Cloud & Desktop Control Plane', link: '/en/cloud/' },
+          { text: 'Cloud Control Plane', link: '/en/cloud/' },
           { text: 'Admin Portal & Control Center', link: '/en/admin/' },
         ],
-        activeMatch: '^/en/(browser|automa|runner|bridge|cloud|admin)/',
+        activeMatch: '^/en/(browser|automation|worker|gateway|cloud|admin)/',
       },
       {
-        text: 'CLI',
+        text: 'CLI Tooling',
         items: [
           { text: 'Platform Overview', link: '/en/cli/' },
           { text: 'Quickstart (15s)', link: '/en/cli/start/quickstart' },
           { text: 'Installation Guide', link: '/en/cli/start/installation' },
-          { text: 'First Profile Setup', link: '/en/cli/start/first-profile' },
-          { text: '68 Commands Catalog', link: '/en/cli/commands/' },
-          { text: 'System Diagnostics (Doctor)', link: '/en/cli/start/diagnostics' },
-          { text: 'Interactive Figures (30)', link: '/en/cli/figures/' },
-          { text: 'Personas & CCCD Generator', link: '/en/cli/faker/' },
+          { text: 'Commands Reference', link: '/en/cli/commands/' },
+          { text: 'Combat Playbooks', link: '/en/cli/playbooks/affiliate' },
           { text: 'AI Agent & MCP Protocol', link: '/en/cli/skills/' },
         ],
-        activeMatch: '^/en/cli/(start/|commands|figures|skills|faker|specs|$|index)',
+        activeMatch: '^/en/cli/',
       },
       {
-        text: 'Playbooks',
-        items: [
-          { text: 'Affiliate & Media Buying', link: '/en/cli/playbooks/affiliate' },
-          { text: 'E-commerce & Dropshipping', link: '/en/cli/playbooks/ecommerce' },
-          { text: 'Web Scraping & Data Mining', link: '/en/cli/playbooks/scraping' },
-          { text: 'Social Media Management', link: '/en/cli/playbooks/smm' },
-          { text: 'Crypto & Airdrop Farming', link: '/en/cli/playbooks/crypto' },
-        ],
-        activeMatch: '^/en/cli/playbooks/',
+        text: 'Tuquet.com ↗',
+        link: 'https://tuquet.com',
       },
-      ecosystemDropdownEn,
     ],
 
-    sidebar: {
+        sidebar: {
       '/en/browser/': browserSidebar,
       '/en/automation/': automationSidebar,
       '/en/gateway/': gatewaySidebar,
       '/en/worker/': workerSidebar,
       '/en/cloud/': cloudSidebar,
       '/en/admin/': adminSidebar,
-      '/en/cli/playbooks/': playbooksSidebar,
-      '/en/cli/commands/': cliCommandsSidebar,
       '/en/cli/': cliSidebar,
-      '/en/chatops/': [
-        { text: 'Telegram ChatOps', items: [{ text: 'Overview & Setup', link: '/en/chatops/' }] },
-      ],
-      '/en/storage/': [
-        { text: 'Storage Hub', items: [{ text: 'Overview & Features', link: '/en/storage/' }] },
-      ],
-      '/en/yak-map/': [
-        { text: 'Yak Map Graph', items: [{ text: 'Ecosystem Lineage', link: '/en/yak-map/' }] },
-      ],
-      '/en/library/': [
-        { text: 'Library', items: [{ text: 'Packages & Storybook', link: '/en/library/' }] },
-      ],
-      '/en/claude-agy/': [
-        { text: 'Claude-Agy', items: [{ text: 'CLI Quickstart', link: '/en/claude-agy/' }] },
-      ],
     },
 
     search: {
