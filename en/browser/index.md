@@ -1,14 +1,12 @@
 # Stealth Chromium Runtime & Hardware Sandbox
 
-Commercial browsers leak like sieves. Telemetry daemons, hardware hash queries, audio context fingerprinting, and shared LevelDB caches broadcast your machine identity to every anti-fraud engine on the web.
+Commercial browsers leak machine identity at every layer. Telemetry daemons, hardware hash queries, audio context fingerprinting, and shared LevelDB caches broadcast your identity to every anti-fraud engine on the web.
 
-**Stealth Chromium Runtime** is a decoupled antidetect browser subsystem powered by the [`browser`](https://github.com/tuquet/browser) crate. It runs as an independent CLI/library or wired into the combat rig. It injects deterministic hardware seeds directly into Blink C++ memory, strips WebRTC leaks at the packet level, and spoofs Bézier cursor dynamics. Turnstile, DataDome, and Kasada see an everyday consumer laptop.
+**Stealth Chromium Runtime** is a decoupled antidetect browser subsystem powered by the [`browser`](https://github.com/tuquet/browser) crate. It uses a custom-built Chromium binary based on [`adryfish/fingerprint-chromium`](https://github.com/adryfish/fingerprint-chromium) (customized on [`ungoogled-software/ungoogled-chromium`](https://github.com/ungoogled-software/ungoogled-chromium)) with native C++ patches for Blink, V8, and Skia. It injects deterministic hardware seeds directly into C++ memory, strips WebRTC leaks at the packet level, and spoofs Bézier cursor dynamics. Anti-fraud systems (Turnstile, DataDome, Kasada, CreepJS) see a genuine consumer laptop.
 
-::: tip Standalone Microservice
-`browser` operates completely decoupled from the CLI. You can compile it as a standalone Rust crate, embed it into your custom scrapers, or launch isolated profiles directly via CLI.
+::: tip Standalone Microservice & CLI
+`browser` operates completely decoupled from the CLI. You can compile it as a standalone Rust crate, embed it into your custom scrapers, or launch isolated profiles directly via CLI using `tq browser` (or `tuquet browser`).
 :::
-
-<HairlineFigure name="laptop" />
 
 ---
 
@@ -20,45 +18,154 @@ Commercial browsers leak like sieves. Telemetry daemons, hardware hash queries, 
  │                                                                         │
  │   ┌──────────────────────────┐       ┌──────────────────────────────┐   │
  │   │ C++ Chromium LTS Engine  │       │ Deterministic PRNG Spoofing  │   │
- │   │ (v148.0.7778.215)        │       │ (Seed: u32)                  │   │
+ │   │ (adryfish/ungoogled)     │       │ (Seed: u32)                  │   │
  │   ├──────────────────────────┤       ├──────────────────────────────┤   │
  │   │ • Zero Google Telemetry  │       │ • Canvas 2D Math Jitter      │   │
  │   │ • No Background Updates  │       │ • WebGL Vendor / GPU Model   │   │
  │   │ • DevToolsActivePort SSOT│       │ • AudioContext SNR > 99.4dB  │   │
- │   │ • Shadow DOM Piercing    │       │ • Modulo-derived Cores & RAM │   │
+ │   │ • C++ --fingerprint seed │       │ • Modulo-derived Cores & RAM │   │
  │   └──────────────────────────┘       └──────────────────────────────┘   │
  │                 │                                   │                   │
  │                 ▼                                   ▼                   │
  │   ┌─────────────────────────────────────────────────────────────────┐   │
  │   │                   Isolated Profile Sandboxes                    │   │
- │   │               (~/.tuquet/browser/profiles/<id>/)                │   │
+ │   │               (~/.tq/browser/profiles/<id>/)                    │   │
  │   │ • Segregated Cookies, LocalStorage, IndexedDB, LevelDB          │   │
  │   │ • Dedicated Proxy Tunnel (SOCKS5 / HTTP Adapter)                │   │
  │   │ • WebRTC STUN Protection (proxy_shielded | disabled | real)     │   │
  │   │ • Zstandard (.tar.zst) Fast Archival with Cache Exclusion       │   │
+ │   │ • Supabase Cloud Sync (browsers.profiles & Storage Bucket)      │   │
  │   └─────────────────────────────────────────────────────────────────┘   │
  └─────────────────────────────────────────────────────────────────────────┘
 ```
 
-1. **Dedicated Runtime Engine**:
-   - Compiles and provisions pinned C++ Antidetect Chromium LTS builds (`PINNED_STEALTH_CHROMIUM_VERSION = "148.0.7778.215"`, fallback standard Chromium `131.0.6778.33`).
-   - Completely removes background Google services, crashpad reporters, safe-browsing telemetry, and automatic component updater hooks (`--disable-component-update`, `--disable-domain-reliability`).
-2. **Deterministic PRNG Hardware Seeds**:
+1. **Custom C++ Antidetect Core (`adryfish/fingerprint-chromium`)**:
+   - Built on open-source `ungoogled-chromium` with native C++ patches.
+   - Pinned Golden LTS build: `v148.0.7778.215` (`ungoogled-chromium_148.0.7778.215-1.1`).
+   - Completely removes background Google services, crashpad reporters, and safe-browsing telemetry.
+2. **Deterministic C++ PRNG Seeds (`--fingerprint=<seed>`)**:
    - Every profile is bound to an immutable 32-bit unsigned integer seed (`--seed <u32>`).
-   - All hardware attributes (CPU cores, RAM size, GPU vendor strings, audio frequency noise, canvas micro-variations) derive deterministically from this seed, guaranteeing 100% cross-session consistency.
+   - The Chromium C++ engine uses this single seed to deterministically perturb Canvas 2D render paths, WebGL GPU parameters, AudioContext SNR, and internal PRNG calculations with 100% cross-session consistency.
 3. **Full Lifecycle Profile Sandbox**:
-   - Profiles live in isolated directories under `~/.tuquet/browser/profiles/<id>/`.
+   - Profiles live in isolated directories under `~/.tq/browser/profiles/<id>/`.
    - Never shares cache, cookies, WebSQL, or local storage between profiles.
-4. **Zstandard Session Compression & Cloud Sync**:
-   - High-speed Zstandard level-3 compression (`.tar.zst`) with intelligent cache filtering for cloud sync and team hand-offs.
+4. **Display Geometry & HiDPI Scaling**:
+   - Configurable screen resolution (`screen_width`, `screen_height`, `device_pixel_ratio`) passed via `--window-size=W,H` and `--force-device-scale-factor=DPR`.
+5. **Zstandard Session Compression & Cloud Sync**:
+   - High-speed Zstandard level-3 compression (`.tar.zst`) with cache filtering for instant cloud backup to Supabase `browser-profiles` bucket.
 
 ---
 
-## 2. Deterministic Hardware Fingerprint Generation
+## 2. End-to-End CLI User Flow
 
-When a new profile is initialized without explicit hardware arguments, `browser` applies deterministic PRNG derivation from the 32-bit seed:
+Here is the complete operational lifecycle from fresh installation to automated execution and cloud synchronization:
 
-### Mathematical Derivation Model
+```mermaid
+flowchart TD
+    A["Stage 1: Engine Provisioning\n(tq browser search / install)"] --> B["Stage 2: Profile Creation\n(tq browser profile create / inspect)"]
+    B --> C["Stage 3: Stealth Execution\n(tq browser launch <profile>)"]
+    C --> D{"Execution Mode"}
+    D -->|"Manual Browsing"| E["Interactive GUI\n(Nuôi nick / Account warmup)"]
+    D -->|"Headless Automation"| F["CDP Port 9222\n(Automa / Playwright / Runner)"]
+    E --> G["Stage 4: Stealth Verification\n(tq browser verify)"]
+    F --> G
+    G --> H["Stage 5: Session Archival & Cloud Sync\n(tq browser profile pack / push / pull)"]
+```
+
+### Stage 1: Engine Provisioning
+
+Discover and download official precompiled `adryfish/fingerprint-chromium` binaries:
+
+```bash
+# 1. Search remote releases catalog on Supabase Cloud / GitHub
+tq browser search --remote
+
+# 2. Download and provision Golden LTS v148 (with SHA256 checksum verification)
+tq browser install 148
+
+# 3. List locally installed runtimes
+tq browser runtimes
+```
+*Binaries are unpacked into `~/.tq/browser/runtimes/v148.0.7778.215/`.*
+
+### Stage 2: Profile Creation & Hardware Sandbox
+
+Initialize isolated profiles with deterministic hardware specifications:
+
+```bash
+# 1. Create a profile with randomized deterministic hardware
+tq browser profile create "Shopee-Shop-01"
+
+# 2. Or create a profile with explicit hardware, proxy, and timezone specs
+tq browser profile create "FB-Ads-US" \
+  --os windows \
+  --cores 16 \
+  --ram 32 \
+  --proxy "socks5://user:pass@proxy-us.net:1080" \
+  --timezone "America/New_York" \
+  --locale "en-US"
+
+# 3. Test proxy connectivity and latency before launch
+tq browser profile test-proxy "FB-Ads-US"
+
+# 4. List all registered profiles and disk footprint
+tq browser profile list
+
+# 5. Inspect complete hardware fingerprint details
+tq browser profile inspect "FB-Ads-US"
+```
+
+### Stage 3: Stealth Execution
+
+Launch profiles in either interactive GUI mode or automated headless mode:
+
+```bash
+# Manual Browsing: Launch with GUI into target URL
+tq browser launch "Shopee-Shop-01" https://shopee.vn
+
+# Detached Launch: Release terminal immediately
+tq browser launch "FB-Ads-US" https://facebook.com --detach
+
+# Headless Automation: Launch with CDP bridge on port 9222 for Automa / Runner
+tq browser launch "FB-Ads-US" --headless --cdp --port 9222 --detach
+
+# Monitor active browser sessions (PID, Port, WebSocket URL)
+tq browser ps
+
+# Stop running sessions
+tq browser stop "Shopee-Shop-01"
+tq browser stop --all
+```
+
+### Stage 4: Stealth Verification
+
+Verify anti-detect stealth quality against industry-standard fraud detection platforms:
+
+```bash
+# Automatically launches the profile and executes test suite against CreepJS / Pixelscan
+tq browser verify
+```
+
+### Stage 5: Session Archival & Cloud Sync
+
+Preserve login cookies, localStorage, and token sessions across devices:
+
+```bash
+# 1. Pack profile into a lightweight .tar.zst archive (cache stripped, <15MB)
+tq browser profile pack "Shopee-Shop-01" -o ./shopee.tar.zst
+
+# 2. Upload session snapshot to Supabase Storage ('browser-profiles' bucket)
+tq browser profile push "Shopee-Shop-01"
+
+# 3. On a remote worker or new machine, pull the profile to resume session
+tq browser profile pull "Shopee-Shop-01"
+```
+
+---
+
+## 3. Deterministic Hardware Derivation Model
+
+When creating a profile without manual overrides, `browser` derives hardware attributes using deterministic modulo arithmetic on the 32-bit PRNG seed:
 
 ```rust
 // Core derivation logic from browser/src/profile.rs
@@ -86,227 +193,123 @@ let id = if slug.is_empty() {
 
 | Hardware Attribute | Emulation Mechanism | Default / Derivation |
 | :--- | :--- | :--- |
-| **Fingerprint Seed** | Immutable 32-bit PRNG seed | Random `u32` if omitted |
-| **CPU Concurrency** | Injected via Blink C++ internals | `8`, `12`, or `16` cores (`seed % 3`) |
-| **Device Memory** | `navigator.deviceMemory` C++ override | `16GB` or `32GB` (`seed % 3`) |
-| **OS Platform** | Platform headers & user-agent | `windows` (Windows 10.0.0) |
-| **Browser Brand** | Chromium engine brand string | `Chrome` (LTS v148) |
-| **Timezone** | V8 Internationalization API | `Asia/Ho_Chi_Minh` (configurable) |
-| **Locale & Lang** | `navigator.languages` & `Accept-Language` | `vi-VN` (`vi-VN,vi,en-US,en`) |
-| **WebRTC Mode** | UDP STUN packet filtering | `proxy_shielded` (or `disabled`, `real`) |
+| **Fingerprint Seed** | Immutable 32-bit PRNG seed | Random `u32` if omitted (`--fingerprint=<seed>`) |
+| **CPU Concurrency** | Injected via Blink C++ internals | `8`, `12`, or `16` cores (`--fingerprint-hardware-concurrency`) |
+| **Device Memory** | `navigator.deviceMemory` override | `16GB` or `32GB` (`seed % 3`) |
+| **OS Platform** | Platform headers & user-agent | `windows` (`--fingerprint-platform=windows`) |
+| **Browser Brand** | Chromium engine brand string | `Chrome` (`--fingerprint-brand=Chrome`) |
+| **Display Geometry** | Window dimensions & HiDPI | `--window-size=1920,1080 --force-device-scale-factor=1.00` |
+| **Timezone** | V8 Internationalization API | `Asia/Ho_Chi_Minh` (`--timezone=...`) |
+| **Locale & Lang** | `navigator.languages` & `Accept-Language` | `vi-VN` (`--lang=vi-VN --accept-lang=vi-VN,vi,en-US,en`) |
+| **WebRTC Mode** | UDP STUN packet filtering | `proxy_shielded` (`--disable-non-proxied-udp`) |
 
 ---
 
-## 3. Chromium Launcher & Flag Generation
+## 4. Chromium Launcher & Flag Generation
 
-The launcher (`BrowserLauncher::build_args` in `browser/src/launcher.rs`) dynamically generates secure command-line arguments to enforce stealth and stability:
+The launcher (`BrowserProfile::build_cli_args` in `browser/src/profile.rs`) dynamically generates secure command-line arguments to enforce stealth and stability:
 
 ```bash
 # Core Arguments Generated by Launcher
---remote-debugging-port=9222
---user-data-dir=~/.tuquet/browser/profiles/<id>
+--user-data-dir=~/.tq/browser/profiles/<id>
 --no-first-run
---password-store=basic
---log-level=3
---test-type
---disable-component-update
---disable-domain-reliability
---disable-blink-features=AutomationControlled
---window-size=1280,720
+--no-default-browser-check
+--fingerprint=133742
+--fingerprint-platform=windows
+--fingerprint-platform-version=10.0.0
+--fingerprint-brand=Chrome
+--fingerprint-hardware-concurrency=8
+--window-size=1920,1080
+--force-device-scale-factor=1.00
+--timezone=Asia/Ho_Chi_Minh
+--lang=vi-VN
+--accept-lang=vi-VN,vi,en-US,en
+--proxy-server=socks5://127.0.0.1:1080
+--disable-non-proxied-udp
 ```
-
-### Headless & Extension Guardrails
-
-1. **Headless Execution**:
-   - Injects `--disable-gpu` and `--disable-software-rasterizer`.
-   - Generates authentic operating-system-specific User-Agent matching the active Chromium version (e.g. `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36`).
-2. **Extensions with Headless**:
-   - Automatically promotes `--headless` to `--headless=new` whenever unpacked extensions are loaded, preventing silent extension loading failures in Chromium headless mode.
-3. **Container & Root Environment Guardrails**:
-   - Automatically detects containerized Linux environments (UID 0 / root or `TUQUET_FORCE_NO_SANDBOX=1`) and adds `--no-sandbox` and `--disable-setuid-sandbox` to prevent crashes.
 
 ---
 
-## 4. SSOT Storage & Configuration (Pillar 3)
+## 5. Storage Layout & `profile.json` Schema
 
-All browser files strictly adhere to SSOT Pillar 3 under `~/.tuquet/browser/`:
+All browser files strictly adhere to SSOT under `~/.tq/browser/`:
 
 ```text
-~/.tuquet/browser/
+~/.tq/browser/
 ├── browser.json              # Active engine settings and manifest channel
 ├── runtimes/                 # Dedicated Chromium execution binaries
-│   └── 148.0.7778.215/       # Pinned LTS Antidetect Chromium
+│   └── v148.0.7778.215/      # Pinned LTS Antidetect Chromium (adryfish)
 ├── profiles/                 # Sandboxed profile data directories
 │   └── Facebook-Ad-US-01/
 │       ├── profile.json      # Profile hardware fingerprint manifest
 │       └── Default/          # Chromium LevelDB, cookies, storage
-└── extensions/               # Registered browser extensions (Automa, uBlock)
-    ├── automa/
-    └── ublock/
+└── extensions/               # Registered browser extensions
+    └── automa/
 ```
 
 ### Complete `profile.json` Schema
 
-Each profile contains a canonical manifest matching the Rust `BrowserProfile` struct:
-
 ```json
 {
-  "id": "facebook-ad-us-01-849201",
-  "name": "Facebook-Ad-US-01",
+  "id": "fb-ads-us-849201",
+  "name": "FB-Ads-US",
   "fingerprint_seed": 849201,
   "os_platform": "windows",
   "os_version": "10.0.0",
   "browser_brand": "Chrome",
   "hardware_concurrency": 8,
   "device_memory_gb": 16,
-  "lang": "vi-VN",
-  "accept_lang": "vi-VN,vi,en-US,en",
-  "timezone": "Asia/Ho_Chi_Minh",
-  "proxy": "socks5://127.0.0.1:1080",
+  "screen_width": 1920,
+  "screen_height": 1080,
+  "device_pixel_ratio": 1.0,
+  "timezone": "America/New_York",
+  "lang": "en-US",
+  "accept_lang": "en-US,en",
+  "sec_ch_ua": "\"Chromium\";v=\"148\", \"Not A(Brand\";v=\"24\", \"Google Chrome\";v=\"148\"",
+  "sec_ch_ua_platform": "\"Windows\"",
+  "sec_ch_ua_mobile": false,
+  "proxy": "socks5://user:pass@proxy-us.net:1080",
   "webrtc_mode": "proxy_shielded",
-  "extensions": [
-    "automa"
-  ],
+  "group_name": "default",
+  "tags": ["facebook", "ads"],
+  "extensions": ["automa"],
+  "startup_flags": [],
   "cloud_id": null,
   "cloud_synced_at": null,
   "storage_path": null,
   "storage_hash": null,
   "storage_size_bytes": null,
   "cookies_count": null,
-  "created_at": "1791386000"
+  "created_at": "1792560000"
 }
 ```
 
 ---
 
-## 5. Zstandard Profile Archival (`.tar.zst`)
-
-When packing or syncing profiles, `browser` uses Zstandard compression (level 3 by default) paired with strict cache exclusion rules (`DEFAULT_PROFILE_IGNORE`):
-
-```text
-Excluded from Profile Archives:
-• Cache/ & Media Cache/
-• Code Cache/ (V8 bytecode)
-• GPUCache/ & DawnCache/
-• GrShaderCache/ & ShaderCache/
-• Crashpad/ & Crash Reports/
-• OptimizationGuidePredictionModels/
-• Singleton* lock files & *.tmp logs
-```
-
-Preserves all essential session data: **Cookies, IndexedDB, LevelDB, LocalStorage, and Extensions**, reducing archive size from ~500MB down to <15MB.
-
----
-
-## 6. Command Reference
-
-All browser and profile operations are exposed canonically via `tuquet browser`:
-
-### Runtime Management
+## 6. Quick Command Reference
 
 ```bash
-# Display installation status, executable path, and disk usage
-tuquet browser status
+# --- Engine Runtimes ---
+tq browser search --remote                  # Discover available engine releases
+tq browser install 148                      # Install Golden LTS v148
+tq browser runtimes                         # List installed local engines
 
-# Download and provision dedicated Antidetect Chromium LTS
-tuquet browser install
+# --- Profiles ---
+tq browser profile list                     # List all local profiles
+tq browser profile create "Name" --proxy URL # Create a new profile
+tq browser profile inspect "Name"           # Inspect hardware fingerprint
+tq browser profile test-proxy "Name"        # Test proxy connectivity
+tq browser profile pack "Name"              # Compress into .tar.zst archive
+tq browser profile unpack ./backup.tar.zst  # Restore profile from archive
+tq browser profile push "Name"              # Upload snapshot to Supabase Cloud
+tq browser profile pull "Name"              # Download snapshot from Supabase Cloud
+tq browser profile delete "Name"            # Remove profile and sandbox
 
-# Force re-download specific version or channel
-tuquet browser install 148 --force
-
-# List locally installed engine versions
-tuquet browser list
-
-# Clean and reclaim disk space
-tuquet browser clean
+# --- Launching ---
+tq browser launch "Name"                    # Open GUI browser
+tq browser launch "Name" URL --detach       # Open URL and detach terminal
+tq browser launch "Name" --headless --cdp   # Headless with CDP bridge (port 9222)
+tq browser ps                               # View running instances
+tq browser stop "Name"                      # Terminate instance
+tq browser verify                           # Run CreepJS/Pixelscan stealth verification
 ```
-
-### Launching Profiles
-
-```bash
-# Launch default profile with CDP DevTools bridge on port 9222
-tuquet browser launch default --port 9222
-
-# Launch in ultra-stealth headless mode with proxy
-tuquet browser launch "Store-US" --headless --proxy socks5://127.0.0.1:1080
-
-# Zero-port ultra-stealth mode (no remote debugging port open)
-tuquet browser launch "Store-US" --no-cdp
-
-# Launch detached in background without keeping terminal attached
-tuquet browser launch "Store-US" --detach
-
-# Skip pre-flight proxy probe and launch immediately
-tuquet browser launch "Store-US" --skip-proxy-check
-```
-
-### Profile Management
-
-```bash
-# List all local profiles with hardware fingerprint summary
-tuquet browser profile list
-
-# Create a new profile with deterministic seed and custom hardware
-tuquet browser profile create "Campaign-01" \
-  --seed 849201 \
-  --os windows \
-  --cores 8 \
-  --ram 16 \
-  --proxy socks5://127.0.0.1:1080 \
-  --timezone "America/New_York" \
-  --locale "en-US"
-
-# Inspect detailed hardware fingerprint parameters
-tuquet browser profile inspect "Campaign-01"
-
-# Pre-flight proxy probe before opening browser
-tuquet browser profile test-proxy "Campaign-01" --timeout 5
-
-# Pack profile into a lightweight portable archive (.tar.zst)
-tuquet browser profile pack "Campaign-01" -o ./backup.tar.zst --level 3
-
-# Restore profile from archive
-tuquet browser profile unpack ./backup.tar.zst
-
-# Delete profile and remove its sandbox directory
-tuquet browser profile delete "Campaign-01" --force
-```
-
-### Configuration
-
-```bash
-# Display active browser engine settings
-tuquet browser config --show
-
-# Edit browser.json in default system editor
-tuquet browser config --edit
-```
-
----
-
-## 7. AI Agent Native Integration (MCP Protocol)
-
-AI agents inspect and verify dedicated browser readiness through the native MCP tool **`browser_status`**:
-
-### Tool Call
-
-```json
-{
-  "name": "browser_status",
-  "arguments": {}
-}
-```
-
-### Response Schema
-
-```json
-{
-  "installed": true,
-  "platform": "windows",
-  "executable_path": "C:\\Users\\<username>\\.tuquet\\browser\\runtimes\\148.0.7778.215\\chrome.exe",
-  "directory": "C:\\Users\\<username>\\.tuquet\\browser\\runtimes\\148.0.7778.215",
-  "pinned_version": "148.0.7778.215",
-  "size_mb": 214.5
-}
-```
-
