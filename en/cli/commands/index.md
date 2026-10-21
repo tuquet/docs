@@ -34,12 +34,28 @@ Manage, validate, and execute browser automation workflows (`automation`).
 | Command | Description |
 | :--- | :--- |
 | `tq automation run <id>` | Execute a workflow by stored ID via local or cloud headless browser |
-| `tq automation list` | List available automation workflows in SQLite database or cloud |
+| `tq automation workflow list` | List available automation workflows in SQLite database or cloud (alias `list`) |
 | `tq automation inspect <id>` | Validate syntax and inspect workflow actions and parameters |
 
 ---
 
-## 4. `tq gateway` — Secure Network & VPS Mesh
+## 4. `tq browser` — Anti-Detect Browser & Profile Management
+Full lifecycle management of stealth Chromium instances, fingerprinted profiles, and extensions.
+
+| Command | Description |
+| :--- | :--- |
+| `tq browser install [engine]` | Download and provision isolated Chromium / stealth binaries |
+| `tq browser status` | Inspect installed browser engines and active sandboxes |
+| `tq browser launch <profile_id>` | Launch isolated browser profile with assigned fingerprint and proxy |
+| `tq browser profile list` | List all local and cloud browser profiles |
+| `tq browser profile create <name>` | Generate a new anti-detect profile with unique hardware seed |
+| `tq browser profile test-proxy <id>` | Verify proxy IP egress, WebRTC leak, and latency |
+| `tq browser ps` | List all running browser processes |
+| `tq browser stop [pid/id]` | Terminate active browser processes gracefully |
+
+---
+
+## 5. `tq gateway` — Secure Network & VPS Mesh
 SOCKS5 and HTTP tunnel forwarder connecting workstation to VPS mesh.
 
 | Command | Description |
@@ -47,3 +63,12 @@ SOCKS5 and HTTP tunnel forwarder connecting workstation to VPS mesh.
 | `tq gateway start` | Start SOCKS5 (port 1080) and HTTP proxy forwarder (port 8118) |
 | `tq gateway stop` | Disconnect active tunnels and proxy daemons |
 | `tq gateway status` | Inspect latency, public egress IP, and VPS mesh connectivity |
+
+---
+
+## 6. `tq mcp` — Model Context Protocol Agent Bridge
+Exposes pure-Rust headless browser and workflow automation as an stdio MCP server for AI coding assistants and autonomous agents.
+
+| Command | Description |
+| :--- | :--- |
+| `tq mcp` | Launch JSON-RPC 2.0 stdio server exposing `worker_probe`, `workflow_run`, and browser tools |

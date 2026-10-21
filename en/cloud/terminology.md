@@ -35,9 +35,9 @@ Use this quick-reference matrix for anti-hallucination audits during documentati
 | **`Storage`** | `media.assets` & `tenant-assets` | ❌ *Vault*, *Media Bucket*, *File Drive* | Cloud media asset storage service. The term "Vault" is **FORBIDDEN** in cloud services. |
 | **`Browser`** | `workers.browsers` / `workers.node_browsers` | ❌ *Profile*, *Browser Profile*, *Anti-detect Profile* | Isolated anti-detect virtual browser container on local workstation disk or central cloud fleet. Calling a browser instance a "Profile" is **FORBIDDEN** to prevent confusion with `public.profiles`. |
 | **`Device / Worker`** | `workers.devices` | ❌ *Runner*, *Agent Node*, *Bot*, *Client Daemon* | Physical workstation, laptop, or edge node running CLI master (`tq`) or Worker daemon (`tq worker`) reporting heartbeats and telemetry to Cloud. |
-| **`Workflow`** | `automa.workflows` | ❌ *Script*, *Flowchart*, *Automation Pipeline* | Visual node graph AST automation workflow compatible with VueFlow graph JSON. |
-| **`Campaign Run`** | `automa.campaign_runs` | ❌ *Batch Job*, *Execution*, *Run Task* | Execution session of an automation campaign dispatched across distributed workers. |
-| **`Execution Log`** | `automa.execution_logs` | ❌ *Audit Log*, *System Log*, *Trace File* | Telemetry stream recording block-level execution events during an automation run. |
+| **`Workflow`** | `automation.workflows` | ❌ *Script*, *Flowchart*, *Automation Pipeline* | Visual node graph AST automation workflow compatible with VueFlow graph JSON. |
+| **`Campaign Run`** | `automation.campaigns` / `automation.jobs` | ❌ *Batch Job*, *Execution*, *Run Task* | Execution session of an automation campaign dispatched across distributed workers. |
+| **`Execution Job / Log`** | `automation.jobs` | ❌ *Audit Log*, *System Log*, *Trace File* | Telemetry stream recording block-level execution events and state during an automation run. |
 | **`Transactional Outbox`**| `events.outbox` | ❌ *Message Queue*, *Kafka Stream*, *RabbitMQ* | Pure PostgreSQL ACID-compliant event outbox for reliable asynchronous webhook dispatching. |
 | **`Proxy`** | `workers.proxies` (`proxy_id`) | ❌ *VPN*, *Tunnel Node*, *IP Route* | Tenant-isolated network proxy endpoint (HTTP/HTTPS/SOCKS5) with health metrics, geo data, dynamic assignment, and optional `change_ip_url` webhook for 4G/residential IP rotation. |
 | **`Browser Profile`** | `browsers.profiles` | ❌ *Virtual Machine*, *Worker Session* | Central antidetect identity container configured with deterministic C++ seed, WebRTC shield, `auto_timezone`, and `auto_locale` proxy geo-alignment. |
@@ -99,11 +99,14 @@ Use this quick-reference matrix for anti-hallucination audits during documentati
 ```
 [public.system_plugins] (Master Lifecycle Registry)
         │
-        ├── 'core-iam'       ──► Schema: public    (Kernel Flag: is_system = true)
-        ├── 'storage'        ──► Schema: media     (On-demand Plugin)
-        ├── 'subscriptions'  ──► Schema: billing   (On-demand Plugin)
-        ├── 'webhooks'       ──► Schema: events    (On-demand Plugin)
-        └── 'automa'         ──► Schema: automa    (On-demand Plugin)
+        ├── 'core-iam'       ──► Schema: public       (Kernel Flag: is_system = true)
+        ├── 'workers'        ──► Schema: workers      (Kernel Flag: is_system = true)
+        ├── 'automation'     ──► Schema: automation   (Kernel Flag: is_system = true)
+        ├── 'browsers'       ──► Schema: workers      (Kernel Flag: is_system = true)
+        ├── 'subscriptions'  ──► Schema: billing      (Kernel Flag: is_system = true)
+        ├── 'commerce'       ──► Schema: commerce     (Extension: is_system = false)
+        ├── 'storage'        ──► Schema: media        (Extension: is_system = false)
+        └── 'webhooks'       ──► Schema: events       (Extension: is_system = false)
 ```
 
 1. **`Plugin` (`public.system_plugins`)**:

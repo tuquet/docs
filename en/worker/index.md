@@ -270,13 +270,13 @@ tq worker config --edit
 
 ## 8. AI Agent Integration (MCP Protocol)
 
-AI agents query and orchestrate the local runner through the native MCP tool **`runner_probe`**:
+AI agents query and orchestrate the local worker through the native MCP tool **`worker_probe`**:
 
 ### Tool Call
 
 ```json
 {
-  "name": "runner_probe",
+  "name": "worker_probe",
   "arguments": {}
 }
 ```

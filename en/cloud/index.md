@@ -38,7 +38,7 @@ Every tenant organization in Cloud operates inside a cryptographically isolated 
 - **Tenant Cryptographic Boundary**: No query can read or write data across organizations (`tenant_id = auth.jwt() ->> 'tenant_id'`).
 - **Dynamic Plugin Gating**: Access to sub-systems is gated per-tenant by active licenses:
   - `core-iam`: Multi-tenant organization identity and user RBAC.
-  - `automa`: DAG workflow builder and batch execution logs.
+  - `automation`: DAG workflow builder and batch execution jobs.
   - `runners`: Device registry, remote workstation workers, and browser profile pools.
   - `commerce`: Storefront, marketplace templates, and orders.
   - `subscriptions`: Tier plans, credit wallets, and usage metering.
@@ -61,13 +61,13 @@ Unifies remote cloud fleets and local Tauri-connected workstation daemons.
 
 | Route Path | Module Name | Plugin Required | Capabilities |
 | :--- | :--- | :--- | :--- |
-| `/automation/overview` | `AutomationOverview` | `automa`, `runners` | Global overview of connected workers, active browser sessions, and workflow statistics. |
+| `/automation/overview` | `AutomationOverview` | `automation`, `workers` | Global overview of connected workers, active browser sessions, and workflow statistics. |
 | `/automation/workflows` | `AutomationWorkflows` | `automation` | Quản lý workflows, kịch bản tự động hoá, trigger schedules. |
-| `/automation/runs` | `AutomationRuns` | `automa` | Batch campaign runs, execution status, and task dispatching. |
-| `/automation/runs/:id` | `AutomationRunDetail` | `automa` | Detailed timeline, step-by-step CDP logs, and captured artifact downloads. |
-| `/automation/devices` | `AutomationDevices` | `runners` | Registered desktop workstations and remote VPS nodes connected to the mesh. |
-| `/automation/browsers` | `AutomationBrowsers` | `runners` | Central anti-detect browser instances with fingerprint seeds. |
-| `/automation/proxies` | `AutomationProxies` | `runners` | Proxy pools, auto-healing SOCKS5 nodes, and health diagnostics. |
+| `/automation/runs` | `AutomationRuns` | `automation` | Batch campaign runs, execution status, and task dispatching. |
+| `/automation/runs/:id` | `AutomationRunDetail` | `automation` | Detailed timeline, step-by-step CDP logs, and captured artifact downloads. |
+| `/automation/devices` | `AutomationDevices` | `workers` | Registered desktop workstations and remote VPS nodes connected to the mesh. |
+| `/automation/browsers` | `AutomationBrowsers` | `workers` | Central anti-detect browser instances with fingerprint seeds. |
+| `/automation/proxies` | `AutomationProxies` | `workers` | Proxy pools, auto-healing SOCKS5 nodes, and health diagnostics. |
 
 ### C. Commerce & Credit Wallet (`/commerce`)
 Built for monetization, template sharing, and pay-as-you-go automation runs.

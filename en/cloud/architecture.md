@@ -34,12 +34,13 @@ Cloud implements a **Row-Level Tenancy (Shared Database, Shared Schema)** patter
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ 3. DYNAMIC ON-DEMAND PLUGINS (Dedicated Isolated PostgreSQL Schemas)   │
-│    ├── [schema: media]   Storage & Media Assets (Presigned URL & RLS)  │
-│    ├── [schema: billing] Subscriptions, Plans & Resource Metering      │
-│    ├── [schema: events]  Transactional Outbox & Webhooks Distribution  │
-│    ├── [schema: automa]  Automa Cloud Bridge (Workflows, Runs, Logs)   │
-│    ├── [schema: runners] Fleet Devices, Node Browsers & Proxy Pool     │
-│    └── [schema: custom]  Future 3rd-party plugins (CRM, AI, Notify)   │
+│    ├── [schema: media]      Storage & Media Assets (Presigned URL & RLS) │
+│    ├── [schema: billing]    Subscriptions, Plans & Resource Metering     │
+│    ├── [schema: events]     Transactional Outbox & Webhooks Distribution │
+│    ├── [schema: automation] Automation Engine (Workflows, Runs, Jobs)   │
+│    ├── [schema: workers]    Fleet Devices, Node Browsers & Proxy Pool    │
+│    ├── [schema: commerce]   Digital Goods, Subscriptions & Licenses      │
+│    └── [schema: custom]     Future 3rd-party plugins (CRM, AI, Notify)   │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -88,13 +89,13 @@ erDiagram
     ROLES ||--o{ TENANT_INVITATIONS : "role_id (assigned on accept)"
 
     SYSTEM_PLUGINS {
-        text id PK "Plugin identifier (automa, storage, billing, events)"
+        text id PK "Plugin identifier (core-iam, automation, workers, subscriptions, etc.)"
         text name "Display Name"
         text version "SemVer Version"
-        boolean is_installed "Active status"
+        text status "Installation status (installed, disabled)"
         boolean is_system "Immutable kernel guard flag"
         text schema_name "Target PostgreSQL schema"
-        text[] dependencies "Topological dependency array"
+        text description "Plugin overview"
         timestamptz installed_at "Installation timestamp"
     }
 
@@ -208,9 +209,11 @@ flowchart TD
 
     subgraph PLUGINS["DYNAMIC ON-DEMAND PLUGINS (Dedicated Isolated Schemas)"]
         STORAGE["📦 Plugin: storage\nSchema: media\nTables: assets\nDocs: supabase/plugins/storage/"]
-        BILLING["💎 Plugin: subscriptions\nSchema: billing\nTables: plans, subs, meters\nDocs: supabase/plugins/subscriptions/"]
+        BILLING["💎 Plugin: subscriptions\nSchema: billing\nTables: plans, subs, wallets\nDocs: supabase/plugins/subscriptions/"]
         EVENTS["⚡ Plugin: webhooks\nSchema: events\nTables: outbox, deliveries\nDocs: supabase/plugins/webhooks/"]
-        AUTOMA["🤖 Plugin: automa\nSchema: automa\nTables: workflows, runners, runs\nDocs: supabase/plugins/automa/"]
+        AUTOMA["🤖 Plugin: automation\nSchema: automation\nTables: workflows, campaigns, jobs\nDocs: supabase/plugins/automation/"]
+        WORKERS["🖥️ Plugin: workers\nSchema: workers\nTables: devices, browsers, proxies\nDocs: supabase/plugins/workers/"]
+        COMMERCE["🛒 Plugin: commerce\nSchema: commerce\nTables: categories, products, orders\nDocs: supabase/plugins/commerce/"]
         CUSTOM["🔮 Custom Future Plugin\nSchema: custom_*\n(e.g., CRM, Notifications, AI Agents)"]
     end
 
@@ -218,6 +221,8 @@ flowchart TD
     CONTRACT -.-> BILLING
     CONTRACT -.-> EVENTS
     CONTRACT -.-> AUTOMA
+    CONTRACT -.-> WORKERS
+    CONTRACT -.-> COMMERCE
     CONTRACT -.-> CUSTOM
 ```
 
@@ -283,7 +288,7 @@ SET search_path = ''
 Every object lookup within SQL routines uses fully-qualified names (`public.profiles`, `public.tenants`, `extensions.gen_random_uuid()`), eliminating schema search-path hijacking vulnerabilities.
 
 ### 4.4. High-Throughput Append-Only BRIN Indexing
-High-write telemetry tables (`automa.execution_logs`, `events.outbox`, `events.deliveries`, `workers.browsers`, `public.audit_logs`) leverage **BRIN (Block Range Indexes)** on `created_at` / `logged_at`. BRIN indexes occupy **<1% of the storage and RAM of B-Trees**, avoiding cache pool eviction while maintaining microsecond range scans.
+High-write telemetry tables (`automation.jobs`, `events.outbox`, `events.deliveries`, `workers.browsers`, `public.audit_logs`) leverage **BRIN (Block Range Indexes)** on `created_at` / `logged_at`. BRIN indexes occupy **<1% of the storage and RAM of B-Trees**, avoiding cache pool eviction while maintaining microsecond range scans.
 
 ### 4.5. High-Concurrency Queue Processing (`FOR UPDATE SKIP LOCKED` + `pg_notify`)
 The Transactional Outbox engine (`events.outbox`) uses `SELECT ... FOR UPDATE SKIP LOCKED` via `events.claim_outbox_batch(...)`. This allows concurrent background worker threads to claim batches of pending webhooks without row lock contention. Real-time workers are signaled via `pg_notify('events_outbox_channel', ...)` without expensive busy-polling.
