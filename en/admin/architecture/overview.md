@@ -137,9 +137,9 @@ Khi ứng dụng khởi chạy, hàm thuần khiết `filterRoutesByPlugins(rout
 
 ---
 
-## 7. Cây Định Tuyến Tổng Thể (27 Routes Master Tree)
+## 7. Cây Định Tuyến Tổng Thể (29 Routes Master Tree)
 
-Hệ thống quản trị bao gồm **27 tuyến đường** chuẩn mực phân bổ trong **5 nhóm Sidebar chính** (19 tuyến nghiệp vụ) và cụm tuyến lõi `core.ts` (8 tuyến):
+Hệ thống quản trị bao gồm **29 tuyến đường** chuẩn mực phân bổ trong **6 nhóm Sidebar chính** (21 tuyến nghiệp vụ) và cụm tuyến lõi `core.ts` (8 tuyến):
 
 ```text
 /                                   BasicLayout (Chuyển hướng mặc định -> /dashboard/analytics)
@@ -148,19 +148,22 @@ Hệ thống quản trị bao gồm **27 tuyến đường** chuẩn mực phân
 ├── /tenants                        [core-iam]                lucide:building-2
 │   ├── /tenants                    Danh sách Workspace (VxeGrid)
 │   └── /tenants/:id                Chi tiết Workspace (4 tabs: overview, members, usage, audit)
-├── /automation                     [automa|workers]          lucide:workflow
-│   ├── /automation/workflows       [automa]                  Sơ đồ kịch bản Canvas Workflows
-│   ├── /automation/jobs            [automa]                  Lịch sử các đợt chạy chiến dịch
-│   ├── /automation/jobs/:id        [automa]                  Chi tiết lần chạy & Terminal Logs Viewer (Polling 3s)
+├── /automation                     [automation|workers]      lucide:workflow
+│   ├── /automation/overview        [automation|workers]      Tổng quan engine & hạ tầng thực thi
+│   ├── /automation/workflows       [automation]              Sơ đồ kịch bản Canvas Workflows
+│   ├── /automation/jobs            [automation]              Lịch sử các đợt chạy chiến dịch
+│   ├── /automation/jobs/:id        [automation]              Chi tiết lần chạy & Terminal Logs Viewer (Polling 3s)
 │   ├── /automation/devices         [workers]                 Thiết bị & Nodes Desk / Cloud VPS
 │   ├── /automation/browsers        [workers]                 Hồ sơ trình duyệt Chromium tự động hóa
 │   └── /automation/proxies         [workers]                 Pool Proxy mạng phân tán
-├── /commerce                       [commerce|subscriptions]  lucide:shopping-bag
+├── /commerce                       [commerce]                lucide:shopping-bag
 │   ├── /commerce/store             [commerce]                Cửa hàng tài nguyên số & Thanh toán đa kênh
 │   ├── /commerce/orders            [commerce]                Lịch sử đơn hàng & Hộp thoại nhận tài nguyên
-│   ├── /commerce/wallet            [subscriptions]           Ví Xu trả trước & Sổ cái biến động số dư
 │   └── /commerce/admin             [commerce]                Quản trị sản phẩm, nạp kho, duyệt lệnh & cổng thanh toán
+├── /wallet                         [subscriptions]           lucide:wallet (alias /commerce/wallet)
+│   └── /wallet                     Ví Xu trả trước & Sổ cái biến động số dư
 └── /system                         [core-iam|subscriptions]  lucide:shield-check
+    ├── /system/overview            [core-iam|subscriptions]  Tổng quan hệ thống & plugin
     ├── /system/plugins             [core-iam]                Danh mục Core Kernel & Extension Plugins
     ├── /system/plans               [subscriptions]           Bảng giá cước & Quotas SaaS
     ├── /system/users               [superadmin]              Người dùng toàn nền tảng

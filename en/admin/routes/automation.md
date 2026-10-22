@@ -1,6 +1,6 @@
 # Đặc Tả Route: Automation Engine & Workers Fleet (Tự Động Hóa & Hạ Tầng Thực Thi)
 
-> **Đường dẫn chính:** `/automation/workflows`, `/automation/jobs`, `/automation/jobs/:id`, `/automation/devices`, `/automation/browsers`, `/automation/proxies`  
+> **Đường dẫn chính:** `/automation/overview`, `/automation/workflows`, `/automation/jobs`, `/automation/jobs/:id`, `/automation/devices`, `/automation/browsers`, `/automation/proxies`  
 > **Module File:** `src/router/routes/modules/automation.ts`  
 > **Plugins Quản Lý:** `automation` (cho kịch bản & phiên chạy) và `workers` (cho thiết bị, trình duyệt & proxy)  
 > **Schemas Nguồn:** `automation` (`Accept-Profile: automation`) và `workers` (`Accept-Profile: workers`)  
@@ -19,7 +19,7 @@
   },
   name: 'Automation',
   path: '/automation',
-  redirect: '/automation/workflows',
+  redirect: '/automation/overview',
   children: [
     {
       name: 'AutomationWorkflows',
@@ -33,7 +33,7 @@
       },
     },
     {
-      name: 'AutomationRuns',
+      name: 'AutomationJobs',
       path: 'runs',
       component: () => import('#/views/automation/jobs/index.vue'),
       meta: {

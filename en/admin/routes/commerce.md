@@ -9,7 +9,7 @@
 
 ## 1. Cấu Trúc Định Tuyến Hợp Nhất (`/commerce` & `/store`)
 
-Phân hệ thương mại điện tử gồm **4 tuyến đường nội bộ** dưới nhóm Sidebar `/commerce` (`BasicLayout`) và **1 tuyến đường công khai** `/store` trong `core.ts` dành cho khách hàng vãng lai (`Guest Checkout`):
+Phân hệ thương mại điện tử gồm **3 tuyến đường nội bộ** dưới nhóm Sidebar `/commerce` (`BasicLayout`), **1 module độc lập `/wallet`** (Ví Xu, plugin `subscriptions`, `alias: '/commerce/wallet'`) và **1 tuyến đường công khai** `/store` trong `core.ts` dành cho khách hàng vãng lai (`Guest Checkout`):
 
 ```typescript
 // 1. Nhóm Sidebar nội bộ: src/router/routes/modules/commerce.ts
@@ -43,17 +43,6 @@ Phân hệ thương mại điện tử gồm **4 tuyến đường nội bộ** 
         icon: 'lucide:package-check',
         plugin: 'commerce',
         title: $t('page.commerce.orders'),
-      },
-    },
-    {
-      name: 'CommerceWallet',
-      path: '/commerce/wallet',
-      component: () => import('#/views/commerce/wallet/index.vue'),
-      meta: {
-        authority: ['superadmin', 'subscriptions:read', 'commerce:read'],
-        icon: 'lucide:wallet',
-        plugin: 'subscriptions',
-        title: $t('page.commerce.wallet'),
       },
     },
     {

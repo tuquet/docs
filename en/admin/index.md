@@ -19,13 +19,13 @@ Chào mừng đến với trung tâm tài liệu kỹ thuật chính thức (Sin
 
 ## 2. Đặc Tả Tuyến Đường (`routes/`)
 
-Tài liệu tham chiếu chi tiết cho toàn bộ **27 tuyến đường** (5 module nghiệp vụ Sidebar + cụm tuyến xác thực và công khai `core.ts`).
+Tài liệu tham chiếu chi tiết cho toàn bộ **29 tuyến đường** (6 module nghiệp vụ Sidebar + cụm tuyến xác thực và công khai `core.ts`).
 
-- [`routes/index.md`](routes/index.md) — **Danh mục tổng thể 27 tuyến đường**, sơ đồ cây Router, cơ chế `filterRoutesByPlugins()` và đánh giá quyền động.
+- [`routes/index.md`](routes/index.md) — **Danh mục tổng thể 29 tuyến đường**, sơ đồ cây Router, cơ chế `filterRoutesByPlugins()` và đánh giá quyền động.
 - [`routes/dashboard.md`](routes/dashboard.md) — Nhóm `/dashboard` (`/dashboard/analytics` — Telemetry thực tế & thăm dò Loopback Daemon).
 - [`routes/tenants.md`](routes/tenants.md) — Nhóm `/tenants` (`/tenants` danh sách Workspace & `/tenants/:id` chi tiết 4 chế độ `overview`, `members`, `usage`, `audit`).
-- [`routes/automation.md`](routes/automation.md) — Nhóm `/automation` hợp nhất kịch bản Automa và hạ tầng Runners (`/automation/workflows`, `/automation/jobs`, `/automation/jobs/:id`, `/automation/devices`, `/automation/browsers`, `/automation/proxies`).
-- [`routes/commerce.md`](routes/commerce.md) — Nhóm `/commerce` (`/commerce/store`, `/commerce/orders`, `/commerce/wallet`, `/commerce/admin`) và cửa hàng công khai `/store` (`PublicStorefront`).
+- [`routes/automation.md`](routes/automation.md) — Nhóm `/automation` hợp nhất engine Automation và hạ tầng Workers (`/automation/overview`, `/automation/workflows`, `/automation/jobs`, `/automation/jobs/:id`, `/automation/devices`, `/automation/browsers`, `/automation/proxies`).
+- [`routes/commerce.md`](routes/commerce.md) — Nhóm `/commerce` (`/commerce/store`, `/commerce/orders`, `/commerce/admin`), module độc lập Ví Xu `/wallet` (alias `/commerce/wallet`) và cửa hàng công khai `/store` (`PublicStorefront`).
 - [`routes/system.md`](routes/system.md) — Nhóm `/system` (`/system/plugins`, `/system/plans` và 4 tuyến đặc quyền Superadmin: `users`, `audit-logs`, `subscriptions`, `roles`).
 - [`routes/auth.md`](routes/auth.md) — Cụm tuyến xác thực (`/auth/login`, `register`, `forget-password`, `reset-password`, `callback`, `desktop` SSO Bridge), `/profile`, và `/store`.
 
