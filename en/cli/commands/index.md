@@ -1,74 +1,130 @@
 # CLI Commands Catalog
 
-`tq` is built strictly around **4 Core Commands**, mapped 1:1 to architectural domains and Cloud plugins.
+The `tq` CLI is architected around **5 focused command families** and an AI Agent MCP bridge. Every command provides sub-millisecond execution, structured JSON output via `--json`, and interactive diagnostics.
 
 ---
 
-## 1. `tq auth` — Identity & Access Management
-Cloud identity, multi-tenancy workspaces, and operator sessions (`core-iam`).
+## 1. `tq auth` — Cloud Identity & Multi-Tenancy
 
-| Command | Description |
-| :--- | :--- |
-| `tq auth login` | Authenticate operator account via OTP, Password, or Token |
-| `tq auth logout` | Revoke local credentials and clear active session |
-| `tq auth whoami` | Inspect current session, active tenant, and machine pairing |
-| `tq auth tenant` | List and switch between multi-tenant organization contexts |
+Manages operator credentials, device authorization, and multi-tenant workspace switching.
 
----
+```bash
+tq auth <subcommand> [options]
+```
 
-## 2. `tq worker` — Execution Node & Fleet Worker
-Autonomous background worker daemon and local execution node (`workers`).
+### Subcommands & Options
 
-| Command | Description |
-| :--- | :--- |
-| `tq worker start` | Start the local worker daemon and enroll into Cloud Fleet |
-| `tq worker stop` | Gracefully shut down the active worker process |
-| `tq worker status` | Check worker daemon health, port binding, and device pairing |
-| `tq worker logs` | Stream execution logs and telemetry events (`-f`, `-n`) |
+| Command | Arguments / Flags | Description |
+| :--- | :--- | :--- |
+| `tq auth login` | `--otp <code>`, `--token <jwt>`, `--email <addr>` | Authenticate operator session via interactive prompt or token |
+| `tq auth logout` | `--all` | Revoke local stored session and purge active device tokens |
+| `tq auth whoami` | `--json` | Display current authenticated user, active tenant ID, and pairing status |
+| `tq auth tenant list` | `--json` | List all organizations/tenants accessible to the current operator |
+| `tq auth tenant switch <id>` | `<tenant-id>` | Switch the active workspace tenant context |
+| `tq auth tenant current` | `--json` | Print the current active tenant UUID |
 
 ---
 
-## 3. `tq automation` — Workflow & Automation Orchestration
-Manage, validate, and execute browser automation workflows (`automation`).
+## 2. `tq worker` — Distributed Compute Daemon
 
-| Command | Description |
-| :--- | :--- |
-| `tq automation run <id>` | Execute a workflow by stored ID via local or cloud headless browser |
-| `tq automation workflow list` | List available automation workflows in SQLite database or cloud (alias `list`) |
-| `tq automation inspect <id>` | Validate syntax and inspect workflow actions and parameters |
+Autonomous background worker engine responsible for cloud fleet polling, workflow execution, and telemetry streaming.
 
----
+```bash
+tq worker <subcommand> [options]
+```
 
-## 4. `tq browser` — Anti-Detect Browser & Profile Management
-Full lifecycle management of stealth Chromium instances, fingerprinted profiles, and extensions.
+### Subcommands & Options
 
-| Command | Description |
-| :--- | :--- |
-| `tq browser install [engine]` | Download and provision isolated Chromium / stealth binaries |
-| `tq browser status` | Inspect installed browser engines and active sandboxes |
-| `tq browser launch <profile_id>` | Launch isolated browser profile with assigned fingerprint and proxy |
-| `tq browser profile list` | List all local and cloud browser profiles |
-| `tq browser profile create <name>` | Generate a new anti-detect profile with unique hardware seed |
-| `tq browser profile test-proxy <id>` | Verify proxy IP egress, WebRTC leak, and latency |
-| `tq browser ps` | List all running browser processes |
-| `tq browser stop [pid/id]` | Terminate active browser processes gracefully |
+| Command | Arguments / Flags | Description |
+| :--- | :--- | :--- |
+| `tq worker start` | `--daemon`, `--port <port>` | Start the local worker daemon process (default port: `9090`) |
+| `tq worker worker` | `--poll-interval <sec>` | Run as an autonomous fleet worker executing jobs from Supabase Cloud |
+| `tq worker stop` | `--graceful` | Send graceful shutdown signal to running worker daemon |
+| `tq worker restart` | — | Gracefully restart the active worker process |
+| `tq worker status` | `--json` | Inspect worker health, PID, process tree, and cloud sync status |
+| `tq worker logs` | `-f` (tail), `-n <lines>` | Stream worker execution logs and telemetry events in real time |
+| `tq worker probe` | `--json` | Probe local worker capabilities and return runtime manifest JSON |
+| `tq worker config` | `--edit`, `--show` | Display, inspect, or edit worker configuration (`~/.tq/automa/runner.json`) |
 
 ---
 
-## 5. `tq gateway` — Secure Network & VPS Mesh
-SOCKS5 and HTTP tunnel forwarder connecting workstation to VPS mesh.
+## 3. `tq automation` — Workflow Orchestration Engine
 
-| Command | Description |
-| :--- | :--- |
-| `tq gateway start` | Start SOCKS5 (port 1080) and HTTP proxy forwarder (port 8118) |
-| `tq gateway stop` | Disconnect active tunnels and proxy daemons |
-| `tq gateway status` | Inspect latency, public egress IP, and VPS mesh connectivity |
+Validates, executes, and coordinates headless browser automation workflows with Zero-Extension CDP stealth.
+
+```bash
+tq automation <subcommand> [options]
+```
+
+### Subcommands & Options
+
+| Command | Arguments / Flags | Description |
+| :--- | :--- | :--- |
+| `tq automation run <path/id>` | `--headless`, `--browser <id>`, `--vars <k=v>` | Execute an automation workflow by JSON path or stored database ID |
+| `tq automation workflow list` | `--json` | List stored automation workflows in the local database or cloud vault |
+| `tq automation workflow info <id>` | `<id>` | Display detailed metadata and steps of a stored workflow |
+| `tq automation inspect <file>` | `<file.json>` | Validate workflow JSON syntax, schema compliance, and action blocks |
+| `tq automation studio` | `--port <port>` | Launch the visual Automa Web Studio in the default system browser |
+| `tq automation probe` | `--json` | Probe automation engine capabilities, active plugins, and execution blocks |
+| `tq automation config` | `--edit`, `--show` | Display or edit Automa configuration (`~/.tq/automa/automa.json`) |
 
 ---
 
-## 6. `tq mcp` — Model Context Protocol Agent Bridge
-Exposes pure-Rust headless browser and workflow automation as an stdio MCP server for AI coding assistants and autonomous agents.
+## 4. `tq gateway` — Network Mesh & Proxy Supervisor
 
-| Command | Description |
-| :--- | :--- |
-| `tq mcp` | Launch JSON-RPC 2.0 stdio server exposing `worker_probe`, `workflow_run`, and browser tools |
+Controls the encrypted VPS tunnel mesh, embedded HTTP forwarder, and WebRTC leak shield.
+
+```bash
+tq gateway <subcommand> [options]
+```
+
+### Subcommands & Options
+
+| Command | Arguments / Flags | Description |
+| :--- | :--- | :--- |
+| `tq gateway start` | `--http`, `--ssh`, `[server-id]` | Start SOCKS5 dynamic proxy (`1080`) and embedded HTTP forwarder (`8118`) |
+| `tq gateway stop` | `[server-id]` | Gracefully stop running bridge tunnels and proxy daemons |
+| `tq gateway status` | `--json` | Display health dashboard of all configured VPSs, ports, and workloads |
+| `tq gateway probe` | `--target <url>`, `--json` | Probe egress connectivity, latency, public IP, and WebRTC leak protection |
+| `tq gateway check` | — | Validate bridge configuration schema (`~/.tq/bridge/bridge.json`) and keys |
+| `tq gateway enable <server>` | `<server-id>` | Enable a VPS node in the bridge mesh configuration |
+| `tq gateway disable <server>` | `<server-id>` | Disable a VPS node without deleting its configuration credentials |
+| `tq gateway config` | `--edit`, `--show` | View or edit canonical bridge configuration (`~/.tq/bridge/bridge.json`) |
+
+---
+
+## 5. `tq browser` — Anti-Detect Browser Runtime & Sandbox
+
+Controls dedicated stealth Chromium instances, deterministic hardware PRNG seeds, and profile storage.
+
+```bash
+tq browser <subcommand> [options]
+```
+
+### Subcommands & Options
+
+| Command | Arguments / Flags | Description |
+| :--- | :--- | :--- |
+| `tq browser install [engine]` | `[148]` | Download and provision isolated Chromium / Golden LTS runtime binaries |
+| `tq browser status` | `--json` | Inspect installed browser engines and active sandboxes |
+| `tq browser launch <profile>` | `--headless`, `--url <url>` | Launch browser profile with assigned fingerprint, hardware spoofing & proxy |
+| `tq browser ps` | `--json` | List active browser processes, assigned CDP debugging ports, and PIDs |
+| `tq browser stop [pid/id]` | `--force` | Terminate running browser instances gracefully |
+| `tq browser profile list` | `--json` | List all local and cloud browser profiles |
+| `tq browser profile create <name>` | `--proxy <url>`, `--ua <str>` | Create an anti-detect profile with unique hardware seeds & proxy binding |
+| `tq browser profile delete <id>` | `<id>` | Delete local browser profile and purge sandbox cache |
+| `tq browser profile test-proxy <id>` | `<id>` | Test proxy connectivity, latency, IP rotation, and WebRTC leak for profile |
+| `tq browser ext list` | — | List installed Chrome extensions in the browser sandbox |
+
+---
+
+## 6. AI Agent MCP Protocol Bridge (`tq mcp`)
+
+Exposes all Tuquet engine capabilities to AI coding agents (such as Antigravity, Claude Code, Cursor) via the standard Model Context Protocol.
+
+```bash
+tq mcp
+```
+
+- **Protocol**: JSON-RPC 2.0 over `stdio`.
+- **Exported Tools**: `status`, `workflow_list`, `workflow_inspect`, `workflow_run`, `runner_probe`, `cloud_whoami`, `browser_status`, `faker_generate`, `inbox_otp`, `inbox_status`.

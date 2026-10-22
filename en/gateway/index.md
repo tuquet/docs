@@ -1,190 +1,124 @@
 # Bridge Mesh Gateway & Protocol Tunnel Supervisor
 
-Corporate and data-center firewalls lock down outbound ports. Automation scripts leak real residential IPs through DNS fallback and silent socket drops. One unshielded TCP packet ruins months of profile farming.
+Corporate firewalls and cloud network boundaries frequently inspect or drop outbound SSH/RPC traffic. Automation workflows that interact with restricted APIs or cloud databases risk leaking local IP addresses through unshielded sockets or DNS fallback.
 
-**Bridge Mesh Gateway** is a standalone network tunnel supervisor and protocol adapter engineered in pure Rust (`bridge`). Runs completely independent of or embedded as the network backbone. It binds local SOCKS5 listeners, translates legacy HTTP `CONNECT` calls on port 8118, executes pre-flight egress verification before letting packets touch the wire, and auto-heals severed tunnels in under 3 seconds.
-
-::: tip Standalone Microservice
-`bridge` operates as an independent daemon. Use it to establish multi-hop SOCKS5/HTTP tunnels and enforce WebRTC leak shielding across arbitrary CLI tools, git clients, and headless scrapers.
-:::
-
-<HairlineFigure name="router" />
+**Tuquet Gateway** is a standalone, kernel-level network tunnel supervisor and dynamic forwarder built with pure Rust. It maintains encrypted VPS mesh connections, runs an embedded HTTP-to-SOCKS5 proxy, and provides proactive WebRTC leak shielding.
 
 ---
 
-## 1. Multi-VPS Mesh & Protocol Translation Architecture
+## 🏗️ Architecture & Port Mapping
 
-```text
- ┌─────────────────────────────────────────────────────────────┐
- │             BRIDGE MESH GATEWAY ARCHITECTURE                │
- │                                                             │
- │   ┌──────────────────────┐       ┌──────────────────────┐   │
- │   │ Workstation Browser  │       │ Third-Party Tools    │   │
- │   │ (SOCKS5 Supported)   │       │ (HTTP Only)          │   │
- │   └──────────┬───────────┘       └──────────┬───────────┘   │
- │              │ (socks5://127.0.0.1:1080)    │ (http://127.0.0.1:8118)
- │              ▼                              ▼               │
- │   ┌─────────────────────────────────────────────────────┐   │
- │   │            Pure-Rust Local Bridge Engine            │   │
- │   │                                                     │   │
- │   │  • SOCKS5 Dynamic Listener (Port 1080)              │   │
- │   │  • Embedded HTTP-to-SOCKS5 Adapter (Port 8118)      │   │
- │   │  • Local Direct SSH Forwarder (Port 2222)           │   │
- │   │  • Auto-Healing Ping & Reconnect Loop (Supervisor)  │   │
- │   └─────────────────────────┬───────────────────────────┘   │
- │                             │                               │
- │                             ▼                               │
- │   ┌─────────────────────────────────────────────────────┐   │
- │   │           Encrypted SSH / WireGuard Mesh            │   │
- │   └──────────┬───────────────────────────────┬──────────┘   │
- │              │                               │              │
- │              ▼                               ▼              │
- │     ┌─────────────────┐             ┌─────────────────┐     │
- │     │ Remote VPS Node │             │ Residential IP  │     │
- │     │   (US West)     │             │    Gateway      │     │
- │     └─────────────────┘             └─────────────────┘     │
- └─────────────────────────────────────────────────────────────┘
+Tuquet Gateway operates a dual-tier proxy routing model designed for both SOCKS5-aware binaries and standard HTTP/HTTPS CLI tooling:
+
+```
+┌────────────────────────────────────────────────────────┐
+│                   Workstation (Local)                  │
+│                                                        │
+│  [HTTP Tools]          [Git / SOCKS5 Tools]            │
+│  (Supabase, curl)      (git spush, Chromium, Workers)  │
+│         │                             │                │
+│         ▼                             │                │
+│  ┌──────────────┐                     │                │
+│  │ HTTP Proxy   │                     │                │
+│  │  127.0.0.1   │                     │                │
+│  │  port 8118   │                     │                │
+│  └──────┬───────┘                     │                │
+│         │ (Internal forward)          ▼                │
+│         └──────────────► ┌──────────────────────────┐  │
+│                          │ SOCKS5 Dynamic Tunnel    │  │
+│                          │ 127.0.0.1:1080 (my-vps)  │  │
+│                          └────────────┬─────────────┘  │
+└───────────────────────────────────────┼────────────────┘
+                                        │ (Cloudflare Access WS Tunnel)
+                                        ▼
+                           ┌──────────────────────────┐
+                           │      Remote Linux VPS    │
+                           │   (Public Static Egress) │
+                           └──────────────────────────┘
 ```
 
-1. **Embedded HTTP-to-SOCKS5 Bridge (Port 8118)**:
-   - Many CLI scrapers, git clients, and legacy libraries only accept HTTP proxy URLs. includes a pure-Rust HTTP proxy listener that translates HTTP `CONNECT` tunneling into local SOCKS5 sessions with sub-millisecond overhead.
-2. **Local SSH Port Forwarding (Port 2222)**:
-   - Exposes a direct SSH pipe into remote VPS nodes, enabling instantaneous terminal administration and file transfers (`ssh -p 2222 root@127.0.0.1`) without exposing port 22 to the public internet.
-3. **Auto-Healing Supervisor Mode (`--foreground`)**:
-   - Tunnels over commercial internet connections inevitably drop due to network jitter or ISP resets. The Bridge supervisor actively pings upstream endpoints, detects dead sockets, and re-establishes dropped tunnels within 3 seconds using exponential backoff.
-4. **Public Egress Verification & STUN Shield**:
-   - Validates that outgoing traffic actually emerges from the configured proxy IP, protecting against DNS and WebRTC leaks before any browser profile launches.
+| Workload / Port | Protocol | Purpose & Routing |
+|---|---|---|
+| **`127.0.0.1:1080`** | `SOCKS5` | Primary dynamic proxy tunnel to VPS via Cloudflare Access WebSocket. Used by `git spush`, headless browsers, and automation workers. |
+| **`127.0.0.1:8118`** | `HTTP / CONNECT` | Pure Rust embedded HTTP-to-SOCKS5 forwarder. Translates standard HTTP/HTTPS proxy traffic for tools like `supabase CLI`, `curl`, and `npm`. |
+| **`127.0.0.1:2222`** | `SSH` | Direct SSH connection to remote VPS command terminal. |
 
 ---
 
-## 2. Command Reference
+## ⚡ Quickstart
 
-All bridge operations are managed via the `tuquet bridge` and `tuquet proxy` commands:
-
-### Monitoring Bridge Health & Status
-
-```bash
-# Display interactive health check dashboard of all configured VPS nodes and ports
-tuquet bridge status
-```
-
-Output summary:
-
-```text
-╭─ NETWORK BRIDGE & MULTI-VPS MESH ────────────── ● CONTROLLER READY ─╮
-│  Workstation:    WORKSTATION-VN                                     │
-│  Config Source:  ~/.tq/gateway/gateway.json                         │
-│  Default Server: vps-us-01                                          │
-╰─────────────────────────────────────────────────────────────────────╯
-
-  Server ID      Endpoint          SSH      SOCKS5     Tags         Status
-  ──────────────────────────────────────────────────────────────────────────
-  vps-us-01      198.51.100.24     2222     1080       clean-ip     ONLINE
-  vps-sg-02      203.0.113.88      2223     1081       mmo-farm     ONLINE
-```
-
-### Starting and Stopping Tunnels
+### 1. Launch Gateway Services
+Start both SOCKS5 (`1080`) and embedded HTTP (`8118`) forwarders:
 
 ```bash
-# Start all enabled bridge connections in the background
-tuquet bridge start
-
-# Start bridges including the embedded HTTP-to-SOCKS5 adapter (port 8118)
-tuquet bridge start --http
-
-# Start bridge with direct SSH forwarding (port 2222)
-tuquet bridge start --ssh
-
-# Run supervisor in foreground (auto-reconnects dropped tunnels automatically)
-tuquet bridge start -f
-
-# Target a specific server or tag
-tuquet bridge start vps-us-01
-tuquet bridge start -t mmo-farm
-
-# Stop running bridge tunnels
-tuquet bridge stop
-tuquet bridge stop all
+tq gateway start --http
 ```
 
-### Probing Proxy Connectivity & Egress IP
+### 2. Verify Tunnel Status
+Inspect connection state across all configured VPS nodes:
 
 ```bash
-# Probe connectivity, latency, and public egress IP of any proxy URL
-tuquet proxy probe socks5://127.0.0.1:1080
-
-# Probe proxy with JSON output for automated scripting
-tuquet proxy probe http://127.0.0.1:8118 --json
+tq gateway status
 ```
 
-### Managing Server Configurations
-
-```bash
-# Enable or disable a server in bridge.json without editing files manually
-tuquet bridge enable vps-us-01
-tuquet bridge disable vps-sg-02
-
-# Validate configuration schema, port collisions, and workload definitions
-tuquet bridge check
-
-# Display or edit canonical configuration
-tuquet bridge config --show
-tuquet bridge config --edit
-```
-
----
-
-## 3. SSOT Storage & Configuration (Pillar 4)
-
-In strict adherence to Tuquet's SSOT architecture, all gateway configurations and active process IDs resolve to `~/.tq/gateway/`:
-
-```text
-~/.tq/gateway/
-├── gateway.json              # Canonical server list, port mappings, and credentials
-├── bin/                      # Auxiliary tunnel binaries (ssh, cloudflared)
-└── pids/                     # Background daemon process locks (<server>.json)
-```
-
-### `bridge.json` Specification
-
+Example output:
 ```json
 {
-  "$schema": "https://tuquet.com/schema/config/bridge.schema.json",
-  "workstation": {
-    "name": "WORKSTATION-VN",
-    "default_server": "vps-us-01"
-  },
-  "http_proxy_port": 8118,
-  "auto_reconnect": true,
-  "servers": {
-    "vps-us-01": {
-      "host": "198.51.100.24",
-      "user": "root",
-      "ssh_port": 22,
-      "local_socks_port": 1080,
-      "local_ssh_port": 2222,
-      "enabled": true,
-      "tags": ["clean-ip", "us"]
-    }
+  "ready": true,
+  "default_server": "my-vps",
+  "workloads": {
+    "git": { "online": true, "port": 1080 },
+    "supabase_http": { "online": true, "port": 8118 },
+    "ssh": { "online": true, "port": 2222 }
   }
 }
 ```
 
----
-
-## 4. Attaching Bridge Proxies to Browser Profiles
-
-Once the bridge is active, route browser profiles directly through local ports:
+### 3. Verify Egress & WebRTC Shield
+Probe external egress IP, latency, and leak protection:
 
 ```bash
-# Launch profile through local SOCKS5 bridge
-tuquet browser launch "Profile-US" --proxy socks5://127.0.0.1:1080
-
-# Launch profile through local HTTP adapter
-tuquet browser launch "Profile-US" --proxy http://127.0.0.1:8118
+tq gateway probe
 ```
 
-::: tip Universal Control Plane Integration
-In team deployments, proxies registered in `bridge.json` or external pools can be monitored, health-checked, and assigned to runners visually via **`/automation/proxies`** inside the **Universal Control Plane** (Web & Tauri Desktop).
-:::
+---
 
+## ⚙️ Configuration Reference
+
+Gateway settings are stored at `~/.tq/bridge/bridge.json` (adhering to JSON Schema Draft 2020-12):
+
+```json
+{
+  "$schema": "https://tuquet.com/schema/config/bridge.schema.json",
+  "default_user": "root",
+  "http_proxy_port": 8118,
+  "auto_reconnect": true,
+  "servers": [
+    {
+      "id": "my-vps",
+      "name": "Primary Production VPS",
+      "endpoint": "cdn.example.com",
+      "server_type": "cloudflare",
+      "socks_port": 1080,
+      "ssh_port": 2222,
+      "status": "ONLINE",
+      "tags": ["primary", "git"]
+    },
+    {
+      "id": "backup-node",
+      "name": "Standby Node",
+      "endpoint": "backup.example.com",
+      "server_type": "direct",
+      "socks_port": 1082,
+      "status": "DISABLED",
+      "tags": ["backup"]
+    }
+  ]
+}
+```
+
+### Node Lifecycle Management
+
+- **Enable a node**: `tq gateway enable <server-id>`
+- **Disable a node**: `tq gateway disable <server-id>` (disables tunnel without removing configuration)
+- **Check configuration**: `tq gateway check` (validates SSH keys, open ports, and syntax)

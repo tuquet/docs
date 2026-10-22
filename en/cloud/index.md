@@ -1,131 +1,80 @@
-# Cloud Center & Enterprise Control Plane
+# Cloud Control Plane
 
-The platform operates on a **Single-Source, Dual-Platform Architecture**: a unified modern Vue 3 / 5 control interface deployed concurrently as:
-1. **Central Web Admin (Cloud)**: Distributed SaaS control plane for multi-tenant organizations, licensing, subscription billing, and fleet orchestration.
-2. **Native Desktop Application (Tauri Shell)**: A lightweight native desktop client directly embedding this exact frontend code, bridging directly into local workstation runners, hardware-accelerated stealth browsers, and the local SSOT root (`~/.tuquet/`).
-
-```text
-┌────────────────────────────────────────────────────────────────────────┐
-│             UNIFIED FRONTEND CONTROL PLANE (Vue 3 / 5)           │
-│                                                                        │
-│   [Tenancy Hub]   [Automation Suite]   [Commerce & Wallet]   [System]  │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │
-          ┌─────────────────────────┴─────────────────────────┐
-          ▼                                                   ▼
-┌───────────────────────────────────┐       ┌───────────────────────────────────┐
-│     TARGET A: CLOUD WEB ADMIN     │       │    TARGET B: TAURI DESKTOP APP    │
-│     (Hosted SaaS Control Plane)   │       │    (Native Operator Workstation)  │
-├───────────────────────────────────┤       ├───────────────────────────────────┤
-│ • PostgreSQL 15+ & Row-Level Sec  │       │ • Rust Native Host Process        │
-│ • Central Multi-Tenant RBAC       │       │ • Direct IPC to Local Runner CLI  │
-│ • Subscription Plans & Billing    │       │ • Direct FS: ~/.tuquet/          │
-│ • Global Fleet & Device Telemetry │       │ • Hardware Stealth Chromium C++   │
-│ • OAuth & SSO Desktop Bridge      │       │ • Local SOCKS5 Mesh & Proxies     │
-└─────────────────┬─────────────────┘       └─────────────────┬─────────────────┘
-                  │                                           │
-                  │   Desktop Bridge SSO (tuquet://auth)      │
-                  └───────────────────►◄──────────────────────┘
-```
+The **Tuquet Cloud** architecture provides multi-tenant database isolation, real-time job dispatching, proxy management, and fleet coordination built on top of Supabase and PostgreSQL 15+.
 
 ---
 
-## 1. Zero-Trust Multi-Tenant Architecture & RLS
+## 🏛️ Architecture Overview
 
-Every tenant organization in Cloud operates inside a cryptographically isolated silo protected by PostgreSQL **Row-Level Security (RLS)** and dynamic JWT claims.
+The Cloud Control Plane orchestrates distributed compute workers and anti-detect browser operations through specialized database schemas:
 
-### Security Guarantees
-- **Tenant Cryptographic Boundary**: No query can read or write data across organizations (`tenant_id = auth.jwt() ->> 'tenant_id'`).
-- **Dynamic Plugin Gating**: Access to sub-systems is gated per-tenant by active licenses:
-  - `core-iam`: Multi-tenant organization identity and user RBAC.
-  - `automation`: DAG workflow builder and batch execution jobs.
-  - `runners`: Device registry, remote workstation workers, and browser profile pools.
-  - `commerce`: Storefront, marketplace templates, and orders.
-  - `subscriptions`: Tier plans, credit wallets, and usage metering.
+| Schema | Domain | Responsibilities |
+|---|---|---|
+| **`core`** | Platform & Tenancy | Multi-tenant organization boundaries (`tenants`), role-based access (`memberships`), and operator accounts. |
+| **`browsers`** | Profile Inventory | Isolated browser profiles (`profiles`), storage keys, deterministic fingerprint seeds, and proxy binding. |
+| **`workers`** | Fleet Management | Compute worker registration (`workers`), heartbeats, proxies pool (`proxies`), and task dispatching. |
+| **`automation`** | Workflows & Jobs | Stored automation workflows (`workflows`), execution runs (`runs`), and task logs. |
 
 ---
 
-## 2. Route Specifications & Portal Capabilities
+## 🌐 Smart Proxy Architecture & IP Rotation
 
-The frontend routing hierarchy is dynamically filtered at runtime based on the authenticated operator's permissions and installed plugins:
+Modern web automation requires tight alignment between browser hardware parameters (timezone, language) and the proxy egress IP. Mismatches (e.g. proxy IP in Frankfurt but browser timezone in Tokyo) immediately trigger bot detection.
 
-### A. Tenancy Management (`/tenants`)
-- **Route**: `/tenants` (`TenantsRoot`)
-- **Required Plugin**: `core-iam` | **Authority**: `superadmin`, `tenants:read`
-- **Capabilities**:
-  - Organization catalog, workspace quotas (maximum profiles, concurrent runner limits).
-  - `/tenants/:id`: Detailed quota allocation, member seat assignments, and active plugin toggles.
+Tuquet Cloud models proxies and browser profiles with automated alignment flags:
 
-### B. Automation & Fleet Suite (`/automation`)
-Unifies remote cloud fleets and local Tauri-connected workstation daemons.
-
-| Route Path | Module Name | Plugin Required | Capabilities |
-| :--- | :--- | :--- | :--- |
-| `/automation/overview` | `AutomationOverview` | `automation`, `workers` | Global overview of connected workers, active browser sessions, and workflow statistics. |
-| `/automation/workflows` | `AutomationWorkflows` | `automation` | Quản lý workflows, kịch bản tự động hoá, trigger schedules. |
-| `/automation/runs` | `AutomationRuns` | `automation` | Batch campaign runs, execution status, and task dispatching. |
-| `/automation/runs/:id` | `AutomationRunDetail` | `automation` | Detailed timeline, step-by-step CDP logs, and captured artifact downloads. |
-| `/automation/devices` | `AutomationDevices` | `workers` | Registered desktop workstations and remote VPS nodes connected to the mesh. |
-| `/automation/browsers` | `AutomationBrowsers` | `workers` | Central anti-detect browser instances with fingerprint seeds. |
-| `/automation/proxies` | `AutomationProxies` | `workers` | Proxy pools, auto-healing SOCKS5 nodes, and health diagnostics. |
-
-### C. Commerce & Credit Wallet (`/commerce`)
-Built for monetization, template sharing, and pay-as-you-go automation runs.
-
-- **`/commerce/store`**: Internal catalog offering automation workflows, custom plugin extensions, and managed proxy packs.
-- **`/store` (`PublicStorefront`)**: Public unauthenticated storefront (`ignoreAccess: true`) enabling external customers to browse plans and scripts.
-- **`/commerce/orders`**: Purchase history, invoice receipts, and provisioning status.
-- **`/commerce/wallet`**: Credit balance, automated recharge rules, and real-time execution cost consumption.
-- **`/commerce/admin`**: Administrator-only catalog manager, pricing tier setup, and billing controls.
-
-### D. System & Security (`/system`)
-- **`/system/overview`**: Platform health metrics, active microservices, and cluster status.
-- **`/system/plugins`**: Dynamic plugin manager to enable/disable microservices across tenants.
-- **`/system/plans` & `/system/subscriptions`**: Manage SaaS subscription tiers (Free, Pro, Enterprise) and active tenant subscriptions.
-- **`/system/users` & `/system/roles`**: Enterprise IAM with fine-grained permission matrices.
-- **`/system/audit-logs`**: Immutable audit logs capturing every configuration change, lease checkout, and security event.
-
----
-
-## 3. Desktop Bridge & Tauri Native Protocol
-
-When operating the desktop app or the CLI, operators log in seamlessly via the **Desktop Bridge Protocol**:
-
-```text
- 1. Operator runs: tuquet cloud login
- 2. CLI spins local HTTP listener on 127.0.0.1:8765
- 3. CLI opens browser to: https://admin.tuquet.com/auth/desktop?port=8765&machine_name=MyWorkstation
- 4. Operator authorizes tenant workspace
- 5. Frontend dispatches deep-link:
-    tuquet://auth/callback?token=<JWT>&refresh_token=<REFRESH>&tenant_id=<TENANT>
-    (Fallback: POSTs credentials directly to http://127.0.0.1:8765/callback)
- 6. Local workstation saves identity to ~/.tuquet/system/.identity.json
-```
-
-In the upcoming **Tauri release**, the native window directly wraps this router. The bridge executes in-memory via Tauri's native IPC channels (`invoke`), eliminating the need for local browser redirect loops while keeping 100% of the UI components identical.
-
----
-
-## 4. Distributed Lease Locks & Concurrency Protection
-
-The central table `workers.browsers` guards against concurrent execution collisions. Before any worker (cloud or local Tauri node) launches a profile, it must acquire an exclusive lease lock:
+### Profile Schema Alignment (`browsers.profiles`)
 
 ```sql
--- Atomic Lease Acquisition Procedure
-SELECT workers.acquire_browser(
-    p_browser_id => 'c8a30d9e-5e74-4b52-b141-f76159c946e3'::uuid,
-    p_device_id  => 'a0b1c2d3-e4f5-6789-0123-456789abcdef'::uuid
-);
-
--- Atomic Lease Release & Session Snapshot Sync
-SELECT workers.release_browser(
-    p_browser_id         => 'c8a30d9e-5e74-4b52-b141-f76159c946e3'::uuid,
-    p_device_id          => 'a0b1c2d3-e4f5-6789-0123-456789abcdef'::uuid,
-    p_storage_path       => 'tenant-01/c8a30d9e.tar.zst',
-    p_storage_size_bytes => 14208512,
-    p_storage_hash       => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-    p_cookies_count      => 42
-);
+-- Profile proxy configuration
+ALTER TABLE browsers.profiles
+  ADD COLUMN auto_timezone boolean DEFAULT true,
+  ADD COLUMN auto_locale boolean DEFAULT true,
+  ADD COLUMN change_ip_url text;
 ```
 
-If another node attempts to check out the same profile, the control plane immediately rejects with `409 LOCKED`, guaranteeing zero session bans due to simultaneous logins.
+- **`auto_timezone`**: When enabled, the browser engine probes the proxy's IP geolocation on startup and overrides the browser `Intl.DateTimeFormat` and JavaScript timezone to match the egress point.
+- **`auto_locale`**: Automatically overrides `navigator.language` and `Accept-Language` headers to match the proxy's country code.
+- **`change_ip_url`**: Rotation webhook URL for dynamic residential/mobile proxies. Invoked via `tq browser profile test-proxy` or before running an automation workflow to acquire a fresh clean IP.
+
+### Proxy Fleet Schema (`workers.proxies`)
+
+The centralized proxy pool supports health status, rotation endpoints, and multi-tenant tagging:
+
+| Column | Type | Description |
+|---|---|---|
+| `proxy_url` | `text` | Connection string (`http://user:pass@host:port` or `socks5://...`) |
+| `auto_timezone` | `boolean` | Inherited default for profiles binding this proxy |
+| `auto_locale` | `boolean` | Inherited default for profiles binding this proxy |
+| `change_ip_url` | `text` | API webhook to trigger external IP rotation |
+| `status` | `text` | Proxy health state (`active`, `degraded`, `banned`, `testing`) |
+| `tenant_id` | `uuid` | Strict organization tenant isolation |
+
+---
+
+## 🔒 Multi-Tenant Storage Isolation
+
+All binary storage assets (profile tarball packs, workflow recordings, screenshot artifacts) are isolated using UUID-scoped storage paths:
+
+```
+s3://tuquet-profiles/tenants/<tenant_id>/profiles/<profile_id>.tar.gz
+```
+
+Database Row-Level Security (RLS) policies enforce that workers and CLI operators cannot acquire or inspect profiles outside their active authenticated `tenant_id`.
+
+---
+
+## 🛠️ CLI Cloud Management
+
+Cloud operations are managed directly from the CLI via `tq auth`:
+
+```bash
+# Check authenticated identity & active tenant
+tq auth whoami
+
+# List accessible organization workspaces
+tq auth tenant list
+
+# Switch active tenant context
+tq auth tenant switch <tenant-uuid>
+```
