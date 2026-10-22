@@ -10,11 +10,11 @@
 
 ## Bối Cảnh (Context)
 
-Hệ thống quản trị `admin.tuquet.com` (`apps/web-admin`) kết nối trực tiếp đến **Cloud** (`tuquet/cloud/supabase`) và quản trị mô hình Multi-Tenant. Để đảm bảo an toàn dữ liệu, tính toàn vẹn thông tin và trải nghiệm người dùng tối ưu trên mọi kích cỡ màn hình, kiến trúc định tuyến và truy cập dữ liệu cần thỏa mãn các đặc thù kỹ thuật của hạ tầng backend:
+Hệ thống quản trị Web Admin (`apps/web-admin`) kết nối trực tiếp đến **Cloud** (`tuquet/cloud/supabase`) và quản trị mô hình Multi-Tenant. Để đảm bảo an toàn dữ liệu, tính toàn vẹn thông tin và trải nghiệm người dùng tối ưu trên mọi kích cỡ màn hình, kiến trúc định tuyến và truy cập dữ liệu cần thỏa mãn các đặc thù kỹ thuật của hạ tầng backend:
 
 1. **Phân rã đa Schema (Multi-Schema PostgREST):** Cơ sở dữ liệu phân tách thành các schema độc lập (`public`, `runners`, `automa`, `billing`, `media`, `events`). PostgREST bắt buộc client phải gửi header `Accept-Profile` (đối với GET/HEAD) hoặc `Content-Profile` (đối với POST/PATCH/DELETE) để định tuyến truy vấn đến đúng schema đích ngoài `public`.
 2. **Giới hạn số lượng Permissions trong JWT Claim:** Supabase hook `custom_access_token_hook` bị giới hạn tối đa 25 permissions và chỉ sinh cho primary workspace. Trong khi đó, chủ sở hữu (Owner) có tới 36 quyền trên toàn hệ thống. Việc suy diễn quyền hạn từ JWT claim sẽ gây hiện tượng mất quyền ngẫu nhiên trên giao diện.
-3. **Tính chất luồng dữ liệu nhật ký thực thi (Execution Logs):** Bảng `automa.execution_logs` không được đưa vào `supabase_realtime` publication vì lưu lượng bản ghi cực lớn có thể làm quá tải WebSocket connection pool.
+3. **Tính chất luồng dữ liệu nhật ký thực thi (Execution Logs):** Bảng `automation.execution_logs` không được đưa vào `supabase_realtime` publication vì lưu lượng bản ghi cực lớn có thể làm quá tải WebSocket connection pool.
 4. **Ưu tiên trải nghiệm di động (Mobile-First):** Quản trị viên cần khả năng kiểm tra trạng thái thiết bị và tiến độ tự động hóa trên điện thoại di động mà không gặp hiện tượng tràn vỡ bảng hoặc cuộn ngang.
 5. **Triết lý giao diện KISS & YAGNI:** Loại bỏ các thành phần phức tạp không phục vụ trực tiếp cho quản trị (như thanh Tabbar Chrome ảo, lockscreen, preferences drawer lồng ghép).
 

@@ -4,7 +4,7 @@
 > **Áp dụng cho:** `tuquet/admin` (`apps/web-admin`)  
 > **Trạng thái:** **ACTIVE & ACCEPTED**
 
-Chào mừng đến với trung tâm tài liệu kỹ thuật chính thức (Single Source of Truth — SSOT) của ứng dụng **Admin** (`admin.tuquet.com`). Toàn bộ kiến trúc, quyết định thiết kế, đặc tả tuyến đường và 15 bản đặc tả module chuẩn hóa được tổ chức thành 4 trụ cột dưới đây.
+Chào mừng đến với trung tâm tài liệu kỹ thuật chính thức (Single Source of Truth — SSOT) của ứng dụng **Admin** (Web Admin). Toàn bộ kiến trúc, quyết định thiết kế, đặc tả tuyến đường và 15 bản đặc tả module chuẩn hóa được tổ chức thành 4 trụ cột dưới đây.
 
 ---
 
@@ -35,7 +35,7 @@ Tài liệu tham chiếu chi tiết cho toàn bộ **27 tuyến đường** (5 m
 - [`routes/index.md`](routes/index.md) — **Danh mục tổng thể 27 tuyến đường**, sơ đồ cây Router, cơ chế `filterRoutesByPlugins()` và đánh giá quyền động.
 - [`routes/dashboard.md`](routes/dashboard.md) — Nhóm `/dashboard` (`/dashboard/analytics` — Telemetry thực tế & thăm dò Loopback Daemon).
 - [`routes/tenants.md`](routes/tenants.md) — Nhóm `/tenants` (`/tenants` danh sách Workspace & `/tenants/:id` chi tiết 4 chế độ `overview`, `members`, `usage`, `audit`).
-- [`routes/automation.md`](routes/automation.md) — Nhóm `/automation` hợp nhất kịch bản Automa và hạ tầng Runners (`/automation/workflows`, `/automation/runs`, `/automation/runs/:id`, `/automation/devices`, `/automation/browsers`, `/automation/proxies`).
+- [`routes/automation.md`](routes/automation.md) — Nhóm `/automation` hợp nhất kịch bản Automa và hạ tầng Runners (`/automation/workflows`, `/automation/jobs`, `/automation/jobs/:id`, `/automation/devices`, `/automation/browsers`, `/automation/proxies`).
 - [`routes/commerce.md`](routes/commerce.md) — Nhóm `/commerce` (`/commerce/store`, `/commerce/orders`, `/commerce/wallet`, `/commerce/admin`) và cửa hàng công khai `/store` (`PublicStorefront`).
 - [`routes/system.md`](routes/system.md) — Nhóm `/system` (`/system/plugins`, `/system/plans` và 4 tuyến đặc quyền Superadmin: `users`, `audit-logs`, `subscriptions`, `roles`).
 - [`routes/auth.md`](routes/auth.md) — Cụm tuyến xác thực (`/auth/login`, `register`, `forget-password`, `reset-password`, `callback`, `desktop` SSO Bridge), `/profile`, và `/store`.
@@ -53,8 +53,8 @@ Bộ **15 bản đặc tả kỹ thuật chuẩn hóa (Canonical Module Specs)**
 - [`specs/SPEC-data-access.md`](specs/SPEC-data-access.md) — Tầng truy cập đa schema `supabaseRequest({ schema, skipAuth })` (7 schemas) và nạp quyền động từ cơ sở dữ liệu.
 - [`specs/SPEC-route-foundation.md`](specs/SPEC-route-foundation.md) — Kiến trúc 27 routes, bộ lọc `filterRoutesByPlugins()` và bảo toàn vị trí cuộn nội trang.
 - [`specs/SPEC-tenants-truth.md`](specs/SPEC-tenants-truth.md) — Quản trị `/tenants` và `/tenants/:id` (4 chế độ `overview / members / usage / audit` với `useVbenVxeGrid` & `VxeForm`).
-- [`specs/SPEC-automation-engine.md`](specs/SPEC-automation-engine.md) — Quản trị kịch bản `/automation/workflows`, phiên chạy `/automation/runs` và nhật ký `/automation/runs/:id` (Polling 3s) qua `src/api/core/automation.ts`.
-- [`specs/SPEC-fleet-inventory.md`](specs/SPEC-fleet-inventory.md) — Quản trị thiết bị `/automation/devices`, hồ sơ trình duyệt `/automation/browsers` và bể proxy `/automation/proxies` dùng `useVbenVxeGrid`.
+- [`specs/SPEC-automation-jobs.md`](specs/SPEC-automation-jobs.md) — Quản trị kịch bản `/automation/workflows`, phiên chạy `/automation/jobs` và nhật ký `/automation/jobs/:id` (Polling 3s) qua `src/api/core/automation.ts`.
+- [`specs/SPEC-automation-browsers.md`](specs/SPEC-automation-browsers.md) — Quản trị thiết bị `/automation/devices`, hồ sơ trình duyệt `/automation/browsers` và bể proxy `/automation/proxies` dùng `useVbenVxeGrid`.
 - [`specs/SPEC-system-catalog.md`](specs/SPEC-system-catalog.md) — Quản trị kho Plugins hệ thống `/system/plugins` (Core Kernel & Extension Plugins) và Gói cước `/system/plans`.
 - [`specs/SPEC-superadmin-routes.md`](specs/SPEC-superadmin-routes.md) — 4 tuyến đường đặc quyền Platform Superadmin (`/system/users`, `/system/roles`, `/system/subscriptions`, `/system/audit-logs`) chuẩn hóa trên `useVbenVxeGrid`.
 - [`specs/SPEC-payment-gateway.md`](specs/SPEC-payment-gateway.md) — Cổng thanh toán đa kênh (VietQR, MoMo, Stripe, USDT, Ví Xu `internal_wallet`), sổ cái `billing.wallets` (`BIGINT`) và Edge Function `payment-webhook`.

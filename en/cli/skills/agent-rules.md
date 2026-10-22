@@ -41,7 +41,7 @@ The workspace is organized into focused repositories adhering to the Single Resp
 | Repository | Tech Stack | Responsibility | Key Paths / Files |
 | :--- | :--- | :--- | :--- |
 | **`cli`** | Rust (Axum, Tokio, Clap, Rusqlite) | Master CLI binary (`tq`), REST/WebSocket API (port 8765), Automation | `src/main.rs`, `src/api/routes.rs`, `src/commands/` |
-| **`admin`** | TypeScript, Vue 3, Vite, Tailwind v4, Shadcn | Unified Management Console (admin.tuquet.com), Preferences Engine, Fleet UI | `packages/@core/preferences/`, `apps/web-admin/` |
+| **`admin`** | TypeScript, Vue 3, Vite, Tailwind v4, Shadcn | Unified Management Console (Web Admin), Preferences Engine, Fleet UI | `packages/@core/preferences/`, `apps/web-admin/` |
 | **`browser`** | Rust (CDP driver, command-group) | Dedicated browser management, profile sandbox, extension packer | `src/manager.rs`, `src/profile.rs`, `src/extension.rs` |
 | **`worker`** | Rust (Win32 Job Objects, Tokio) | Kernel-level process supervisor daemon (zero-zombie) | `src/main.rs`, `src/core/`, `src/drivers/` |
 | **`faker`** | Rust (Regex, Serde) | Synthetic persona & CCCD generator, authentic demographic address pool | `src/generator.rs`, `src/config.rs`, `src/providers/` |
@@ -83,7 +83,7 @@ The workspace is organized into focused repositories adhering to the Single Resp
 - Constant-time HMAC verification. Process name checks via `sysinfo` prior to terminating any PID.
 
 ### 6. Cloud Multi-Domain OAuth Allowlist
-- Every domain or subdomain initiating authentication must be explicitly configured in the cloud allowlist (`https://admin.tuquet.com/**`, `https://*.tuquet.com/**`).
+- Every domain or subdomain initiating authentication must be explicitly configured in the cloud allowlist (`https://Web Admin/**`, `https://*.tuquet.com/**`).
 
 ### 7. Preferences Engine & UI Invariants
 - **Deep-Clone Baseline Isolation:** Never share object references between initial preferences and reactive state. Always use `cloneValue()`.

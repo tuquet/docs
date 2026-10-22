@@ -14,7 +14,7 @@ Thiết lập kiến trúc định tuyến phân rã theo module và ranh giới
 1. **Cấu Trúc 5 Nhóm Điều Hướng Sidebar & Cụm Tuyến Lõi (27 Routes):**
    - **`dashboard.ts` (`order: 1`):** Trang chủ mặc định `/dashboard/analytics` (hiển thị Telemetry thực tế từ Cloud & Loopback Daemon).
    - **`tenants.ts` (`order: 10`):** Quản trị Workspace đa thuê bao (`/tenants` danh sách và `/tenants/:id` chi tiết 4 tabs `overview | members | usage | audit`).
-   - **`automation.ts` (`order: 20`):** Hợp nhất toàn bộ kịch bản tự động hóa (plugin `automa`: `workflows`, `runs`, `runs/:id`) và hạ tầng thực thi (plugin `runners`: `devices`, `browsers`, `proxies`) dưới một nhánh `/automation/*` duy nhất, khớp 1-1 với cây thư mục `src/views/automation/*`.
+   - **`automation.ts` (`order: 20`):** Hợp nhất toàn bộ kịch bản tự động hóa (plugin `automation`: `workflows`, `runs`, `runs/:id`) và hạ tầng thực thi (plugin `runners`: `devices`, `browsers`, `proxies`) dưới một nhánh `/automation/*` duy nhất, khớp 1-1 với cây thư mục `src/views/automation/*`.
    - **`commerce.ts` (`order: 25`):** Cổng thương mại sản phẩm số & Ví trả trước (`/commerce/store`, `/commerce/orders`, `/commerce/wallet`, `/commerce/admin`).
    - **`system.ts` (`order: 30`):** Danh mục hệ thống (`/system/plugins`, `/system/plans`) và 4 tuyến giám sát toàn nền tảng dành riêng cho Platform Superadmin (`/system/users`, `/system/audit-logs`, `/system/subscriptions`, `/system/roles`).
    - **`core.ts`:** Cụm xác thực (`/auth/login`, `register`, `forget-password`, `reset-password`, `callback`, `desktop`), trang hồ sơ `/profile`, và cửa hàng công khai `/store` (`PublicStorefront`).
@@ -92,9 +92,9 @@ apps/web-admin/src/
 | **Dashboard** | `/dashboard/analytics` | `Analytics` | `core-iam` | Authenticated |
 | **Tenants** | `/tenants` | `Tenants` | `core-iam` | `['superadmin', 'tenants:read']` |
 | **Tenants** | `/tenants/:id` | `TenantDetail` | `core-iam` | `['superadmin', 'tenants:read']` |
-| **Automation** | `/automation/workflows` | `AutomationWorkflows` | `automa` | `['superadmin', 'automa:workflows:read']` |
-| **Automation** | `/automation/runs` | `AutomationRuns` | `automa` | `['superadmin', 'automa:campaigns:read']` |
-| **Automation** | `/automation/runs/:id` | `AutomationRunDetail` | `automa` | `['superadmin', 'automa:logs:read']` |
+| **Automation** | `/automation/workflows` | `AutomationWorkflows` | `automa` | `['superadmin', 'automation:workflows:read']` |
+| **Automation** | `/automation/jobs` | `AutomationRuns` | `automa` | `['superadmin', 'automa:campaigns:read']` |
+| **Automation** | `/automation/jobs/:id` | `AutomationRunDetail` | `automa` | `['superadmin', 'automation:logs:read']` |
 | **Automation** | `/automation/devices` | `AutomationDevices` | `runners` | `['superadmin', 'runners:devices:read']` |
 | **Automation** | `/automation/browsers` | `AutomationBrowsers` | `runners` | `['superadmin', 'runners:browsers:read']` |
 | **Automation** | `/automation/proxies` | `AutomationProxies` | `runners` | `['superadmin', 'runners:proxies:read']` |

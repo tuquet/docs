@@ -37,7 +37,7 @@ Cloud implements a **Row-Level Tenancy (Shared Database, Shared Schema)** patter
 │    ├── [schema: media]      Storage & Media Assets (Presigned URL & RLS) │
 │    ├── [schema: billing]    Subscriptions, Plans & Resource Metering     │
 │    ├── [schema: events]     Transactional Outbox & Webhooks Distribution │
-│    ├── [schema: automation] Automation Engine (Workflows, Runs, Jobs)   │
+│    ├── [schema: automationtion] Automation Engine (Workflows, Runs, Jobs)   │
 │    ├── [schema: workers]    Fleet Devices, Node Browsers & Proxy Pool    │
 │    ├── [schema: commerce]   Digital Goods, Subscriptions & Licenses      │
 │    └── [schema: custom]     Future 3rd-party plugins (CRM, AI, Notify)   │

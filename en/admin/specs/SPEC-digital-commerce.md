@@ -18,7 +18,7 @@ Xây dựng phân hệ thương mại sản phẩm số đa năng (`schema: comm
 2. **Tài nguyên Hệ sinh thái (`resource`):**
    - Tự động cấp phát tài nguyên thẳng vào Workspace (`buyer_tenant_id`) của người mua ngay khi đơn hàng hoàn tất:
      - `proxy_pool`: Xuất proxy từ kho và nạp thẳng vào bảng `workers.proxies` của Tenant.
-     - `automa_workflow`: Nhân bản (clone) kịch bản tự động hóa mẫu vào bảng `automa.workflows` của Tenant.
+     - `automa_workflow`: Nhân bản (clone) kịch bản tự động hóa mẫu vào bảng `automation.workflows` của Tenant.
      - `plan_upgrade`: Nâng cấp hoặc gia hạn gói cước trong `billing.subscriptions` của Tenant.
 3. **Tệp tin số tải xuống (`digital_file`):**
    - Liên kết với `media.assets` (tệp cài đặt, bộ dữ liệu, tài liệu ZIP/PDF), cấp quyền tải xuống có giới hạn số lượt (`max_downloads`) và thời hạn (`expires_at`).
@@ -159,12 +159,12 @@ sequenceDiagram
 
 - [x] Plugin `cloud/supabase/plugins/commerce/` cài đặt sạch 7 bảng, các hàm RPC nguyên tử và trigger liên kết `billing.payment_intents`.
 - [x] Chống bán trùng 100% (`FOR UPDATE SKIP LOCKED` + `UNIQUE (variant_id, secret_payload)`).
-- [x] Tự động cấp phát tài nguyên `resource` trực tiếp vào `automa.workflows`, `workers.proxies`, và `billing.subscriptions` của Tenant mua hàng.
+- [x] Tự động cấp phát tài nguyên `resource` trực tiếp vào `automation.workflows`, `workers.proxies`, và `billing.subscriptions` của Tenant mua hàng.
 - [x] Lớp API `apps/web-admin/src/api/core/commerce.ts` và bộ kiểm thử `commerce.test.ts` vượt qua 100% bài test với `0` lỗi TypeScript/oxlint.
 
 ---
 
 ## 9. Resolved Decisions
 
-1. **Tự động cấp phát xuyên Schema (Cross-Schema Auto-Fulfillment):** Khi người mua đặt gói `resource`, hàm `commerce.fulfill_order` thực thi cấp phát trực tiếp trong cùng giao dịch PostgreSQL vào `workers.proxies`, `automa.workflows`, hoặc `billing.subscriptions` mà không cần worker trung gian bên ngoài.
+1. **Tự động cấp phát xuyên Schema (Cross-Schema Auto-Fulfillment):** Khi người mua đặt gói `resource`, hàm `commerce.fulfill_order` thực thi cấp phát trực tiếp trong cùng giao dịch PostgreSQL vào `workers.proxies`, `automation.workflows`, hoặc `billing.subscriptions` mà không cần worker trung gian bên ngoài.
 2. **Cơ chế Giữ hàng Tạm thời (`reserved_until` 15 phút):** Đối với các kênh thanh toán ngoại vi (VietQR, MoMo, Stripe, USDT), phôi hàng được giữ chỗ trong 15 phút và tự động giải phóng về `'available'` thông qua `commerce.release_expired_reservations` nếu người mua không hoàn tất thanh toán.

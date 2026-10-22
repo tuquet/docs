@@ -9,7 +9,7 @@
 
 ## 1. Tổng Quan Kiến Trúc (Architecture Overview)
 
-Hệ thống định tuyến của `admin.tuquet.com` bao gồm **27 tuyến đường chuẩn mực**, được phân rã thành **5 module nghiệp vụ Sidebar** tại thư mục `src/router/routes/modules/` (19 tuyến nghiệp vụ) kết hợp cùng cụm tuyến xác thực và công khai `core.ts` (8 tuyến lõi).
+Hệ thống định tuyến của Web Admin bao gồm **27 tuyến đường chuẩn mực**, được phân rã thành **5 module nghiệp vụ Sidebar** tại thư mục `src/router/routes/modules/` (19 tuyến nghiệp vụ) kết hợp cùng cụm tuyến xác thực và công khai `core.ts` (8 tuyến lõi).
 
 Mỗi tuyến đường nghiệp vụ được cô lập theo ranh giới Plugin (`plugin boundary`) từ `public.system_plugins`. Giao diện chỉ hiển thị và kích hoạt tuyến đường khi plugin tương ứng mang trạng thái `installed`.
 
@@ -31,8 +31,8 @@ graph TD
     TenantsMod --> TenantDetail["/tenants/:id (?tab=)"]
 
     AutoMod --> Workflows["/automation/workflows (automa)"]
-    AutoMod --> Runs["/automation/runs (automa)"]
-    AutoMod --> RunDetail["/automation/runs/:id (automa)"]
+    AutoMod --> Runs["/automation/jobs (automa)"]
+    AutoMod --> RunDetail["/automation/jobs/:id (automa)"]
     AutoMod --> Devices["/automation/devices (workers)"]
     AutoMod --> Browsers["/automation/browsers (workers)"]
     AutoMod --> Proxies["/automation/proxies (workers)"]
@@ -59,9 +59,9 @@ graph TD
 | 1 | **`/dashboard/analytics`** | `Analytics` | `core-iam` | Authenticated | `BasicLayout` | `analytics/index.vue` | `public.tenants`, `public.system_plugins` |
 | 2 | **`/tenants`** | `Tenants` | `core-iam` | `['superadmin', 'tenants:read']` | `BasicLayout` | `tenants/index.vue` | `public.tenants` |
 | 3 | **`/tenants/:id`** | `TenantDetail` | `core-iam` | `['superadmin', 'tenants:read']` | `BasicLayout` | `tenants/detail.vue` | `public.tenants`, `tenant_members`, `billing.subscriptions`, `audit_logs` |
-| 4 | **`/automation/workflows`** | `AutomationWorkflows` | `automa` | `['superadmin', 'automa:workflows:read']` | `BasicLayout` | `workflows/index.vue` | `automa.workflows` |
-| 5 | **`/automation/runs`** | `AutomationRuns` | `automa` | `['superadmin', 'automa:campaigns:read']` | `BasicLayout` | `runs/index.vue` | `automa.campaign_runs` |
-| 6 | **`/automation/runs/:id`** | `AutomationRunDetail` | `automa` | `['superadmin', 'automa:logs:read']` | `BasicLayout` | `runs/detail.vue` | `automa.campaign_runs`, `automa.execution_logs` |
+| 4 | **`/automation/workflows`** | `AutomationWorkflows` | `automa` | `['superadmin', 'automation:workflows:read']` | `BasicLayout` | `workflows/index.vue` | `automation.workflows` |
+| 5 | **`/automation/jobs`** | `AutomationRuns` | `automa` | `['superadmin', 'automa:campaigns:read']` | `BasicLayout` | `runs/index.vue` | `automa.campaign_runs` |
+| 6 | **`/automation/jobs/:id`** | `AutomationRunDetail` | `automa` | `['superadmin', 'automation:logs:read']` | `BasicLayout` | `runs/detail.vue` | `automa.campaign_runs`, `automation.execution_logs` |
 | 7 | **`/automation/devices`** | `AutomationDevices` | `workers` | `['superadmin', 'workers:devices:read']` | `BasicLayout` | `devices/index.vue` | `workers.devices` |
 | 8 | **`/automation/browsers`** | `AutomationBrowsers` | `workers` | `['superadmin', 'workers:browsers:read']` | `BasicLayout` | `browsers/index.vue` | `workers.browsers` |
 | 9 | **`/automation/proxies`** | `AutomationProxies` | `workers` | `['superadmin', 'workers:proxies:read']` | `BasicLayout` | `proxies/index.vue` | `workers.proxies` |
@@ -107,7 +107,7 @@ Thay vì kiểm tra vai trò cứng (`role: ['admin']`), router áp dụng cơ c
 
 1. **Superadmin Bypass:** Nếu tài khoản có `platform_role === 'superadmin'` (qua JWT `app_metadata` hoặc hàm `public.is_platform_admin()`), user sở hữu quyền `superadmin` và toàn quyền truy cập 100% routes.
 2. **Tenant Dynamic Permissions:** Với user thông thường, hệ thống truy vấn các vai trò của user qua `public.tenant_members` $\rightarrow$ `public.member_roles` $\rightarrow$ `public.roles` $\rightarrow$ `public.role_permissions`.
-3. Khớp chuỗi permission định dạng `<module>:<action>` hoặc `<module>:<resource>:<action>` (ví dụ `workers:devices:read`, `automa:workflows:read`, `commerce:read`).
+3. Khớp chuỗi permission định dạng `<module>:<action>` hoặc `<module>:<resource>:<action>` (ví dụ `workers:devices:read`, `automation:workflows:read`, `commerce:read`).
 
 ---
 

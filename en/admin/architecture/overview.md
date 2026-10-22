@@ -11,7 +11,7 @@
 
 ## 1. Tổng Quan Hệ Thống (System Overview)
 
-`admin.tuquet.com` là bảng điều khiển quản trị tập trung (Unified Management Console) của **Hệ sinh thái Tuquet**, đảm nhiệm 4 trụ cột cốt lõi:
+Web Admin là bảng điều khiển quản trị tập trung (Unified Management Console) của **Hệ sinh thái Tuquet**, đảm nhiệm 4 trụ cột cốt lõi:
 
 1. **Multi-Tenant IAM:** Quản lý danh tính, phân quyền thành viên và tổ chức không gian làm việc (Workspaces / Tenants).
 2. **Runners Fleet Control:** Điều phối và giám sát hạ tầng máy trạm phân tán (Desk, Headless Runners, Chromium automation profiles, Proxy pool).
@@ -118,7 +118,7 @@ graph LR
     CoreIAM["core-iam"] --> D["/dashboard/analytics"]
     CoreIAM --> T["/tenants, /tenants/:id"]
     CoreIAM --> S1["/system/plugins, /system/users, /system/audit-logs, /system/roles"]
-    Automa["automa"] --> A1["/automation/workflows, /automation/runs, /automation/runs/:id"]
+    Automa["automa"] --> A1["/automation/workflows, /automation/jobs, /automation/jobs/:id"]
     Workers["workers"] --> A2["/automation/devices, /automation/browsers, /automation/proxies"]
     Commerce["commerce"] --> C1["/commerce/store, /commerce/orders, /commerce/admin"]
     Subs["subscriptions"] --> C2["/commerce/wallet"]
@@ -131,8 +131,8 @@ Khi ứng dụng khởi chạy, hàm thuần khiết `filterRoutesByPlugins(rout
 
 ## 6. Cơ Chế Giám Sát Tác Vụ & Polling (Telemetry & Polling)
 
-- **Chiến lược Polling 3s:** Do bảng nhật ký `automa.execution_logs` phát sinh lưu lượng bản ghi lớn trong các chiến dịch tự động hóa hàng loạt, việc đưa bảng này vào WebSocket Realtime publication sẽ gây nghẽn băng thông.
-- Giao diện chi tiết lần chạy (`/automation/runs/:id`) cũng như hộp thoại chờ thanh toán đơn hàng (`/commerce/store`, `/commerce/wallet`, `/store`) thực hiện cơ chế polling định kỳ mỗi **3000ms** khi tác vụ đang ở trạng thái chờ xử lý.
+- **Chiến lược Polling 3s:** Do bảng nhật ký `automation.execution_logs` phát sinh lưu lượng bản ghi lớn trong các chiến dịch tự động hóa hàng loạt, việc đưa bảng này vào WebSocket Realtime publication sẽ gây nghẽn băng thông.
+- Giao diện chi tiết lần chạy (`/automation/jobs/:id`) cũng như hộp thoại chờ thanh toán đơn hàng (`/commerce/store`, `/commerce/wallet`, `/store`) thực hiện cơ chế polling định kỳ mỗi **3000ms** khi tác vụ đang ở trạng thái chờ xử lý.
 - Khi trạng thái chuyển sang kết thúc (`completed`, `succeeded`, `failed`, `cancelled`), bộ đếm thời gian được hủy ngay lập tức để tiết kiệm tài nguyên mạng và pin thiết bị.
 
 ---
@@ -150,8 +150,8 @@ Hệ thống quản trị bao gồm **27 tuyến đường** chuẩn mực phân
 │   └── /tenants/:id                Chi tiết Workspace (4 tabs: overview, members, usage, audit)
 ├── /automation                     [automa|workers]          lucide:workflow
 │   ├── /automation/workflows       [automa]                  Sơ đồ kịch bản Canvas Workflows
-│   ├── /automation/runs            [automa]                  Lịch sử các đợt chạy chiến dịch
-│   ├── /automation/runs/:id        [automa]                  Chi tiết lần chạy & Terminal Logs Viewer (Polling 3s)
+│   ├── /automation/jobs            [automa]                  Lịch sử các đợt chạy chiến dịch
+│   ├── /automation/jobs/:id        [automa]                  Chi tiết lần chạy & Terminal Logs Viewer (Polling 3s)
 │   ├── /automation/devices         [workers]                 Thiết bị & Nodes Desk / Cloud VPS
 │   ├── /automation/browsers        [workers]                 Hồ sơ trình duyệt Chromium tự động hóa
 │   └── /automation/proxies         [workers]                 Pool Proxy mạng phân tán

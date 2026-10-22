@@ -2,7 +2,7 @@
 
 > **Mã đặc tả:** `SPEC-workflow-mobile-first`  
 > **Module id:** `workflow-mobile-first` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-automation-engine.md`](SPEC-automation-engine.md), [`SPEC-enum-constants-ssot.md`](SPEC-enum-constants-ssot.md), [`SPEC-i18n-en-vi.md`](SPEC-i18n-en-vi.md)  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-automation-jobs.md`](SPEC-automation-jobs.md), [`SPEC-enum-constants-ssot.md`](SPEC-enum-constants-ssot.md), [`SPEC-i18n-en-vi.md`](SPEC-i18n-en-vi.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 
 ---
@@ -11,21 +11,21 @@
 
 1. **Phạm vi áp dụng (`Scope`):** Tập trung vào phân hệ Quản trị Quy trình & Phiên chạy trong Admin Console (`apps/web-admin`):
    - Danh sách Quy trình: `/automation/workflows` (`views/automation/workflows/index.vue`).
-   - Danh sách Phiên chạy: `/automation/runs` (`views/automation/runs/index.vue`).
-   - Chi tiết Phiên chạy & Nhật ký: `/automation/runs/:id` (`views/automation/runs/detail.vue`).
+   - Danh sách Phiên chạy: `/automation/jobs` (`views/automation/jobs/index.vue`).
+   - Chi tiết Phiên chạy & Nhật ký: `/automation/jobs/:id` (`views/automation/jobs/detail.vue`).
 2. **Chiến lược thu gọn bảng `VxeGrid` trên Mobile (`< 640px` / `isMobile`):**
    - Giữ nguyên nền tảng `useVbenVxeGrid` đồng nhất trên cả Mobile và Desktop (không tách 2 cây DOM bảng/thẻ riêng biệt).
    - Tự động ẩn các cột phụ (`visible: !isMobile.value`) khi ở màn hình điện thoại (`< 640px`) và gộp thông tin quan trọng (`version`, `status`, `updated_at` đối với Workflow; `status`, `progress`, `runner`, `created_at` đối với Run) trực tiếp vào ô chính (`name-cell`) để bảng vừa khít chiều ngang `375px`, **không phát sinh thanh cuộn ngang (`overflow-x: 0`)**.
    - Thu gọn thanh lọc `VbenForm` trên mobile (`hideLabel: isMobile.value`, `compact: true`) để ô lọc Trạng thái và Tìm kiếm nằm gọn trên 1 hàng ngang.
 3. **Xem chi tiết Quy trình theo chuẩn Baseline (`WorkflowDetailModal`):**
    - Trong ngữ cảnh `/automation/workflows`, thao tác xem chi tiết mở hộp thoại **Chi tiết quy trình (`WorkflowDetailModal`)** ngay tại chỗ (tương tự chuẩn baseline `NodeDetailModal` của trang Thiết bị), hiển thị đầy đủ thông tin quy trình (`name`, `id` kèm nút sao chép, `version`, `status`, `description`, `tenant_id`, `created_at`, `updated_at`) qua `VxeForm` readonly.
-   - Giữ nguyên ranh giới ngữ cảnh: tại `/automation/workflows` chỉ xem chi tiết quy trình; việc tra cứu phiên chạy thực hiện tại trang `/automation/runs`.
+   - Giữ nguyên ranh giới ngữ cảnh: tại `/automation/workflows` chỉ xem chi tiết quy trình; việc tra cứu phiên chạy thực hiện tại trang `/automation/jobs`.
 
 ---
 
 ## 2. Objective (Mục Tiêu & Giá Trị Mang Lại)
 
-Giải quyết triệt để tình trạng tràn chiều ngang (`minWidth: 850px–930px` trên màn hình `375px`), bộ lọc chiếm quá nhiều diện tích dọc, và thiếu màn hình xem chi tiết quy trình trên `/automation/workflows`, `/automation/runs`, và `/automation/runs/:id`:
+Giải quyết triệt để tình trạng tràn chiều ngang (`minWidth: 850px–930px` trên màn hình `375px`), bộ lọc chiếm quá nhiều diện tích dọc, và thiếu màn hình xem chi tiết quy trình trên `/automation/workflows`, `/automation/jobs`, và `/automation/jobs/:id`:
 
 1. **Bảng Quy Trình Mobile-First (`/automation/workflows`):**
    - **Trên Mobile (`isMobile === true`):**
@@ -39,11 +39,11 @@ Giải quyết triệt để tình trạng tràn chiều ngang (`minWidth: 850px
      - Khối Header tóm tắt: Icon `GitBranch`, Tên quy trình, Phiên bản (`v...`), và Huy hiệu trạng thái từ `WORKFLOW_STATUS_META`.
      - Lưới thuộc tính `VxeForm`: Mã quy trình (`id` kèm nút copy clipboard), Phiên bản (`version`), Mã Workspace (`tenant_id` kèm nút copy), Ngày tạo (`created_at`), Ngày cập nhật (`updated_at`), và Mô tả chi tiết (`description`).
      - Tối ưu hiển thị trên cả màn hình điện thoại (`max-h-[85vh] overflow-y-auto p-4 sm:max-w-lg`) và máy tính.
-3. **Bảng Phiên Chạy Mobile-First (`/automation/runs`):**
+3. **Bảng Phiên Chạy Mobile-First (`/automation/jobs`):**
    - **Trên Mobile (`isMobile === true`):**
      - Ẩn 4 cột phụ (`runner`, `progress`, `status`, `created_at`), chỉ giữ cột chính `name` (`minWidth: 210`) và cột `actions` (`width: 68`).
      - Trong `name-cell` trên mobile, tích hợp tên phiên chạy, tên quy trình, huy hiệu trạng thái (`CAMPAIGN_STATUS_META`), tên thiết bị runner và thanh tiến độ mini (`completed_tasks / total_tasks` — `%`) ngay bên dưới để người vận hành nắm bắt toàn bộ trạng thái mà không cần cuộn ngang.
-4. **Chi Tiết Phiên Chạy & Nhật Ký Mobile-First (`/automation/runs/:id`):**
+4. **Chi Tiết Phiên Chạy & Nhật Ký Mobile-First (`/automation/jobs/:id`):**
    - Thu gọn Header điều hướng trên mobile: nút `Back`, tiêu đề `truncate`, `Badge` trạng thái và nút `Refresh` / `Cancel` nằm gọn, không bị vỡ dòng.
    - Bảng thông số `VxeForm` hiển thị 2 cột (`span="12"`) cho các chỉ số ngắn (Quy trình, Thiết bị, Thời lượng, Tiến độ) để tiết kiệm chiều dọc trên điện thoại.
    - Khung `Terminal Output Window` (`execution_logs`): trên mobile tự động rút gọn định dạng thời gian (`HH:mm:ss`) hoặc cho phép xuống dòng thông minh (`flex-wrap sm:flex-nowrap`) để nội dung `log.message` luôn có tối đa không gian đọc.
@@ -228,15 +228,15 @@ watch([() => $t('page.workflows_view.col_name'), isMobile], () => {
 - **Ask first:**
   - Thêm các thao tác ghi dữ liệu (như xóa kịch bản, chỉnh sửa JSON kịch bản trực tiếp trên Admin Console).
 - **Never:**
-  - Không tự ý điều hướng sang `/automation/runs` khi người dùng bấm xem chi tiết quy trình tại `/automation/workflows`.
+  - Không tự ý điều hướng sang `/automation/jobs` khi người dùng bấm xem chi tiết quy trình tại `/automation/workflows`.
   - Không chạy `git push` hoặc kích hoạt GitHub Actions CI/CD khi chưa có yêu cầu.
 
 ---
 
 ## 9. Success Criteria (Tiêu Chí Nghiệm Thu)
 
-- [x] **SC1:** Trên màn hình điện thoại (`< 640px`), bảng `/automation/workflows` và `/automation/runs` tự động ẩn các cột phụ và gộp thông tin cần thiết vào ô chính + cột thao tác gọn nhẹ, vừa khít chiều ngang `375px` (không cuộn ngang).
-- [x] **SC2:** Thanh lọc tìm kiếm của `/automation/workflows` và `/automation/runs` được thu gọn trên mobile (`hideLabel` khi `isMobile`), giúp danh sách dữ liệu xuất hiện ngay trong vùng nhìn đầu tiên (above the fold).
+- [x] **SC1:** Trên màn hình điện thoại (`< 640px`), bảng `/automation/workflows` và `/automation/jobs` tự động ẩn các cột phụ và gộp thông tin cần thiết vào ô chính + cột thao tác gọn nhẹ, vừa khít chiều ngang `375px` (không cuộn ngang).
+- [x] **SC2:** Thanh lọc tìm kiếm của `/automation/workflows` và `/automation/jobs` được thu gọn trên mobile (`hideLabel` khi `isMobile`), giúp danh sách dữ liệu xuất hiện ngay trong vùng nhìn đầu tiên (above the fold).
 - [x] **SC3:** Trang `/automation/workflows` có chức năng xem chi tiết quy trình (`WorkflowDetailModal` dùng `Dialog` + lưới thông số Mobile-First + sao chép ID) theo đúng chuẩn baseline của hệ thống.
-- [x] **SC4:** Trang `/automation/runs/:id` hiển thị thông tin phiên chạy và cửa sổ log terminal gọn gàng trên màn hình dọc điện thoại.
+- [x] **SC4:** Trang `/automation/jobs/:id` hiển thị thông tin phiên chạy và cửa sổ log terminal gọn gàng trên màn hình dọc điện thoại.
 - [x] **SC5:** `pnpm run check:i18n`, `typecheck`, `lint`, `test:unit`, và `build:local` pass 100% với `0 errors`.

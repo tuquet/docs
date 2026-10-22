@@ -45,7 +45,7 @@ Sau giai đoạn hoàn thiện kết nối dữ liệu thực tế cho toàn b�
     - **i18n Keyspace:** Hợp nhất các khóa điều hướng `page.fleet.*` vào `page.automation.*` trong `page.json`.
   - **Giữ nguyên 2 Schema & Plugin độc lập ở tầng Database (`cloud/supabase/plugins/`):**
     - Tương tự như phân hệ `/system` (1 nhóm menu/API frontend đại diện cho 2 schema DB: `public` của plugin `core-iam` và `billing` của plugin `subscriptions`), phân hệ `/automation` kết nối tới 2 schema PostgreSQL độc lập:
-      - Schema `automa` (plugin `automa`): `workflows`, `campaign_runs`, `execution_logs`, `schedules`.
+      - Schema `automa` (plugin `automation`): `workflows`, `campaign_runs`, `execution_logs`, `schedules`.
       - Schema `runners` (plugin `runners`): `devices`, `browsers`, `proxies`, `node_browsers`.
     - Cách tiếp cận này giúp Tenant có thể bật riêng `runners` (dùng Cloud Anti-Detect Browser & Proxy Pool) mà không bắt buộc bật `automa`, đồng thời giữ tương thích 100% với các pillar của CLI (`specter automa`, `specter runner`).
   - Rút gọn thanh điều hướng Sidebar cấp 1 xuống đúng **4 nhóm cốt lõi**: `Dashboard` (`/dashboard`), `Workspaces` (`/tenants`), `Automation` (`/automation`), và `System` (`/system`).

@@ -2,7 +2,7 @@
 
 > **Mã đặc tả:** `SPEC-automation-dashboard`  
 > **Module id:** `automation-dashboard` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-automation-engine.md`](SPEC-automation-engine.md), [`SPEC-fleet-inventory.md`](SPEC-fleet-inventory.md), [`SPEC-i18n-en-vi.md`](SPEC-i18n-en-vi.md)  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-automation-jobs.md`](SPEC-automation-jobs.md), [`SPEC-automation-browsers.md`](SPEC-automation-browsers.md), [`SPEC-i18n-en-vi.md`](SPEC-i18n-en-vi.md)  
 > **Trạng thái:** **ĐÃ NGHIỆM THU & TRIỂN KHAI 100% (ACCEPTED & IMPLEMENTED)**
 
 ---
@@ -25,11 +25,11 @@ Tách biệt rõ **tầng giám sát thống kê (`Overview Dashboard`)** và **
      - **Khối Hạ tầng Runner & Loopback Daemon (`FleetMetrics`):** Tổng thiết bị (`total_nodes`), Thiết bị trực tuyến (`online_nodes`), Tác vụ đang chạy (`active_jobs`), và Trạng thái cổng Loopback (`:8765` Online/Standby) — bố cục `grid-cols-2 lg:grid-cols-4` gọn gàng trên mobile.
      - **Lưới 5 Thẻ Điều Hướng Nhanh Phân Hệ (`Resource Breakdown Cards` — `grid-cols-2 sm:grid-cols-3 lg:grid-cols-5`):**
        1. **Quy trình (`Workflows`):** Tổng số kịch bản + phân bổ `published / draft / archived` $\rightarrow$ nhấn để mở `/automation/workflows`.
-       2. **Chiến dịch chạy (`Runs`):** Tổng số phiên chạy + `running / completed / failed` $\rightarrow$ nhấn để mở `/automation/runs`.
+       2. **Chiến dịch chạy (`Runs`):** Tổng số phiên chạy + `running / completed / failed` $\rightarrow$ nhấn để mở `/automation/jobs`.
        3. **Thiết bị (`Devices`):** Số máy trạm `online / total` + `busy / idle` $\rightarrow$ nhấn để mở `/automation/devices`.
        4. **Hồ sơ trình duyệt (`Browsers`):** Tổng hồ sơ + `running / idle / error` $\rightarrow$ nhấn để mở `/automation/browsers`.
        5. **Bể Proxy (`Proxies`):** Tổng proxy + `active / failing` & độ trễ trung bình (`avgLatencyMs`) $\rightarrow$ nhấn để mở `/automation/proxies`.
-     - **Bảng Hoạt Động Gần Đây (`Recent Campaign Runs & Active Devices`):** Hiển thị 5 phiên chạy mới nhất (kèm tiến độ `%` và liên kết xem log `/automation/runs/:id`) cùng danh sách nhanh các thiết bị Runner đang hoạt động.
+     - **Bảng Hoạt Động Gần Đây (`Recent Campaign Runs & Active Devices`):** Hiển thị 5 phiên chạy mới nhất (kèm tiến độ `%` và liên kết xem log `/automation/jobs/:id`) cùng danh sách nhanh các thiết bị Runner đang hoạt động.
 2. **Tinh Gọn 5 Màn Hình Danh Sách Chính (`/automation/{workflows,runs,devices,browsers,proxies}`):**
    - **Gỡ bỏ khối KPI & Stats Bar:**
      - Xóa `<FleetMetrics :metrics="metrics" />` khỏi `devices/index.vue`.
@@ -47,7 +47,7 @@ Tách biệt rõ **tầng giám sát thống kê (`Overview Dashboard`)** và **
 - **Framework:** Vue 3.5 (`<script setup lang="ts">`), Vue Router 4, TypeScript 5, `vue-i18n` (`@tuquet/locales`).
 - **Data Grid & Form Engine:** `useVbenVxeGrid` (`VxeTable`) và `useVbenForm` từ `src/adapter/vxe-table.ts`.
 - **UI Components & Icons:** `@tuquet/vue-ui` (`Badge`, `Button`, `toast`), `@lucide/vue`.
-- **Data Access Layer:** `src/api/core/automation.ts` (kết hợp `schema: 'automa'`, `schema: 'workers'`, và `probeLocalDaemonApi`).
+- **Data Access Layer:** `src/api/core/automation.ts` (kết hợp `schema: 'automation'`, `schema: 'workers'`, và `probeLocalDaemonApi`).
 
 ---
 
@@ -217,7 +217,7 @@ export interface AutomationOverviewSummary {
 
 - **Always:**
   - Sử dụng `$t(...)` cho 100% văn bản hiển thị mới, tuân thủ `Sentence case` cho tiếng Việt và cấu trúc từ điển 3 tầng (`common.*`, `term.*`, `page.*`).
-  - Giữ nguyên toàn bộ chức năng lọc, tìm kiếm, phân trang và modal thao tác (`ConnectFleetModal`, `NodeDetailModal`, xem log `/automation/runs/:id`) trên 5 màn hình `/automation/*`.
+  - Giữ nguyên toàn bộ chức năng lọc, tìm kiếm, phân trang và modal thao tác (`ConnectFleetModal`, `NodeDetailModal`, xem log `/automation/jobs/:id`) trên 5 màn hình `/automation/*`.
   - Chạy `pnpm run build:local` để kiểm định trực tiếp trên `http://100.68.217.61/`.
 - **Ask first:**
   - Lược bỏ thẻ KPI trên các phân hệ ngoài nhánh `/automation/*` (như `/tenants`, `/commerce/*`, `/system/*`).
@@ -230,7 +230,7 @@ export interface AutomationOverviewSummary {
 
 ## 9. Success Criteria (Tiêu Chí Nghiệm Thu)
 
-- [x] **SC1 (Unified Automation Overview Route):** Tuyến `/automation/overview` hoạt động là trang mặc định khi mở `/automation`, tổng hợp chính xác số liệu từ `workflows`, `campaign_runs`, `devices`, `browsers`, `proxies` và `loopback daemon`, cho phép điều hướng 1 chạm tới từng màn hình con.
+- [x] **SC1 (Unified Automation Overview Route):** Tuyến `/automation/overview` hoạt động là trang mặc định khi mở `/automation`, tổng hợp chính xác số liệu từ `workflows`, `jobs`, `devices`, `browsers`, `proxies` và `loopback daemon`, cho phép điều hướng 1 chạm tới từng màn hình con.
 - [x] **SC2 (Zero KPI Clutter on 5 Automation List Screens):** Cả 5 màn hình `/automation/{workflows,runs,devices,browsers,proxies}` không còn thẻ KPI rời rạc (`FleetMetrics`) hay thanh `Stats Bar` thừa phía trên bảng; tổng số bản ghi được gắn gọn thành `Badge` cạnh tiêu đề trang.
 - [x] **SC3 (Mobile-First Above-the-Fold Ergonomics):** Trên màn hình di động (`< 640px`), Page Header nằm gọn trên 1 hàng ngang, bộ lọc `VbenForm` xếp 2 cột (`grid-cols-2`), giúp bảng dữ liệu `VxeGrid` hiển thị ngay trong nửa đầu màn hình đầu tiên mà không cần cuộn qua các khối thống kê.
 - [x] **SC4 (100% i18n & Quality Gate):** `0` dòng tiếng Việt hardcode, 100% đối xứng khóa `en-US` / `vi-VN` (`1,441 / 1,441` khóa), pass toàn bộ unit tests (`vitest`), `pnpm run check:type`, `pnpm run lint` (`0 errors`) và cập nhật bản dựng tại `http://100.68.217.61/`.

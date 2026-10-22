@@ -1,6 +1,6 @@
 # Đặc Tả Route: Automation Engine & Workers Fleet (Tự Động Hóa & Hạ Tầng Thực Thi)
 
-> **Đường dẫn chính:** `/automation/workflows`, `/automation/runs`, `/automation/runs/:id`, `/automation/devices`, `/automation/browsers`, `/automation/proxies`  
+> **Đường dẫn chính:** `/automation/workflows`, `/automation/jobs`, `/automation/jobs/:id`, `/automation/devices`, `/automation/browsers`, `/automation/proxies`  
 > **Module File:** `src/router/routes/modules/automation.ts`  
 > **Plugins Quản Lý:** `automa` (cho kịch bản & phiên chạy) và `workers` (cho thiết bị, trình duyệt & proxy)  
 > **Schemas Nguồn:** `automa` (`Accept-Profile: automa`) và `workers` (`Accept-Profile: workers`)  
@@ -26,20 +26,20 @@
       path: 'workflows',
       component: () => import('#/views/automation/workflows/index.vue'),
       meta: {
-        authority: ['superadmin', 'automa:workflows:read'],
+        authority: ['superadmin', 'automation:workflows:read'],
         icon: 'lucide:git-branch',
-        plugin: 'automa',
+        plugin: 'automation',
         title: $t('page.automation.workflows'),
       },
     },
     {
       name: 'AutomationRuns',
       path: 'runs',
-      component: () => import('#/views/automation/runs/index.vue'),
+      component: () => import('#/views/automation/jobs/index.vue'),
       meta: {
         authority: ['superadmin', 'automa:campaigns:read'],
         icon: 'lucide:play-circle',
-        plugin: 'automa',
+        plugin: 'automation',
         title: $t('page.automation.runs'),
       },
     },
@@ -79,12 +79,12 @@
     {
       name: 'AutomationRunDetail',
       path: 'runs/:id',
-      component: () => import('#/views/automation/runs/detail.vue'),
+      component: () => import('#/views/automation/jobs/detail.vue'),
       meta: {
-        authority: ['superadmin', 'automa:logs:read'],
+        authority: ['superadmin', 'automation:logs:read'],
         hideInMenu: true,
         icon: 'lucide:file-text',
-        plugin: 'automa',
+        plugin: 'automation',
         title: $t('page.automation.runDetail'),
       },
     },
@@ -99,29 +99,29 @@
 ### 2.1. Quy Trình Tự Động Hóa: `/automation/workflows` (`automa`)
 
 - **Mục Đích:** Quản lý danh mục các sơ đồ quy trình tự động hóa đồ họa (Automa Canvas Schemas).
-- **Nguồn Dữ Liệu:** Bảng `automa.workflows`.
-- **API Client:** `getWorkflowsApi(filter)` với `{ schema: 'automa' }`.
+- **Nguồn Dữ Liệu:** Bảng `automation.workflows`.
+- **API Client:** `getWorkflowsApi(filter)` với `{ schema: 'automation' }`.
 - **Giao Diện:** Bảng dữ liệu `useVbenVxeGrid` tích hợp thanh lọc `formOptions` theo trạng thái (`published`, `draft`, `archived`) và từ khóa tìm kiếm.
 
-### 2.2. Lịch Sử Thực Thi: `/automation/runs` (`automa`)
+### 2.2. Lịch Sử Thực Thi: `/automation/jobs` (`automa`)
 
 - **Mục Đích:** Theo dõi tiến độ chạy của các đợt chiến dịch hoặc tác vụ tự động hóa hàng loạt.
-- **Nguồn Dữ Liệu:** Bảng `automa.campaign_runs`.
-- **API Client:** `getCampaignRunsApi(filter)` với `{ schema: 'automa' }`.
+- **Nguồn Dữ Liệu:** Bảng `automation.jobs`.
+- **API Client:** `getCampaignRunsApi(filter)` với `{ schema: 'automation' }`.
 - **Các Chỉ Số Tính Toán:**
   - **Tiến độ (%):** Tính toán qua `calculateProgressPercentage(completed_tasks, total_tasks)`.
   - **Thời gian chạy (Duration):** Tính khoảng cách giữa `started_at` và `ended_at` (hoặc thời điểm hiện tại nếu run đang chạy).
 
-### 2.3. Chi Tiết Lần Chạy & Console Nhật Ký: `/automation/runs/:id` (`automa`)
+### 2.3. Chi Tiết Lần Chạy & Console Nhật Ký: `/automation/jobs/:id` (`automa`)
 
 - **Mục Đích:** Giám sát trực tiếp quá trình thực thi, xem log đầu ra chi tiết của từng bước và hủy tác vụ khi cần.
-- **Nguồn Dữ Liệu:** `automa.campaign_runs` và `automa.execution_logs`.
+- **Nguồn Dữ Liệu:** `automation.jobs` và `automation.execution_logs`.
 - **Giao Diện:** Biểu mẫu thông tin chi tiết xây dựng trên `VxeForm` kết hợp Terminal Logs Viewer nền tối.
 - **Cơ Chế Polling Động (3-Second Live Polling):**
   - Khi lần chạy ở trạng thái chưa kết thúc (`pending`, `queued`, `running`), hệ thống tự động kích hoạt bộ đếm thời gian polling **mỗi 3000ms** để cập nhật tiến độ và tải thêm các dòng log mới nhất.
   - Khi lần chạy chuyển sang trạng thái kết thúc (`completed`, `failed`, `cancelled`) hoặc khi unmount component, timer lập tức được giải phóng.
 - **Hành Động Hủy Lần Chạy (Cancel Run):**
-  - Kích hoạt hàm `cancelCampaignRunApi(id)` gửi lệnh PATCH cập nhật `status = 'cancelled'` lên `automa.campaign_runs`.
+  - Kích hoạt hàm `cancelJobApi(id)` gửi lệnh PATCH cập nhật `status = 'cancelled'` lên `automation.jobs`.
 
 ### 2.4. Thiết Bị & Máy Trạm: `/automation/devices` (`workers`)
 
@@ -154,8 +154,8 @@
 ## 3. Lưu Ý Kỹ Thuật (Gotchas & Guardrails)
 
 1. **Phân Tách Plugin Gate Cấp Tuyến Con:**
-   - Tuyến cha `/automation` chứa cả các tuyến thuộc plugin `automa` và `workers`. Hàm `filterRoutesByPlugins()` lọc độc lập từng tuyến con và chỉ ẩn `/automation` khi cả 2 plugin đều chưa cài đặt.
+   - Tuyến cha `/automation` chứa cả các tuyến thuộc plugin `automation` và `workers`. Hàm `filterRoutesByPlugins()` lọc độc lập từng tuyến con và chỉ ẩn `/automation` khi cả 2 plugin đều chưa cài đặt.
 2. **Không Sử Dụng Supabase Realtime WebSocket Cho Logs (Quyết định D3):**
-   - Bảng `automa.execution_logs` không đưa vào `supabase_realtime` publication để bảo vệ WebSocket worker. Cơ chế Polling 3s có điều kiện dừng là giải pháp chuẩn.
+   - Bảng `automation.execution_logs` không đưa vào `supabase_realtime` publication để bảo vệ WebSocket worker. Cơ chế Polling 3s có điều kiện dừng là giải pháp chuẩn.
 3. **Bắt Buộc Schema Header:**
-   - Các truy vấn tới `automa.*` phải truyền `{ schema: 'automa' }` và các truy vấn tới `workers.*` phải truyền `{ schema: 'workers' }`.
+   - Các truy vấn tới `automa.*` phải truyền `{ schema: 'automation' }` và các truy vấn tới `workers.*` phải truyền `{ schema: 'workers' }`.

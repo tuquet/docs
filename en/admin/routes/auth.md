@@ -98,7 +98,7 @@ Sử dụng container giao diện chuyên dụng `AuthPageLayout` (`src/layouts/
 ```mermaid
 sequenceDiagram
     participant Desk as Desk (Native App)
-    participant Browser as Web Browser (admin.tuquet.com)
+    participant Browser as Web Browser (Web Admin)
     participant Cloud as Cloud (Supabase)
 
     Desk->>Browser: Mở URL /auth/desktop?redirect_uri=http://127.0.0.1:8765/sso/callback

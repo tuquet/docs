@@ -20,14 +20,14 @@
      - Các cột tự sinh bởi Postgres (`id` kiểu `uuid` tự sinh qua `gen_random_uuid()`, `created_at`, `updated_at`, `installed_at`, `last_seen_at`) và các cột ảo/join chỉ đọc (`member_count`, `tenant_count`, `permission_count`, `sold_count`, `nodeCount`, `triggerSummary`) được **ẩn tự động** khỏi form tạo mới để giao diện gọn sạch đúng chuẩn Supabase Studio.
      - Các cột khóa chính do người dùng định nghĩa mã (`id` kiểu `text` có `insertable: true` như `public.permissions.id` = `automa:run`, `billing.plans.id` = `enterprise`, `public.system_plugins.id` = `webhooks`, `billing.payment_gateways.id` = `sepay_vietqr`) sẽ **hiển thị ở đầu form khi tạo mới (`mode = 'create'`)** nhưng tự động khóa chỉ đọc khi chuyển sang sửa (`mode = 'edit'`).
 3. **Tự động gắn ngữ cảnh Workspace (`tenant_id`) & Giá trị mặc định (`defaultValue`) + Tự sinh `slug`:**
-   - Với các bảng đa thuê bao (multi-tenant) như `automa.workflows`, `workers.browsers`, `workers.proxies`, khi thực thi `executeDynamicSupabaseInsert`, hệ thống tự động đính kèm `tenant_id = getActiveTenantId()` nếu bảng có cột `tenant_id` mà form chưa truyền.
+   - Với các bảng đa thuê bao (multi-tenant) như `automation.workflows`, `workers.browsers`, `workers.proxies`, khi thực thi `executeDynamicSupabaseInsert`, hệ thống tự động đính kèm `tenant_id = getActiveTenantId()` nếu bảng có cột `tenant_id` mà form chưa truyền.
    - Với các bảng có cả `name` và `slug` (`public.tenants`, `commerce.products`), khi ở chế độ `mode = 'create'`, gõ `name` sẽ tự động gợi ý `slug` chuẩn kebab-case nếu người dùng chưa tự sửa ô `slug`.
 4. **Phân quyền RLS `canInsert` & Đồng bộ nút `+ Thêm mới` trên toàn bộ các màn hình CRUD:**
    - Mở rộng `SUPABASE_TABLE_REGISTRY` với quyết định RLS `canInsert` và thuộc tính cột `insertable?: boolean`, `defaultValue?: any`, `placeholderKey?: string`.
-   - Không bật tạo bản ghi thủ công cho các bảng sổ cái bất biến (`public.audit_logs`, `billing.wallet_transactions`), bảng đồng bộ từ Auth/Checkout (`public.profiles`, `commerce.orders`, `billing.payment_intents`, `automa.campaign_runs`), hoặc bảng có luồng ghép nối daemon chuyên biệt (`workers.devices` dùng `ConnectFleetModal`).
+   - Không bật tạo bản ghi thủ công cho các bảng sổ cái bất biến (`public.audit_logs`, `billing.wallet_transactions`), bảng đồng bộ từ Auth/Checkout (`public.profiles`, `commerce.orders`, `billing.payment_intents`, `automation.jobs`), hoặc bảng có luồng ghép nối daemon chuyên biệt (`workers.devices` dùng `ConnectFleetModal`).
    - Đồng bộ nút **`+ Thêm mới` (`common.createRecord`)** kích hoạt `gridApi.openCreateSheet()` trên toàn bộ 9 màn hình/tab quản trị:
      - `tenants/index.vue` (`public.tenants` — thay thế hoàn toàn `CreateWorkspaceModal`)
-     - `automation/workflows/index.vue` (`automa.workflows`)
+     - `automation/workflows/index.vue` (`automation.workflows`)
      - `automation/browsers/index.vue` (`workers.browsers`)
      - `automation/proxies/index.vue` (`workers.proxies`)
      - `system/roles/index.vue` (Tab `public.roles` & Tab `public.permissions`)
@@ -110,7 +110,7 @@ admin/apps/web-admin/src/
 | # | Supabase Resource (`schema.table`) | Tệp View (`src/views/...`) | Cho phép Tạo mới (`canInsert`) | Các cột hiển thị trong Drawer Tạo Mới (`mode = 'create'`) | Giá trị khởi tạo mặc định (`defaultValue`) |
 | :-: | :-- | :-- | :-- | :-- | :-- |
 | 1 | `public.tenants` | `tenants/index.vue` | Có (`Authenticated user`) | `name*`, `slug*` (auto từ `name`), `plan`, `status` | `plan: 'pro'`, `status: 'active'` |
-| 2 | `automa.workflows` | `automation/workflows/index.vue` | Có (`Superadmin` hoặc `automa.workflows.manage`) | `name*`, `description`, `version`, `status` (+ tự gắn `tenant_id`) | `version: '1.0.0'`, `status: 'draft'` |
+| 2 | `automation.workflows` | `automation/workflows/index.vue` | Có (`Superadmin` hoặc `automation.workflows.manage`) | `name*`, `description`, `version`, `status` (+ tự gắn `tenant_id`) | `version: '1.0.0'`, `status: 'draft'` |
 | 3 | `workers.browsers` | `automation/browsers/index.vue` | Có (`Superadmin` hoặc `runners.manage`) | `name*`, `os_platform`, `browser_version`, `status`, `proxy_id` (+ tự gắn `tenant_id`) | `os_platform: 'windows'`, `browser_version: '134.0'`, `status: 'idle'` |
 | 4 | `workers.proxies` | `automation/proxies/index.vue` | Có (`Superadmin` hoặc `runners.manage`) | `host*`, `port*`, `protocol`, `country_code`, `is_residential`, `status` (+ tự gắn `tenant_id`) | `port: 1080`, `protocol: 'socks5'`, `country_code: 'VN'`, `is_residential: false`, `status: 'active'` |
 | 5 | `public.roles` | `system/roles/index.vue` (Tab Roles) | Có (`Superadmin` hoặc `roles.manage`) | `name*`, `description` (+ tự gắn `is_system: false`) | `is_system: false` |
@@ -120,7 +120,7 @@ admin/apps/web-admin/src/
 | 9 | `billing.subscriptions` | `system/subscriptions/index.vue` | Có (`Platform Superadmin`) | `tenant_id*`, `plan_id*`, `status`, `cancel_at_period_end` | `plan_id: 'pro'`, `status: 'active'`, `cancel_at_period_end: false` |
 | 10 | `commerce.products` | `commerce/admin/index.vue` | Có (`Platform Superadmin`) | `name*`, `slug*` (auto từ `name`), `product_type`, `visibility`, `is_active`, `short_description`, `sort_order` | `product_type: 'serial_stock'`, `visibility: 'public'`, `is_active: true`, `sort_order: 0` |
 | 11 | `billing.payment_gateways` | `commerce/admin/index.vue` | Có (`Platform Superadmin`) | `provider_code*` (chỉ nhập khi tạo mới), `display_name*`, `rate_per_credit`, `is_active`, `sort_order`, `public_config` | `rate_per_credit: 1000`, `is_active: true`, `sort_order: 0`, `public_config: {}` |
-| 12–18 | `public.audit_logs`, `billing.wallet_transactions`, `billing.payment_intents`, `commerce.orders`, `public.profiles`, `automa.campaign_runs`, `workers.devices` | Các màn hình tương ứng | **Không** (`canInsert.allowed = false` trên generic Drawer) | _(Sổ cái bất biến / Dữ liệu phát sinh từ giao dịch hoặc luồng kết nối CLI chuyên biệt)_ | — |
+| 12–18 | `public.audit_logs`, `billing.wallet_transactions`, `billing.payment_intents`, `commerce.orders`, `public.profiles`, `automation.jobs`, `workers.devices` | Các màn hình tương ứng | **Không** (`canInsert.allowed = false` trên generic Drawer) | _(Sổ cái bất biến / Dữ liệu phát sinh từ giao dịch hoặc luồng kết nối CLI chuyên biệt)_ | — |
 
 ---
 

@@ -51,7 +51,7 @@ Tuquet Automation resolves the tradeoff between simplicity and raw automation pe
 3. **Pure-Rust CDP Execution Driver**:
    - Communicates directly over local WebSockets using the Chrome DevTools Protocol (CDP). Bypasses heavy Node.js runtimes and WebDriver abstraction overhead.
 4. **Local SQLite Store & Cloud Telemetry**:
-   - Workflows and execution logs are stored locally in `~/.tq/automation/automation.sqlite` and synchronized to `/automation/runs` when enrolled with a tenant.
+   - Workflows and execution logs are stored locally in `~/.tq/automation/automation.sqlite` and synchronized to `/automation/jobs` when enrolled with a tenant.
 
 ---
 
