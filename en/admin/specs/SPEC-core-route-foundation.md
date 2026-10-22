@@ -182,7 +182,7 @@ scrollBehavior(to, _from, savedPosition) {
   - Giữ cấu trúc thư mục trong `src/views/<module>/` khớp 1-1 với đường dẫn URL `/<module>/*`.
   - Bảo toàn vị trí cuộn và khóa `:key="route.path"` khi điều hướng query nội trang (`?tab=`, `?status=`).
 - **Ask first:**
-  - Thêm nhóm menu cấp 1 mới lên thanh Sidebar (hiện chuẩn hóa ở 5 nhóm cốt lõi).
+  - Thêm nhóm menu cấp 1 mới lên thanh Sidebar (hiện chuẩn hóa ở 6 nhóm cốt lõi).
   - Thêm route công khai mới vào `coreRoutes` (`ignoreAccess: true`).
 - **Never:**
   - Không tạo các route redirect dư thừa hoặc giữ lại thư mục view không còn khớp với đường dẫn URL.
@@ -192,7 +192,7 @@ scrollBehavior(to, _from, savedPosition) {
 
 ## 8. Success Criteria (Tiêu Chí Nghiệm Thu)
 
-- [x] **SC1:** Thanh Sidebar hiển thị đúng 5 nhóm điều hướng cấp 1 theo thứ tự: `Dashboard` (`1`), `Workspaces` (`10`), `Automation` (`20`), `Commerce` (`25`), và `System` (`30`).
+- [x] **SC1:** Thanh Sidebar hiển thị đúng 6 nhóm điều hướng cấp 1 theo thứ tự: `Dashboard` (`1`), `Workspaces` (`10`), `Automation` (`20`), `Commerce` (`25`), `Wallet` (`26`), và `System` (`30`).
 - [x] **SC2:** Nhóm `/automation` hợp nhất trọn vẹn 6 tuyến con (`workflows`, `runs`, `runs/:id`, `devices`, `browsers`, `proxies`) với thư mục view đồng bộ tại `src/views/automation/*` và ranh giới plugin độc lập (`automation` vs `workers`).
 - [x] **SC3:** Nhóm `/commerce` và tuyến công khai `/store` hoạt động chính xác với bộ lọc plugin (`commerce`, `subscriptions`) và cờ `ignoreAccess: true` cho khách vãng lai.
 - [x] **SC4:** Thay đổi query parameter (`?tab=members`, `?status=running`) không gây nháy hiệu ứng chuyển trang hoặc nhảy thanh cuộn lên đầu trang.
