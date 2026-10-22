@@ -36,14 +36,14 @@ Quản trị toàn diện danh mục **Thực thể Trình duyệt Tự động 
 ## 2. State Machine & Vòng Đời Instance (Lifecycle)
 
 ```
-        ┌──────────────────────────────────────────────┐
-        │                                              │ (Job Finished & Local Snapshot Ready)
-        ▼                                              │
-     [ IDLE ] ──(Worker Executes)──► [ RUNNING ] ──► [ SYNCING ]
-        ▲                                │
-        │                                │ (Process Exited / Unbound)
-        │                                ▼
-        └──────── (Release / Unbind) ─── [ ERROR / DETACHED ]
+        ┌──────────────────────────────────────────────────────────────┐
+        │                                                              │ (Job Finished & Local Snapshot Ready)
+        ▼                                                              │
+     [ IDLE ] ──(Worker / Web Admin: RUN)──► [ RUNNING ] ──(STOP)──► [ SYNCING ]
+        ▲                                          │
+        │                                          │ (Process Exited / Unbound)
+        │                                          ▼
+        └───────────────── (Release / Unbind) ─── [ ERROR / DETACHED ]
 ```
 
 - **`idle`:** Instance sẵn sàng được máy trạm khởi chạy hoặc gán cho Worker mới.
@@ -56,7 +56,30 @@ Quản trị toàn diện danh mục **Thực thể Trình duyệt Tự động 
 
 ---
 
-## 3. Dynamic Dropdowns & Field Relations (`vxe-row-detail-sheet`)
+## 3. GoLogin-Pattern: Màn Hình Thực Thi Thống Nhất & Router SSOT
+
+Dựa trên phân tích mô hình Single Unified Workspace (GoLogin/AdsPower) và triết lý Local-First:
+
+1. **Vị Trí Màn Hình Thực Thi Chính (Primary Execution Cockpit):**
+   - Tuyến đường `/automation/browsers` là **Bảng điều khiển thực thi số 1** của toàn bộ phân hệ Automation.
+   - Menu cha `/automation` có cấu hình chuyển hướng mặc định:
+     ```ts
+     // src/router/routes/modules/automation.ts
+     path: '/automation',
+     redirect: '/automation/browsers', // Thay vì /automation/overview
+     ```
+   - Khi chạy ở môi trường Desktop App (`isTauri` / `isDesktop`), trang chủ khởi động của ứng dụng (`defaultHomePath`) ưu tiên trỏ thẳng về `/automation/browsers`.
+
+2. **Nút Hành Động Ngữ Cảnh 1-Click: `RUN / STOP`:**
+   - **Khi phát hiện Máy Trạm Local (`probeLocalDaemon().online === true` hoặc Tauri Desktop):**
+     - Nút `▶️ RUN` màu `success` nổi bật: Kích hoạt `POST http://127.0.0.1:8765/api/v1/browsers/:id/start` (hoặc IPC Tauri invoke `start_browser`).
+     - Khi browser đang mở: Nút chuyển thành `⏹️ STOP` màu `destructive`: Kích hoạt dừng browser và tự động kích hoạt tiến trình đồng bộ cookie.
+   - **Khi chạy trên Web Admin Remote (Cloud-only):**
+     - Hiển thị badge máy trạm đang chạy kèm nút `Unbind / Release` và `Edit / Inspect`.
+
+---
+
+## 4. Dynamic Dropdowns & Field Relations (`vxe-row-detail-sheet`)
 
 Khi người dùng mở Sheet Chi Tiết / Tạo Mới (`New record`):
 
