@@ -95,7 +95,7 @@ Phân hệ thương mại điện tử gồm **3 tuyến đường nội bộ** 
   - Hiển thị 3 thẻ KPI (Tổng đơn hàng, Đơn hoàn tất, Tổng Xu đã chi) và bảng `useVbenVxeGrid<CommerceOrderRecord>` tích hợp bộ lọc trạng thái và từ khóa.
   - Hộp thoại **Nhận Tài Nguyên (`OrderDeliveriesDialog`)**: Sao chép 1 chạm hoặc tải tệp `.txt` cho danh sách tài khoản/key (`serial_stock`), xem thông tin cấp phát tự động cho `resource` (`automation.workflows`, `workers.proxies`, `billing.subscriptions`), hoặc tải tệp `digital_file`.
 
-### 2.3. Ví Xu & Sổ Cái Giao Dịch (`/commerce/wallet`)
+### 2.3. Ví Xu & Sổ Cái Giao Dịch (`/wallet`, alias `/commerce/wallet`)
 
 - **File Giao Diện:** `src/views/commerce/wallet/index.vue`
 - **Nguồn Dữ Liệu:** `billing.wallets`, `billing.wallet_transactions`, `billing.payment_gateways`, `billing.payment_intents`

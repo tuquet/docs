@@ -9,13 +9,13 @@
 
 ## 1. Objective (Mục Tiêu & Phạm Vi)
 
-Thiết lập kiến trúc định tuyến phân rã theo module và ranh giới Plugin cho `@tuquet/admin-web`, bao gồm **27 tuyến đường** phân bổ trên **5 nhóm điều hướng Sidebar** (`/dashboard`, `/tenants`, `/automation`, `/commerce`, `/system`) và cụm định tuyến lõi `core.ts`:
+Thiết lập kiến trúc định tuyến phân rã theo module và ranh giới Plugin cho `@tuquet/admin-web`, bao gồm **29 tuyến đường** phân bổ trên **6 nhóm điều hướng Sidebar** (`/dashboard`, `/tenants`, `/automation`, `/commerce`, `/system`) và cụm định tuyến lõi `core.ts`:
 
-1. **Cấu Trúc 5 Nhóm Điều Hướng Sidebar & Cụm Tuyến Lõi (27 Routes):**
+1. **Cấu Trúc 6 Nhóm Điều Hướng Sidebar & Cụm Tuyến Lõi (29 Routes):**
    - **`dashboard.ts` (`order: 1`):** Trang chủ mặc định `/dashboard/analytics` (hiển thị Telemetry thực tế từ Cloud & Loopback Daemon).
    - **`tenants.ts` (`order: 10`):** Quản trị Workspace đa thuê bao (`/tenants` danh sách và `/tenants/:id` chi tiết 4 tabs `overview | members | usage | audit`).
    - **`automation.ts` (`order: 20`):** Hợp nhất toàn bộ kịch bản tự động hóa (plugin `automation`: `workflows`, `runs`, `runs/:id`) và hạ tầng thực thi (plugin `workers`: `devices`, `browsers`, `proxies`) dưới một nhánh `/automation/*` duy nhất, khớp 1-1 với cây thư mục `src/views/automation/*`.
-   - **`commerce.ts` (`order: 25`):** Cổng thương mại sản phẩm số & Ví trả trước (`/commerce/store`, `/commerce/orders`, `/commerce/wallet`, `/commerce/admin`).
+   - **`commerce.ts` (`order: 25`):** Cổng thương mại sản phẩm số & Ví trả trước (`/commerce/store`, `/commerce/orders`, `/wallet`, `/commerce/admin`).
    - **`system.ts` (`order: 30`):** Danh mục hệ thống (`/system/plugins`, `/system/plans`) và 4 tuyến giám sát toàn nền tảng dành riêng cho Platform Superadmin (`/system/users`, `/system/audit-logs`, `/system/subscriptions`, `/system/roles`).
    - **`core.ts`:** Cụm xác thực (`/auth/login`, `register`, `forget-password`, `reset-password`, `callback`, `desktop`), trang hồ sơ `/profile`, và cửa hàng công khai `/store` (`PublicStorefront`).
 2. **Bộ Lọc Động Theo Plugin (`filterRoutesByPlugins`):**
@@ -63,7 +63,7 @@ apps/web-admin/src/
 │   ├── access.ts                             # Kết nối getInstalledPluginsApi() với filterRoutesByPlugins()
 │   ├── plugin-gate.ts                        # Hàm thuần khiết filterRoutesByPlugins(routes, installedPlugins)
 │   ├── __tests__/
-│   │   └── plugin-gate.test.ts               # Unit tests kiểm thử lọc plugin đơn & hỗn hợp (automa/runners/commerce)
+│   │   └── plugin-gate.test.ts               # Unit tests kiểm thử lọc plugin đơn & hỗn hợp (automation/workers/commerce)
 │   └── routes/
 │       ├── index.ts                          # Tự động nạp modules/*.ts qua import.meta.glob
 │       ├── core.ts                           # Root, /profile, /auth/* (6 routes), và /store (PublicStorefront)
@@ -100,7 +100,7 @@ apps/web-admin/src/
 | **Automation** | `/automation/proxies` | `AutomationProxies` | `workers` | `['superadmin', 'workers:proxies:read']` |
 | **Commerce** | `/commerce/store` | `CommerceStore` | `commerce` | `['superadmin', 'commerce:read']` |
 | **Commerce** | `/commerce/orders` | `CommerceOrders` | `commerce` | `['superadmin', 'commerce:read']` |
-| **Commerce** | `/commerce/wallet` | `CommerceWallet` | `subscriptions` | `['superadmin', 'subscriptions:read', 'commerce:read']` |
+| **Commerce** | `/wallet` | `CommerceWallet` | `subscriptions` | `['superadmin', 'subscriptions:read', 'commerce:read']` |
 | **Commerce** | `/commerce/admin` | `CommerceAdmin` | `commerce` | `['superadmin', 'commerce:manage']` |
 | **System** | `/system/plugins` | `SystemPlugins` | `core-iam` | `['superadmin', 'plugins:read']` |
 | **System** | `/system/plans` | `SystemPlans` | `subscriptions` | `['superadmin', 'subscriptions:read']` |

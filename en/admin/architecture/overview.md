@@ -14,7 +14,7 @@
 Web Admin là bảng điều khiển quản trị tập trung (Unified Management Console) của **Hệ sinh thái Tuquet**, đảm nhiệm 4 trụ cột cốt lõi:
 
 1. **Multi-Tenant IAM:** Quản lý danh tính, phân quyền thành viên và tổ chức không gian làm việc (Workspaces / Tenants).
-2. **Runners Fleet Control:** Điều phối và giám sát hạ tầng máy trạm phân tán (Desk, Headless Runners, Chromium automation profiles, Proxy pool).
+2. **Workers Fleet Control:** Điều phối và giám sát hạ tầng máy trạm phân tán (Desk, Headless Runners, Chromium automation profiles, Proxy pool).
 3. **Automa Engine Telemetry:** Giám sát kịch bản quy trình tự động hóa (Workflows), tiến độ các đợt chạy (Campaign Runs) và nhật ký thực thi (Execution Logs).
 4. **Digital Commerce & Multi-Channel Payment:** Cửa hàng sản phẩm số nội bộ (`/commerce/*`) và công khai (`/store`), Ví trả trước đơn vị `Xu` (`BIGINT`), cổng thanh toán đa kênh (VietQR, MoMo, Stripe, Crypto USDT) và tự động bàn giao tài nguyên (Auto-Fulfillment).
 
@@ -27,7 +27,7 @@ Hệ thống kết nối trực tiếp đến **Cloud** (`tuquet/cloud/supabase`
 1. **KISS & YAGNI (Keep It Simple, Stupid & You Aren't Gonna Need It):**
    - Loại bỏ thanh Tabbar Chrome ảo trong SPA (`preferences.tabbar.enable = false`) để tiết kiệm không gian màn hình.
    - Header tối giản với các thành phần cốt lõi: Logo Tuquet, chuyển đổi Ngôn ngữ/Theme, Avatar & Menu người dùng.
-   - Sidebar tinh gọn trong **5 nhóm chức năng chính**: `Dashboard`, `Workspaces`, `Automation`, `Commerce`, `System`.
+   - Sidebar tinh gọn trong **6 nhóm chức năng chính**: `Dashboard`, `Workspaces`, `Automation`, `Commerce`, `Wallet`, `System`.
 2. **Dữ Liệu Đo Đếm Thực Tế (100% Real Telemetry — Zero Mock Data):**
    - Tuyệt đối không dùng Mock Data hay số liệu giả lập. Toàn bộ số liệu trên console phản ánh chính xác trạng thái thực tế từ cơ sở dữ liệu và telemetry máy trạm.
    - Khi bảng dữ liệu rỗng, hiển thị Empty State chuẩn mực kèm biểu tượng Lucide và hướng dẫn kết nối.
@@ -121,7 +121,7 @@ graph LR
     Automa["automa"] --> A1["/automation/workflows, /automation/jobs, /automation/jobs/:id"]
     Workers["workers"] --> A2["/automation/devices, /automation/browsers, /automation/proxies"]
     Commerce["commerce"] --> C1["/commerce/store, /commerce/orders, /commerce/admin"]
-    Subs["subscriptions"] --> C2["/commerce/wallet"]
+    Subs["subscriptions"] --> C2["/wallet"]
     Subs --> S2["/system/plans, /system/subscriptions"]
 ```
 
@@ -132,7 +132,7 @@ Khi ứng dụng khởi chạy, hàm thuần khiết `filterRoutesByPlugins(rout
 ## 6. Cơ Chế Giám Sát Tác Vụ & Polling (Telemetry & Polling)
 
 - **Chiến lược Polling 3s:** Do bảng nhật ký `automation.execution_logs` phát sinh lưu lượng bản ghi lớn trong các chiến dịch tự động hóa hàng loạt, việc đưa bảng này vào WebSocket Realtime publication sẽ gây nghẽn băng thông.
-- Giao diện chi tiết lần chạy (`/automation/jobs/:id`) cũng như hộp thoại chờ thanh toán đơn hàng (`/commerce/store`, `/commerce/wallet`, `/store`) thực hiện cơ chế polling định kỳ mỗi **3000ms** khi tác vụ đang ở trạng thái chờ xử lý.
+- Giao diện chi tiết lần chạy (`/automation/jobs/:id`) cũng như hộp thoại chờ thanh toán đơn hàng (`/commerce/store`, `/wallet`, `/store`) thực hiện cơ chế polling định kỳ mỗi **3000ms** khi tác vụ đang ở trạng thái chờ xử lý.
 - Khi trạng thái chuyển sang kết thúc (`completed`, `succeeded`, `failed`, `cancelled`), bộ đếm thời gian được hủy ngay lập tức để tiết kiệm tài nguyên mạng và pin thiết bị.
 
 ---

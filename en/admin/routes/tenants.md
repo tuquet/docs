@@ -76,7 +76,7 @@ Chi tiết Workspace được thiết kế dạng **Single Route với 4 Tabs n�
 | :-- | :-- | :-- |
 | **`overview`** _(mặc định)_ | `workspace-overview-tab.vue` | Hiển thị thông tin tổng quan qua `VxeForm`, thời gian tạo, định danh duy nhất (UUID), trạng thái kết nối Cloud, card thống kê nhanh. |
 | **`members`** | `workspace-members-tab.vue` | Quản lý danh sách thành viên từ `public.tenant_members` kết nối `public.profiles` và bảng phân quyền `public.member_roles`. Có modal `VxeForm` mời thành viên, sửa vai trò, xóa thành viên. |
-| **`usage`** | `workspace-usage-tab.vue` | Đo đếm tài nguyên thực tế: Quota từ `billing.subscriptions` và `billing.plans` (schema `billing`), dung lượng lưu trữ, số lượng thiết bị Runners đã kết nối. |
+| **`usage`** | `workspace-usage-tab.vue` | Đo đếm tài nguyên thực tế: Quota từ `billing.subscriptions` và `billing.plans` (schema `billing`), dung lượng lưu trữ, số lượng thiết bị Workers đã kết nối. |
 | **`audit`** | `workspace-audit-tab.vue` | Nhật ký kiểm toán bảo mật từ `public.audit_logs` có điều kiện lọc nghiêm ngặt `tenant_id = :id`. |
 
 ### 3.1. Quy Trình Mời & Phân Quyền Thành Viên (RBAC Flow)

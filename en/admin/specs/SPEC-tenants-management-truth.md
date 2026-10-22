@@ -65,7 +65,7 @@ pnpm run build:admin
 apps/web-admin/src/
 ├── api/core/
 │   ├── tenant.ts                                     # CRUD danh sách Workspace & quản lý activeTenantId
-│   ├── workspace-detail.ts                           # Hợp nhất dữ liệu 4 tabs (public, runners, billing)
+│   ├── workspace-detail.ts                           # Hợp nhất dữ liệu 4 tabs (public, workers, billing)
 │   └── __tests__/
 │       └── workspace-detail.test.ts                  # Unit tests cho chuẩn hóa dữ liệu thành viên, quota, token_hash
 ├── router/routes/modules/

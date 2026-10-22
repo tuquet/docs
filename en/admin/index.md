@@ -12,7 +12,7 @@ Chào mừng đến với trung tâm tài liệu kỹ thuật chính thức (Sin
 
 Định nghĩa mô hình tổng thể, giao thức đa schema PostgREST, mô hình phân quyền RBAC/Superadmin, chuẩn bảng dữ liệu `useVbenVxeGrid` (`VxeTable`) & `VxeForm`, và hệ thống Design Tokens.
 
-- [`architecture/overview.md`](architecture/overview.md) — **Kiến trúc tổng thể hệ thống:** Multi-Schema PostgREST (`public`, `workers`, `automation`, `billing`, `commerce`, `media`, `events`), 2 chế độ truy cập (`Multi-Tenant Member` & `Platform Superadmin`) kèm Guest Storefront (`skipAuth`), cơ chế lọc động `Plugin Gate`, polling 3s, và cây định tuyến 27 routes (5 nhóm Sidebar + `core.ts`).
+- [`architecture/overview.md`](architecture/overview.md) — **Kiến trúc tổng thể hệ thống:** Multi-Schema PostgREST (`public`, `workers`, `automation`, `billing`, `commerce`, `media`, `events`), 2 chế độ truy cập (`Multi-Tenant Member` & `Platform Superadmin`) kèm Guest Storefront (`skipAuth`), cơ chế lọc động `Plugin Gate`, polling 3s, và cây định tuyến 29 routes (6 nhóm Sidebar + `core.ts`).
 - [`architecture/styling-guide.md`](architecture/styling-guide.md) — **Quy chuẩn giao diện & Design Tokens:** Bảng tra cứu Semantic CSS Variables (HSL), tương thích 14 Built-in Themes & Dark/Light Mode, quy chuẩn `VxeTable`/`VxeForm` và Typography.
 
 ---

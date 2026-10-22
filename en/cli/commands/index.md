@@ -44,7 +44,7 @@ tq worker <subcommand> [options]
 | `tq worker status` | `--json` | Inspect worker health, PID, process tree, and cloud sync status |
 | `tq worker logs` | `-f` (tail), `-n <lines>` | Stream worker execution logs and telemetry events in real time |
 | `tq worker probe` | `--json` | Probe local worker capabilities and return runtime manifest JSON |
-| `tq worker config` | `--edit`, `--show` | Display, inspect, or edit worker configuration (`~/.tq/automa/runner.json`) |
+| `tq worker config` | `--edit`, `--show` | Display, inspect, or edit worker configuration (`~/.tq/automation/worker.json`) |
 
 ---
 

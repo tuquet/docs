@@ -15,7 +15,7 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
  │            DISTRIBUTED HIGH-VOLUME SCRAPING STACK           │
  │                                                             │
  │   ┌──────────────────────┐       ┌──────────────────────┐   │
- │   │ Cron / Airflow / CI  │ ────► │ tq automa run   │   │
+ │   │ Cron / Airflow / CI  │ ────► │ tq automation run   │   │
  │   │ Orchestration Trigger│       │ (or worker daemon)   │   │
  │   └──────────────────────┘       └──────────┬───────────┘   │
  │                                             │               │

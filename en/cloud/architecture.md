@@ -184,7 +184,7 @@ erDiagram
 
 ## 3. Plugin Extension Architecture (The Universal Contract)
 
-In Cloud, **the Core never couples to plugins**. Plugins are dynamic, modular packages living in their own isolated PostgreSQL schemas (`media`, `billing`, `events`, `automa`, or custom 3rd-party domains).
+In Cloud, **the Core never couples to plugins**. Plugins are dynamic, modular packages living in their own isolated PostgreSQL schemas (`media`, `billing`, `events`, `automation`, or custom 3rd-party domains).
 
 Every dynamic plugin connects to the platform via **4 Universal Extension Points**:
 
@@ -243,7 +243,7 @@ flowchart TD
 > - Storage ERD: ``supabase/plugins/storage/README.md``
 > - Subscriptions ERD: ``supabase/plugins/subscriptions/README.md``
 > - Webhooks ERD: ``supabase/plugins/webhooks/README.md``
-> - Automa ERD: ``supabase/plugins/automa/README.md``
+> - Automation ERD: ``supabase/plugins/automa/README.md``
 > - Runners ERD: ``supabase/plugins/runners/README.md``
 
 ---
