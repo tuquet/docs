@@ -51,14 +51,14 @@ Off-chain clustering algorithms detect Sybil farming rings by identifying shared
 
 ```bash
 # 1. Create a dedicated profile for a Web3 wallet node
-tuquet browser profile create "Web3-Node-01" \
+tq browser profile create "Web3-Node-01" \
   --seed 748291 \
   --proxy socks5://127.0.0.1:1080 \
   --timezone "Asia/Singapore"
 
 # 2. Verify proxy leak protection
-tuquet browser profile test-proxy "Web3-Node-01"
+tq browser profile test-proxy "Web3-Node-01"
 
 # 3. Launch the profile with Web3 wallet extension active
-tuquet browser launch "Web3-Node-01"
+tq browser launch "Web3-Node-01"
 ```

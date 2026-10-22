@@ -112,31 +112,31 @@ All mesh server definitions are declared in SSOT Pillar 4 (`~/.tq/gateway/gatewa
 
 ```bash
 # Start all enabled bridge servers in background
-tuquet bridge start
+tq bridge start
 
 # Start bridges and launch embedded HTTP-to-SOCKS5 adapter (port 8118)
-tuquet bridge start --http
+tq bridge start --http
 
 # Start bridge with direct local SSH port forwarding (port 2222, 2223...)
-tuquet bridge start --ssh
+tq bridge start --ssh
 
 # Start only servers matching a specific tag (e.g. all US nodes)
-tuquet bridge start -t us
+tq bridge start -t us
 
 # Run supervisor in foreground with auto-healing and live telemetry
-tuquet bridge start -f
+tq bridge start -f
 ```
 
 ### Inspecting Mesh Health & Managing Nodes
 
 ```bash
 # Display live interactive health check dashboard
-tuquet bridge status
+tq bridge status
 
 # Enable or disable servers without editing JSON manually
-tuquet bridge enable vps-de-03
-tuquet bridge disable vps-sg-02
+tq bridge enable vps-de-03
+tq bridge disable vps-sg-02
 
 # Terminate all active bridge tunnel processes
-tuquet bridge stop all
+tq bridge stop all
 ```

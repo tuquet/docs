@@ -3,7 +3,7 @@
 **__PRODUCT__** is the agentic antidetect browser and CLI automation engine designed for AI agents, growth teams, and automation engineers to run multiple accounts without getting detected or banned.
 
 > [!TIP] Command Architecture
-> `tuquet` is the primary CLI command for browser profile lifecycle, stealth verification, and automation. Subcommands follow the canonical microservice domains (e.g. `tuquet browser launch`, `tuquet automa run`).
+> `tuquet` is the primary CLI command for browser profile lifecycle, stealth verification, and automation. Subcommands follow the canonical microservice domains (e.g. `tq browser launch`, `tq automa run`).
 
 ---
 
@@ -34,14 +34,14 @@ When multiple accounts share identical hardware fingerprints or IP addresses, se
 
 | Action | Canonical Command | Description |
 | :--- | :--- | :--- |
-| **Launch Default Profile** | `tuquet browser launch default` | Opens default isolated profile with CDP port |
-| **Launch with Proxy** | `tuquet browser launch "Store-US" --proxy socks5://127.0.0.1:1080` | Routes browser network through SOCKS5 tunnel |
-| **Launch in Headless Mode** | `tuquet browser launch "Scraper" --headless` | Runs browser invisibly in background |
-| **List Profiles** | `tuquet browser profile list` | Inspects all local browser profiles & status |
-| **Create New Profile** | `tuquet browser profile create "New-Profile"` | Generates unique deterministic fingerprint & sandbox |
-| **Push Profile to Cloud** | `tuquet browser profile push <profile-id>` | Backs up profile archive to Cloudflare R2 |
-| **Pull Profile from Cloud** | `tuquet browser profile pull <profile-id>` | Restores profile archive onto current workstation |
-| **Verify Fingerprint / Turnstile** | `tuquet browser verify --url "https://..."` | Tests bot detection score & Cloudflare Turnstile |
-| **Cloud & Desktop SSO Login**| `tuquet cloud login` | Authenticates with Central Control Plane via Desktop Bridge |
-| **Check Environment Health** | `tuquet doctor` | Scans tools, runtimes & SSOT integrity |
+| **Launch Default Profile** | `tq browser launch default` | Opens default isolated profile with CDP port |
+| **Launch with Proxy** | `tq browser launch "Store-US" --proxy socks5://127.0.0.1:1080` | Routes browser network through SOCKS5 tunnel |
+| **Launch in Headless Mode** | `tq browser launch "Scraper" --headless` | Runs browser invisibly in background |
+| **List Profiles** | `tq browser profile list` | Inspects all local browser profiles & status |
+| **Create New Profile** | `tq browser profile create "New-Profile"` | Generates unique deterministic fingerprint & sandbox |
+| **Push Profile to Cloud** | `tq browser profile push <profile-id>` | Backs up profile archive to Cloudflare R2 |
+| **Pull Profile from Cloud** | `tq browser profile pull <profile-id>` | Restores profile archive onto current workstation |
+| **Verify Fingerprint / Turnstile** | `tq browser verify --url "https://..."` | Tests bot detection score & Cloudflare Turnstile |
+| **Cloud & Desktop SSO Login**| `tq cloud login` | Authenticates with Central Control Plane via Desktop Bridge |
+| **Check Environment Health** | `tq doctor` | Scans tools, runtimes & SSOT integrity |
 | **Interactive Terminal Shell**| `tuquet` | Enters scoped interactive REPL environment |

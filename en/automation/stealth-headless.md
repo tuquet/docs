@@ -47,13 +47,13 @@ Organizations running data collection pipelines achieve **3x to 5x higher concur
 
 ```bash
 # Launch profile in true stealth headless mode
-tuquet browser launch "Scraper-Node-01" --headless
+tq browser launch "Scraper-Node-01" --headless
 
 # Launch headless profile with dedicated residential proxy
-tuquet browser launch "Scraper-Node-01" --headless --proxy socks5://127.0.0.1:1080
+tq browser launch "Scraper-Node-01" --headless --proxy socks5://127.0.0.1:1080
 
 # Launch headless with CDP bridge for Playwright / Puppeteer script attachment
-tuquet browser launch "Scraper-Node-01" --headless --port 9222 --detach
+tq browser launch "Scraper-Node-01" --headless --port 9222 --detach
 ```
 
 ### Executing Headless Automa Workflows

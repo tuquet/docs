@@ -93,7 +93,7 @@ tq worker start --headless
 :::
 
 ::: details 3. How do I coordinate browser fleets across multiple VPS instances?
-Use `tuquet browser profile cloud acquire/release` combined with the Cloud Center control plane. Headless worker nodes on VPS instances poll tasks, checkout profiles via lease locks, and synchronize session state automatically.
+Use `tq browser profile cloud acquire/release` combined with the Cloud Center control plane. Headless worker nodes on VPS instances poll tasks, checkout profiles via lease locks, and synchronize session state automatically.
 :::
 
 </div>

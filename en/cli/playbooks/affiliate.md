@@ -53,18 +53,18 @@ Advertising platforms deploy sophisticated identity graph analysis: if two ad ac
 
 ```bash
 # 1. Create a dedicated Facebook Ad agency profile
-tuquet browser profile create "FB-Agency-US-01" \
+tq browser profile create "FB-Agency-US-01" \
   --seed 849201 \
   --os windows \
   --proxy socks5://127.0.0.1:1080 \
   --timezone "America/New_York"
 
 # 2. Verify proxy latency and egress IP before opening
-tuquet browser profile test-proxy "FB-Agency-US-01"
+tq browser profile test-proxy "FB-Agency-US-01"
 
 # 3. Generate compliant persona details for registration
-tuquet faker card --nat US
+tq faker card --nat US
 
 # 4. Launch profile with dedicated proxy
-tuquet browser launch "FB-Agency-US-01"
+tq browser launch "FB-Agency-US-01"
 ```

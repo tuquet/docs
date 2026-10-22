@@ -35,13 +35,13 @@ To launch a profile and expose the CDP debugging bridge:
 
 ```bash
 # Launch profile with default remote debugging port 9222
-tuquet browser launch "Scraper-Node-01" --port 9222
+tq browser launch "Scraper-Node-01" --port 9222
 
 # Launch in headless mode with dedicated proxy
-tuquet browser launch "Scraper-Node-01" --port 9222 --headless --proxy socks5://127.0.0.1:1080
+tq browser launch "Scraper-Node-01" --port 9222 --headless --proxy socks5://127.0.0.1:1080
 
 # Detach process to run continuously in background
-tuquet browser launch "Scraper-Node-01" --port 9222 --detach
+tq browser launch "Scraper-Node-01" --port 9222 --detach
 ```
 
 ---

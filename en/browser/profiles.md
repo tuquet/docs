@@ -8,10 +8,10 @@ Managing multi-account operations requires total data segregation. Commercial br
 
 ## 1. Sandbox Filesystem Isolation
 
-Every browser profile resides in its own sandboxed directory under SSOT (`~/.tq/browser/profiles/<profile_id>/`).
+Every browser profile resides in its own sandboxed directory under SSOT identified by its unique ID/UUID (`~/.tq/browser/profiles/<profile_id>/`).
 
 ```text
-~/.tq/browser/profiles/Facebook-Ad-VN-01/
+~/.tq/browser/profiles/a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d/
 ├── profile.json              # Deterministic hardware seeds & metadata
 ├── Default/                  # Isolated Chromium user data
 │   ├── Cookies               # SQLite session cookie jar
@@ -32,7 +32,7 @@ When creating a profile, `browser` uses a 32-bit pseudorandom seed (`--seed <u32
 
 ```json
 {
-  "id": "facebook-ad-vn-01",
+  "id": "a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
   "name": "Facebook-Ad-VN-01",
   "fingerprint_seed": 849201,
   "os_platform": "windows",
@@ -78,7 +78,7 @@ Tuquet provides automated network and geography synchronization:
 
 ## 3. Command Reference
 
-All profile operations are exposed via `tq browser profile` (or `tuquet browser profile`):
+All profile operations are exposed via `tq browser profile` (or `tq browser profile`):
 
 ### Creating and Inspecting Profiles
 

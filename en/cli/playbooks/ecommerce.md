@@ -42,7 +42,7 @@ Retail platforms employ advanced device-fingerprinting and behavioral heuristics
 2. **Strict Geographic Continuity**:
    - Pair US storefronts with dedicated, static residential proxies in the exact state where the company is registered. Tuquet's pre-flight proxy healthcheck (`test-proxy`) verifies connectivity before launching, preventing accidental unmasked connections.
 3. **Safe Team Handoff & Virtual Assistant Delegation**:
-   - Export store profiles into encrypted archives (`tuquet browser profile pack`) to delegate customer support or order fulfillment to remote virtual assistants without sharing raw master passwords.
+   - Export store profiles into encrypted archives (`tq browser profile pack`) to delegate customer support or order fulfillment to remote virtual assistants without sharing raw master passwords.
 
 ---
 
@@ -50,17 +50,17 @@ Retail platforms employ advanced device-fingerprinting and behavioral heuristics
 
 ```bash
 # 1. Create a dedicated profile for an Amazon US store
-tuquet browser profile create "Amazon-US-Store" \
+tq browser profile create "Amazon-US-Store" \
   --os windows \
   --proxy socks5://127.0.0.1:1080 \
   --timezone "America/Los_Angeles"
 
 # 2. Verify proxy health before launch
-tuquet browser profile test-proxy "Amazon-US-Store"
+tq browser profile test-proxy "Amazon-US-Store"
 
 # 3. Launch the store management session
-tuquet browser launch "Amazon-US-Store"
+tq browser launch "Amazon-US-Store"
 
 # 4. Pack profile for backup or team member handoff
-tuquet browser profile pack "Amazon-US-Store" -o ./amazon_us_backup.tar.zst
+tq browser profile pack "Amazon-US-Store" -o ./amazon_us_backup.tar.zst
 ```

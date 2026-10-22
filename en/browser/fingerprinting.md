@@ -85,10 +85,10 @@ includes a built-in automated test command to verify stealth capabilities agains
 
 ```bash
 # Execute live Turnstile and anti-bot verification in a visual browser window
-tuquet browser verify --url "https://turnstile.zeroclick.io"
+tq browser verify --url "https://turnstile.zeroclick.io"
 
 # Verify with custom challenge timeout
-tuquet browser verify --timeout 45
+tq browser verify --timeout 45
 ```
 
 Terminal output:

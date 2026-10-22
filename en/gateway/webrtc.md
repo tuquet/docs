@@ -77,7 +77,7 @@ Verify that your workstation is 100% leak-proof across independent audit platfor
 
 ```bash
 # Launch test profile with proxy and open WebRTC leak verification tool
-tuquet browser launch "Test-Profile" \
+tq browser launch "Test-Profile" \
   --proxy socks5://127.0.0.1:1080 \
   --url "https://browserleaks.com/webrtc"
 ```

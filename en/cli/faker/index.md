@@ -5,7 +5,7 @@ Standard faker libraries generate garbage: bogus SSNs, impossible postal codes, 
 **Synthetic Persona Generator** is a standalone, offline-first identity synthesis engine written in pure Rust (`faker`). Usable as a standalone CLI, Rust crate, or wired into workflows. Generates 100% mathematically authentic Vietnamese Citizen Identity Cards (CCCD Modulo 11), cohesive 4-tier administrative addresses, demographically weighted surnames, and RFC 5322 ASCII-sanitized email pools in sub-millisecond runtime.
 
 ::: tip Standalone Microservice
-`faker` has zero external network calls. Add `faker = "0.1"` as a Rust dependency or call `tuquet faker generate` to synthesize test identities at 50,000 records per second.
+`faker` has zero external network calls. Add `faker = "0.1"` as a Rust dependency or call `tq faker generate` to synthesize test identities at 50,000 records per second.
 :::
 
 <HairlineFigure name="riffle" />
@@ -109,7 +109,7 @@ provides two avatar styles:
 
 ## 4. Complete Data Schema (JSON Output)
 
-When executing `tuquet faker generate -f json`, the generator produces a structured JSON payload adhering to the standard schema:
+When executing `tq faker generate -f json`, the generator produces a structured JSON payload adhering to the standard schema:
 
 ```json
 {
@@ -178,34 +178,34 @@ The Faker engine is accessible via the CLI binary (`tq faker`) and the interacti
 
 ```bash
 # Generate 5 Vietnamese personas in an interactive terminal table
-tuquet faker generate -n 5
+tq faker generate -n 5
 
 # Generate only female personas
-tuquet faker generate -n 10 --gender female
+tq faker generate -n 10 --gender female
 
 # Generate US or Japanese personas for cross-border testing
-tuquet faker generate -n 5 --nat US
-tuquet faker generate -n 5 --nat JP
+tq faker generate -n 5 --nat US
+tq faker generate -n 5 --nat JP
 ```
 
 ### Exporting Personas to JSON and CSV
 
 ```bash
 # Export 100 personas to a JSON file for automation pipelines
-tuquet faker generate -n 100 -f json -o ./users.json
+tq faker generate -n 100 -f json -o ./users.json
 
 # Export 250 verified personas to CSV for spreadsheet campaigns
-tuquet faker generate -n 250 -f csv -o ./accounts.csv --domain mycompany.com
+tq faker generate -n 250 -f csv -o ./accounts.csv --domain mycompany.com
 ```
 
 ### Inspecting a Single Detailed Identity Card
 
 ```bash
 # Render a single comprehensive persona card directly in terminal
-tuquet faker card
+tq faker card
 
 # Inspect a female persona with custom email domain
-tuquet faker card -g female -d enterprise.vn
+tq faker card -g female -d enterprise.vn
 ```
 
 Terminal output:
@@ -257,13 +257,13 @@ All Faker settings and schema templates resolve exclusively to the canonical sto
 
 ```bash
 # Inspect active configuration card
-tuquet faker config --show
+tq faker config --show
 
 # Open ~/.tuquet/faker/faker.json in your default editor
-tuquet faker config --edit
+tq faker config --edit
 
 # Set or append a new default email domain
-tuquet faker config -d yourcompany.com
+tq faker config -d yourcompany.com
 ```
 
 ---
@@ -274,7 +274,7 @@ For rapid testing and continuous profile creation without shell startup overhead
 
 ```bash
 # Launch interactive REPL directly in the Faker scope
-tuquet shell faker
+tq shell faker
 ```
 
 ```text

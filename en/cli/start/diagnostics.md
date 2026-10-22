@@ -2,7 +2,7 @@
 
 Operating antidetect browser clusters, proxy mesh tunnels, and automated DAG workflows requires verified system dependencies, intact SQLite databases, and properly permissioned storage pillars.
 
-**Doctor** is a built-in automated diagnostic and self-healing engine (`tuquet doctor`) that verifies workstation readiness across all microservice pillars.
+**Doctor** is a built-in automated diagnostic and self-healing engine (`tq doctor`) that verifies workstation readiness across all microservice pillars.
 
 <HairlineFigure name="query" />
 
@@ -14,7 +14,7 @@ Execute the diagnostic scanner at any time:
 
 ```bash
 # Run complete ecosystem health check
-tuquet doctor
+tq doctor
 ```
 
 The diagnostic scanner inspects 5 critical subsystems:
@@ -64,7 +64,7 @@ If a dependency is missing, Doctor highlights the specific missing component and
   Tool / Runtime       Status        Action Needed
   ──────────────────────────────────────────────────────────────────────────
   ssh (OpenSSH)        ● MISSING     sudo apt install openssh-client
-  Chromium LTS         ○ NOT FOUND   Run 'tuquet doctor --fix' to auto-download
+  Chromium LTS         ○ NOT FOUND   Run 'tq doctor --fix' to auto-download
 ```
 
 ---

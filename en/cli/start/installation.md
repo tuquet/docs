@@ -44,7 +44,7 @@ In approximately 15 seconds, the automated installer completes:
 Open a fresh terminal window and run:
 
 ```bash
-tuquet doctor
+tq doctor
 ```
 
 When all systems are ready, you will see:

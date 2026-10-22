@@ -51,14 +51,14 @@ Social networks employ aggressive behavioral heuristics to detect automated or m
 
 ```bash
 # 1. Create a dedicated profile for a Twitter/X growth account
-tuquet browser profile create "Twitter-Brand-US" \
+tq browser profile create "Twitter-Brand-US" \
   --seed 94102 \
   --proxy socks5://127.0.0.1:1080 \
   --timezone "America/New_York"
 
 # 2. Verify proxy leak protection before opening
-tuquet browser profile test-proxy "Twitter-Brand-US"
+tq browser profile test-proxy "Twitter-Brand-US"
 
 # 3. Launch profile in visual interactive mode
-tuquet browser launch "Twitter-Brand-US"
+tq browser launch "Twitter-Brand-US"
 ```

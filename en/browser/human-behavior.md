@@ -93,7 +93,7 @@ Verify human dynamics and Turnstile challenge bypass rates on your workstation:
 
 ```bash
 # Launch visual browser verification against live Cloudflare Turnstile
-tuquet browser verify --url "https://turnstile.zeroclick.io"
+tq browser verify --url "https://turnstile.zeroclick.io"
 ```
 
 The verification command renders cursor trajectories in real time, demonstrating smooth Bézier curve navigation, target deceleration, and successful automated challenge resolution.

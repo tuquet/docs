@@ -5,7 +5,7 @@ Commercial browsers leak machine identity at every layer. Telemetry daemons, har
 **Stealth Chromium Runtime** is a decoupled antidetect browser subsystem powered by the [`browser`](https://github.com/tuquet/browser) crate. It uses a custom-built Chromium binary based on [`adryfish/fingerprint-chromium`](https://github.com/adryfish/fingerprint-chromium) (customized on [`ungoogled-software/ungoogled-chromium`](https://github.com/ungoogled-software/ungoogled-chromium)) with native C++ patches for Blink, V8, and Skia. It injects deterministic hardware seeds directly into C++ memory, strips WebRTC leaks at the packet level, and spoofs Bézier cursor dynamics. Anti-fraud systems (Turnstile, DataDome, Kasada, CreepJS) see a genuine consumer laptop.
 
 ::: tip Standalone Microservice & CLI
-`browser` operates completely decoupled from the CLI. You can compile it as a standalone Rust crate, embed it into your custom scrapers, or launch isolated profiles directly via CLI using `tq browser` (or `tuquet browser`).
+`browser` operates completely decoupled from the CLI. You can compile it as a standalone Rust crate, embed it into your custom scrapers, or launch isolated profiles directly via CLI using `tq browser` (or `tq browser`).
 :::
 
 ---

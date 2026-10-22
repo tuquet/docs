@@ -11,7 +11,7 @@ Each **Tuquet** profile represents an isolated browser environment with its own 
 Create a new profile with a descriptive name matching your campaign or account:
 
 ```bash
-tuquet browser profile create "Facebook-Ad-US-01"
+tq browser profile create "Facebook-Ad-US-01"
 ```
 
 automatically assigns:
@@ -26,13 +26,13 @@ automatically assigns:
 Open the profile in normal visual mode:
 
 ```bash
-tuquet browser launch "Facebook-Ad-US-01"
+tq browser launch "Facebook-Ad-US-01"
 ```
 
 To attach a proxy immediately upon launch:
 
 ```bash
-tuquet browser launch "Facebook-Ad-US-01" --proxy socks5://127.0.0.1:1080
+tq browser launch "Facebook-Ad-US-01" --proxy socks5://127.0.0.1:1080
 ```
 
 ---

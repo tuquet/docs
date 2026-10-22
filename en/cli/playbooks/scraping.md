@@ -15,7 +15,7 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
  │            DISTRIBUTED HIGH-VOLUME SCRAPING STACK           │
  │                                                             │
  │   ┌──────────────────────┐       ┌──────────────────────┐   │
- │   │ Cron / Airflow / CI  │ ────► │ tuquet automa run   │   │
+ │   │ Cron / Airflow / CI  │ ────► │ tq automa run   │   │
  │   │ Orchestration Trigger│       │ (or worker daemon)   │   │
  │   └──────────────────────┘       └──────────┬───────────┘   │
  │                                             │               │
@@ -62,7 +62,7 @@ Modern data collection, competitive intelligence, and price monitoring pipelines
 
 ```bash
 # Launch a headless scraper profile through residential proxy
-tuquet browser launch "Scraper-Node-01" \
+tq browser launch "Scraper-Node-01" \
   --headless \
   --proxy socks5://127.0.0.1:1080 \
   --port 9222 \
