@@ -32,7 +32,7 @@ Hệ thống kết nối trực tiếp đến **Cloud** (`tuquet/cloud/supabase`
    - Tuyệt đối không dùng Mock Data hay số liệu giả lập. Toàn bộ số liệu trên console phản ánh chính xác trạng thái thực tế từ cơ sở dữ liệu và telemetry máy trạm.
    - Khi bảng dữ liệu rỗng, hiển thị Empty State chuẩn mực kèm biểu tượng Lucide và hướng dẫn kết nối.
 3. **Chuẩn Hóa Bảng Dữ Liệu & Biểu Mẫu (`useVbenVxeGrid` & `VxeForm`):**
-   - Toàn bộ các màn hình danh sách sử dụng `useVbenVxeGrid` (`VxeTable`) từ `src/adapter/vxe-table.ts`, tích hợp thanh lọc `formOptions`, đường kẻ semantic token tinh tế (`--vxe-ui-table-border-color: hsl(var(--border) / 40%)`), cuộn ngang tự nhiên (`overflow-x: auto`) và phân trang căn giữa trên thiết bị di động (xem [`ADR-004`](../decisions/0004-vxe-grid-form-and-i18n-terminology.md)).
+   - Toàn bộ các màn hình danh sách sử dụng `useVbenVxeGrid` (`VxeTable`) từ `src/adapter/vxe-table.ts`, tích hợp thanh lọc `formOptions`, đường kẻ semantic token tinh tế (`--vxe-ui-table-border-color: hsl(var(--border) / 40%)`), cuộn ngang tự nhiên (`overflow-x: auto`) và phân trang căn giữa trên thiết bị di động (xem).
    - Toàn bộ trang chi tiết và hộp thoại modal sử dụng `VxeForm`, `VxeFormItem`, `VxeFormGroup`.
    - Bảo toàn vị trí cuộn và triệt tiêu hiệu ứng nháy trang khi thay đổi URL query nội trang (`?tab=`, `?status=`).
 4. **Quy Chuẩn Semantic Design Tokens, Iconography & Từ Điển 3 Tầng:**
@@ -50,7 +50,7 @@ Cloud phân tách dữ liệu thành **7 schema chuyên biệt** nhằm đảm b
 | :-- | :-- | :-- | :-- |
 | `public` | Quản lý danh tính, Workspace, RBAC, Plugins | `tenants`, `profiles`, `system_plugins`, `roles`, `permissions`, `audit_logs` | _(Mặc định — không cần header)_ |
 | `workers` | Quản lý thiết bị máy trạm, Chromium, Proxies | `devices`, `browsers`, `proxies` | `Accept-Profile: workers` |
-| `automa` | Kịch bản đồ họa, chiến dịch chạy, nhật ký bước | `workflows`, `campaign_runs`, `execution_logs` | `Accept-Profile: automa` |
+| `automation` | Kịch bản đồ họa, chiến dịch chạy, nhật ký bước | `workflows`, `campaign_runs`, `execution_logs` | `Accept-Profile: automation` |
 | `billing` | Hợp đồng thuê bao SaaS, gói cước, Ví Xu & Thanh toán | `subscriptions`, `plans`, `usage_meters`, `wallets`, `wallet_transactions`, `payment_gateways`, `payment_intents` | `Accept-Profile: billing` |
 | `commerce` | Cửa hàng sản phẩm số, kho serial, đơn hàng & giao hàng | `categories`, `products`, `product_variants`, `stock_items`, `orders`, `order_items`, `order_deliveries` | `Accept-Profile: commerce` |
 | `media` | Tệp tin lưu trữ và tài nguyên đa phương tiện | `assets`, `buckets` | `Accept-Profile: media` |
@@ -62,7 +62,7 @@ Toàn bộ các truy vấn HTTP tới Supabase sử dụng hàm dùng chung `sup
 
 ```typescript
 export type AdminSchema =
-  'automa' | 'billing' | 'commerce' | 'events' | 'media' | 'public' | 'workers';
+  'automation' | 'billing' | 'commerce' | 'events' | 'media' | 'public' | 'workers';
 
 export interface SupabaseRequestOptions extends RequestInit {
   preferRepresentation?: boolean;

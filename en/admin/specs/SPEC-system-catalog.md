@@ -2,7 +2,7 @@
 
 > **Mã đặc tả:** `SPEC-system-catalog`  
 > **Module id:** `system-catalog` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/system.md`](../routes/system.md), [`ADR-004`](../decisions/0004-vxe-grid-form-and-i18n-terminology.md)  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/system.md`](../routes/system.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 
 ---
@@ -13,7 +13,7 @@ Xây dựng phân hệ Quản trị Danh mục Hệ thống (**System Catalog**)
 
 1. **Quản Trị Plugins Hệ Thống (`/system/plugins`):**
    - Truy vấn trực tiếp bảng `public.system_plugins` (`id`, `name`, `description`, `version`, `status`, `schema_name`, `manifest`, `installed_at`).
-   - Phân định trực quan giữa **6 Core Kernel Plugins** (`core-iam`, `runners`, `automa`, `storage`, `subscriptions`, `webhooks`) và các **Extension Plugins** mở rộng (như `commerce`).
+   - Phân định trực quan giữa **6 Core Kernel Plugins** (`core-iam`, `workers`, `automation`, `storage`, `subscriptions`, `webhooks`) và các **Extension Plugins** mở rộng (như `commerce`).
    - Hỗ trợ tìm kiếm theo tên/mã plugin/schema, lọc theo phân loại (`core` vs `extension`) và trạng thái (`installed`, `disabled`, `pending`), cùng hộp thoại xem chi tiết manifest (`VxeForm`).
 2. **Quản Trị Gói Cước & Hạn Mức SaaS (`/system/plans`):**
    - Truy vấn trực tiếp bảng `billing.plans` (`schema: 'billing'`: `id`, `name`, `description`, `price_monthly_usd`, `max_members`, `max_storage_mb`, `max_monthly_runs`, `is_active`, `metadata`, `created_at`).
@@ -99,9 +99,9 @@ export interface BillingPlanItem {
 }
 
 const CORE_PLUGIN_IDS = new Set([
-  'automa',
+  'automation',
   'core-iam',
-  'runners',
+  'workers',
   'storage',
   'subscriptions',
   'webhooks',
@@ -121,7 +121,7 @@ export async function getBillingPlansApi(): Promise<BillingPlanItem[]>;
 ## 6. Testing Strategy (Chiến Lược Kiểm Thử)
 
 1. **Unit Tests (`system.test.ts`):**
-   - Kiểm tra `isCorePlugin` nhận diện chính xác 6 Core Kernel Plugins (`core-iam`, `runners`, `automa`, `storage`, `subscriptions`, `webhooks`) và trả về `false` cho các plugin mở rộng (`commerce`).
+   - Kiểm tra `isCorePlugin` nhận diện chính xác 6 Core Kernel Plugins (`core-iam`, `workers`, `automation`, `storage`, `subscriptions`, `webhooks`) và trả về `false` cho các plugin mở rộng (`commerce`).
    - Kiểm tra `mapRawPlugin` chuẩn hóa trường `is_core` và giá trị mặc định an toàn khi thiếu `manifest`.
    - Kiểm tra `getBillingPlansApi` truyền đúng `{ schema: 'billing' }` và `getSystemPluginsApi` truy vấn đúng `public.system_plugins`.
 2. **Typecheck & Lint Gate:** `pnpm --filter @tuquet/admin-web run typecheck` và `pnpm run lint` đạt `0 errors`.
@@ -152,4 +152,4 @@ export async function getBillingPlansApi(): Promise<BillingPlanItem[]>;
 
 ## 9. Resolved Decisions (Các Quyết Định Đã Chốt)
 
-1. **Phân định 6 Core Kernel Plugins vs Extension Plugins:** 6 plugin nền tảng (`core-iam`, `runners`, `automa`, `storage`, `subscriptions`, `webhooks`) được định danh là hạt nhân kiến trúc (`isCorePlugin(id) === true`), trong khi các phân hệ nghiệp vụ gia tăng như `commerce` được phân loại là Extension Plugin có thể bật/tắt linh hoạt theo nhu cầu triển khai.
+1. **Phân định 6 Core Kernel Plugins vs Extension Plugins:** 6 plugin nền tảng (`core-iam`, `workers`, `automation`, `storage`, `subscriptions`, `webhooks`) được định danh là hạt nhân kiến trúc (`isCorePlugin(id) === true`), trong khi các phân hệ nghiệp vụ gia tăng như `commerce` được phân loại là Extension Plugin có thể bật/tắt linh hoạt theo nhu cầu triển khai.

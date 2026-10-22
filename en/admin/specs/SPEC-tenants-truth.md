@@ -2,14 +2,14 @@
 
 > **Mã đặc tả:** `SPEC-tenants-truth`  
 > **Module id:** `tenants-truth` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/tenants.md`](../routes/tenants.md), [`ADR-004`](../decisions/0004-vxe-grid-form-and-i18n-terminology.md)  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/tenants.md`](../routes/tenants.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 
 ---
 
 ## 1. Objective (Mục Tiêu & Phạm Vi)
 
-Xây dựng phân hệ Quản trị Workspace (`/tenants` và `/tenants/:id`) kết nối **100% dữ liệu đo đếm thực tế (Real Telemetry)** từ 3 schema `public`, `billing`, và `runners` của Cloud, sử dụng chuẩn bảng dữ liệu `useVbenVxeGrid` (`VxeTable`) và biểu mẫu `VxeForm`:
+Xây dựng phân hệ Quản trị Workspace (`/tenants` và `/tenants/:id`) kết nối **100% dữ liệu đo đếm thực tế (Real Telemetry)** từ 3 schema `public`, `billing`, và `workers` của Cloud, sử dụng chuẩn bảng dữ liệu `useVbenVxeGrid` (`VxeTable`) và biểu mẫu `VxeForm`:
 
 1. **Danh Sách Workspace (`/tenants`):**
    - Hiển thị danh mục toàn bộ Workspace mà người dùng có quyền truy cập (hoặc toàn bộ nền tảng đối với Superadmin) qua bảng `useVbenVxeGrid`.
@@ -137,7 +137,7 @@ export async function removeWorkspaceMemberApi(memberId: string): Promise<void>;
 | :-- | :-- | :-- |
 | **Thông tin Workspace** | `public` | `GET /rest/v1/tenants?id=eq.<tenantId>&select=*` |
 | **Thành viên & Vai trò** | `public` | `GET /rest/v1/tenant_members?tenant_id=eq.<tenantId>&select=id,status,joined_at,user_id,profiles(id,full_name,email,avatar_url),member_roles(role_id,roles(id,name,display_name))` |
-| **Thiết bị Runner kết nối** | `runners` | `GET /rest/v1/devices?tenant_id=eq.<tenantId>&select=id,status` |
+| **Thiết bị Runner kết nối** | `workers` | `GET /rest/v1/devices?tenant_id=eq.<tenantId>&select=id,status` |
 | **Hợp đồng thuê bao & Gói** | `billing` | `GET /rest/v1/subscriptions?tenant_id=eq.<tenantId>&select=id,tenant_id,plan_id,status,current_period_start,current_period_end,cancel_at_period_end,plans:plan_id(*)` |
 | **Hạn mức mặc định (`free`)** | `billing` | `GET /rest/v1/plans?id=eq.free&select=*` |
 | **Bộ đếm tiêu thụ** | `billing` | `GET /rest/v1/usage_meters?tenant_id=eq.<tenantId>&select=metric_name,current_value` |
@@ -192,7 +192,7 @@ export async function removeWorkspaceMemberApi(memberId: string): Promise<void>;
 
 ## 8. Success Criteria (Tiêu Chí Nghiệm Thu)
 
-- [x] **SC1:** Danh sách `/tenants` và chi tiết `/tenants/:id` vận hành 100% trên dữ liệu thật từ `public`, `runners`, `billing`.
+- [x] **SC1:** Danh sách `/tenants` và chi tiết `/tenants/:id` vận hành 100% trên dữ liệu thật từ `public`, `workers`, `billing`.
 - [x] **SC2:** Chuyển đổi giữa 4 tabs (`overview`, `members`, `usage`, `audit`) đồng bộ tức thì với `?tab=` trên URL, giữ nguyên tab khi F5 và không gây nháy trang hay nhảy cuộn.
 - [x] **SC3:** Mời thành viên mới tạo bản ghi hợp lệ trong `public.tenant_invitations` và đổi vai trò cập nhật chính xác bảng nối `public.member_roles`.
 - [x] **SC4:** Tab `usage` tính toán đúng tỷ lệ sử dụng Thành viên, Thiết bị, Lượt chạy và Dung lượng lưu trữ so với hạn mức của gói cước hiện hành.

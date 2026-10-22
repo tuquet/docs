@@ -2,7 +2,7 @@
 
 > **Mã đặc tả:** `SPEC-admin-commerce-portal`  
 > **Module id:** `admin-commerce-portal` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`SPEC-payment-gateway.md`](SPEC-payment-gateway.md), [`SPEC-digital-commerce.md`](SPEC-digital-commerce.md), [`ADR-004`](../decisions/0004-vxe-grid-form-and-i18n-terminology.md), [`ADR-002`](../decisions/0002-typography-and-font-system.md)  
+> **Kiến trúc nguồn:** [`SPEC-payment-gateway.md`](SPEC-payment-gateway.md), [`SPEC-digital-commerce.md`](SPEC-digital-commerce.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (IMPLEMENTED)**
 
 ---
@@ -160,7 +160,7 @@ const [OrdersGrid, ordersGridApi] = useVbenVxeGrid<CommerceOrderRecord>({
 - **Always do (Luôn thực hiện):**
   - Sử dụng `useVbenVxeGrid` cho toàn bộ bảng danh sách đơn hàng, lịch sử giao dịch ví, danh mục sản phẩm quản trị, lệnh chờ duyệt và cấu hình cổng thanh toán.
   - Hiển thị đơn vị tiền tệ nội bộ thống nhất bằng **`Xu`** (`BIGINT`) kèm định dạng phân tách hàng nghìn rõ ràng.
-  - Tuân thủ chuẩn chữ 7 bậc (`text-2xs` đến `text-2xl`) và Sentence case tiếng Việt theo [`ADR-002`](../decisions/0002-typography-and-font-system.md).
+  - Tuân thủ chuẩn chữ 7 bậc (`text-2xs` đến `text-2xl`) và Sentence case tiếng Việt theo.
 - **Ask first (Hỏi trước khi thực hiện):**
   - Thêm route con mới vào nhóm `/commerce`.
 - **Never do (Tuyệt đối cấm):**

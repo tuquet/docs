@@ -2,7 +2,7 @@
 
 > **Mã đặc tả:** `SPEC-superadmin-routes`  
 > **Module id:** `superadmin-routes` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/system.md`](../routes/system.md), [`ADR-003`](../decisions/0003-platform-superadmin.md), [`ADR-004`](../decisions/0004-vxe-grid-form-and-i18n-terminology.md)  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/system.md`](../routes/system.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 
 ---

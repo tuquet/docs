@@ -21,7 +21,7 @@
 Tách biệt rõ **tầng giám sát thống kê (`Overview Dashboard`)** và **tầng thao tác dữ liệu (`Operational Data Grids`)** trong phân hệ Tự động hóa (`/automation/*`), giúp người dùng trên thiết bị di động thao tác bảng dữ liệu nhanh, thoáng và không phải cuộn qua nhiều tầng thẻ thống kê:
 
 1. **Xây dựng Trang Tổng Quan Tự Động Hóa (`/automation/overview`):**
-   - Tập trung toàn bộ chỉ số sức khỏe hạ tầng và tiến độ thực thi từ cả 2 schema `automa` và `runners` vào một màn hình điều phối duy nhất:
+   - Tập trung toàn bộ chỉ số sức khỏe hạ tầng và tiến độ thực thi từ cả 2 schema `automation` và `workers` vào một màn hình điều phối duy nhất:
      - **Khối Hạ tầng Runner & Loopback Daemon (`FleetMetrics`):** Tổng thiết bị (`total_nodes`), Thiết bị trực tuyến (`online_nodes`), Tác vụ đang chạy (`active_jobs`), và Trạng thái cổng Loopback (`:8765` Online/Standby) — bố cục `grid-cols-2 lg:grid-cols-4` gọn gàng trên mobile.
      - **Lưới 5 Thẻ Điều Hướng Nhanh Phân Hệ (`Resource Breakdown Cards` — `grid-cols-2 sm:grid-cols-3 lg:grid-cols-5`):**
        1. **Quy trình (`Workflows`):** Tổng số kịch bản + phân bổ `published / draft / archived` $\rightarrow$ nhấn để mở `/automation/workflows`.
@@ -81,7 +81,7 @@ apps/web-admin/src/
 ├── router/
 │   ├── plugin-gate.ts                                    # Hỗ trợ meta.plugin kiểu string | string[] cho route tổng hợp đa plugin
 │   ├── __tests__/
-│   │   └── plugin-gate.test.ts                           # Unit tests kiểm chứng /automation/overview với ['automa'] hoặc ['runners']
+│   │   └── plugin-gate.test.ts                           # Unit tests kiểm chứng /automation/overview với ['automation'] hoặc ['workers']
 │   └── routes/modules/
 │       └── automation.ts                                 # Thêm route /automation/overview (order đầu tiên, redirect từ /automation)
 ├── locales/langs/
@@ -205,7 +205,7 @@ export interface AutomationOverviewSummary {
 
 1. **Unit Tests (`vitest`):**
    - Kiểm thử hàm `calculateAutomationOverviewSummary` và `getAutomationOverviewApi` trong `apps/web-admin/src/api/core/__tests__/automation.test.ts` (bao gồm trường hợp dữ liệu rỗng, tính độ trễ trung bình proxy, đếm trạng thái workflows/runs/devices/browsers).
-   - Kiểm thử `filterRoutesByPlugins` trong `apps/web-admin/src/router/__tests__/plugin-gate.test.ts` xác nhận `/automation/overview` hiển thị khi cài `automa` hoặc `runners`, và bị cắt tỉa khi cả hai plugin đều chưa cài.
+   - Kiểm thử `filterRoutesByPlugins` trong `apps/web-admin/src/router/__tests__/plugin-gate.test.ts` xác nhận `/automation/overview` hiển thị khi cài `automation` hoặc `workers`, và bị cắt tỉa khi cả hai plugin đều chưa cài.
 2. **Kiểm Định Đa Ngôn Ngữ & Tĩnh (`check:i18n`, `typecheck`, `lint`):**
    - Đảm bảo `0` chuỗi tiếng Việt hardcode trong `apps/web-admin/src/**/*.{vue,ts}` và 100% đối xứng khóa `en-US` / `vi-VN`.
 3. **Kiểm Thử Giao Diện Mobile & Build Cục Bộ (`build:local`):**

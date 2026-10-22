@@ -3,9 +3,7 @@
 > **Mã tài liệu:** `ARCH-ADMIN-ROUTES`  
 > **Áp dụng cho:** `tuquet/admin` (`apps/web-admin`)  
 > **Tài liệu kiến trúc tổng thể:** [`docs/architecture/overview.md`](../architecture/overview.md)  
-> **Quyết định liên quan:** [`ADR-001: Định Tuyến & Đa Schema`](../decisions/0001-routing-architecture.md) | [`ADR-003: Platform Superadmin`](../decisions/0003-platform-superadmin.md) | [`ADR-004: VXE Grid/Form & Hợp Nhất Route`](../decisions/0004-vxe-grid-form-and-i18n-terminology.md)
-
----
+> **Quyết định liên quan:** | | ---
 
 ## 1. Tổng Quan Kiến Trúc (Architecture Overview)
 
@@ -59,9 +57,9 @@ graph TD
 | 1 | **`/dashboard/analytics`** | `Analytics` | `core-iam` | Authenticated | `BasicLayout` | `analytics/index.vue` | `public.tenants`, `public.system_plugins` |
 | 2 | **`/tenants`** | `Tenants` | `core-iam` | `['superadmin', 'tenants:read']` | `BasicLayout` | `tenants/index.vue` | `public.tenants` |
 | 3 | **`/tenants/:id`** | `TenantDetail` | `core-iam` | `['superadmin', 'tenants:read']` | `BasicLayout` | `tenants/detail.vue` | `public.tenants`, `tenant_members`, `billing.subscriptions`, `audit_logs` |
-| 4 | **`/automation/workflows`** | `AutomationWorkflows` | `automa` | `['superadmin', 'automation:workflows:read']` | `BasicLayout` | `workflows/index.vue` | `automation.workflows` |
-| 5 | **`/automation/jobs`** | `AutomationRuns` | `automa` | `['superadmin', 'automa:campaigns:read']` | `BasicLayout` | `runs/index.vue` | `automa.campaign_runs` |
-| 6 | **`/automation/jobs/:id`** | `AutomationRunDetail` | `automa` | `['superadmin', 'automation:logs:read']` | `BasicLayout` | `runs/detail.vue` | `automa.campaign_runs`, `automation.execution_logs` |
+| 4 | **`/automation/workflows`** | `AutomationWorkflows` | `automation` | `['superadmin', 'automation:workflows:read']` | `BasicLayout` | `workflows/index.vue` | `automation.workflows` |
+| 5 | **`/automation/jobs`** | `AutomationRuns` | `automation` | `['superadmin', 'automa:campaigns:read']` | `BasicLayout` | `runs/index.vue` | `automation.jobs` |
+| 6 | **`/automation/jobs/:id`** | `AutomationRunDetail` | `automation` | `['superadmin', 'automation:logs:read']` | `BasicLayout` | `runs/detail.vue` | `automation.jobs`, `automation.execution_logs` |
 | 7 | **`/automation/devices`** | `AutomationDevices` | `workers` | `['superadmin', 'workers:devices:read']` | `BasicLayout` | `devices/index.vue` | `workers.devices` |
 | 8 | **`/automation/browsers`** | `AutomationBrowsers` | `workers` | `['superadmin', 'workers:browsers:read']` | `BasicLayout` | `browsers/index.vue` | `workers.browsers` |
 | 9 | **`/automation/proxies`** | `AutomationProxies` | `workers` | `['superadmin', 'workers:proxies:read']` | `BasicLayout` | `proxies/index.vue` | `workers.proxies` |
@@ -96,7 +94,7 @@ Mỗi khi người dùng khởi động phiên làm việc, router chạy hàm l
 2. **Route khai báo `meta.plugin`:** Kiểm tra xem plugin ID có nằm trong danh sách các plugin đã cài đặt (`status === 'installed'` trong `public.system_plugins`) hay không.
 3. **Đệ quy trên Route Con (`children`):**
    - Nếu toàn bộ route con bị lọc bỏ và route cha không có `component`, route cha tự động bị cắt tỉa (pruned) khỏi menu.
-   - Trong nhóm `/automation`, các route con thuộc `automa` (`workflows`, `runs`, `runs/:id`) và các route con thuộc `workers` (`devices`, `browsers`, `proxies`) được đánh giá độc lập.
+   - Trong nhóm `/automation`, các route con thuộc `automation` (`workflows`, `runs`, `runs/:id`) và các route con thuộc `workers` (`devices`, `browsers`, `proxies`) được đánh giá độc lập.
    - Trong nhóm `/commerce`, các route con thuộc `commerce` (`store`, `orders`, `admin`) và route con thuộc `subscriptions` (`wallet`) được đánh giá độc lập.
 
 ---

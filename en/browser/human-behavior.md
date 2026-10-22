@@ -10,7 +10,7 @@ Standard automation scripts (such as default Playwright or Puppeteer scripts) mo
 
 ## 1. Cubic Bézier Curve Trajectory Mathematics
 
-models cursor movements using parametric **Cubic Bézier Curves** modulated by randomized physical control points:
+Tuquet models cursor movements using parametric **Cubic Bézier Curves** modulated by randomized physical control points:
 
 $$B(t) = (1-t)^3 P_0 + 3(1-t)^2 t P_1 + 3(1-t) t^2 P_2 + t^3 P_3, \quad t \in [0, 1]$$
 
@@ -32,7 +32,7 @@ $$B(t) = (1-t)^3 P_0 + 3(1-t)^2 t P_1 + 3(1-t) t^2 P_2 + t^3 P_3, \quad t \in [0
 2. **Dynamic Control Points ($P_1, P_2$)**:
    - Randomly offset along the movement vector to simulate the biomechanical arc of a human forearm and wrist.
 3. **Target Overshoot & Correction**:
-   - High-speed human ballistic movements frequently overshoot target buttons by 2–5 pixels before an optical feedback loop corrects the trajectory back to the center of the element. emulates this correction phase automatically.
+   - High-speed human ballistic movements frequently overshoot target buttons by 2–5 pixels before an optical feedback loop corrects the trajectory back to the center of the element. Tuquet emulates this correction phase automatically.
 
 ---
 

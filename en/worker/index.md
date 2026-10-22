@@ -60,7 +60,7 @@ tq worker logs -f
 
 ## ⚙️ Configuration Reference
 
-Worker configuration is located at `~/.tq/automa/runner.json`:
+Worker configuration is located at `~/.tq/worker/worker.json`:
 
 ```json
 {

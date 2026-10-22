@@ -85,10 +85,6 @@ const adminSidebar = [
     text: 'Architecture Decisions (ADRs)',
     collapsed: false,
     items: [
-      { text: 'ADR-001: Routing & PostgREST', link: '/en/admin/decisions/0001-routing-architecture' },
-      { text: 'ADR-002: Typography & Fonts', link: '/en/admin/decisions/0002-typography-and-font-system' },
-      { text: 'ADR-003: Platform Superadmin', link: '/en/admin/decisions/0003-platform-superadmin' },
-      { text: 'ADR-004: VxeGrid & Terminology', link: '/en/admin/decisions/0004-vxe-grid-form-and-i18n-terminology' },
     ],
   },
   {
@@ -108,12 +104,6 @@ const adminSidebar = [
     text: 'Milestones & Phases',
     collapsed: true,
     items: [
-      { text: 'Phase Roadmap Overview', link: '/en/admin/phases/' },
-      { text: 'Phase 01: IAM & Multi-Tenancy', link: '/en/admin/phases/phase-01-enterprise-iam-multitenancy/' },
-      { text: 'Phase 02: Payment Gateway', link: '/en/admin/phases/phase-02-omnichannel-payment-gateway/' },
-      { text: 'Phase 03: Digital Commerce', link: '/en/admin/phases/phase-03-digital-commerce-fulfillment/' },
-      { text: 'Phase 04: Cloud Automation Fleet', link: '/en/admin/phases/phase-04-cloud-automation-fleet/' },
-      { text: 'Phase 05: White-Label Marketplace', link: '/en/admin/phases/phase-05-white-label-marketplace/' },
     ],
   },
   {

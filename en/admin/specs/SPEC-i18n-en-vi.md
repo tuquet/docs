@@ -2,7 +2,7 @@
 
 > **Mã đặc tả:** `SPEC-i18n-en-vi`  
 > **Module id:** `i18n-en-vi` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`ADR-004`](../decisions/0004-vxe-grid-form-and-i18n-terminology.md)  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md)  
 > **Trạng thái:** **ĐÃ NGHIỆM THU & TRIỂN KHAI 100% (ACCEPTED & IMPLEMENTED)**
 
 ---

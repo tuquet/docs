@@ -2,7 +2,7 @@
 
 > **Mã đặc tả:** `SPEC-route-foundation`  
 > **Module id:** `route-foundation` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/index.md`](../routes/index.md), [`ADR-001`](../decisions/0001-routing-architecture.md), [`ADR-004`](../decisions/0004-vxe-grid-form-and-i18n-terminology.md)  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/index.md`](../routes/index.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 
 ---
@@ -14,13 +14,13 @@ Thiết lập kiến trúc định tuyến phân rã theo module và ranh giới
 1. **Cấu Trúc 5 Nhóm Điều Hướng Sidebar & Cụm Tuyến Lõi (27 Routes):**
    - **`dashboard.ts` (`order: 1`):** Trang chủ mặc định `/dashboard/analytics` (hiển thị Telemetry thực tế từ Cloud & Loopback Daemon).
    - **`tenants.ts` (`order: 10`):** Quản trị Workspace đa thuê bao (`/tenants` danh sách và `/tenants/:id` chi tiết 4 tabs `overview | members | usage | audit`).
-   - **`automation.ts` (`order: 20`):** Hợp nhất toàn bộ kịch bản tự động hóa (plugin `automation`: `workflows`, `runs`, `runs/:id`) và hạ tầng thực thi (plugin `runners`: `devices`, `browsers`, `proxies`) dưới một nhánh `/automation/*` duy nhất, khớp 1-1 với cây thư mục `src/views/automation/*`.
+   - **`automation.ts` (`order: 20`):** Hợp nhất toàn bộ kịch bản tự động hóa (plugin `automation`: `workflows`, `runs`, `runs/:id`) và hạ tầng thực thi (plugin `workers`: `devices`, `browsers`, `proxies`) dưới một nhánh `/automation/*` duy nhất, khớp 1-1 với cây thư mục `src/views/automation/*`.
    - **`commerce.ts` (`order: 25`):** Cổng thương mại sản phẩm số & Ví trả trước (`/commerce/store`, `/commerce/orders`, `/commerce/wallet`, `/commerce/admin`).
    - **`system.ts` (`order: 30`):** Danh mục hệ thống (`/system/plugins`, `/system/plans`) và 4 tuyến giám sát toàn nền tảng dành riêng cho Platform Superadmin (`/system/users`, `/system/audit-logs`, `/system/subscriptions`, `/system/roles`).
    - **`core.ts`:** Cụm xác thực (`/auth/login`, `register`, `forget-password`, `reset-password`, `callback`, `desktop`), trang hồ sơ `/profile`, và cửa hàng công khai `/store` (`PublicStorefront`).
 2. **Bộ Lọc Động Theo Plugin (`filterRoutesByPlugins`):**
    - Cắt tỉa tự động các route mà `meta.plugin` chưa có trạng thái `installed` trong `public.system_plugins`.
-   - Hỗ trợ menu cha hỗn hợp đa plugin (như `/automation` kết hợp `automa` + `runners`, `/commerce` kết hợp `commerce` + `subscriptions`, `/system` kết hợp `core-iam` + `subscriptions`), chỉ ẩn menu cha khi toàn bộ route con bị lọc bỏ.
+   - Hỗ trợ menu cha hỗn hợp đa plugin (như `/automation` kết hợp `automation` + `workers`, `/commerce` kết hợp `commerce` + `subscriptions`, `/system` kết hợp `core-iam` + `subscriptions`), chỉ ẩn menu cha khi toàn bộ route con bị lọc bỏ.
 3. **Bảo Toàn Vị Trí Cuộn & Triệt Tiêu Nháy Trang Nội Tuyến (`Intra-Page Scroll Preservation`):**
    - Dùng `route.path` làm khóa định danh mặc định (`getTabKey`) cho `router-view`, tắt hiệu ứng transition và giữ nguyên vị trí cuộn khi người dùng chỉ thay đổi query parameters trên cùng một đường dẫn (`?tab=`, `?status=`, `?tenant=`).
 
@@ -92,12 +92,12 @@ apps/web-admin/src/
 | **Dashboard** | `/dashboard/analytics` | `Analytics` | `core-iam` | Authenticated |
 | **Tenants** | `/tenants` | `Tenants` | `core-iam` | `['superadmin', 'tenants:read']` |
 | **Tenants** | `/tenants/:id` | `TenantDetail` | `core-iam` | `['superadmin', 'tenants:read']` |
-| **Automation** | `/automation/workflows` | `AutomationWorkflows` | `automa` | `['superadmin', 'automation:workflows:read']` |
-| **Automation** | `/automation/jobs` | `AutomationRuns` | `automa` | `['superadmin', 'automa:campaigns:read']` |
-| **Automation** | `/automation/jobs/:id` | `AutomationRunDetail` | `automa` | `['superadmin', 'automation:logs:read']` |
-| **Automation** | `/automation/devices` | `AutomationDevices` | `runners` | `['superadmin', 'runners:devices:read']` |
-| **Automation** | `/automation/browsers` | `AutomationBrowsers` | `runners` | `['superadmin', 'runners:browsers:read']` |
-| **Automation** | `/automation/proxies` | `AutomationProxies` | `runners` | `['superadmin', 'runners:proxies:read']` |
+| **Automation** | `/automation/workflows` | `AutomationWorkflows` | `automation` | `['superadmin', 'automation:workflows:read']` |
+| **Automation** | `/automation/jobs` | `AutomationRuns` | `automation` | `['superadmin', 'automa:campaigns:read']` |
+| **Automation** | `/automation/jobs/:id` | `AutomationRunDetail` | `automation` | `['superadmin', 'automation:logs:read']` |
+| **Automation** | `/automation/devices` | `AutomationDevices` | `workers` | `['superadmin', 'workers:devices:read']` |
+| **Automation** | `/automation/browsers` | `AutomationBrowsers` | `workers` | `['superadmin', 'workers:browsers:read']` |
+| **Automation** | `/automation/proxies` | `AutomationProxies` | `workers` | `['superadmin', 'workers:proxies:read']` |
 | **Commerce** | `/commerce/store` | `CommerceStore` | `commerce` | `['superadmin', 'commerce:read']` |
 | **Commerce** | `/commerce/orders` | `CommerceOrders` | `commerce` | `['superadmin', 'commerce:read']` |
 | **Commerce** | `/commerce/wallet` | `CommerceWallet` | `subscriptions` | `['superadmin', 'subscriptions:read', 'commerce:read']` |
@@ -168,7 +168,7 @@ scrollBehavior(to, _from, savedPosition) {
 ## 6. Testing Strategy (Chiến Lược Kiểm Thử)
 
 1. **Unit Tests (`plugin-gate.test.ts`):**
-   - Kiểm tra lọc độc lập từng nhánh con trong các menu hỗn hợp (`/automation` với `automa` + `runners`; `/commerce` với `commerce` + `subscriptions`; `/system` với `core-iam` + `subscriptions`).
+   - Kiểm tra lọc độc lập từng nhánh con trong các menu hỗn hợp (`/automation` với `automation` + `workers`; `/commerce` với `commerce` + `subscriptions`; `/system` với `core-iam` + `subscriptions`).
    - Kiểm tra tự động cắt tỉa (prune) menu cha khi 0 route con còn lại.
    - Kiểm tra bảo toàn tính bất biến (immutability) của mảng `routes` đầu vào.
 2. **Typecheck & Lint Gate:** `pnpm --filter @tuquet/admin-web run typecheck` và `pnpm run lint` đạt `0 errors`.
@@ -193,7 +193,7 @@ scrollBehavior(to, _from, savedPosition) {
 ## 8. Success Criteria (Tiêu Chí Nghiệm Thu)
 
 - [x] **SC1:** Thanh Sidebar hiển thị đúng 5 nhóm điều hướng cấp 1 theo thứ tự: `Dashboard` (`1`), `Workspaces` (`10`), `Automation` (`20`), `Commerce` (`25`), và `System` (`30`).
-- [x] **SC2:** Nhóm `/automation` hợp nhất trọn vẹn 6 tuyến con (`workflows`, `runs`, `runs/:id`, `devices`, `browsers`, `proxies`) với thư mục view đồng bộ tại `src/views/automation/*` và ranh giới plugin độc lập (`automa` vs `runners`).
+- [x] **SC2:** Nhóm `/automation` hợp nhất trọn vẹn 6 tuyến con (`workflows`, `runs`, `runs/:id`, `devices`, `browsers`, `proxies`) với thư mục view đồng bộ tại `src/views/automation/*` và ranh giới plugin độc lập (`automation` vs `workers`).
 - [x] **SC3:** Nhóm `/commerce` và tuyến công khai `/store` hoạt động chính xác với bộ lọc plugin (`commerce`, `subscriptions`) và cờ `ignoreAccess: true` cho khách vãng lai.
 - [x] **SC4:** Thay đổi query parameter (`?tab=members`, `?status=running`) không gây nháy hiệu ứng chuyển trang hoặc nhảy thanh cuộn lên đầu trang.
 - [x] **SC5:** 100% unit tests trong `plugin-gate.test.ts` pass và `typecheck` đạt 0 lỗi.
@@ -202,5 +202,5 @@ scrollBehavior(to, _from, savedPosition) {
 
 ## 9. Resolved Decisions (Các Quyết Định Đã Chốt)
 
-1. **Hợp nhất `Fleet` và `Automation` dưới `/automation`:** Gom 3 màn hình hạ tầng (`devices`, `browsers`, `proxies`) và 3 màn hình kịch bản (`workflows`, `runs`, `runs/:id`) vào cùng một menu `/automation` và thư mục `src/views/automation/`, trong khi vẫn giữ nguyên 2 mã plugin độc lập (`runners` và `automa`) để đánh giá quyền và trạng thái cài đặt chính xác.
+1. **Hợp nhất `Fleet` và `Automation` dưới `/automation`:** Gom 3 màn hình hạ tầng (`devices`, `browsers`, `proxies`) và 3 màn hình kịch bản (`workflows`, `runs`, `runs/:id`) vào cùng một menu `/automation` và thư mục `src/views/automation/`, trong khi vẫn giữ nguyên 2 mã plugin độc lập (`workers` và `automation`) để đánh giá quyền và trạng thái cài đặt chính xác.
 2. **Fallback an toàn khi tải danh sách Plugin:** Nếu lời gọi `getInstalledPluginsApi()` gặp sự cố mạng tạm thời lúc khởi động, router mặc định rơi về `['core-iam']` để người vận hành vẫn truy cập được Dashboard và Workspaces mà không bị kẹt màn hình trắng.

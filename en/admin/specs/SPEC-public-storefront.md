@@ -2,7 +2,7 @@
 
 > **Mã đặc tả:** `SPEC-public-storefront`  
 > **Module id:** `public-storefront` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`SPEC-payment-gateway.md`](SPEC-payment-gateway.md), [`SPEC-digital-commerce.md`](SPEC-digital-commerce.md), [`SPEC-admin-commerce-portal.md`](SPEC-admin-commerce-portal.md), [`ADR-002`](../decisions/0002-typography-and-font-system.md)  
+> **Kiến trúc nguồn:** [`SPEC-payment-gateway.md`](SPEC-payment-gateway.md), [`SPEC-digital-commerce.md`](SPEC-digital-commerce.md), [`SPEC-admin-commerce-portal.md`](SPEC-admin-commerce-portal.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (IMPLEMENTED)**
 
 ---

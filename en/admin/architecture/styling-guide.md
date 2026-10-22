@@ -3,7 +3,6 @@
 > **Mã tài liệu:** `ARCH-STYLING-GUIDE`  
 > **Áp dụng cho:** `tuquet/admin` (`apps/web-admin`)  
 > **Tài liệu kiến trúc tổng thể:** [`docs/architecture/overview.md`](overview.md)  
-> **Quy chuẩn Typography:** [`docs/decisions/0002-typography-and-font-system.md`](../decisions/0002-typography-and-font-system.md)
 
 Tài liệu này là **Quy chuẩn Thiết kế Giao diện (SSOT)** áp dụng cho toàn bộ các màn hình, components và views trong hệ thống **Admin**.
 
@@ -86,7 +85,7 @@ Hệ thống màu của Admin sử dụng kiến trúc CSS Variables (HSL) độ
 
 ### 2.6. Bảng Dữ Liệu `useVbenVxeGrid` & Biểu Mẫu `VxeForm`
 
-Toàn bộ bảng dữ liệu và biểu mẫu sử dụng adapter `src/adapter/vxe-table.ts` (xem [`ADR-004`](../decisions/0004-vxe-grid-form-and-i18n-terminology.md)) được đồng bộ hóa với hệ thống biến CSS HSL tại `packages/effects/plugins/src/vxe-table/style.css`:
+Toàn bộ bảng dữ liệu và biểu mẫu sử dụng adapter `src/adapter/vxe-table.ts` (xem) được đồng bộ hóa với hệ thống biến CSS HSL tại `packages/effects/plugins/src/vxe-table/style.css`:
 
 - Đường kẻ phân tách bảng: `--vxe-ui-table-border-color: hsl(var(--border) / 40%)`
 - Đường kẻ kéo giãn cột: `--vxe-ui-table-resizable-line-color: hsl(var(--border) / 50%)`

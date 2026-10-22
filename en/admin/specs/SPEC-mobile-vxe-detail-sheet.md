@@ -180,7 +180,7 @@ export interface SupabaseColumnSchema {
 
 - `src/api/core/__tests__/supabase-schema-registry.test.ts`:
   - Kiểm thử `buildDynamicVxeCreateSchema` chỉ lấy các cột `insertable || editable`, loại bỏ các cột chỉ đọc/tự sinh (`created_at`, `updated_at`, `member_count`, `id` kiểu `uuid`), nhưng giữ lại `id` kiểu `text` có `insertable: true` (như `public.permissions`, `billing.plans`, `public.system_plugins`).
-  - Kiểm thử `computeInsertPayload` và `executeDynamicSupabaseInsert`: tự động điền `defaultValue`, kiểm tra các cột `required: true`, tự động gắn `tenant_id` cho các bảng thuộc schema `automa` / `runners`, và gọi `POST /rest/v1/<table>`.
+  - Kiểm thử `computeInsertPayload` và `executeDynamicSupabaseInsert`: tự động điền `defaultValue`, kiểm tra các cột `required: true`, tự động gắn `tenant_id` cho các bảng thuộc schema `automation` / `workers`, và gọi `POST /rest/v1/<table>`.
 - `src/components/vxe-detail-sheet/__tests__/vxe-row-detail-sheet.test.ts`:
   - Kiểm thử `VxeRowDetailSheet` khi mở với `mode="create"`: hiển thị nút tạo mới (`data-testid="vxe-detail-sheet-create"`), khởi tạo sẵn giá trị mặc định, tự động sinh `slug` từ `name` (khi tạo `public.tenants` hoặc `commerce.products`), chặn submit nếu thiếu trường `required`, và phát sự kiện `created` sau khi lưu thành công.
 

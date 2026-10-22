@@ -5,7 +5,7 @@
 > **Component:** `apps/web-admin/src/views/automation/browsers/index.vue`  
 > **PostgreSQL Schema:** `workers.browsers` (kết hợp danh mục `browsers.releases` và `workers.proxies`)  
 > **Phân quyền (RBAC):** `['superadmin', 'workers:browsers:read']` / `workers:browsers:manage`  
-> **Kiến trúc nguồn:** [`overview.md`](../architecture/overview.md), [`capability-map.md`](capability-map.md), [`ADR-004`](../decisions/0004-vxe-grid-form-and-i18n-terminology.md)  
+> **Kiến trúc nguồn:** [`overview.md`](../architecture/overview.md), [`capability-map.md`](capability-map.md)  
 > **Liên kết phân hệ:** [`SPEC-automation-devices.md`](SPEC-automation-devices.md), [`SPEC-automation-proxies.md`](SPEC-automation-proxies.md), [`SPEC-automation-jobs.md`](SPEC-automation-jobs.md), [`SPEC-mobile-vxe-detail-sheet.md`](SPEC-mobile-vxe-detail-sheet.md)  
 > **Ngày cập nhật:** `2026-10-22`  
 > **Trạng thái:** **ACCEPTED & IMPLEMENTED**

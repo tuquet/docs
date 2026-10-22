@@ -31,7 +31,7 @@ Xây dựng phân hệ thương mại sản phẩm số đa năng (`schema: comm
 
 - **Database & Fulfillment Engine:** PostgreSQL 15+ (Supabase), cô lập trong `schema: commerce` (`cloud/supabase/plugins/commerce/install.sql`).
 - **Concurrency & Isolation:** Row-level locking `FOR UPDATE SKIP LOCKED` chống xuất trùng phôi hàng dưới tải đồng thời cao; `SECURITY DEFINER` RPCs ghim `SET search_path = ''`.
-- **Cross-Schema Orchestration:** Tích hợp nguyên tử giữa `commerce` ↔ `billing` (Ví Xu & Payment Intents) ↔ `runners` (Proxy Pool) ↔ `automa` (Workflows) ↔ `media` (Digital Assets).
+- **Cross-Schema Orchestration:** Tích hợp nguyên tử giữa `commerce` ↔ `billing` (Ví Xu & Payment Intents) ↔ `workers` (Proxy Pool) ↔ `automation` (Workflows) ↔ `media` (Digital Assets).
 - **Admin Web Data Client:** TypeScript (`apps/web-admin/src/api/core/commerce.ts`) qua `supabaseRequest({ schema: 'commerce' })`.
 
 ---

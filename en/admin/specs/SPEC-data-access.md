@@ -2,7 +2,7 @@
 
 > **Mã đặc tả:** `SPEC-data-access`  
 > **Module id:** `data-access` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`ADR-001`](../decisions/0001-routing-architecture.md)  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 
 ---
@@ -12,7 +12,7 @@
 Thiết lập tầng truy cập dữ liệu trung tâm (Single Source of Truth — SSOT) cho `@tuquet/admin-web` kết nối trực tiếp tới Cloud PostgREST & GoTrue mà không phụ thuộc vào SDK `@supabase/supabase-js`:
 
 1. **Giao Tiếp Đa Schema PostgREST (`supabaseRequest`):**
-   - Hỗ trợ đọc/ghi trên toàn bộ **7 schema chuyên biệt** của Cloud: `public`, `runners`, `automa`, `billing`, `commerce`, `media`, và `events`.
+   - Hỗ trợ đọc/ghi trên toàn bộ **7 schema chuyên biệt** của Cloud: `public`, `workers`, `automation`, `billing`, `commerce`, `media`, và `events`.
    - Tự động đính kèm header `Accept-Profile: <schema>` cho các truy vấn đọc (`GET`, `HEAD`) và `Content-Profile: <schema>` cho các truy vấn ghi/RPC (`POST`, `PUT`, `PATCH`, `DELETE`).
    - Hỗ trợ cờ `skipAuth: true` cho các truy vấn công khai (như `/store` Guest Checkout) chỉ gửi `apikey` (`anon` key) mà không đính kèm JWT phiên đăng nhập, cùng cơ chế tự động làm mới token (`refreshSession`) khi gặp `401 Unauthorized`.
 2. **Động Hóa Quyền Hạn Từ Cơ Sở Dữ Liệu (`getEffectiveAccessApi`):**
@@ -71,7 +71,7 @@ apps/web-admin/src/api/core/
 
 ```ts
 export type SupabaseSchema =
-  'automa' | 'billing' | 'commerce' | 'events' | 'media' | 'public' | 'runners';
+  'automation' | 'billing' | 'commerce' | 'events' | 'media' | 'public' | 'workers';
 
 export interface SupabaseRequestOptions extends RequestInit {
   _isRetry?: boolean;
@@ -135,7 +135,7 @@ export async function getInstalledPluginsApi(): Promise<string[]>;
 
 ## 8. Success Criteria (Tiêu Chí Nghiệm Thu)
 
-- [x] **SC1:** `supabaseRequest` hỗ trợ đầy đủ 7 schemas (`public`, `runners`, `automa`, `billing`, `commerce`, `media`, `events`), tự động gắn đúng `Accept-Profile` / `Content-Profile` theo HTTP method.
+- [x] **SC1:** `supabaseRequest` hỗ trợ đầy đủ 7 schemas (`public`, `workers`, `automation`, `billing`, `commerce`, `media`, `events`), tự động gắn đúng `Accept-Profile` / `Content-Profile` theo HTTP method.
 - [x] **SC2:** Hoàn toàn loại bỏ các mã vai trò tĩnh (`'super'`, `'user'`) khỏi `auth.ts` và `user.ts`.
 - [x] **SC3:** Tài khoản thường nhận đúng tập hợp `permission_id` thực tế từ các Workspace đang hoạt động; tài khoản có `app_metadata.platform_role = 'superadmin'` nhận toàn bộ quyền và role `'superadmin'`.
 - [x] **SC4:** Single-flight promise cache đảm bảo `fetchUserInfo()` và `getAccessCodesApi()` chỉ kích hoạt duy nhất 1 lượt truy vấn DB cho mỗi lần đăng nhập.

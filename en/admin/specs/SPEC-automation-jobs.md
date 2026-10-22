@@ -5,7 +5,7 @@
 > **PostgreSQL Schema:** `automation` (bảng `automation.jobs` và `automation.execution_logs`)  
 > **Foreign Keys:** `workers.devices` (`worker_id`), `automation.workflows` (`workflow_id`)  
 > **Phân quyền (RBAC):** `['superadmin', 'automation:jobs:read']` / `automation:jobs:manage`  
-> **Kiến trúc nguồn:** [`overview.md`](../architecture/overview.md), [`capability-map.md`](capability-map.md), [`ADR-004`](../decisions/0004-vxe-grid-form-and-i18n-terminology.md)  
+> **Kiến trúc nguồn:** [`overview.md`](../architecture/overview.md), [`capability-map.md`](capability-map.md)  
 > **Liên kết phân hệ:** [`SPEC-automation-browsers.md`](SPEC-automation-browsers.md), [`SPEC-automation-devices.md`](SPEC-automation-devices.md), [`SPEC-automation-proxies.md`](SPEC-automation-proxies.md), [`SPEC-workflow-mobile-first.md`](SPEC-workflow-mobile-first.md)  
 > **Ngày cập nhật:** `2026-10-22`  
 > **Trạng thái:** **ACCEPTED & IMPLEMENTED**

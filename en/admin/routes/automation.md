@@ -2,8 +2,8 @@
 
 > **Đường dẫn chính:** `/automation/workflows`, `/automation/jobs`, `/automation/jobs/:id`, `/automation/devices`, `/automation/browsers`, `/automation/proxies`  
 > **Module File:** `src/router/routes/modules/automation.ts`  
-> **Plugins Quản Lý:** `automa` (cho kịch bản & phiên chạy) và `workers` (cho thiết bị, trình duyệt & proxy)  
-> **Schemas Nguồn:** `automa` (`Accept-Profile: automa`) và `workers` (`Accept-Profile: workers`)  
+> **Plugins Quản Lý:** `automation` (cho kịch bản & phiên chạy) và `workers` (cho thiết bị, trình duyệt & proxy)  
+> **Schemas Nguồn:** `automation` (`Accept-Profile: automation`) và `workers` (`Accept-Profile: workers`)  
 > **Biểu tượng:** `lucide:workflow`
 
 ---
@@ -96,14 +96,14 @@
 
 ## 2. Chi Tiết Từng Tuyến Con (Sub-routes)
 
-### 2.1. Quy Trình Tự Động Hóa: `/automation/workflows` (`automa`)
+### 2.1. Quy Trình Tự Động Hóa: `/automation/workflows` (`automation`)
 
 - **Mục Đích:** Quản lý danh mục các sơ đồ quy trình tự động hóa đồ họa (Automa Canvas Schemas).
 - **Nguồn Dữ Liệu:** Bảng `automation.workflows`.
 - **API Client:** `getWorkflowsApi(filter)` với `{ schema: 'automation' }`.
 - **Giao Diện:** Bảng dữ liệu `useVbenVxeGrid` tích hợp thanh lọc `formOptions` theo trạng thái (`published`, `draft`, `archived`) và từ khóa tìm kiếm.
 
-### 2.2. Lịch Sử Thực Thi: `/automation/jobs` (`automa`)
+### 2.2. Lịch Sử Thực Thi: `/automation/jobs` (`automation`)
 
 - **Mục Đích:** Theo dõi tiến độ chạy của các đợt chiến dịch hoặc tác vụ tự động hóa hàng loạt.
 - **Nguồn Dữ Liệu:** Bảng `automation.jobs`.
@@ -112,7 +112,7 @@
   - **Tiến độ (%):** Tính toán qua `calculateProgressPercentage(completed_tasks, total_tasks)`.
   - **Thời gian chạy (Duration):** Tính khoảng cách giữa `started_at` và `ended_at` (hoặc thời điểm hiện tại nếu run đang chạy).
 
-### 2.3. Chi Tiết Lần Chạy & Console Nhật Ký: `/automation/jobs/:id` (`automa`)
+### 2.3. Chi Tiết Lần Chạy & Console Nhật Ký: `/automation/jobs/:id` (`automation`)
 
 - **Mục Đích:** Giám sát trực tiếp quá trình thực thi, xem log đầu ra chi tiết của từng bước và hủy tác vụ khi cần.
 - **Nguồn Dữ Liệu:** `automation.jobs` và `automation.execution_logs`.

@@ -12,23 +12,12 @@ Chào mừng đến với trung tâm tài liệu kỹ thuật chính thức (Sin
 
 Định nghĩa mô hình tổng thể, giao thức đa schema PostgREST, mô hình phân quyền RBAC/Superadmin, chuẩn bảng dữ liệu `useVbenVxeGrid` (`VxeTable`) & `VxeForm`, và hệ thống Design Tokens.
 
-- [`architecture/overview.md`](architecture/overview.md) — **Kiến trúc tổng thể hệ thống:** Multi-Schema PostgREST (`public`, `runners`, `automa`, `billing`, `commerce`, `media`, `events`), 2 chế độ truy cập (`Multi-Tenant Member` & `Platform Superadmin`) kèm Guest Storefront (`skipAuth`), cơ chế lọc động `Plugin Gate`, polling 3s, và cây định tuyến 27 routes (5 nhóm Sidebar + `core.ts`).
+- [`architecture/overview.md`](architecture/overview.md) — **Kiến trúc tổng thể hệ thống:** Multi-Schema PostgREST (`public`, `workers`, `automation`, `billing`, `commerce`, `media`, `events`), 2 chế độ truy cập (`Multi-Tenant Member` & `Platform Superadmin`) kèm Guest Storefront (`skipAuth`), cơ chế lọc động `Plugin Gate`, polling 3s, và cây định tuyến 27 routes (5 nhóm Sidebar + `core.ts`).
 - [`architecture/styling-guide.md`](architecture/styling-guide.md) — **Quy chuẩn giao diện & Design Tokens:** Bảng tra cứu Semantic CSS Variables (HSL), tương thích 14 Built-in Themes & Dark/Light Mode, quy chuẩn `VxeTable`/`VxeForm` và Typography.
 
 ---
 
-## 2. Quyết Định Kiến Trúc — ADRs (`decisions/`)
-
-Ghi nhận bối cảnh, quyết định và hệ quả của các lựa chọn kỹ thuật cốt lõi.
-
-- [`decisions/0001-routing-architecture.md`](decisions/0001-routing-architecture.md) — **ADR-001:** Kiến trúc định tuyến, giao tiếp đa schema PostgREST (`Accept-Profile` / `Content-Profile`), quyền động từ DB và cơ chế Polling 3s cho Execution Logs.
-- [`decisions/0002-typography-and-font-system.md`](decisions/0002-typography-and-font-system.md) — **ADR-002:** Phông chữ không chân tự host (`Inter`, `Roboto`), chuyển đổi nóng qua Preferences Drawer và thang đo Typography 7 cấp.
-- [`decisions/0003-platform-superadmin.md`](decisions/0003-platform-superadmin.md) — **ADR-003:** Kiến trúc quản trị nền tảng Platform Superadmin (`public.is_platform_admin()`) và 4 tuyến giám sát xuyên tenant dưới `/system/*`.
-- [`decisions/0004-vxe-grid-form-and-i18n-terminology.md`](decisions/0004-vxe-grid-form-and-i18n-terminology.md) — **ADR-004:** Chuẩn hóa bảng dữ liệu `useVbenVxeGrid` & biểu mẫu `VxeForm`, bảo toàn vị trí cuộn nội trang, hợp nhất menu `/automation`, và từ điển thuật ngữ chuẩn `term.json`.
-
----
-
-## 3. Đặc Tả Tuyến Đường (`routes/`)
+## 2. Đặc Tả Tuyến Đường (`routes/`)
 
 Tài liệu tham chiếu chi tiết cho toàn bộ **27 tuyến đường** (5 module nghiệp vụ Sidebar + cụm tuyến xác thực và công khai `core.ts`).
 
@@ -64,14 +53,3 @@ Bộ **15 bản đặc tả kỹ thuật chuẩn hóa (Canonical Module Specs)**
 - [`specs/SPEC-tauri-desktop.md`](specs/SPEC-tauri-desktop.md) — Ứng dụng Native Desktop hoàn chỉnh trên nền tảng Tauri v2 (Frameless Titlebar, System Tray, SSO Deep Linking `tuquet://`).
 
 ---
-
-## 5. Chiến Lược Lộ Trình 5 Giai Đoạn — Phases (`phases/`)
-
-Hồ sơ phân tích chi tiết mục tiêu kinh doanh, gói sản phẩm bàn giao, tiêu chuẩn kỹ thuật và KPI nghiệm thu:
-
-- [`phases/index.md`](phases/index.md) — **Tổng quan lộ trình 5 Phase chiến lược**.
-- [`phases/phase-01-enterprise-iam-multitenancy/index.md`](phases/phase-01-enterprise-iam-multitenancy/index.md) — **Phase 01:** Enterprise IAM & Multi-Tenancy (18/10 – 08/11/2026).
-- [`phases/phase-02-omnichannel-payment-gateway/index.md`](phases/phase-02-omnichannel-payment-gateway/index.md) — **Phase 02:** Omnichannel Payment Gateway (09/11 – 30/11/2026).
-- [`phases/phase-03-digital-commerce-fulfillment/index.md`](phases/phase-03-digital-commerce-fulfillment/index.md) — **Phase 03:** Digital Commerce & Fulfillment (01/12 – 22/12/2026).
-- [`phases/phase-04-cloud-automation-fleet/index.md`](phases/phase-04-cloud-automation-fleet/index.md) — **Phase 04:** Cloud Automation & Fleet (05/01 – 15/02/2027).
-- [`phases/phase-05-white-label-marketplace/index.md`](phases/phase-05-white-label-marketplace/index.md) — **Phase 05:** White-Label & Marketplace (01/03 – 30/04/2027).

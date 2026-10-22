@@ -103,7 +103,7 @@
   - Hệ thống áp dụng hàm thuần khiết `isCorePlugin(id)` để phân định 6 module nhân cốt lõi:
     1. `core-iam` (Multi-Tenant IAM & Auth)
     2. `workers` (Worker Mesh & Hardware Telemetry)
-    3. `automa` (Automa Automation Engine)
+    3. `automation` (Automa Automation Engine)
     4. `storage` (Media & Cloud Object Storage)
     5. `subscriptions` (SaaS Billing & Quotas Engine)
     6. `webhooks` (Event Hooks & Subscriptions)
