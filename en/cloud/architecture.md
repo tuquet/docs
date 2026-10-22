@@ -37,7 +37,7 @@ Cloud implements a **Row-Level Tenancy (Shared Database, Shared Schema)** patter
 │    ├── [schema: media]      Storage & Media Assets (Presigned URL & RLS) │
 │    ├── [schema: billing]    Subscriptions, Plans & Resource Metering     │
 │    ├── [schema: events]     Transactional Outbox & Webhooks Distribution │
-│    ├── [schema: automationtion] Automation Engine (Workflows, Runs, Jobs)   │
+│    ├── [schema: automation]     Automation Engine (Workflows, Runs, Jobs)   │
 │    ├── [schema: workers]    Fleet Devices, Node Browsers & Proxy Pool    │
 │    ├── [schema: commerce]   Digital Goods, Subscriptions & Licenses      │
 │    └── [schema: custom]     Future 3rd-party plugins (CRM, AI, Notify)   │
@@ -243,7 +243,7 @@ flowchart TD
 > - Storage ERD: ``supabase/plugins/storage/README.md``
 > - Subscriptions ERD: ``supabase/plugins/subscriptions/README.md``
 > - Webhooks ERD: ``supabase/plugins/webhooks/README.md``
-> - Automation ERD: ``supabase/plugins/automa/README.md``
+> - Automation ERD: ``supabase/plugins/automation/README.md``
 > - Runners ERD: ``supabase/plugins/runners/README.md``
 
 ---
