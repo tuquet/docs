@@ -1,7 +1,7 @@
 # Spec: Kiến Trúc Đa Ngôn Ngữ 3 Tầng & Áp Dụng 100% Toàn Hệ Thống (`i18n-en-vi`)
 
 > **Mã đặc tả:** `SPEC-i18n-en-vi`  
-> **Module id:** `i18n-en-vi` (xem [`capability-map.md`](capability-map.md))  
+> **Module id:** `i18n-en-vi` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
 > **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md)  
 > **Trạng thái:** **ĐÃ NGHIỆM THU & TRIỂN KHAI 100% (ACCEPTED & IMPLEMENTED)**
 

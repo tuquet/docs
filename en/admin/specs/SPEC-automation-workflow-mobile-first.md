@@ -1,8 +1,8 @@
 # Spec: Giao Diện Mobile-First Cho Quản Trị Quy Trình & Phiên Chạy (`workflow-mobile-first`)
 
 > **Mã đặc tả:** `SPEC-workflow-mobile-first`  
-> **Module id:** `workflow-mobile-first` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-automation-jobs.md`](SPEC-automation-jobs.md), [`SPEC-enum-constants-ssot.md`](SPEC-enum-constants-ssot.md), [`SPEC-i18n-en-vi.md`](SPEC-i18n-en-vi.md)  
+> **Module id:** `workflow-mobile-first` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-automation-jobs.md`](SPEC-automation-jobs.md), [`SPEC-core-enum-constants-ssot.md`](SPEC-core-enum-constants-ssot.md), [`SPEC-cross-i18n-en-vi.md`](SPEC-cross-i18n-en-vi.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 
 ---

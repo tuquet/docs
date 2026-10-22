@@ -1,8 +1,8 @@
 # Spec: Trang Tổng Quan Tự Động Hóa (`/automation/overview`) & Tinh Gọn Giao Diện Danh Sách Mobile-First (`automation-dashboard`)
 
 > **Mã đặc tả:** `SPEC-automation-dashboard`  
-> **Module id:** `automation-dashboard` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-automation-jobs.md`](SPEC-automation-jobs.md), [`SPEC-automation-browsers.md`](SPEC-automation-browsers.md), [`SPEC-i18n-en-vi.md`](SPEC-i18n-en-vi.md)  
+> **Module id:** `automation-dashboard` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-automation-jobs.md`](SPEC-automation-jobs.md), [`SPEC-automation-browsers.md`](SPEC-automation-browsers.md), [`SPEC-cross-i18n-en-vi.md`](SPEC-cross-i18n-en-vi.md)  
 > **Trạng thái:** **ĐÃ NGHIỆM THU & TRIỂN KHAI 100% (ACCEPTED & IMPLEMENTED)**
 
 ---
@@ -12,7 +12,7 @@
 1. **Vị trí định tuyến Dashboard Automation:** Đặt tại `/automation/overview` (`name: 'AutomationOverview'`), nằm ở vị trí đầu tiên trong menu **Tự động hóa (`/automation`)** và là trang đích mặc định khi truy cập `/automation` (`redirect: '/automation/overview'`).
 2. **Phạm vi lược bỏ khối thống kê ở màn hình chính:** Lược bỏ hoàn toàn các khối thẻ KPI (`FleetMetrics` trên `/automation/devices`) và thanh `Stats Bar` nội bộ (`border-b` phía trên bảng) tại **5 màn hình danh sách thuộc nhánh `/automation/*`** (`workflows`, `runs`, `devices`, `browsers`, `proxies`), gom toàn bộ chỉ số thống kê về `/automation/overview`.
 3. **Tối ưu trải nghiệm Mobile (`< 640px`):** Thu gọn đồng thời phần Page Header (1 hàng ngang, ẩn mô tả phụ dài trên mobile) và bộ lọc `VbenForm` (`grid-cols-2` gọn gàng thay vì xếp chồng dọc 1 cột), giảm khoảng đệm thừa để bảng `VxeGrid` hiển thị ngay trong tầm nhìn đầu tiên (above the fold) trên điện thoại.
-4. **Đa ngôn ngữ 100% (`en-US` & `vi-VN`):** Toàn bộ chuỗi văn bản mới trên `/automation/overview` tuân thủ chuẩn từ điển 3 tầng (`common.*`, `term.*`, `page.automation_view.*`) và quy tắc `Sentence case` tiếng Việt từ [`SPEC-i18n-en-vi.md`](SPEC-i18n-en-vi.md).
+4. **Đa ngôn ngữ 100% (`en-US` & `vi-VN`):** Toàn bộ chuỗi văn bản mới trên `/automation/overview` tuân thủ chuẩn từ điển 3 tầng (`common.*`, `term.*`, `page.automation_view.*`) và quy tắc `Sentence case` tiếng Việt từ [`SPEC-cross-i18n-en-vi.md`](SPEC-cross-i18n-en-vi.md).
 
 ---
 

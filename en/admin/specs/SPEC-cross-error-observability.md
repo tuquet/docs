@@ -64,7 +64,7 @@ apps/web-admin/
 │   │   ├── auth.ts                   → Authenticated user context binding
 │   │   └── workspace.ts              → Active tenant/workspace ID tag binding
 └── docs/specs/
-    └── SPEC-browser-error-observability.md → This specification document
+    └── SPEC-cross-error-observability.md → This specification document
 ```
 
 ---

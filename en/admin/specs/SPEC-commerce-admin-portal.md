@@ -1,8 +1,8 @@
 # Spec: Cổng Thương Mại Điện Tử Nội Bộ, Ví Xu & Quản Trị Cổng Thanh Toán (`admin-commerce-portal`)
 
 > **Mã đặc tả:** `SPEC-admin-commerce-portal`  
-> **Module id:** `admin-commerce-portal` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`SPEC-payment-gateway.md`](SPEC-payment-gateway.md), [`SPEC-digital-commerce.md`](SPEC-digital-commerce.md)  
+> **Module id:** `admin-commerce-portal` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
+> **Kiến trúc nguồn:** [`SPEC-commerce-payment-gateway.md`](SPEC-commerce-payment-gateway.md), [`SPEC-commerce-digital-store.md`](SPEC-commerce-digital-store.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (IMPLEMENTED)**
 
 ---
@@ -50,7 +50,7 @@ admin/apps/web-admin/
 │   ├── routes/
 │   │   └── commerce.md                              # Tài liệu chi tiết định tuyến phân hệ /commerce & /store
 │   └── specs/
-│       └── SPEC-admin-commerce-portal.md            # Bản đặc tả hiện tại
+│       └── SPEC-commerce-admin-portal.md            # Bản đặc tả hiện tại
 └── src/
     ├── api/core/
     │   ├── billing.ts                               # upsertPaymentGatewayAdminApi & filterWalletTransactions

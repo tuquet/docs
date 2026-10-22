@@ -1,7 +1,7 @@
 # Spec: Tầng Truy Cập Dữ Liệu Đa Schema & Phân Quyền Động (`data-access`)
 
 > **Mã đặc tả:** `SPEC-data-access`  
-> **Module id:** `data-access` (xem [`capability-map.md`](capability-map.md))  
+> **Module id:** `data-access` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
 > **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 

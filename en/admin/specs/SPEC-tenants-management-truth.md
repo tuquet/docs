@@ -1,7 +1,7 @@
 # Spec: Quản Trị Workspace & Chi Tiết 4 Tabs Dữ Liệu Thực (`tenants-truth`)
 
 > **Mã đặc tả:** `SPEC-tenants-truth`  
-> **Module id:** `tenants-truth` (xem [`capability-map.md`](capability-map.md))  
+> **Module id:** `tenants-truth` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
 > **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/tenants.md`](../routes/tenants.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 

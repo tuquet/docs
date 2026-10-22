@@ -1,8 +1,8 @@
 # Spec: Kho Sản Phẩm Số, Đơn Hàng & Tự Động Giao Hàng (`digital-commerce`)
 
 > **Mã đặc tả:** `SPEC-digital-commerce`  
-> **Module id:** `digital-commerce` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-payment-gateway.md`](SPEC-payment-gateway.md)  
+> **Module id:** `digital-commerce` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-commerce-payment-gateway.md`](SPEC-commerce-payment-gateway.md)  
 > **Phạm vi tác động:** `cloud/` (`schema: commerce` trong `supabase/plugins/commerce/`) + `admin/` (`apps/web-admin/src/api/core/commerce.ts`)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (IMPLEMENTED)**
 

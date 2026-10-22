@@ -1,7 +1,7 @@
 # Spec: Quản Trị Plugins Hệ Thống & Danh Mục Gói Cước (`system-catalog`)
 
 > **Mã đặc tả:** `SPEC-system-catalog`  
-> **Module id:** `system-catalog` (xem [`capability-map.md`](capability-map.md))  
+> **Module id:** `system-catalog` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
 > **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/system.md`](../routes/system.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 

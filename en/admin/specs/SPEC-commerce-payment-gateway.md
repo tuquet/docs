@@ -1,7 +1,7 @@
 # Spec: Cổng Thanh Toán Đa Kênh & Ví Xu Tenant (`payment-gateway`)
 
 > **Mã đặc tả:** `SPEC-payment-gateway`  
-> **Module id:** `payment-gateway` (xem [`capability-map.md`](capability-map.md))  
+> **Module id:** `payment-gateway` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
 > **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md)  
 > **Phạm vi tác động:** `cloud/` (`schema: billing` trong `supabase/plugins/subscriptions/` & `supabase/functions/payment-webhook/`) + `admin/` (`apps/web-admin/src/api/core/billing.ts`)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (IMPLEMENTED)**

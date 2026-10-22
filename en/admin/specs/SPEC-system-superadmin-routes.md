@@ -1,7 +1,7 @@
 # Spec: Tuyến Quản Trị Nền Tảng Superadmin & Bảng IAM VXE Grid (`superadmin-routes`)
 
 > **Mã đặc tả:** `SPEC-superadmin-routes`  
-> **Module id:** `superadmin-routes` (xem [`capability-map.md`](capability-map.md))  
+> **Module id:** `superadmin-routes` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
 > **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/system.md`](../routes/system.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 

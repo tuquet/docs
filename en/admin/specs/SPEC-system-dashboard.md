@@ -1,8 +1,8 @@
 # Spec: Trang Tổng Quan Hệ Thống (`/system/overview`) & Tinh Gọn Giao Diện Danh Sách Mobile-First (`system-dashboard`)
 
 > **Mã đặc tả:** `SPEC-system-dashboard`  
-> **Module id:** `system-dashboard` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-system-catalog.md`](SPEC-system-catalog.md), [`SPEC-superadmin-routes.md`](SPEC-superadmin-routes.md), [`SPEC-enum-constants-ssot.md`](SPEC-enum-constants-ssot.md), [`SPEC-i18n-en-vi.md`](SPEC-i18n-en-vi.md)  
+> **Module id:** `system-dashboard` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-system-catalog.md`](SPEC-system-catalog.md), [`SPEC-system-superadmin-routes.md`](SPEC-system-superadmin-routes.md), [`SPEC-core-enum-constants-ssot.md`](SPEC-core-enum-constants-ssot.md), [`SPEC-cross-i18n-en-vi.md`](SPEC-cross-i18n-en-vi.md)  
 > **Trạng thái:** **ĐANG TRIỂN KHAI (APPROVED — AUTONOMOUS GOAL EXECUTION)**
 
 ---

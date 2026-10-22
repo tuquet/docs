@@ -1,8 +1,8 @@
 # Spec: Kiến Trúc Enum & Hằng Số Đơn Nguồn Sự Thật (`enum-constants-ssot`)
 
 > **Mã đặc tả:** `SPEC-enum-constants-ssot`  
-> **Module id:** `enum-constants-ssot` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-i18n-en-vi.md`](SPEC-i18n-en-vi.md), [`SPEC-data-access.md`](SPEC-data-access.md)  
+> **Module id:** `enum-constants-ssot` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
+> **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`SPEC-cross-i18n-en-vi.md`](SPEC-cross-i18n-en-vi.md), [`SPEC-core-data-access.md`](SPEC-core-data-access.md)  
 > **Trạng thái:** **ĐÃ PHÊ DUYỆT & HOÀN TẤT TRIỂN KHAI (ACCEPTED & IMPLEMENTED)**
 
 ---

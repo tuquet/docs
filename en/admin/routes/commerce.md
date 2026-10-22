@@ -3,7 +3,7 @@
 > **Module Files:** `src/router/routes/modules/commerce.ts` & `src/router/routes/core.ts`  
 > **Plugin Boundaries:** `commerce` (`schema: commerce`) & `subscriptions` (`schema: billing`)  
 > **API Clients:** `src/api/core/commerce.ts` & `src/api/core/billing.ts`  
-> **Tài liệu đặc tả liên quan:** [`SPEC-payment-gateway.md`](../specs/SPEC-payment-gateway.md) | [`SPEC-digital-commerce.md`](../specs/SPEC-digital-commerce.md) | [`SPEC-admin-commerce-portal.md`](../specs/SPEC-admin-commerce-portal.md) | [`SPEC-public-storefront.md`](../specs/SPEC-public-storefront.md)
+> **Tài liệu đặc tả liên quan:** [`SPEC-commerce-payment-gateway.md`](../specs/SPEC-commerce-payment-gateway.md) | [`SPEC-commerce-digital-store.md`](../specs/SPEC-commerce-digital-store.md) | [`SPEC-commerce-admin-portal.md`](../specs/SPEC-commerce-admin-portal.md) | [`SPEC-commerce-public-storefront.md`](../specs/SPEC-commerce-public-storefront.md)
 
 ---
 

@@ -1,7 +1,7 @@
 # Đặc Tả Kỹ Thuật: Kiến Trúc Động Supabase Studio CRUD (`Insert` / `Inspect` / `Patch`) Kết Hợp `VxeGrid`, `VxeForm` & Stacked Relational Drawer (`mobile-vxe-detail-sheet`)
 
 > **Module ID:** `mobile-vxe-detail-sheet` | **Phiên bản:** `2.2.0 (Supabase Studio Insert Row & Unified SSOT CRUD Drawer)` | **Trạng thái:** `ACCEPTED & IMPLEMENTED (v2.2.0 — Comprehensive SSOT CRUD Refactor)`  
-> **Bản đồ năng lực:** [`capability-map.md`](capability-map.md) | **Kiến trúc tổng thể:** [`docs/architecture/overview.md`](../architecture/overview.md)
+> **Bản đồ năng lực:** [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md) | **Kiến trúc tổng thể:** [`docs/architecture/overview.md`](../architecture/overview.md)
 
 ---
 

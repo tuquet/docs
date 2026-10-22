@@ -1,7 +1,7 @@
 # Spec: Kiến Trúc Định Tuyến Đa Phân Hệ, Plugin Gate & Bảo Toàn Cuộn Nội Trang (`route-foundation`)
 
 > **Mã đặc tả:** `SPEC-route-foundation`  
-> **Module id:** `route-foundation` (xem [`capability-map.md`](capability-map.md))  
+> **Module id:** `route-foundation` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
 > **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/routes/index.md`](../routes/index.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 

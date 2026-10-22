@@ -1,7 +1,7 @@
 # Spec: Kiến Trúc Monorepo & Hạ Tầng Nền Tảng (`platform-foundation`)
 
 > **Mã đặc tả:** `SPEC-platform-foundation`  
-> **Module id:** `platform-foundation` (xem [`capability-map.md`](capability-map.md))  
+> **Module id:** `platform-foundation` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
 > **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (ACCEPTED & IMPLEMENTED)**
 

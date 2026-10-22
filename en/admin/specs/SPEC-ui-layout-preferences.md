@@ -1,7 +1,7 @@
 # Spec: Tính Nhất Quán Bố Cục, Đồng Bộ Màu Biểu Đồ, Logo SVG & Icon Lucide Theo Built-in Theme (`layout-preferences-coherence`)
 
 > **Mã đặc tả:** `SPEC-layout-preferences-coherence`  
-> **Module id:** `layout-preferences-coherence` (xem [`capability-map.md`](capability-map.md))  
+> **Module id:** `layout-preferences-coherence` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
 > **Kiến trúc nguồn:** [`docs/architecture/overview.md`](../architecture/overview.md), [`docs/architecture/styling-guide.md`](../architecture/styling-guide.md)  
 > **Trạng thái:** **DRAFT — CHỜ PHÊ DUYỆT MỞ RỘNG ĐỒNG BỘ MÀU LOGO SVG & ICON LUCIDE THEO BUILT-IN THEME**
 

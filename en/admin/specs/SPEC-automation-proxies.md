@@ -5,8 +5,8 @@
 > **Component:** `apps/web-admin/src/views/automation/proxies/index.vue`  
 > **PostgreSQL Schema:** `workers.proxies`  
 > **Phân quyền (RBAC):** `['superadmin', 'workers:proxies:read']` / `workers:proxies:manage`  
-> **Kiến trúc nguồn:** [`overview.md`](../architecture/overview.md), [`capability-map.md`](capability-map.md)  
-> **Liên kết phân hệ:** [`SPEC-automation-browsers.md`](SPEC-automation-browsers.md), [`SPEC-automation-devices.md`](SPEC-automation-devices.md), [`SPEC-automation-jobs.md`](SPEC-automation-jobs.md), [`SPEC-mobile-vxe-detail-sheet.md`](SPEC-mobile-vxe-detail-sheet.md)  
+> **Kiến trúc nguồn:** [`overview.md`](../architecture/overview.md), [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md)  
+> **Liên kết phân hệ:** [`SPEC-automation-browsers.md`](SPEC-automation-browsers.md), [`SPEC-automation-devices.md`](SPEC-automation-devices.md), [`SPEC-automation-jobs.md`](SPEC-automation-jobs.md), [`SPEC-ui-mobile-vxe-detail-sheet.md`](SPEC-ui-mobile-vxe-detail-sheet.md)  
 > **Ngày cập nhật:** `2026-10-22`  
 > **Trạng thái:** **ACCEPTED & IMPLEMENTED**
 

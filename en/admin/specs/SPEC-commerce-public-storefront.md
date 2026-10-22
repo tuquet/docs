@@ -1,8 +1,8 @@
 # Spec: Cửa Hàng Sản Phẩm Số Công Khai & Thanh Toán Khách Vãng Lai (`public-storefront`)
 
 > **Mã đặc tả:** `SPEC-public-storefront`  
-> **Module id:** `public-storefront` (xem [`capability-map.md`](capability-map.md))  
-> **Kiến trúc nguồn:** [`SPEC-payment-gateway.md`](SPEC-payment-gateway.md), [`SPEC-digital-commerce.md`](SPEC-digital-commerce.md), [`SPEC-admin-commerce-portal.md`](SPEC-admin-commerce-portal.md)  
+> **Module id:** `public-storefront` (xem [`CAPABILITY-map-web-admin.md`](CAPABILITY-map-web-admin.md))  
+> **Kiến trúc nguồn:** [`SPEC-commerce-payment-gateway.md`](SPEC-commerce-payment-gateway.md), [`SPEC-commerce-digital-store.md`](SPEC-commerce-digital-store.md), [`SPEC-commerce-admin-portal.md`](SPEC-commerce-admin-portal.md)  
 > **Trạng thái:** **ĐÃ HOÀN THÀNH (IMPLEMENTED)**
 
 ---
@@ -49,7 +49,7 @@ admin/apps/web-admin/
 │   ├── routes/
 │   │   └── commerce.md                              # Tài liệu chi tiết định tuyến /commerce & /store
 │   └── specs/
-│       └── SPEC-public-storefront.md                # Bản đặc tả hiện tại
+│       └── SPEC-commerce-public-storefront.md                # Bản đặc tả hiện tại
 └── src/
     ├── api/core/
     │   ├── billing.ts                               # Hỗ trợ options?: { skipAuth?: boolean } cho getActivePaymentGatewaysApi

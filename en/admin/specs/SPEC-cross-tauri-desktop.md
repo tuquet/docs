@@ -99,8 +99,8 @@ admin/
 │   └── vite-config/                          # Cấu hình bypass PWA khi chạy mode Tauri
 ├── docs/
 │   └── specs/
-│       ├── capability-map.md                 # Bản đồ năng lực các module
-│       └── SPEC-tauri-desktop.md             # Tài liệu đặc tả kỹ thuật này
+│       ├── CAPABILITY-map-web-admin.md                 # Bản đồ năng lực các module
+│       └── SPEC-cross-tauri-desktop.md             # Tài liệu đặc tả kỹ thuật này
 └── turbo.json                                # Bổ sung task tauri:build vào cache graph
 ```
 

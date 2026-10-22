@@ -35,21 +35,21 @@ Tài liệu tham chiếu chi tiết cho toàn bộ **27 tuyến đường** (5 m
 
 Bộ **15 bản đặc tả kỹ thuật chuẩn hóa (Canonical Module Specs)** được xây dựng theo quy trình **Spec-Driven Development** (Specify $\rightarrow$ Plan $\rightarrow$ Tasks $\rightarrow$ Implement) với cấu trúc 9 mục đồng nhất.
 
-- [`specs/capability-map.md`](specs/capability-map.md) — **Bản đồ năng lực hệ thống (15/15 Canonical Modules)** và sơ đồ phụ thuộc kiến trúc.
-- [`specs/SPEC-platform-foundation.md`](specs/SPEC-platform-foundation.md) — Kiến trúc monorepo, hạ tầng build cục bộ `build:local`, PWA auto-update và cổng kiểm định chất lượng.
-- [`specs/SPEC-layout-preferences-coherence.md`](specs/SPEC-layout-preferences-coherence.md) — Kiểm toán chống khóa giao diện (Anti-Lockout), bảo vệ điều hướng Sidebar và đồng bộ Preferences Drawer.
-- [`specs/SPEC-i18n-en-vi.md`](specs/SPEC-i18n-en-vi.md) — Kiến trúc đa ngôn ngữ `en-US` / `vi-VN`, từ điển thuật ngữ `term.json`, tái sử dụng `$t('common.*')` và chuẩn Sentence case tiếng Việt.
-- [`specs/SPEC-data-access.md`](specs/SPEC-data-access.md) — Tầng truy cập đa schema `supabaseRequest({ schema, skipAuth })` (7 schemas) và nạp quyền động từ cơ sở dữ liệu.
-- [`specs/SPEC-route-foundation.md`](specs/SPEC-route-foundation.md) — Kiến trúc 27 routes, bộ lọc `filterRoutesByPlugins()` và bảo toàn vị trí cuộn nội trang.
-- [`specs/SPEC-tenants-truth.md`](specs/SPEC-tenants-truth.md) — Quản trị `/tenants` và `/tenants/:id` (4 chế độ `overview / members / usage / audit` với `useVbenVxeGrid` & `VxeForm`).
+- [`specs/CAPABILITY-map-web-admin.md`](specs/CAPABILITY-map-web-admin.md) — **Bản đồ năng lực hệ thống (15/15 Canonical Modules)** và sơ đồ phụ thuộc kiến trúc.
+- [`specs/SPEC-core-platform-foundation.md`](specs/SPEC-core-platform-foundation.md) — Kiến trúc monorepo, hạ tầng build cục bộ `build:local`, PWA auto-update và cổng kiểm định chất lượng.
+- [`specs/SPEC-ui-layout-preferences.md`](specs/SPEC-ui-layout-preferences.md) — Kiểm toán chống khóa giao diện (Anti-Lockout), bảo vệ điều hướng Sidebar và đồng bộ Preferences Drawer.
+- [`specs/SPEC-cross-i18n-en-vi.md`](specs/SPEC-cross-i18n-en-vi.md) — Kiến trúc đa ngôn ngữ `en-US` / `vi-VN`, từ điển thuật ngữ `term.json`, tái sử dụng `$t('common.*')` và chuẩn Sentence case tiếng Việt.
+- [`specs/SPEC-core-data-access.md`](specs/SPEC-core-data-access.md) — Tầng truy cập đa schema `supabaseRequest({ schema, skipAuth })` (7 schemas) và nạp quyền động từ cơ sở dữ liệu.
+- [`specs/SPEC-core-route-foundation.md`](specs/SPEC-core-route-foundation.md) — Kiến trúc 27 routes, bộ lọc `filterRoutesByPlugins()` và bảo toàn vị trí cuộn nội trang.
+- [`specs/SPEC-tenants-management-truth.md`](specs/SPEC-tenants-management-truth.md) — Quản trị `/tenants` và `/tenants/:id` (4 chế độ `overview / members / usage / audit` với `useVbenVxeGrid` & `VxeForm`).
 - [`specs/SPEC-automation-jobs.md`](specs/SPEC-automation-jobs.md) — Quản trị kịch bản `/automation/workflows`, phiên chạy `/automation/jobs` và nhật ký `/automation/jobs/:id` (Polling 3s) qua `src/api/core/automation.ts`.
 - [`specs/SPEC-automation-browsers.md`](specs/SPEC-automation-browsers.md) — Quản trị thiết bị `/automation/devices`, hồ sơ trình duyệt `/automation/browsers` và bể proxy `/automation/proxies` dùng `useVbenVxeGrid`.
 - [`specs/SPEC-system-catalog.md`](specs/SPEC-system-catalog.md) — Quản trị kho Plugins hệ thống `/system/plugins` (Core Kernel & Extension Plugins) và Gói cước `/system/plans`.
-- [`specs/SPEC-superadmin-routes.md`](specs/SPEC-superadmin-routes.md) — 4 tuyến đường đặc quyền Platform Superadmin (`/system/users`, `/system/roles`, `/system/subscriptions`, `/system/audit-logs`) chuẩn hóa trên `useVbenVxeGrid`.
-- [`specs/SPEC-payment-gateway.md`](specs/SPEC-payment-gateway.md) — Cổng thanh toán đa kênh (VietQR, MoMo, Stripe, USDT, Ví Xu `internal_wallet`), sổ cái `billing.wallets` (`BIGINT`) và Edge Function `payment-webhook`.
-- [`specs/SPEC-digital-commerce.md`](specs/SPEC-digital-commerce.md) — Kho sản phẩm số (`schema: commerce`), chống bán trùng `FOR UPDATE SKIP LOCKED` và giao hàng tự động xuyên schema (Auto-Fulfillment).
-- [`specs/admin-commerce-portal.md`](specs/SPEC-admin-commerce-portal.md) — Cổng thương mại điện tử nội bộ `/commerce/{store,orders,wallet,admin}`.
-- [`specs/public-storefront.md`](specs/SPEC-public-storefront.md) — Cửa hàng sản phẩm số công khai `/store` (Guest Checkout & tra cứu `claim_token`).
-- [`specs/SPEC-tauri-desktop.md`](specs/SPEC-tauri-desktop.md) — Ứng dụng Native Desktop hoàn chỉnh trên nền tảng Tauri v2 (Frameless Titlebar, System Tray, SSO Deep Linking `tuquet://`).
+- [`specs/SPEC-system-superadmin-routes.md`](specs/SPEC-system-superadmin-routes.md) — 4 tuyến đường đặc quyền Platform Superadmin (`/system/users`, `/system/roles`, `/system/subscriptions`, `/system/audit-logs`) chuẩn hóa trên `useVbenVxeGrid`.
+- [`specs/SPEC-commerce-payment-gateway.md`](specs/SPEC-commerce-payment-gateway.md) — Cổng thanh toán đa kênh (VietQR, MoMo, Stripe, USDT, Ví Xu `internal_wallet`), sổ cái `billing.wallets` (`BIGINT`) và Edge Function `payment-webhook`.
+- [`specs/SPEC-commerce-digital-store.md`](specs/SPEC-commerce-digital-store.md) — Kho sản phẩm số (`schema: commerce`), chống bán trùng `FOR UPDATE SKIP LOCKED` và giao hàng tự động xuyên schema (Auto-Fulfillment).
+- [`specs/admin-commerce-portal.md`](specs/SPEC-commerce-admin-portal.md) — Cổng thương mại điện tử nội bộ `/commerce/{store,orders,wallet,admin}`.
+- [`specs/public-storefront.md`](specs/SPEC-commerce-public-storefront.md) — Cửa hàng sản phẩm số công khai `/store` (Guest Checkout & tra cứu `claim_token`).
+- [`specs/SPEC-cross-tauri-desktop.md`](specs/SPEC-cross-tauri-desktop.md) — Ứng dụng Native Desktop hoàn chỉnh trên nền tảng Tauri v2 (Frameless Titlebar, System Tray, SSO Deep Linking `tuquet://`).
 
 ---
