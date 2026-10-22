@@ -82,8 +82,16 @@ All profile operations are exposed via `tq browser profile` (or `tuquet browser 
 
 ### Creating and Inspecting Profiles
 
+By default, profiles are created with a **Direct Connection** (`proxy = null`). To route traffic through a residential or SOCKS5 proxy, provide `--proxy <url>` explicitly:
+
 ```bash
-# Create a profile with deterministic PRNG seed and custom hardware parameters
+# 1. Create a clean profile (Direct connection by default - recommended for local testing)
+tq browser profile create "Acceptance-Clean" \
+  --os windows \
+  --cores 8 \
+  --ram 16
+
+# 2. Create a proxy-routed profile with deterministic PRNG seed and custom location
 tq browser profile create "TikTok-Agency-01" \
   --seed 94102 \
   --os windows \
@@ -100,16 +108,22 @@ tq browser profile inspect "TikTok-Agency-01"
 tq browser profile list
 ```
 
-### Pre-Flight Proxy Connectivity Check
+### Pre-Flight Proxy Fail-Safe Guardrail
 
-Before launching critical ad accounts or banking portals, verify proxy latency and public egress IP:
+When a profile is configured with a `--proxy`, `tq browser launch` automatically executes an active pre-flight connectivity probe before starting Chromium:
+- **Fail-Safe Abort**: If the proxy server is offline, down, or refused, launch is aborted immediately (`[PRE-FLIGHT CHECK FAILED: PROXY UNREACHABLE]`) to prevent accidental real IP leaks or dead automation sessions.
+- **Bypass Flag**: To test offline pages or launch without waiting for proxy health checks, supply `--skip-proxy-check`.
+- **Runtime Override**: To run a proxied profile in direct mode without editing `profile.json`, supply an empty string `--proxy ""`:
 
 ```bash
-# Run a pre-flight probe against target profile's configured proxy
+# Verify proxy health, latency, and public egress IP independently
 tq browser profile test-proxy "TikTok-Agency-01" --timeout 5
 
-# Output diagnostic results in raw JSON format for CI/CD pipelines
-tq browser profile test-proxy "TikTok-Agency-01" --json
+# Override a profile's stored proxy with a direct connection
+tq browser launch "TikTok-Agency-01" --proxy "" --cdp
+
+# Bypass pre-flight probe guardrail
+tq browser launch "TikTok-Agency-01" --skip-proxy-check
 ```
 
 ### Exporting & Archiving Profiles (Pack / Unpack)
