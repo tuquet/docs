@@ -35,6 +35,13 @@
      - `system/plans/index.vue` (`billing.plans`)
      - `system/subscriptions/index.vue` (`billing.subscriptions`)
      - `commerce/admin/index.vue` (Tab `billing.payment_gateways` — thay thế hoàn toàn `gatewayModalOpen`)
+4. **Triết Lý Chiều Cao Linh Hoạt & Siêu Tinh Gọn (Antigravity Micro Grabber & Height Presets):**
+   - Khi hiển thị Bottom Sheet trên Mobile / Tablet (`side="bottom"`), tránh lãng phí diện tích màn hình:
+     - **Zero-Padding Micro Grabber:** Đặt một dải chỉ báo mỏng `h-1 w-10 rounded-full bg-muted-foreground/25` sát mép viền trên cùng (`pt-1.5 pb-0.5`), tuyệt đối không tạo một hàng trống lớn gây tốn diện tích thông tin.
+     - **Chuyển đổi Chiều Cao 1-Click (Compact vs Full Height Toggle):** Cung cấp nút chuyển đổi kích thước nhanh (Maximize / Minimize icon) tích hợp trực tiếp vào thanh tiêu đề (Header):
+       - `Compact Mode (52vh)`: Tối ưu cho việc xem nhanh hoặc chỉnh sửa các form ít trường (như Proxy, Status).
+       - `Full Mode (92vh)`: Bung rộng tối đa để nhập form dài (như Workspace Settings, Fingerprint, JSON parameters).
+     - **Header Spacing Siêu Tinh Gọn:** Giảm padding dọc xuống `px-4 py-2.5 sm:px-5 sm:py-3` để đưa thông tin nội dung lên cao nhất, đạt mật độ hiển thị tối đa chuẩn Enterprise.
 
 ---
 
