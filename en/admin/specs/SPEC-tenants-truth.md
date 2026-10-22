@@ -14,7 +14,16 @@ Xây dựng phân hệ Quản trị Workspace (`/tenants` và `/tenants/:id`) k�
 1. **Danh Sách Workspace (`/tenants`):**
    - Hiển thị danh mục toàn bộ Workspace mà người dùng có quyền truy cập (hoặc toàn bộ nền tảng đối với Superadmin) qua bảng `useVbenVxeGrid`.
    - Hỗ trợ tìm kiếm theo tên/slug/UUID, lọc theo trạng thái (`active`, `suspended`, `archived`), tạo Workspace mới qua `VxeForm` modal, và chọn Workspace làm ngữ cảnh hoạt động hiện tại (`activeTenantId`).
-2. **Chi Tiết Workspace 4 Tabs Đồng Bộ URL (`/tenants/:id?tab=overview|members|usage|audit`):**
+2. **Bộ Chọn Workspace Toàn Cục & State Propagation (`workspace-selector.vue`):**
+   - Tích hợp tại Sidebar (Header hoặc Collapsed View) và các màn hình phân hệ (Commerce Wallet, Store, Orders) cho phép chuyển đổi nóng Workspace làm việc hiện hành.
+   - Khi chọn một Workspace (`handleSelectWorkspace`), hệ thống kích hoạt chuỗi hành vi chuẩn mực:
+     1. **Pinia Reactive State:** Cập nhật `activeWorkspaceId` trong `useWorkspaceStore`.
+     2. **Persistence Storage:** Ghi đè khóa `localStorage.setItem("active_tenant_id", id)` (`STORAGE_KEYS.ACTIVE_TENANT_ID`).
+     3. **Bugsink Telemetry:** Gắn tag ngữ cảnh `setBugsinkTag("workspace_id", id)` cho toàn bộ log lỗi và exception phát sinh.
+     4. **User Feedback:** Hiển thị thông báo toast thành công (`page.workspace.switched_to`).
+     5. **Event Broadcast:** Phát sự kiện Window Event `tq:workspace-changed` mang theo `{ detail: { tenantId, tenant } }` để các component phụ thuộc cập nhật lại dữ liệu.
+     6. **Schema Registry Auto-fill:** Tự động điền giá trị mặc định `defaultValue: () => getActiveTenantId()` cho các trường `tenant_id` trong biểu mẫu `VxeForm` / `VxeGrid` khi tạo mới bản ghi.
+3. **Chi Tiết Workspace 4 Tabs Đồng Bộ URL (`/tenants/:id?tab=overview|members|usage|audit`):**
    - **Tab `overview`:** Hiển thị hồ sơ định danh Workspace (`VxeForm`), số lượng máy trạm Runner trực tuyến / tổng số từ `workers.devices`, gói thuê bao hiện hành từ `billing.subscriptions`, và các thao tác quản trị (chọn làm Workspace đang hoạt động, đổi tên/slug, lưu trữ/xóa).
    - **Tab `members`:** Bảng `useVbenVxeGrid` hiển thị danh sách thành viên thật từ `public.tenant_members` liên kết `profiles` và vai trò qua `member_roles(role_id,roles(id,name,display_name))` (`owner`, `admin`, `member`, `viewer`). Hỗ trợ mời thành viên mới vào `public.tenant_invitations` (`role_id`, `token_hash`, `invited_by`, `expires_at`), đổi vai trò trong `public.member_roles`, và thu hồi quyền thành viên.
    - **Tab `usage`:** Hiển thị hạn mức và mức tiêu thụ tài nguyên thực tế từ `billing.subscriptions`, `billing.plans` (mặc định rơi về gói `free` nếu chưa có hợp đồng riêng), `billing.usage_meters`, `workers.devices` và `public.tenant_members`.
