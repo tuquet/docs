@@ -16,10 +16,14 @@
 
 Quản trị toàn diện danh mục **Thực thể Trình duyệt Tự động hóa (Automation Browser Instances)** thuộc hạ tầng Worker node, đóng vai trò là môi trường thực thi kịch bản (Job execution runtime) có cấu hình chống nhận diện (fingerprint bypass) và proxy định tuyến:
 
-1. **Ranh giới Domain (Domain Boundary SSOT):**
-   - **`workers.browsers` (Màn hình này):** Đại diện cho các instance trình duyệt phân bổ trên cụm máy trạm worker (`locked_by_device_id`, trạng thái chạy `idle`, `running`, `syncing`, kết nối proxy `proxy_id`).
-   - **`browsers.profiles` (Phân hệ Antidetect độc lập):** Đại diện cho các mẫu danh tính số tĩnh (canvas, webgl, audio, fonts, cookies snapshot).
-   
+1. **Ranh giới Kiến Trúc (Local-First / Worker-Driven Authority SSOT):**
+   - **Máy trạm (Worker / Desktop App):** Là **Chủ thể thực thi (Executor & State Authority)**. Web Admin trên Desktop/LAN kết nối trực tiếp với daemon máy trạm hoặc mở browser cục bộ (`tq desktop`). Worker tự quản lý tiến trình Chromium cục bộ qua CDP và tệp dữ liệu tại `~/.tq/browser/`.
+   - **Cloud (Supabase):** Thuần túy là **Kho lưu trữ mẫu (Profile Registry) & Bảng hiển thị từ xa (Telemetry Observer)**. Cloud **KHÔNG** can thiệp vào tiến trình OS, **KHÔNG** làm nhiệm vụ bẻ khóa cưỡng chế kiểu distributed lock tập trung.
+   - **Đồng bộ thời gian thực (SSE Telemetry):** Cloud nhận sự kiện từ Worker qua HTTP POST và phát lại luồng **Server-Sent Events (SSE)** xuống Web Admin để cập nhật trạng thái theo thời gian thực (nhẹ hơn, bền bỉ hơn và tự reconnect tốt hơn WebSocket).
+   - **Khái niệm "Gán máy trạm (Device Binding)" thay cho "Khóa cứng (Distributed Lock)":**
+     - `locked_by_device_id` thực chất là `assigned_device_id` (Máy trạm được gán quản lý profile).
+     - Thao tác trên Web Admin là **"Hủy gán máy trạm (Unbind / Release Device)"** chứ không phải "Bẻ khóa cưỡng chế (Force Unlock)" tiến trình đang chạy.
+
 2. **Lưới Dữ Liệu (`useVbenVxeGrid`):**
    - **Thông tin Instance:** Tên thể hiện (`name`), Phiên bản Engine (`engine_version`), Seed ngẫu nhiên (`fingerprint_seed`).
    - **Môi trường & Hệ thống:** Hệ điều hành (`os_platform` + `os_version`), Phần cứng (`cpu_cores`, `ram_gb`), Múi giờ & Ngôn ngữ (`timezone`, `locale`).
@@ -33,21 +37,22 @@ Quản trị toàn diện danh mục **Thực thể Trình duyệt Tự động 
 
 ```
         ┌──────────────────────────────────────────────┐
-        │                                              │ (Job Finished)
+        │                                              │ (Job Finished & Local Snapshot Ready)
         ▼                                              │
-     [ IDLE ] ──(Job Dispatched)──► [ RUNNING ] ──► [ SYNCING ]
+     [ IDLE ] ──(Worker Executes)──► [ RUNNING ] ──► [ SYNCING ]
         ▲                                │
-        │                                │ (Worker Crash / Timeout)
+        │                                │ (Process Exited / Unbound)
         │                                ▼
-        └──────── (Force Unlock) ─── [ ERROR ]
+        └──────── (Release / Unbind) ─── [ ERROR / DETACHED ]
 ```
 
-- **`idle`:** Instance sẵn sàng được điều phối bởi Scheduler cho một Job mới.
-- **`running`:** Đang bị khóa bởi một Worker (`locked_by_device_id != null`, `locked_at = now()`).
-- **`syncing`:** Phiên tự động hóa vừa kết thúc, Worker đang nén và đẩy cookie/storage lên Cloud Storage (`media`).
-- **`error`:** Gặp sự cố trong quá trình khởi chạy hoặc Worker bị ngắt kết nối đột ngột mà chưa kịp mở khóa.
-- **Cơ chế Mở Khóa Khẩn Cấp (Force Unlock):**
-  - Cho phép quản trị viên hủy trạng thái chiếm giữ khi Worker bị treo: Gửi `PATCH /rest/v1/browsers?id=eq.{id}` với `{ locked_by_device_id: null, locked_at: null, status: 'idle' }`.
+- **`idle`:** Instance sẵn sàng được máy trạm khởi chạy hoặc gán cho Worker mới.
+- **`running`:** Máy trạm đang mở và vận hành tiến trình trình duyệt cục bộ.
+- **`syncing`:** Phiên tự động hóa vừa kết thúc trên máy trạm, Worker đang nén và đẩy cookie/storage lên Cloud Storage (`media`) khi có mạng.
+- **`error / detached`:** Worker thông báo gặp sự cố tiến trình, hoặc profile bị tách gán khỏi thiết bị.
+- **Cơ chế Hủy Gán / Giải Phóng (Unbind / Release Device):**
+  - Vì Web Admin đồng thời là giao diện điều khiển của chính máy trạm (hoặc người quản trị từ xa): Cho phép người dùng hủy liên kết thiết bị để tái phân bổ profile: Gửi `PATCH /rest/v1/browsers?id=eq.{id}` với `{ locked_by_device_id: null, locked_at: null, status: 'idle' }`.
+  - Nếu thực thi ngay trên Desktop/Local Web Admin: Kích hoạt trực tiếp lệnh ngắt qua Tauri / CLI (`tq browser stop <id>`).
 
 ---
 
