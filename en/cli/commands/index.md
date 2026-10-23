@@ -1,6 +1,6 @@
 # CLI Commands Catalog
 
-The `tq` CLI is architected around **5 focused command families** and an AI Agent MCP gateway. Every command provides sub-millisecond execution, structured JSON output via `--json`, and interactive diagnostics.
+The `tq` CLI is architected around **6 focused command families** and an AI Agent MCP gateway. Every command provides sub-millisecond execution, structured JSON output via `--json`, and interactive diagnostics.
 
 ---
 
@@ -128,3 +128,28 @@ tq mcp
 
 - **Protocol**: JSON-RPC 2.0 over `stdio`.
 - **Exported Tools**: `status`, `workflow_list`, `workflow_inspect`, `workflow_run`, `runner_probe`, `cloud_whoami`, `browser_status`, `faker_generate`, `inbox_otp`, `inbox_status`.
+
+---
+
+## 7. `tq secret` — Encrypted Secret Store
+
+Tenant-scoped encrypted credential store. Values are referenced in workflows as `{{secrets.<name>}}` and **never** persisted in the workflow graph, job payload, or logs.
+
+```bash
+tq secret <subcommand> [options]
+```
+
+### Subcommands & Options
+
+| Command | Arguments / Flags | Description |
+| :--- | :--- | :--- |
+| `tq secret init` | — | Create the local key `~/.tq/system/.secret_key` (0600) |
+| `tq secret set <name> <value>` | `<name>`, `<value>` | Store/update a secret (AES-256-GCM at rest) |
+| `tq secret list` | `--format json` | List secret names (values are never printed) |
+| `tq secret rm <name>` | `<name>` | Remove a local secret |
+| `tq secret remote` | — | List secrets stored in Cloud (names only) |
+| `tq secret push` | — | Upload local secrets to the Cloud store (device-authenticated) |
+| `tq secret pull` | — | Download Cloud secrets onto this device (portable, no re-entry) |
+| `tq secret path` | — | Print the local store path |
+
+> See [`SPEC-secret-store`](/en/cloud/specs/SPEC-secret-store) for the envelope-encryption model (Vault KEK → per-tenant DEK) and device-portable provisioning.

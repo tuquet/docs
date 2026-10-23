@@ -248,6 +248,19 @@ flowchart TD
 
 ---
 
+### 3.2. Encrypted Secret Store Plugin (`secrets`)
+
+The `secrets` plugin is the reference implementation of a **security-sensitive** plugin:
+
+- **Envelope encryption** — a KEK held in **Supabase Vault** (`tq_secrets_kek`) wraps a **per-tenant DEK** (`secrets.tenant_keys`); the DEK encrypts each value (`secrets.credentials.value_enc`, via `pgcrypto`).
+- **Deny-by-default RLS** — `secrets.*` tables carry no `anon`/`authenticated` policies and are `REVOKE`d; they are reachable only through `SECURITY DEFINER` RPCs.
+- **Device-authenticated delivery** — `public.set_secret / list_secrets / fetch_secrets / rotate_secret_dek` verify `workers.devices.device_token_hash` (SHA-256) before returning anything, so an enrolled workstation can pull its tenant's credentials with **no human re-entry**.
+- **Workflow integration** — values are referenced as `{{secrets.<name>}}` and resolved by the engine into an in-memory map that is masked in logs; nothing is written back into the workflow graph.
+
+Full design: [`SPEC-secret-store`](specs/SPEC-secret-store.md).
+
+---
+
 ## 4. Zero-Trust Security & High-Performance Data Engine Model
 
 ### 4.1. Custom Access Token Hook ($O(1)$ RLS Lookups)

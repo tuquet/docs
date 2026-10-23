@@ -14,6 +14,7 @@ The Cloud Control Plane orchestrates distributed compute workers and anti-detect
 | **`browsers`** | Profile Inventory | Isolated browser profiles (`profiles`), storage keys, deterministic fingerprint seeds, and proxy binding. |
 | **`workers`** | Fleet Management | Compute worker registration (`workers`), heartbeats, proxies pool (`proxies`), and task dispatching. |
 | **`automation`** | Workflows & Jobs | Stored automation workflows (`workflows`), execution runs (`runs`), and task logs. |
+| **`secrets`** | Credential Vault | Tenant-scoped encrypted credentials (`credentials`), per-tenant DEKs wrapped by a Vault KEK (`tenant_keys`). |
 
 ---
 

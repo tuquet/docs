@@ -62,6 +62,7 @@ const cloudSidebar = [
       { text: 'Database & Plugin Architecture', link: '/en/cloud/architecture' },
       { text: 'Domain & Terminology Dictionary', link: '/en/cloud/terminology' },
       { text: 'Test Presets & Verification Guide', link: '/en/cloud/test-presets' },
+      { text: 'Encrypted Secret Store (SPEC)', link: '/en/cloud/specs/SPEC-secret-store' },
     ],
   },
 ]
@@ -199,6 +200,7 @@ const cliCommandsSidebar = [
       { text: '2. tq worker (Fleet Worker)', link: '/en/cli/commands/#_2-tq-worker-execution-node-fleet-worker' },
       { text: '3. tq automation (Workflows)', link: '/en/cli/commands/#_3-tq-automation-workflow-automation-orchestration' },
       { text: '4. tq gateway (Network Mesh)', link: '/en/cli/commands/#_4-tq-gateway-secure-network-vps-mesh' },
+      { text: '7. tq secret (Secret Store)', link: '/en/cli/commands/#_7-tq-secret-encrypted-secret-store' },
     ],
   },
 ]
