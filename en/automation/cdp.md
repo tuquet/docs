@@ -31,7 +31,7 @@ provides two distinct automation modes to navigate this tradeoff:
 
 ## 2. Launching Profiles in Driver Mode
 
-To launch a profile and expose the CDP debugging bridge:
+To launch a profile and expose the CDP debugging gateway:
 
 ```bash
 # Launch profile with default remote debugging port 9222
@@ -55,7 +55,7 @@ Once the profile is active on port `9222`, standard automation code connects sea
 ```typescript
 import { chromium } from 'playwright';
 
-// Connect over native CDP WebSocket bridge
+// Connect over native CDP WebSocket gateway
 const browser = await chromium.connectOverCDP('http://127.0.0.1:9222');
 const defaultContext = browser.contexts()[0];
 const page = defaultContext.pages()[0] || await defaultContext.newPage();

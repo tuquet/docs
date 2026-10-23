@@ -54,7 +54,7 @@ When all dependencies are operational, displays a clean diagnostic verdict:
 ╭─ DIAGNOSTIC VERDICT ────────────────────────────── ● ALL SYSTEMS OPERATIONAL ─╮
 │  All required ecosystem dependencies and runtimes are properly provisioned.    │
 │  Your workstation is 100% ready for autonomous browser workflows, antidetect   │
-│  spoofing, and bridge meshes.                                                  │
+│  spoofing, and gateway meshes.                                                  │
 ╰────────────────────────────────────────────────────────────────────────────────╯
 ```
 

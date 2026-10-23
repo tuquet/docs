@@ -59,6 +59,6 @@ Trang Analytics không sử dụng bất kỳ số liệu giả hay mock data n�
 
 1. **Private Network Access (PNA):**
    - Trình duyệt Chromium có thể hiển thị thông báo cấp quyền khi web admin truy vấn `127.0.0.1:8765`.
-   - Lệnh thăm dò bridge sử dụng `mode: 'no-cors'` và gắn `AbortController` timeout tối đa $1200\text{ms}$ để tránh treo giao diện nếu daemon không chạy hoặc người dùng chặn quyền.
+   - Lệnh thăm dò gateway sử dụng `mode: 'no-cors'` và gắn `AbortController` timeout tối đa $1200\text{ms}$ để tránh treo giao diện nếu daemon không chạy hoặc người dùng chặn quyền.
 2. **Tab Cố Định (`affixTab: true`):**
    - Trang `/dashboard/analytics` được cấu hình là trang mặc định khi đăng nhập thành công (`preferences.app.defaultHomePath = '/dashboard/analytics'`).

@@ -1,6 +1,6 @@
 # CLI Commands Catalog
 
-The `tq` CLI is architected around **5 focused command families** and an AI Agent MCP bridge. Every command provides sub-millisecond execution, structured JSON output via `--json`, and interactive diagnostics.
+The `tq` CLI is architected around **5 focused command families** and an AI Agent MCP gateway. Every command provides sub-millisecond execution, structured JSON output via `--json`, and interactive diagnostics.
 
 ---
 
@@ -83,13 +83,13 @@ tq gateway <subcommand> [options]
 | Command | Arguments / Flags | Description |
 | :--- | :--- | :--- |
 | `tq gateway start` | `--http`, `--ssh`, `[server-id]` | Start SOCKS5 dynamic proxy (`1080`) and embedded HTTP forwarder (`8118`) |
-| `tq gateway stop` | `[server-id]` | Gracefully stop running bridge tunnels and proxy daemons |
+| `tq gateway stop` | `[server-id]` | Gracefully stop running gateway tunnels and proxy daemons |
 | `tq gateway status` | `--json` | Display health dashboard of all configured VPSs, ports, and workloads |
 | `tq gateway probe` | `--target <url>`, `--json` | Probe egress connectivity, latency, public IP, and WebRTC leak protection |
-| `tq gateway check` | — | Validate bridge configuration schema (`~/.tq/bridge/bridge.json`) and keys |
-| `tq gateway enable <server>` | `<server-id>` | Enable a VPS node in the bridge mesh configuration |
+| `tq gateway check` | — | Validate gateway configuration schema (`~/.tq/gateway/gateway.json`) and keys |
+| `tq gateway enable <server>` | `<server-id>` | Enable a VPS node in the gateway mesh configuration |
 | `tq gateway disable <server>` | `<server-id>` | Disable a VPS node without deleting its configuration credentials |
-| `tq gateway config` | `--edit`, `--show` | View or edit canonical bridge configuration (`~/.tq/bridge/bridge.json`) |
+| `tq gateway config` | `--edit`, `--show` | View or edit canonical gateway configuration (`~/.tq/gateway/gateway.json`) |
 
 ---
 

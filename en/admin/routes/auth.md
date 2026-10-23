@@ -69,7 +69,7 @@ Sử dụng container giao diện chuyên dụng `AuthPageLayout` (`src/layouts/
 | **`/auth/forget-password`** | `ForgetPassword` | `forget-password.vue` | Gửi email khôi phục mật khẩu thông qua Supabase Auth Service. |
 | **`/auth/reset-password`** | `ResetPassword` | `reset-password.vue` | Nhận token khôi phục và thiết lập mật khẩu mới. |
 | **`/auth/callback`** | `AuthCallback` | `callback.vue` | Điểm tiếp nhận chuyển hướng (redirect URI) từ GitHub OAuth, bóc tách `access_token` và thiết lập phiên làm việc. |
-| **`/auth/desktop`** | `DesktopBridge` | `desktop-bridge.vue` | Cổng ủy quyền máy trạm (Desk Authorization), đẩy phiên đăng nhập về cổng loopback `http://127.0.0.1:8765/sso/callback`. |
+| **`/auth/desktop`** | `DesktopBridge` | `desktop-gateway.vue` | Cổng ủy quyền máy trạm (Desk Authorization), đẩy phiên đăng nhập về cổng loopback `http://127.0.0.1:8765/sso/callback`. |
 
 ---
 

@@ -84,7 +84,7 @@ graph TD
 | 24 | **`/auth/forget-password`** | `ForgetPassword` | Core | Public | `AuthPageLayout` | `forget-password.vue` | Supabase Auth API |
 | 25 | **`/auth/reset-password`** | `ResetPassword` | Core | Public | `AuthPageLayout` | `reset-password.vue` | Supabase Auth API |
 | 26 | **`/auth/callback`** | `AuthCallback` | Core | Public | `AuthPageLayout` | `callback.vue` | Supabase OAuth Flow |
-| 27 | **`/auth/desktop`** | `DesktopBridge` | Core | Authenticated | `AuthPageLayout` | `desktop-bridge.vue` | Desktop Loopback SSO |
+| 27 | **`/auth/desktop`** | `DesktopBridge` | Core | Authenticated | `AuthPageLayout` | `desktop-gateway.vue` | Desktop Loopback SSO |
 | 28 | **`/profile`** | `Profile` | Core | Authenticated | `BasicLayout` | `profile/index.vue` | `public.profiles` |
 | 29 | **`/store`** | `PublicStorefront` | Core | Public (`ignoreAccess`) | Standalone | `public-store/index.vue` | `commerce.*`, `billing.payment_gateways` (`skipAuth`) |
 

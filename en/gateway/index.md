@@ -85,11 +85,11 @@ tq gateway probe
 
 ## ⚙️ Configuration Reference
 
-Gateway settings are stored at `~/.tq/bridge/bridge.json` (adhering to JSON Schema Draft 2020-12):
+Gateway settings are stored at `~/.tq/gateway/gateway.json` (adhering to JSON Schema Draft 2020-12):
 
 ```json
 {
-  "$schema": "https://tuquet.com/schema/config/bridge.schema.json",
+  "$schema": "https://tuquet.com/schema/config/gateway.schema.json",
   "default_user": "root",
   "http_proxy_port": 8118,
   "auto_reconnect": true,

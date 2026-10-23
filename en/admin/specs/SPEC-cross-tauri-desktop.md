@@ -89,10 +89,10 @@ admin/
 │       │   │   │   ├── index.ts              # isTauri() detection, window helpers
 │       │   │   │   ├── notification.ts       # Native notification wrapper
 │       │   │   │   ├── deep-link.ts          # tuquet:// router handler
-│       │   │   │   └── storage.ts            # Secure local store bridge
+│       │   │   │   └── storage.ts            # Secure local store gateway
 │       │   └── views/
 │       │       └── _core/authentication/
-│       │           └── desktop-bridge.vue    # Đồng bộ SSO qua deep link & loopback
+│       │           └── desktop-gateway.vue    # Đồng bộ SSO qua deep link & loopback
 │       ├── package.json                      # Bổ sung @tauri-apps/api & plugins
 │       └── vite.config.ts                    # Tự động nhận diện TAURI_ENV_PLATFORM
 ├── internal/

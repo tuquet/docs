@@ -52,7 +52,7 @@ tq browser launch "Scraper-Node-01" --headless
 # Launch headless profile with dedicated residential proxy
 tq browser launch "Scraper-Node-01" --headless --proxy socks5://127.0.0.1:1080
 
-# Launch headless with CDP bridge for Playwright / Puppeteer script attachment
+# Launch headless with CDP gateway for Playwright / Puppeteer script attachment
 tq browser launch "Scraper-Node-01" --headless --port 9222 --detach
 ```
 

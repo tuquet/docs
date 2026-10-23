@@ -61,7 +61,7 @@ cli/src/
 │       ├── mod.rs         # TUI entry point & event loop runner
 │       ├── state.rs       # AppState (Bridge, Browser, Runner, Cloud data models)
 │       ├── view.rs        # Renderer (Header, Tabs, 4 Grid Cards, Hotkey footer)
-│       └── actions.rs     # Hotkey dispatch handlers (toggle bridge, kill browsers)
+│       └── actions.rs     # Hotkey dispatch handlers (toggle gateway, kill browsers)
 ├── cli.rs                 # Commands::Tui { ... }
 ```
 

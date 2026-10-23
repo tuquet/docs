@@ -30,7 +30,7 @@ Use this quick-reference matrix for anti-hallucination audits during documentati
 | **`Tenant Member`** | `public.tenant_members` | ❌ *User*, *Profile*, *Employee*, *Team Member* | Association link binding a User `Profile` to a `Tenant`, with active/suspended membership state. |
 | **`Role`** | `public.roles` | ❌ *Group*, *Tier*, *Level*, *Permission Set* | Named role entity: System Roles (`is_system = true`, `tenant_id IS NULL`) or Custom Tenant Roles. |
 | **`Permission`** | `public.permissions` | ❌ *Right*, *Privilege*, *Capability*, *Scope* | Atomic capability string formatted as `<module>:<resource>:<action>` (e.g. `tenants:update`). |
-| **`Member Role`** | `public.member_roles` | ❌ *User Role*, *Role Assignment* | Many-to-many bridge assigning roles to a tenant member within a specific tenant. |
+| **`Member Role`** | `public.member_roles` | ❌ *User Role*, *Role Assignment* | Many-to-many gateway assigning roles to a tenant member within a specific tenant. |
 | **`Plugin`** | `public.system_plugins` | ❌ *Module*, *Extension*, *Addon*, *Package* | Autonomous database module with a dedicated folder `supabase/plugins/<id>/` and PostgreSQL schema. |
 | **`Storage`** | `media.assets` & `tenant-assets` | ❌ *Vault*, *Media Bucket*, *File Drive* | Cloud media asset storage service. The term "Vault" is **FORBIDDEN** in cloud services. |
 | **`Browser`** | `workers.browsers` / `workers.node_browsers` | ❌ *Profile*, *Browser Profile*, *Anti-detect Profile* | Isolated anti-detect virtual browser container on local workstation disk or central cloud fleet. Calling a browser instance a "Profile" is **FORBIDDEN** to prevent confusion with `public.profiles`. |

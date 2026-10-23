@@ -126,7 +126,7 @@ tq browser launch "Shopee-Shop-01" https://shopee.vn
 # Detached Launch: Release terminal immediately
 tq browser launch "FB-Ads-US" https://facebook.com --detach
 
-# Headless Automation: Launch with CDP bridge on port 9222 for Automa / Runner
+# Headless Automation: Launch with CDP gateway on port 9222 for Automa / Runner
 tq browser launch "FB-Ads-US" --headless --cdp --port 9222 --detach
 
 # Monitor active browser sessions (PID, Port, WebSocket URL)
@@ -308,7 +308,7 @@ tq browser profile delete "Name"            # Remove profile and sandbox
 # --- Launching ---
 tq browser launch "Name"                    # Open GUI browser
 tq browser launch "Name" URL --detach       # Open URL and detach terminal
-tq browser launch "Name" --headless --cdp   # Headless with CDP bridge (port 9222)
+tq browser launch "Name" --headless --cdp   # Headless with CDP gateway (port 9222)
 tq browser ps                               # View running instances
 tq browser stop "Name"                      # Terminate instance
 tq browser verify                           # Run CreepJS/Pixelscan stealth verification

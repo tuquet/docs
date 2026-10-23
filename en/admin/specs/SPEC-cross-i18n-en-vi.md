@@ -96,7 +96,7 @@ admin/
     │   └── iam/role-badge.vue                  # [1 file] Nhãn vai trò theo i18n
     └── views/
         ├── _core/
-        │   ├── authentication/                 # [5 files] login, forget-password, reset-password, callback, desktop-bridge
+        │   ├── authentication/                 # [5 files] login, forget-password, reset-password, callback, desktop-gateway
         │   └── profile/index.vue               # [1 file] Hồ sơ cá nhân & bảo mật tài khoản
         ├── dashboard/analytics/                # [4 files] index, growth-chart, plans-chart, plugins-chart
         ├── tenants/                            # [12 files] index, detail + 5 tabs + 5 modals
