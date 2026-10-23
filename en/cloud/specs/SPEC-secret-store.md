@@ -1,19 +1,20 @@
 # SPEC-secret-store: Encrypted Secret Store & Device-Portable Credentials
 
-> **Status:** Implemented (4A + 4B) · **Schema:** `secrets` · **Surfaces:** `tq secret` (CLI) · `{{secrets.*}}` (workflow engine) · `cloud/supabase/plugins/secrets`
+> **Status:** Implemented (v2) · **Schema:** `secrets` · **Surfaces:** `tq secret` (CLI) · `{{secrets.*}}` (engine) · `cloud/supabase/plugins/secrets`
 > **Related:** [`architecture`](../architecture.md), [`terminology`](../terminology.md), [CLI commands](/en/cli/commands/)
 
 ---
 
 ## 1. Objective
 
-Provide Tuquet with a **tenant-scoped, encrypted-at-rest secret store** so that:
+A **tenant-scoped, encrypted-at-rest secret store** so that:
 
-1. Workflow credentials (passwords, API keys, tokens) **never appear in plaintext** inside a workflow graph, a job payload, a log line, or git.
-2. An **enrolled workstation can obtain credentials without a human re-typing them** — a brand-new device runs jobs immediately after `tq auth login`.
-3. The design is **native to Tuquet** (multi-tenant + RLS + device enrollment + `~/.tq` SSOT), borrowing the *good ideas* of Automa's credential model (reference-based, not embedded) without copying its weaknesses (a client-side hard-coded key).
+1. Workflow credentials never appear in plaintext in a workflow graph, a job payload, a log line, or git.
+2. An **enrolled workstation obtains credentials without a human re-typing them** — a new device runs jobs right after `tq auth login` + `tq secret pull`.
+3. The **server never receives a plaintext secret value** (zero-knowledge over the wire), and the DEK is **sealed to each device's public key**.
+4. The design is native to Tuquet (multi-tenant + RLS + device enrollment + `~/.tq` SSOT).
 
-Non-goals (v1): per-device asymmetric key wrapping, hardware-backed keys, secret versioning history UI.
+Non-goals: hardware-backed keys, per-secret version history, audit UI.
 
 ---
 
@@ -21,74 +22,74 @@ Non-goals (v1): per-device asymmetric key wrapping, hardware-backed keys, secret
 
 | Principle | Rationale |
 | :--- | :--- |
-| **Reference, never inline** | Workflows hold `{{secrets.<name>}}`; the value lives only in the secret store. |
-| **Encrypt at rest, both ends** | Cloud: envelope (KEK→DEK). Local: AES-256-GCM. |
-| **Key separation** | The KEK never leaves the server (Supabase Vault); the DEK is per-tenant; the local key is per-device. |
-| **Deny by default** | `secrets.*` tables have RLS with **no** anon/authenticated policies; access only via `SECURITY DEFINER` RPCs. |
-| **Device-authenticated delivery** | A device proves identity with `workers.devices.device_token_hash` (SHA-256) before receiving values. |
-| **Never log secrets** | Values are registered with `SecretMasker` and scrubbed as `***MASKED***`. |
+| **Reference, never inline** | Workflows hold `{{secrets.<name>}}`; values live only in the store. |
+| **Envelope encryption** | Vault **KEK** wraps a per-tenant **DEK**; the DEK encrypts values. |
+| **Device sealing** | The DEK is sealed to each device's **X25519 public key** (`crypto_box_seal`); the private key never leaves the device. |
+| **Client-side encryption** | Values are **XChaCha20-Poly1305** encrypted in the CLI — the server stores ciphertext only. |
+| **Deny by default** | `secrets.*` tables have RLS with no anon/authenticated policies; reachable only via `SECURITY DEFINER` RPCs. |
+| **Device-authenticated** | A device proves identity via `workers.devices.device_token_hash` (SHA-256) before any key/value is returned. |
+| **Never log secrets** | Values are registered with `SecretMasker` → `***MASKED***`. |
 
 ---
 
-## 3. Architecture — envelope encryption
+## 3. Architecture
 
 ```text
-KEK   (Supabase Vault secret `tq_secrets_kek`)          # server-only
-  └─ wraps ─▶ DEK  (one per tenant; secrets.tenant_keys) # pgcrypto
-                 └─ encrypts ─▶ value (secrets.credentials.value_enc)
+KEK   (Supabase Vault `tq_secrets_kek`)                     # server-only
+  └─ wraps ─▶ DEK  (per tenant; secrets.tenant_keys, pgcrypto)
+                 ├─ seals to ─▶ device A public key  (pgsodium.crypto_box_seal) ─▶ secrets.devices.wrapped_dek
+                 └─ seals to ─▶ device B public key
+                 └─ encrypts (client-side) ─▶ secrets.credentials.ciphertext (XChaCha20-Poly1305)
 
-Device  ── device_token (SHA-256 verified) ──▶ public.fetch_secrets ──▶ decrypted values (TLS)
-        └─ cached locally in ~/.tq/system/secrets.json (AES-256-GCM, per-device key)
+Device (CLI, Rust)                                   Server (Postgres)
+  X25519 keypair  ── public key ───────────────▶  secret_register_device ─▶ sealed DEK
+  unseal(sealed DEK, private key)   ◀──────────────────────────────────────┘
+  encrypt(value, DEK) ── ciphertext+nonce ─────▶  secret_put        (server sees ciphertext only)
+                  ◀── ciphertext+nonce ────────  secret_fetch
+  local cache: ~/.tq/system/secrets.json (AES-256-GCM, per-device key)
 ```
 
-- **KEK** — a 32-byte key stored as a Vault secret; readable only by `secrets._kek()` (SECURITY DEFINER).
-- **DEK** — generated on first use for a tenant, stored **wrapped** (`pgp_sym_encrypt(dek, kek)`) in `secrets.tenant_keys`.
-- **Values** — encrypted with the tenant DEK (`pgp_sym_encrypt`).
+**Cross-language crypto contract** (verified Rust ↔ Postgres, both directions):
+
+| Primitive | Postgres (Supabase) | Rust (worker/CLI) |
+| :--- | :--- | :--- |
+| Sealed box | `pgsodium.crypto_box_seal` | `crypto_box::SalsaBox` + `blake2` |
+| Nonce for seal | `BLAKE2b-192(epk ‖ recipient_pk)` | same |
+| Seal layout | `epk(32) ‖ ciphertext ‖ tag(16)` | same |
+| Value AEAD | *(not used server-side)* | `chacha20poly1305::XChaCha20Poly1305` |
+
+> ⚠️ Only `pgsodium.crypto_box_seal` / `crypto_box_seal_open` are `EXECUTE`-granted to the `postgres` role on Supabase; the AEAD/secretbox functions are **not**. Hence values are encrypted **client-side** and the server never needs a symmetric primitive.
 
 ---
 
-## 4. Cloud schema (plugin `secrets`)
+## 4. Cloud schema (plugin `secrets` v2)
 
-Plugin location: `cloud/supabase/plugins/secrets/` (`install.sql`, `plugin.json`). Dependencies: `workers`, `core-iam`.
+`cloud/supabase/plugins/secrets/{install.sql,plugin.json}` · deps: `workers`, `core-iam` · also registered in `supabase/seed.sql` → `public.system_plugins`.
 
 ### 4.1 `secrets.credentials`
-
-| Column | Type | Notes |
-| :--- | :--- | :--- |
-| `id` | uuid | PK |
-| `tenant_id` | uuid | FK `public.tenants` |
-| `name` | text | referenced as `{{secrets.<name>}}` |
-| `value_enc` | bytea | `pgp_sym_encrypt(value, dek)` |
-| `key_version` | int | bumped on DEK rotation |
-| `created_by` | uuid | |
-| `created_at` / `updated_at` | timestamptz | |
-
-Constraint: `UNIQUE (tenant_id, name)`.
+`id, tenant_id, name, ciphertext (bytea), nonce (bytea, 24B), key_version, created_by, created_at, updated_at` · `UNIQUE (tenant_id, name)`.
 
 ### 4.2 `secrets.tenant_keys`
+`tenant_id (PK), dek_enc (bytea, KEK-wrapped via pgcrypto), key_version, rotated_at, created_at`.
 
-| Column | Type | Notes |
+### 4.3 `secrets.devices`
+`device_id (PK, FK workers.devices), tenant_id, public_key (bytea, 32B X25519), wrapped_dek (bytea, sealed), key_version, created_at, rotated_at`.
+
+### 4.4 RPCs (device-authenticated; base64 bytea, newline-free)
+
+| RPC | Args | Returns |
 | :--- | :--- | :--- |
-| `tenant_id` | uuid | PK |
-| `dek_enc` | bytea | DEK wrapped with the KEK |
-| `key_version` | int | |
-| `rotated_at` / `created_at` | timestamptz | |
+| `public.secret_register_device` | `p_device_id, p_device_token, p_public_key(b64)` | sealed DEK (b64) |
+| `public.secret_deliver_dek` | `p_device_id, p_device_token` | sealed DEK (b64) |
+| `public.secret_put` | `…, p_name, p_ciphertext(b64), p_nonce(b64)` | void |
+| `public.secret_fetch` | `p_device_id, p_device_token` | `(name, ciphertext b64, nonce b64, key_version)` |
+| `public.secret_list` | `p_device_id, p_device_token` | `(name, updated_at, key_version)` |
+| `public.secret_rotate` | `p_device_id, p_device_token` | int (re-encrypted count) |
 
-### 4.3 RPCs (device-authenticated)
+`secrets._verify_device(id, token)` raises `Invalid or unknown device credentials` on SHA-256 mismatch.
 
-| RPC (public wrapper) | Args | Returns |
-| :--- | :--- | :--- |
-| `public.set_secret` | `p_device_id, p_device_token, p_name, p_value` | void |
-| `public.list_secrets` | `p_device_id, p_device_token` | `(name, updated_at)` |
-| `public.fetch_secrets` | `p_device_id, p_device_token` | `(name, value)` — **decrypted** |
-| `public.rotate_secret_dek` | `p_device_id, p_device_token` | `int` (re-encrypted count) |
-
-All wrappers call `secrets.*` SECURITY DEFINER functions. `secrets._verify_device(device_id, device_token)` raises `Invalid or unknown device credentials` on mismatch.
-
-### 4.4 RLS
-
-- `ENABLE ROW LEVEL SECURITY` on both tables; `REVOKE ALL … FROM anon, authenticated`.
-- Only `service_role` has a policy (full access) — PostgREST access happens exclusively through the RPCs.
+### 4.5 RLS
+Both tables `ENABLE ROW LEVEL SECURITY`; **no** anon/authenticated policies; `REVOKE ALL`. Access only through the RPCs.
 
 ---
 
@@ -96,12 +97,13 @@ All wrappers call `secrets.*` SECURITY DEFINER functions. `secrets._verify_devic
 
 ```text
 New workstation
-  1. tq auth login            # operator auth -> enrolls device (workers.devices, device_token)
-  2. tq secret pull           # fetch_secrets(device_id, device_token) -> ~/.tq/system/secrets.json
-  3. tq automation run …       # workflow resolves {{secrets.*}} from the local store
+  1. tq auth login                 # operator auth -> enrolls device (device_token)
+  2. tq secret init                # generates local X25519 keypair (~/.tq/system/.device_key)
+  3. tq secret pull                # registers public key -> unseals DEK -> decrypts values
+  4. tq automation run …           # engine resolves {{secrets.*}} from the local store
 ```
 
-No credential is typed on the new device. Rotating a compromised workstation = revoke/delete its `workers.devices` row.
+Verified E2E: device A pushed 2 secrets; device B (separate keypair, no re-entry) pulled and ran the job.
 
 ---
 
@@ -109,66 +111,57 @@ No credential is typed on the new device. Rotating a compromised workstation = r
 
 | Command | Description |
 | :--- | :--- |
-| `tq secret init` | Create the local key `~/.tq/system/.secret_key` (0600) if missing. |
-| `tq secret set <name> <value>` | Store/update a secret locally (AES-256-GCM). |
-| `tq secret list [--format json]` | List secret **names** (values never printed). |
-| `tq secret rm <name>` | Remove a local secret. |
+| `tq secret init` | Create the local store key + device X25519 keypair. |
+| `tq secret set <name> <value>` | Store a secret locally (AES-256-GCM). |
+| `tq secret list [--format json]` | List names (values never printed). |
+| `tq secret rm <name>` | Remove a secret. |
+| `tq secret remote` | List Cloud secrets (names + key_version). |
+| `tq secret push` | Register device key, then upload **client-side encrypted** values. |
+| `tq secret pull` | Register/receive the sealed DEK, fetch ciphertext, decrypt locally. |
+| `tq secret rotate` | Rotate the tenant DEK (server re-encrypts values, re-seals for all devices). |
 | `tq secret path` | Print the local store path. |
-| `tq secret remote` | List secrets stored in Cloud (names only). |
-| `tq secret push` | Upload local secrets to the Cloud store (device-authenticated). |
-| `tq secret pull` | Download Cloud secrets onto this device (device-portable). |
 
 ---
 
 ## 7. Engine integration
 
-- `ExecutionState.secrets: HashMap<String, Value>` — populated at job start from the local store.
-- `WorkflowGraph::resolve_expression` supports the `secrets.<name>` prefix (alongside `variables.*`, `loopData.*`, `prevBlockData.*`, `globalData.*`).
-- Both execution paths seed secrets: `worker/src/drivers/automation.rs` (`execute_native_cdp`) **and** `cli/src/core/engine/job_coordinator.rs` (`run_native_job`).
-- Values are registered with `SecretMasker::add_custom_secret` so they can never be correlated from logs.
+- `ExecutionState.secrets: HashMap<String, Value>` — seeded at job start from the local store.
+- `resolve_expression` supports `secrets.<name>` (alongside `variables.*`, `loopData.*`, `prevBlockData.*`, `globalData.*`).
+- Seeded in both paths: `worker/src/drivers/automation.rs` (`execute_native_cdp`) **and** `cli/src/core/engine/job_coordinator.rs` (`run_native_job`).
+- `SecretMasker::add_custom_secret` scrubs values from logs.
 
 ---
 
-## 8. Local store format
+## 8. Local storage
 
-`~/.tq/system/secrets.json` (0600) — encrypted envelope:
-
-```json
-{ "version": 1, "alg": "AES-256-GCM", "nonce": "<base64>", "ciphertext": "<base64>" }
-```
-
-Key resolution order: `TQ_SECRET_KEY` env (32-byte hex/base64/raw) → `~/.tq/system/.secret_key` (64-hex, auto-generated). A legacy plaintext map (`{name: value}`) is accepted for development only.
+- `~/.tq/system/secrets.json` — AES-256-GCM envelope `{version,alg,nonce,ciphertext}`; key from `TQ_SECRET_KEY` or `~/.tq/system/.secret_key` (0600).
+- `~/.tq/system/.device_key` — X25519 secret (0600); `~/.tq/system/.device_pub`.
+- `~/.tq/system/.identity.json` — **encrypted at rest** (AES-256-GCM, key `~/.tq/system/.identity_key`, 0600); legacy plaintext is still readable.
 
 ---
 
 ## 9. Rotation & revocation
 
-- **Rotate DEK**: `public.rotate_secret_dek` re-encrypts every credential under a fresh DEK (`key_version++`).
-- **Revoke device**: delete/disable the `workers.devices` row — its `device_token_hash` no longer matches, so `fetch_secrets` is refused. Other devices are unaffected.
-- **Rotate a credential**: `tq secret set <name> <new-value>` + `tq secret push`.
+- **Rotate DEK**: `tq secret rotate` → `public.secret_rotate` generates a new DEK, re-encrypts all credentials, re-seals for every registered device (`key_version++`).
+- **Revoke device**: delete/disable the `workers.devices` row → `_verify_device` fails → no DEK, no values. Other devices unaffected.
+- **Rotate a credential**: `tq secret set <name> <new>` + `tq secret push`.
 
 ---
 
-## 10. Security properties & non-goals
+## 10. Security properties & remaining hardening
 
-**Guaranteed:** no plaintext credential in workflow graph / job payload / logs / git; cloud values are ciphertext; unauthenticated or wrong-token access is refused; local store is encrypted with a per-device key.
+**Guaranteed:** no plaintext credential in workflow graph / payload / logs / git · cloud values are ciphertext · server never receives plaintext values · DEK transmitted only as a sealed box · wrong-token access refused · local store, device key and identity file encrypted at rest.
 
-**Not yet (hardening v2):** the DEK is kept server-side and decrypted values are delivered over TLS to the authenticated device — a device keypair + per-device DEK wrapping (X25519 sealed box) would remove the DEK from the delivery path entirely and make revocation independent of DEK rotation. `.identity.json` is not yet encrypted at rest.
+**Remaining (v3):** move the local keys into the OS keyring / TPM; optional per-environment key versions; audit trail of secret access.
 
 ---
 
 ## 11. Verification
 
 ```bash
-# Local round-trip
 tq secret init && tq secret set hrms_password '***'
-tq secret list                       # names only, ********
-grep -c '<plaintext>' ~/.tq/system/secrets.json   # => 0
-
-# Cloud round-trip (device-authenticated)
+grep -c '<plaintext>' ~/.tq/system/secrets.json      # 0
 tq secret push && tq secret remote
-rm ~/.tq/system/secrets.json && tq secret pull && tq secret list
-
-# Engine
-tq automation run <file>.workflow.json --headless --browser-id <id>     # resolves {{secrets.*}}
+# on another machine (same tenant): tq auth login && tq secret pull
+tq automation run <file>.workflow.json --headless --browser-id <id>   # resolves {{secrets.*}}
 ```

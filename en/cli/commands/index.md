@@ -143,13 +143,14 @@ tq secret <subcommand> [options]
 
 | Command | Arguments / Flags | Description |
 | :--- | :--- | :--- |
-| `tq secret init` | — | Create the local key `~/.tq/system/.secret_key` (0600) |
+| `tq secret init` | — | Create the local store key + device X25519 keypair |
 | `tq secret set <name> <value>` | `<name>`, `<value>` | Store/update a secret (AES-256-GCM at rest) |
 | `tq secret list` | `--format json` | List secret names (values are never printed) |
 | `tq secret rm <name>` | `<name>` | Remove a local secret |
 | `tq secret remote` | — | List secrets stored in Cloud (names only) |
-| `tq secret push` | — | Upload local secrets to the Cloud store (device-authenticated) |
-| `tq secret pull` | — | Download Cloud secrets onto this device (portable, no re-entry) |
+| `tq secret push` | — | Register device key, then upload **client-side encrypted** secrets |
+| `tq secret pull` | — | Receive the sealed DEK, fetch ciphertext, decrypt locally (no re-entry) |
+| `tq secret rotate` | — | Rotate the tenant DEK (re-encrypts values, re-seals for all devices) |
 | `tq secret path` | — | Print the local store path |
 
 > See [`SPEC-secret-store`](/en/cloud/specs/SPEC-secret-store) for the envelope-encryption model (Vault KEK → per-tenant DEK) and device-portable provisioning.
