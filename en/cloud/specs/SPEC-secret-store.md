@@ -91,6 +91,16 @@ Device (CLI, Rust)                                   Server (Postgres)
 ### 4.5 RLS
 Both tables `ENABLE ROW LEVEL SECURITY`; **no** anon/authenticated policies; `REVOKE ALL`. Access only through the RPCs.
 
+### 4.6 Permissions (registered by the plugin into `public.permissions`)
+
+| Permission code | Module | Grants |
+| :--- | :--- | :--- |
+| `secrets:credentials:read` | `secrets` | View credential names/metadata (never values) |
+| `secrets:credentials:manage` | `secrets` | Create / update / delete credentials and push–pull with Cloud |
+| `secrets:store:rotate` | `secrets` | Rotate the tenant DEK and re-seal it for every registered device |
+
+Granted to system roles: `owner`/`admin` → all three; `member` → `secrets:credentials:read` only.
+
 ---
 
 ## 5. Device flow (portability)
@@ -132,6 +142,33 @@ Verified E2E: device A pushed 2 secrets; device B (separate keypair, no re-entry
 
 ---
 
+## 7b. Workstation UI — credential management
+
+The workstation console (`apps/workstation`, Vue + Tauri, launched via `tq desktop`) exposes a
+credential management page so operators never need the CLI. It talks to the **local CLI daemon**
+(`127.0.0.1:8765`) because the local keypair and encrypted store live on the workstation.
+
+### Daemon API (`/api/v1/secrets*`)
+
+| Endpoint | Method | Purpose |
+| :--- | :--- | :--- |
+| `/api/v1/secrets` | GET | Store status (`store_path`, `device_public_key`, `enrolled`) + local secret names + cloud names |
+| `/api/v1/secrets` | POST | `{name, value}` → store a secret locally (encrypted) |
+| `/api/v1/secrets/{name}` | DELETE | Remove a local secret |
+| `/api/v1/secrets/push` | POST | Register device key + upload client-side-encrypted values |
+| `/api/v1/secrets/pull` | POST | Receive sealed DEK, fetch ciphertext, decrypt locally |
+| `/api/v1/secrets/rotate` | POST | Rotate the tenant DEK |
+
+**Invariant:** the API never returns a plaintext value — only names and metadata (zero-knowledge).
+
+### Console page
+
+- Route: `name: 'SystemSecrets'`, `path: '/system/secrets'`, `plugin: 'secrets'`,
+  `authority: ['superadmin', 'secrets:credentials:read']`.
+- View: `src/views/system/secrets/index.vue` · client: `src/api/core/secrets.ts`.
+- Labels come from the term SSOT (`packages/locales/…/term.json`: `secretStore`, `credential`) and
+  `page.system.secrets*`; never invent bespoke wording (see `terminology.md` §3.7).
+
 ## 8. Local storage
 
 - `~/.tq/system/secrets.json` — AES-256-GCM envelope `{version,alg,nonce,ciphertext}`; key from `TQ_SECRET_KEY` or `~/.tq/system/.secret_key` (0600).
@@ -142,7 +179,7 @@ Verified E2E: device A pushed 2 secrets; device B (separate keypair, no re-entry
 
 ## 9. Rotation & revocation
 
-- **Rotate DEK**: `tq secret rotate` → `public.secret_rotate` generates a new DEK, re-encrypts all credentials, re-seals for every registered device (`key_version++`).
+- **Rotate DEK**: `tq secret rotate` (or the UI **Rotate DEK** button) → `public.secret_rotate` generates a new DEK, re-encrypts all credentials, re-seals for every registered device (`key_version++`).
 - **Revoke device**: delete/disable the `workers.devices` row → `_verify_device` fails → no DEK, no values. Other devices unaffected.
 - **Rotate a credential**: `tq secret set <name> <new>` + `tq secret push`.
 

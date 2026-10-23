@@ -35,6 +35,11 @@ Use this quick-reference matrix for anti-hallucination audits during documentati
 | **`Storage`** | `media.assets` & `tenant-assets` | ❌ *Vault*, *Media Bucket*, *File Drive* | Cloud media asset storage service. The term "Vault" is **FORBIDDEN** in cloud services. |
 | **`Browser`** | `workers.browsers` / `workers.node_browsers` | ❌ *Profile*, *Browser Profile*, *Anti-detect Profile* | Isolated anti-detect virtual browser container on local workstation disk or central cloud fleet. Calling a browser instance a "Profile" is **FORBIDDEN** to prevent confusion with `public.profiles`. |
 | **`Device / Worker`** | `workers.devices` | ❌ *Runner*, *Agent Node*, *Bot*, *Client Daemon* | Physical workstation, laptop, or edge node running CLI master (`tq`) or Worker daemon (`tq worker`) reporting heartbeats and telemetry to Cloud. |
+| **`Secret Store`** | `secrets.credentials`, `secrets.tenant_keys`, `secrets.devices` | ❌ *Vault*, *Keychain*, *Password Manager*, *Config Store*, *Env Store* | Tenant-scoped encrypted credential store (plugin `secrets`). Workflow values are referenced as `{{secrets.<name>}}`; the API never returns a plaintext value. The term **"Vault" is FORBIDDEN** as a service name. |
+| **`Credential`** | `secrets.credentials` | ❌ *Secret Key*, *Env Var*, *Password Field*, *Login* | One named encrypted value in the Secret Store, owned by a `Tenant` and stamped with `key_version`. Referenced in workflows as `{{secrets.<name>}}`. |
+| **`Device Key`** | `secrets.devices` | ❌ *Client Key*, *Agent Cert*, *Machine Secret* | X25519 public key of an enrolled `Device`; the tenant DEK is sealed to it (`crypto_box_seal`) so a new device receives credentials without re-entry. |
+| **`Tenant DEK`** | `secrets.tenant_keys` | ❌ *Master Key*, *Root Key*, *App Secret* | Per-tenant data-encryption key, wrapped by the server-side KEK held outside the database. Rotated by `secrets:store:rotate`. |
+| **`KEK`** | Supabase Vault secret (server-side only) | ❌ *Master Password*, *Super Key* | Key-encryption key that wraps every `Tenant DEK`. Never leaves the server; never returned by any API. |
 | **`Workflow`** | `automation.workflows` | ❌ *Script*, *Flowchart*, *Automation Pipeline* | Visual node graph AST automation workflow compatible with VueFlow graph JSON. |
 | **`Campaign Run`** | `automation.campaigns` / `automation.jobs` | ❌ *Batch Job*, *Execution*, *Run Task* | Execution session of an automation campaign dispatched across distributed workers. |
 | **`Execution Job / Log`** | `automation.jobs` | ❌ *Audit Log*, *System Log*, *Trace File* | Telemetry stream recording block-level execution events and state during an automation run. |
@@ -187,6 +192,21 @@ Use this quick-reference matrix for anti-hallucination audits during documentati
 
 ---
 
+### 3.7. Secret Store Domain (Plugin `secrets`)
+
+1. **`Secret Store` (schema `secrets`)**: Tenant-scoped encrypted credential store, delivered by the plugin `secrets`
+   (`cloud/supabase/plugins/secrets/`). Chosen term: **Secret Store** — the term **"Vault" is FORBIDDEN**.
+2. **`Credential` (`secrets.credentials`)**: one named encrypted value (`ciphertext`, `nonce`, `key_version`).
+   Values are encrypted **client-side** (XChaCha20-Poly1305) and the server never receives plaintext.
+   Referenced in workflows as `{{secrets.<name>}}`; never inlined into a workflow graph, job payload, or log.
+3. **`Device Key` (`secrets.devices`)**: the X25519 public key of an enrolled `Device`; the `Tenant DEK` is
+   sealed to it. A brand-new device obtains credentials via `tq secret pull` — no human re-entry.
+4. **`Tenant DEK` (`secrets.tenant_keys`)**: per-tenant data-encryption key wrapped by the server-side `KEK`.
+5. **Access**: device-authenticated RPCs (`public.secret_*`, verified against `workers.devices.device_token_hash`)
+   and the permission codes `secrets:credentials:read`, `secrets:credentials:manage`, `secrets:store:rotate`.
+6. **Surface**: CLI `tq secret …`, CLI daemon `/api/v1/secrets*`, workstation console page `SystemSecrets`
+   (`/system/secrets`).
+
 ## 4. Technical Naming & Casing Conventions
 
 | Entity | Casing Standard | Valid Example | Invalid Example |
@@ -216,3 +236,4 @@ Before committing documentation, migrations, or code, authors and AI Agents **MU
 - [ ] **8. Outbox Check**: Is asynchronous event dispatching modeled as a `Transactional Outbox` (`events.outbox`) without hallucinating external message brokers?
 - [ ] **9. CWE-426 Check**: Does every SQL function and procedure declare `SET search_path = ''` with fully-qualified schema object names?
 - [ ] **10. PostgREST API Check**: Did I avoid creating static JSON specification files and rely on live OpenAPI introspection at `/rest/v1/`?
+- [ ] **11. Secret Store Check**: Did I call the credential subsystem a `Secret Store` (never `Vault`), reference values as `{{secrets.<name>}}`, keep plaintext values out of graphs/payloads/logs, and use permissions `secrets:credentials:read|manage` / `secrets:store:rotate`?
