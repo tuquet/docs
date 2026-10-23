@@ -244,7 +244,7 @@ All browser files strictly adhere to SSOT under `~/.tq/browser/`:
 │       ├── profile.json      # Profile hardware fingerprint manifest
 │       └── Default/          # Chromium LevelDB, cookies, storage
 └── extensions/               # Registered browser extensions
-    └── automa/
+    └── automation/
 ```
 
 ### Complete `profile.json` Schema
@@ -272,7 +272,7 @@ All browser files strictly adhere to SSOT under `~/.tq/browser/`:
   "webrtc_mode": "proxy_shielded",
   "group_name": "default",
   "tags": ["facebook", "ads"],
-  "extensions": ["automa"],
+  "extensions": ["automation"],
   "startup_flags": [],
   "cloud_id": null,
   "cloud_synced_at": null,

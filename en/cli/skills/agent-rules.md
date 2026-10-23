@@ -30,7 +30,7 @@ All ecosystem runtimes, daemons, and storage MUST resolve strictly to the canoni
 └── faker/        # Synthetic identity schema & domain pool configuration (faker.json)
 ```
 
-**Anti-Fragmentation Rule:** Prohibit saving directly to flat root paths (`~/.tq/workflows`) or legacy external paths (`~/.specter`, `~/.automa`).
+**Anti-Fragmentation Rule:** Prohibit saving directly to flat root paths (`~/.tq/workflows`) or legacy external paths (`~/.specter`, `~/.automation`).
 
 ---
 

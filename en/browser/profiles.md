@@ -53,7 +53,7 @@ When creating a profile, `browser` uses a 32-bit pseudorandom seed (`--seed <u32
   "proxy": "socks5://127.0.0.1:1080",
   "group_name": "default",
   "tags": ["facebook", "ads"],
-  "extensions": ["automa"],
+  "extensions": ["automation"],
   "startup_flags": [],
   "cloud_id": null,
   "cloud_synced_at": null,

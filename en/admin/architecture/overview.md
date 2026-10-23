@@ -118,7 +118,7 @@ graph LR
     CoreIAM["core-iam"] --> D["/dashboard/analytics"]
     CoreIAM --> T["/tenants, /tenants/:id"]
     CoreIAM --> S1["/system/plugins, /system/users, /system/audit-logs, /system/roles"]
-    Automa["automa"] --> A1["/automation/workflows, /automation/jobs, /automation/jobs/:id"]
+    Automa["automation"] --> A1["/automation/workflows, /automation/jobs, /automation/jobs/:id"]
     Workers["workers"] --> A2["/automation/devices, /automation/browsers, /automation/proxies"]
     Commerce["commerce"] --> C1["/commerce/store, /commerce/orders, /commerce/admin"]
     Subs["subscriptions"] --> C2["/wallet"]

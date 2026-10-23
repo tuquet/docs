@@ -66,7 +66,7 @@ tq automation <subcommand> [options]
 | `tq automation inspect <file>` | `<file.json>` | Validate workflow JSON syntax, schema compliance, and action blocks |
 | `tq automation studio` | `--port <port>` | Launch the visual Automa Web Studio in the default system browser |
 | `tq automation probe` | `--json` | Probe automation engine capabilities, active plugins, and execution blocks |
-| `tq automation config` | `--edit`, `--show` | Display or edit Automa configuration (`~/.tq/automa/automa.json`) |
+| `tq automation config` | `--edit`, `--show` | Display or edit Automa configuration (`~/.tq/automation/automation.json`) |
 
 ---
 

@@ -93,7 +93,7 @@ apps/web-admin/src/
 | **Tenants** | `/tenants` | `Tenants` | `core-iam` | `['superadmin', 'tenants:read']` |
 | **Tenants** | `/tenants/:id` | `TenantDetail` | `core-iam` | `['superadmin', 'tenants:read']` |
 | **Automation** | `/automation/workflows` | `AutomationWorkflows` | `automation` | `['superadmin', 'automation:workflows:read']` |
-| **Automation** | `/automation/jobs` | `AutomationRuns` | `automation` | `['superadmin', 'automa:campaigns:read']` |
+| **Automation** | `/automation/jobs` | `AutomationRuns` | `automation` | `['superadmin', 'automation:campaigns:read']` |
 | **Automation** | `/automation/jobs/:id` | `AutomationRunDetail` | `automation` | `['superadmin', 'automation:logs:read']` |
 | **Automation** | `/automation/devices` | `AutomationDevices` | `workers` | `['superadmin', 'workers:devices:read']` |
 | **Automation** | `/automation/browsers` | `AutomationBrowsers` | `workers` | `['superadmin', 'workers:browsers:read']` |

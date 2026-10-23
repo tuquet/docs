@@ -37,7 +37,7 @@
       path: 'runs',
       component: () => import('#/views/automation/jobs/index.vue'),
       meta: {
-        authority: ['superadmin', 'automa:campaigns:read'],
+        authority: ['superadmin', 'automation:campaigns:read'],
         icon: 'lucide:play-circle',
         plugin: 'automation',
         title: $t('page.automation.runs'),
@@ -158,4 +158,4 @@
 2. **Không Sử Dụng Supabase Realtime WebSocket Cho Logs (Quyết định D3):**
    - Bảng `automation.execution_logs` không đưa vào `supabase_realtime` publication để bảo vệ WebSocket worker. Cơ chế Polling 3s có điều kiện dừng là giải pháp chuẩn.
 3. **Bắt Buộc Schema Header:**
-   - Các truy vấn tới `automa.*` phải truyền `{ schema: 'automation' }` và các truy vấn tới `workers.*` phải truyền `{ schema: 'workers' }`.
+   - Các truy vấn tới `automation.*` phải truyền `{ schema: 'automation' }` và các truy vấn tới `workers.*` phải truyền `{ schema: 'workers' }`.

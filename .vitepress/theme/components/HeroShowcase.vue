@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { Terminal, ShieldCheck, Zap, Network, ArrowRight, Copy, Check, CheckCircle2 } from 'lucide-vue-next'
 
-const activeTab = ref<'browser' | 'verify' | 'automa' | 'proxy'>('browser')
+const activeTab = ref<'browser' | 'verify' | 'automation' | 'proxy'>('browser')
 const copied = ref(false)
 
 function copyCode(text: string) {
@@ -50,9 +50,9 @@ function copyCode(text: string) {
             <ShieldCheck :size="12" class="tab-icon" aria-hidden="true" />
             Anti-Bot Verify
           </button>
-          <button 
-            :class="['tab-btn', { active: activeTab === 'automa' }]" 
-            @click="activeTab = 'automa'"
+          <button
+            :class="['tab-btn', { active: activeTab === 'automation' }]"
+            @click="activeTab = 'automation'"
           >
             <Zap :size="12" class="tab-icon" aria-hidden="true" />
             Headless Automa
@@ -155,13 +155,13 @@ function copyCode(text: string) {
       </div>
 
       <!-- Tab Content 3: Headless Automa -->
-      <div v-if="activeTab === 'automa'" class="card-body terminal-view">
+      <div v-if="activeTab === 'automation'" class="card-body terminal-view">
         <div class="code-line prompt">
           <span class="prompt-symbol">$</span>
-          <span class="command-text">tuquet automa run ./workflows/scrape-catalog.json --headless</span>
+          <span class="command-text">tuquet automation run ./workflows/scrape-catalog.json --headless</span>
           <button 
             class="copy-btn" 
-            @click="copyCode('tuquet automa run ./workflows/scrape-catalog.json --headless')"
+            @click="copyCode('tuquet automation run ./workflows/scrape-catalog.json --headless')"
           >
             <span v-if="!copied" class="copy-inner"><Copy :size="11" /> Copy</span>
             <span v-else class="copied-text"><Check :size="11" /> Copied</span>

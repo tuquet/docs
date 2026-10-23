@@ -3,7 +3,7 @@
 **__PRODUCT__** is the agentic antidetect browser and CLI automation engine designed for AI agents, growth teams, and automation engineers to run multiple accounts without getting detected or banned.
 
 > [!TIP] Command Architecture
-> `tuquet` is the primary CLI command for browser profile lifecycle, stealth verification, and automation. Subcommands follow the canonical microservice domains (e.g. `tq browser launch`, `tq automa run`).
+> `tuquet` is the primary CLI command for browser profile lifecycle, stealth verification, and automation. Subcommands follow the canonical microservice domains (e.g. `tq browser launch`, `tq automation run`).
 
 ---
 

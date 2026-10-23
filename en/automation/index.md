@@ -57,7 +57,7 @@ Tuquet Automation resolves the tradeoff between simplicity and raw automation pe
 
 ## 2. Command Reference
 
-All workflow actions can be executed via the `tq automa` command suite:
+All workflow actions can be executed via the `tq automation` command suite:
 
 ### Direct Workflow Execution
 
