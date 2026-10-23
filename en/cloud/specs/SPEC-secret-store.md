@@ -150,22 +150,25 @@ credential management page so operators never need the CLI. It talks to the **lo
 
 ### Daemon API (`/api/v1/secrets*`)
 
-| Endpoint | Method | Purpose |
-| :--- | :--- | :--- |
-| `/api/v1/secrets` | GET | Store status (`store_path`, `device_public_key`, `enrolled`) + local secret names + cloud names |
-| `/api/v1/secrets` | POST | `{name, value}` → store a secret locally (encrypted) |
-| `/api/v1/secrets/{name}` | DELETE | Remove a local secret |
-| `/api/v1/secrets/push` | POST | Register device key + upload client-side-encrypted values |
-| `/api/v1/secrets/pull` | POST | Receive sealed DEK, fetch ciphertext, decrypt locally |
-| `/api/v1/secrets/rotate` | POST | Rotate the tenant DEK |
+Paths mirror the **schema / table names** (`secrets`, `secrets.credentials`, `secrets.tenant_keys`):
+
+| Endpoint | Method | Table | Purpose |
+| :--- | :--- | :--- | :--- |
+| `/api/v1/secrets` | GET | schema `secrets` | Store status (`store_path`, `device_public_key`, `enrolled`, counts) |
+| `/api/v1/secrets/credentials` | GET | `secrets.credentials` | List local + cloud credential names |
+| `/api/v1/secrets/credentials` | POST | `secrets.credentials` | `{name, value}` → store a credential locally (encrypted) |
+| `/api/v1/secrets/credentials/{name}` | DELETE | `secrets.credentials` | Remove a local credential |
+| `/api/v1/secrets/credentials/push` | POST | `secrets.credentials` | Register device key + upload client-side-encrypted values |
+| `/api/v1/secrets/credentials/pull` | POST | `secrets.credentials` | Receive sealed DEK, fetch ciphertext, decrypt locally |
+| `/api/v1/secrets/tenant-keys/rotate` | POST | `secrets.tenant_keys` | Rotate the tenant DEK |
 
 **Invariant:** the API never returns a plaintext value — only names and metadata (zero-knowledge).
 
 ### Console page
 
-- Route: `name: 'SystemSecrets'`, `path: '/system/secrets'`, `plugin: 'secrets'`,
+- Route module: `router/routes/modules/secrets.ts`; `name: 'SecretsCredentials'`, `path: '/secrets/credentials'`, `plugin: 'secrets'`,
   `authority: ['superadmin', 'secrets:credentials:read']`.
-- View: `src/views/system/secrets/index.vue` · client: `src/api/core/secrets.ts`.
+- View: `src/views/secrets/credentials/index.vue` · client: `src/api/core/secrets.ts`.
 - Labels come from the term SSOT (`packages/locales/…/term.json`: `secretStore`, `credential`) and
   `page.system.secrets*`; never invent bespoke wording (see `terminology.md` §3.7).
 

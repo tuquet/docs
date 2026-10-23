@@ -72,20 +72,22 @@ apps/web-admin/src/
 │           ├── tenants.ts                    # /tenants, /tenants/:id (order: 10)
 │           ├── automation.ts                 # /automation/{workflows,runs,runs/:id,devices,browsers,proxies} (order: 20)
 │           ├── commerce.ts                   # /commerce/{store,orders,wallet,admin} (order: 25)
-│           └── system.ts                     # /system/{plugins,plans,users,audit-logs,subscriptions,roles} (order: 30)
+│           ├── system.ts                     # /system/{plugins,plans,users,audit-logs,subscriptions,roles} (order: 30)
+│           └── secrets.ts                    # /secrets/credentials (order: 40)
 └── views/
     ├── dashboard/analytics/                  # Trang chủ Telemetry
     ├── tenants/                              # Danh sách & Chi tiết Workspace 4 tabs
     ├── automation/                           # Đồng bộ 100% với /automation/{workflows,runs,devices,browsers,proxies}
     ├── commerce/                             # Đồng bộ 100% với /commerce/{store,orders,wallet,admin} & public-store
-    └── system/                               # Đồng bộ 100% với /system/{plugins,plans,users,audit-logs,subscriptions,roles}
+    ├── system/                               # Đồng bộ 100% với /system/{plugins,plans,users,audit-logs,subscriptions,roles}
+    └── secrets/                              # Đồng bộ 100% với /secrets/credentials (schema `secrets`)
 ```
 
 ---
 
 ## 5. Code Style & Kiến Trúc Chi Tiết
 
-### 5.1. Ma Trận 27 Tuyến Đường & Ranh Giới Plugin / Authority
+### 5.1. Ma Trận 28 Tuyến Đường & Ranh Giới Plugin / Authority
 
 | Nhóm Module | Đường Dẫn (Path) | Tên Tuyến (Name) | Plugin (`meta.plugin`) | Quyền Truy Cập (`meta.authority`) |
 | :-- | :-- | :-- | :-- | :-- |
@@ -108,6 +110,7 @@ apps/web-admin/src/
 | **System** | `/system/audit-logs` | `SystemAuditLogs` | `core-iam` | `['superadmin']` |
 | **System** | `/system/subscriptions` | `SystemSubscriptions` | `subscriptions` | `['superadmin']` |
 | **System** | `/system/roles` | `SystemRoles` | `core-iam` | `['superadmin']` |
+| **Secret Store** | `/secrets/credentials` | `SecretsCredentials` | `secrets` | `['superadmin', 'secrets:credentials:read']` |
 | **Core & Auth** | `/auth/{login,register,forget-password,reset-password,callback}` | `Login`..`AuthCallback` | Core | Public |
 | **Core & Auth** | `/auth/desktop` | `DesktopBridge` | Core | Authenticated |
 | **Core & Auth** | `/profile` | `Profile` | Core | Authenticated |
