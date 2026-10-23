@@ -272,5 +272,5 @@ export default defineConfig(async () => {
    - Vùng kéo cửa sổ chuẩn: Thẻ container gắn `data-tauri-drag-region`.
    - Các nút chức năng sử dụng `@lucide/vue` (`Minus`, `Square` / `Copy`, `X`).
 3. **Kênh Phát Hành & Cập Nhật Tự Động (GitHub Releases):**
-   - Cấu hình `@tauri-apps/plugin-updater` trỏ đến endpoint: `https://github.com/tuquet/admin/releases/latest/download/latest.json`
+   - Cấu hình `@tauri-apps/plugin-updater` trỏ đến endpoint: `https://github.com/tuquet/console/releases/latest/download/latest.json`
    - Ký số nhị phân bằng thuật toán Ed25519; lưu public key vào `tauri.conf.json` và private key trên GitHub Actions Secrets (`TAURI_SIGNING_PRIVATE_KEY`).

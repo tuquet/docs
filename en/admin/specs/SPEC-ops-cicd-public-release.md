@@ -97,9 +97,9 @@ index.md                      # Bổ sung Badges trạng thái CI & Release Down
    - Tạo file `SECURITY.md` định rõ địa chỉ nhận thông báo lỗ hổng (`security@tuquet.com`) và phạm vi hỗ trợ phiên bản.
    - Xác nhận file `LICENSE` chuẩn MIT License mang tên sở hữu `Team`.
    - Bổ sung Badges trên `index.md`:
-     - GitHub CI Status: `[![CI](https://github.com/tuquet/admin/actions/workflows/ci.yml/badge.svg)](https://github.com/tuquet/admin/actions/workflows/ci.yml)`
-     - GitHub Latest Release: `[![Release](https://img.shields.io/github/v/release/tuquet/admin?display_name=tag)](https://github.com/tuquet/admin/releases)`
-     - Direct Download EXE: `[Tải Admin cho Windows (.exe)](https://github.com/tuquet/admin/releases/latest/download/admin-setup.exe)`
+     - GitHub CI Status: `[![CI](https://github.com/tuquet/console/actions/workflows/ci.yml/badge.svg)](https://github.com/tuquet/console/actions/workflows/ci.yml)`
+     - GitHub Latest Release: `[![Release](https://img.shields.io/github/v/release/tuquet/admin?display_name=tag)](https://github.com/tuquet/console/releases)`
+     - Direct Download EXE: `[Tải Admin cho Windows (.exe)](https://github.com/tuquet/console/releases/latest/download/admin-setup.exe)`
 
 ### 7.2. Module `ci-pipeline`: Cải Tiến CI Workflow (`.github/workflows/ci.yml`)
 
@@ -156,7 +156,7 @@ Các bước chi tiết trên runner `windows-latest`:
 - **Luôn luôn làm (Always):**
   - Tách bạch rõ ràng giữa CI (chạy trên Linux nhanh, tiết kiệm chi phí) và CD Release (chạy trên Windows để đóng gói native Windows MSI/NSIS).
   - Sử dụng GitHub Actions Secrets cho Private Key, không bao giờ in hay log private key ra console runner.
-  - Đảm bảo các link download trên index trỏ trực tiếp đến `https://github.com/tuquet/admin/releases/latest/download/...`.
+  - Đảm bảo các link download trên index trỏ trực tiếp đến `https://github.com/tuquet/console/releases/latest/download/...`.
 - **Hỏi ý kiến trước (Ask first):**
   - Nếu muốn hỗ trợ thêm macOS (`.dmg`) hoặc Linux (`.AppImage`/`.deb`) trong CD pipeline (yêu cầu thêm runner `macos-latest` và `ubuntu-latest`).
 - **Không bao giờ làm (Never):**
