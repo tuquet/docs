@@ -114,6 +114,41 @@ export function addNetworkBreadcrumb(data: {
 
 ---
 
+---
+
+## Render-Safety Hardening (v1.1)
+
+Two blind spots were found when the `Secret store → Credentials` page rendered **completely blank
+with zero signals** (no console output, no Bugsink event) — indistinguishable from an empty page.
+
+### 1. Vue error handler is installed even when telemetry is off
+
+`initBugsink()` returned early when telemetry was disabled (e.g. `VITE_BUGSINK_ENABLED=false` in
+development), so `app.config.errorHandler` was never set and Vue **swallowed** every render/setup/
+watcher throw silently.
+
+→ `installVueErrorHandler(app)` now runs **before** the disabled-check inside `initBugsink()`:
+
+- chains any previously installed handler first, so `@sentry/vue` keeps ownership and events are
+  never emitted twice;
+- captures the error itself when nothing else handles it;
+- **always** logs `[vue-error] <info> (component: <name>)` to the console.
+
+### 2. i18n keys are reported, never silently rendered empty
+
+A locale message containing raw `{{ ... }}` (e.g. `"…({{secrets.<name>}})…"`) is interpreted by
+vue-i18n as **interpolation** and **throws during render**, blanking the whole component.
+
+→ Two guards:
+
+- **Runtime:** `i18n.global.setMissingHandler(...)` forwards unresolved keys to Bugsink as a
+  `warning` message with `{ key, locale }` context (previously only `console.warn` in dev).
+- **Static gate:** `scripts/check-i18n.mjs` exits 1 when any locale value contains raw `{{`/`}}`
+  (reported as `- Raw {{ }} interpolation leaks`). Escape as `{'{'}` or reword the message.
+
+**Rules:** locale message values MUST NOT contain raw `{{`/`}}`; component render errors MUST never
+be silent in any environment (telemetry on or off).
+
 ## Boundaries
 
 - **Always do:**
@@ -142,6 +177,7 @@ export function addNetworkBreadcrumb(data: {
 3. **Rich Contextual Metadata:** Every logged exception includes user ID (if authenticated), active workspace ID, screen dimensions, online/offline status, and router breadcrumbs.
 4. **PII Sanitization:** All Supabase REST and internal API breadcrumbs sanitize Bearer tokens and sensitive query parameters.
 5. **No Build or Test Regressions:** All existing tests pass and bundle size impact is $\le 2$ KB (leveraging already installed `@sentry/vue`).
+6. **Render Errors Are Never Silent:** `app.config.errorHandler` is installed regardless of telemetry state, always logs to the console, and `check-i18n` fails on raw `{{ }}` interpolation in locale messages.
 
 ---
 
