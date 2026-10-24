@@ -26,6 +26,7 @@ const automationSidebar = [
       { text: 'Workflow Automation', link: '/en/automation/' },
       { text: 'Headless Stealth Mode', link: '/en/automation/stealth-headless' },
       { text: 'Native Rust CDP Protocol', link: '/en/automation/cdp' },
+      { text: 'Block Coverage & Automa Parity', link: '/en/automation/blocks' },
     ],
   },
 ]
